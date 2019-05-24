@@ -1,0 +1,6 @@
+.ContentPage {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10vh 5%;
+  z-index: 8;
+}

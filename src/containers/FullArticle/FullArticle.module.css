@@ -1,0 +1,81 @@
+.Full {
+  padding: 10% 0;
+  /* display: block; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  contain: strict;
+  z-index: 1000;
+  /* padding: 20px; */
+}
+
+.Article {
+  /* position: static; */
+  width: 80%;
+  background-color: white;
+  padding: 20px 40px;
+  margin: 0 auto;
+  /* min-height: 200vh; */
+  /* z-index: 2000; */
+}
+
+.Article figure {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Article figure img{
+  max-width: 100%;
+  min-height: 100%;
+  object-fit: cover
+}
+
+.Article h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Panel {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Panel div {
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Comment {
+  width: 100%;
+  background-color: #f7f7f8;
+  padding: 20px;
+  margin: 10px 0;
+  color: black;
+}
+
+.Reply {
+  width: 90%;
+  margin-left: 10%;
+  background-color: #f7f7f8;
+  padding: 20px;
+}
+
+.CommentArea {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}

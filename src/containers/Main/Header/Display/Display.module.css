@@ -1,0 +1,27 @@
+.Display{
+  width: 60%;
+  height: 80vh;
+  position: absolute;
+  top: 15vh;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.Display > img{
+  object-fit: cover;
+  width: 100%;
+  min-height: 100%;
+}
+
+@media (max-width: 992px){
+  .Display {
+    width: 100%;
+    top: 25vh;
+    height: 50vh;
+  }
+  .Display > img{
+    max-height: 100%;
+  }
+  
+}
