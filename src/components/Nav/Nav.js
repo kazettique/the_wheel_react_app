@@ -83,7 +83,7 @@ class NavTop extends React.Component {
 
       const jsonObject = await response.json();
 
-      console.log(jsonObject);
+      console.log('Nav',jsonObject);
       await this.setState({
         loginUser: jsonObject.loginUser,
         isLogined: jsonObject.isLogined,

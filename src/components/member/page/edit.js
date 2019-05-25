@@ -184,7 +184,7 @@ class edit extends React.Component {
 
       const jsonObject = await response.json();
 
-      console.log('PUT', jsonObject.body);
+      console.log('PUT', jsonObject);
 
       await this.setState(
         {
@@ -195,11 +195,11 @@ class edit extends React.Component {
           // alert('資料已成功新增!');
           // this.handleModalClose();
 
-          if (jsonObject.message.info == '圖片檔案格式不符') {
+          if (jsonObject.message.info == '檔案格式不符') {
             this.setState({ installdb: 'block' });
             this.setState({ installstate: 'alert alert-warning' });
             this.setState({ installtext: jsonObject.message.text });
-            alert('資料沒有修改');
+            alert('檔案格式不符ㄝ資料沒有修改');
 
             return;
           }
@@ -214,6 +214,21 @@ class edit extends React.Component {
           }
 
           if (jsonObject.success) {
+           
+
+
+          //  fetch('http://localhost:5000/is_logined', {
+          //   credentials: 'include',
+          //   headers: new Headers({
+          //     Accept: 'application/json',
+          //   'Content-Type': 'application/json',
+          //   }),
+          // }).then(res => res.json())
+          // .then(obj => {
+          //   console.log(obj);})
+          // .catch(error => console.error('Error:', error))
+          // .then(response => console.log('Success:', response));
+            
             alert('修改成功!');
             this.setState({ installdb: 'block' });
             this.setState({ installtext: jsonObject.message.text });
@@ -222,6 +237,8 @@ class edit extends React.Component {
             this.setState({ m_photo: jsonObject.body.m_photo });
             this.setState({  session_name: jsonObject.body.m_name });
             this.setState({ session_photo: jsonObject.body.m_photo });
+
+            
           
             return;
           }
