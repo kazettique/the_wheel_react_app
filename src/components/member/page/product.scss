@@ -1,25 +1,39 @@
+@mixin md {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
 .member_product {
 
-    #box3,
-    #box4 {
-        display: none;
-    }
+    .detailArea {
+        margin-top: 200px;
 
-    
-    .box1,
-    .box2
-     {
-        display: none;
-        width: 100%;
-        height: 100px;
+        @include md {
+            margin-top: 0;
+        }
 
-    }
 
-    .show {
-        display: block;
-    }
+        #box3,
+        #box4 {
+            display: none;
+        }
 
-    .nav-link {
-        padding: 0;
+
+        .box1,
+        .box2 {
+            display: none;
+            width: 100%;
+            height: 100px;
+
+        }
+
+        .show {
+            display: block;
+        }
+
+        .nav-link {
+            padding: 0;
+        }
     }
 }

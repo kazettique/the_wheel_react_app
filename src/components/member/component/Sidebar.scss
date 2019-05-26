@@ -1,5 +1,19 @@
-.member-sidebar{
+@mixin md {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+
+
+.member-sidebar {
     font-family: Noto Sans CJK TC;
+
+    @include md {
+        margin-top: 15vh;
+    }
+
+
     .myPhoto {
         width: 150px;
         height: 150px;
@@ -7,6 +21,10 @@
         border-radius: 50%;
         margin-top: 100px;
         overflow: hidden;
+
+        @include md {
+            margin: 0 auto;
+        }
 
         .originPhoto {
             width: 100%;
@@ -18,6 +36,10 @@
     .userName {
         margin-top: 16px;
         font-weight: bold;
+
+        @include md {
+            text-align: center;
+        }
     }
 
     ul {
@@ -25,6 +47,13 @@
 
         li {
             margin-bottom: 63px;
+
+            a {
+                @include md {
+                    text-align: center;
+                    display: block;
+                }
+            }
 
             ul {
                 margin-top: 16px;

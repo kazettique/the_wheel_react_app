@@ -126,7 +126,7 @@ class course extends React.Component {
               />
 
 
-            <Col style={{ marginTop: '200px' }}>
+            <Col className="detailArea">
               <DetailNav
                   title1={this.state.NavTitle1}
                   title2={this.state.NavTitle2}

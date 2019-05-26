@@ -68,7 +68,7 @@ class Sidebar extends React.Component {
   render() {
     return (
       <>
-        <Col sm={3} className="member-sidebar">
+        <Col md={3} className="member-sidebar">
           <div className="myPhoto">
             <img src={this.props.src} className="originPhoto" />
           </div>

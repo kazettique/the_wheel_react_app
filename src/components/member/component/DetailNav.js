@@ -68,7 +68,7 @@ class DetailNav extends React.Component {
   render() {
     return (
       <>
-        <Nav justify variant="tabs" defaultActiveKey="/home">
+        <Nav justify variant="tabs" defaultActiveKey="/home" className="DetailNav">
           <Nav.Item>
             <a
               href="javascipt:;"
@@ -80,7 +80,7 @@ class DetailNav extends React.Component {
               {this.props.title1}
             </a>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item style={{display:(this.props.title2)?'block':'none'}}>
             <a
               href="javascipt:;"
               eventKey="link-2"
@@ -91,7 +91,7 @@ class DetailNav extends React.Component {
               {this.props.title2}
             </a>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item style={{display:(this.props.title3)?'block':'none'}}>
             <a
               href="javascipt:;"
               eventKey="link-3"
@@ -102,7 +102,7 @@ class DetailNav extends React.Component {
               {this.props.title3}
             </a>
           </Nav.Item>
-          <Nav.Item>
+          <Nav.Item style={{display:(this.props.title4)?'block':'none'}}>
             <a
               href="javascipt:;"
               eventKey="link-4"

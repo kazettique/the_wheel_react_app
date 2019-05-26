@@ -1,26 +1,36 @@
+@mixin md {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+
+
 .member_news {
-    #box2,
-    #box3,
-    #box4 {
-        display: none;
+
+    .detailArea {
+        margin-top: 200px;
+
+        @include md {
+            margin-top: 0;
+        }
+
+        #box2,
+        #box3,
+        #box4 {
+            display: none;
+        }
+
+
+       
+
+        .show {
+            display: block;
+        }
+
+        .nav-link {
+            padding: 0;
+        }
     }
 
-
-    a,
-    a:link
-        {
-        color: #000000;
-    }
-
-    ;
-
-    .show {
-        display: block;
-    }
-
-    .nav-link {
-        padding: 0;
-    }
-
-    
 }
