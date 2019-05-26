@@ -12,13 +12,21 @@ import {
 } from 'react-bootstrap';
 // import PathNow from '../component/PathNow';
 import Sidebar from '../component/Sidebar';
-import './edit.scss';
+import './course.scss';
+import DetailNav from '../component/DetailNav';
 import checkUserState from './../util/check';
 
 class course extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { id: '', loginUser: '', isLogined: '', user_id: '' };
+    this.state = {  
+      NavTitle1: '已購買課程',
+      NavTitle2: '收藏課程',
+      id: '', 
+      loginUser: '', 
+      isLogined: '', 
+      user_id: '' 
+    };
   }
 
   async componentDidMount() {
@@ -80,6 +88,23 @@ class course extends React.Component {
     // console.log(this.newMyemberData);
   };
 
+  handleTitleClick = e => {
+    this.setState({ nowPage: true });
+    console.log(e.target.id);
+    console.log(e.target.className);
+    let Allbox = document.querySelectorAll('.Allbox');
+    let AllItem = document.querySelectorAll('.nav-link');
+    for (var i = 0; i < Allbox.length; i++) {
+      Allbox[i].classList.remove('show');
+    }
+    for (var i = 0; i < AllItem.length; i++) {
+      AllItem[i].classList.remove('active');
+    }
+    document.querySelector(`.${e.target.id}`).classList.add('show');
+    document.querySelector(`#${e.target.id}`).classList.add('active');
+    // e.target.classList.add('show');
+  };
+
   render() {
     if (
       (this.state.id != this.state.user_id &&
@@ -92,15 +117,32 @@ class course extends React.Component {
     } else {
       return (
         <>
-          <Container className="member_edit">
+          <Container className="member_course">
             <Row>
               <Sidebar
                 src={this.state.m_photo}
                 name={this.state.m_name}
                 myId={this.state.id}
               />
+
+
+            <Col style={{ marginTop: '200px' }}>
+              <DetailNav
+                  title1={this.state.NavTitle1}
+                  title2={this.state.NavTitle2}
+                  handleTitleClick={this.handleTitleClick}
+                />
+
+                       <div className="box1 Allbox show">123456</div>
+
+                      <div className="box2 Allbox">987654321</div>
+
+            </Col>
             </Row>
+
+            
           </Container>
+          
         </>
       );
     }

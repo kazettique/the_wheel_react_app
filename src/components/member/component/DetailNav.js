@@ -74,7 +74,7 @@ class DetailNav extends React.Component {
               href="javascipt:;"
               eventKey="link-1"
               onClick={this.props.handleTitleClick}
-              className="nav-link"
+              className="nav-link active" 
               id="box1"
             >
               {this.props.title1}

@@ -174,6 +174,7 @@ class edit extends React.Component {
       let id = this.props.match.params.id;
       console.log(id);
       const response = await fetch(`http://localhost:5000/member/${id}`, {
+        credentials: 'include',
         method: 'PUT',
         body: formData,
         // headers: new Headers({
@@ -199,7 +200,7 @@ class edit extends React.Component {
             this.setState({ installdb: 'block' });
             this.setState({ installstate: 'alert alert-warning' });
             this.setState({ installtext: jsonObject.message.text });
-            alert('檔案格式不符ㄝ資料沒有修改');
+            alert('檔案格式不符資料沒有修改');
 
             return;
           }
@@ -217,19 +218,20 @@ class edit extends React.Component {
            
 
 
-          //  fetch('http://localhost:5000/is_logined', {
-          //   credentials: 'include',
-          //   headers: new Headers({
-          //     Accept: 'application/json',
-          //   'Content-Type': 'application/json',
-          //   }),
-          // }).then(res => res.json())
-          // .then(obj => {
-          //   console.log(obj);})
-          // .catch(error => console.error('Error:', error))
-          // .then(response => console.log('Success:', response));
+           fetch('http://localhost:5000/is_logined', {
+            credentials: 'include',
+            headers: new Headers({
+              Accept: 'application/json',
+            'Content-Type': 'application/json',
+            }),
+          }).then(res => res.json())
+          .then(obj => {
+            console.log(obj);})
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
             
             alert('修改成功!');
+            window.location.reload();
             this.setState({ installdb: 'block' });
             this.setState({ installtext: jsonObject.message.text });
             this.setState({ installstate: `alert alert-success` });

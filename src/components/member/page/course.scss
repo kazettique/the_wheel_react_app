@@ -1,0 +1,25 @@
+.member_course {
+
+    #box3,
+    #box4 {
+        display: none;
+    }
+
+    
+    .box1,
+    .box2
+     {
+        display: none;
+        width: 100%;
+        height: 100px;
+
+    }
+
+    .show {
+        display: block;
+    }
+
+    .nav-link {
+        padding: 0;
+    }
+}

@@ -9,16 +9,23 @@ import {
   FormControl,
   Row,
   Col,
+  Nav
 } from 'react-bootstrap';
 // import PathNow from '../component/PathNow';
 import Sidebar from '../component/Sidebar';
-import './edit.scss';
+import DetailNav from '../component/DetailNav';
+import './news.scss';
 import checkUserState from './../util/check';
 
 class news extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { id: '', loginUser: '', isLogined: '', user_id: '' };
+    this.state = {  
+      NavTitle1: '我收藏的文章',
+      id: '', 
+      loginUser: '', 
+      isLogined: '', 
+      user_id: '' };
   }
 
   async componentDidMount() {
@@ -27,6 +34,7 @@ class news extends React.Component {
     // p.then(jsonObject => {
     //   console.log('2', jsonObject);
     await this.setState({
+      NavTitle1: '我收藏的文章',
       loginUser: jsonObject.loginUser,
       isLogined: jsonObject.isLogined,
       user_id: jsonObject.user_id,
@@ -80,6 +88,9 @@ class news extends React.Component {
     // console.log(this.newMyemberData);
   };
 
+
+  
+
   render() {
     if (
       (this.state.id != this.state.user_id &&
@@ -92,13 +103,27 @@ class news extends React.Component {
     } else {
       return (
         <>
-          <Container className="member_edit">
+          <Container className="member_news">
             <Row>
               <Sidebar
                 src={this.state.m_photo}
                 name={this.state.m_name}
                 myId={this.state.id}
               />
+
+              <Col style={{ marginTop: '200px' }}>
+              <DetailNav
+                  title1={this.state.NavTitle1}
+                  handleTitleClick={this.handleTitleClick}
+                />
+
+                       <div className="box1 Allbox">123456</div>
+
+                      
+
+         
+                
+              </Col>
             </Row>
           </Container>
         </>

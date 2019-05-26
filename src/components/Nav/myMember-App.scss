@@ -23,12 +23,13 @@
     .dropdown {
         height: 100%;
         .littlePhoto {
-            width: 50px;
-            height: 50px;
+            width: 7vh;
+            height: 7vh;
             border: 1px solid #eeeeee;
             margin-left: 36px;
             border-radius: 50%;
             overflow: hidden;
+            transition: 0.5s;
 
             .mylittlePhoto {
                 width: 100%;
@@ -38,7 +39,7 @@
         }
 
         .navbar-username {
-            line-height: 50px;
+            line-height: 7vh;
             margin-left: 22px;
             margin-right: 36px;
             font-weight: bolder;

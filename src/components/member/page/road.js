@@ -125,7 +125,7 @@ class road extends React.Component {
                   handleTitleClick={this.handleTitleClick}
                 />
 
-                <div className="box1 Allbox">123456</div>
+                <div className="box1 Allbox show">123456</div>
 
                 <div className="box2 Allbox">987654321</div>
 
