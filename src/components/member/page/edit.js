@@ -289,7 +289,7 @@ class edit extends React.Component {
                   >
                     {this.state.installtext}
                   </div>
-                  <div className="d-flex">
+                  <div className="d-lg-flex">
                     <ul className="list-unstyled textpart flex-grow-1">
                       <li>
                         姓名
@@ -356,9 +356,9 @@ class edit extends React.Component {
                         <div>請選擇地區</div>
                         <TWzipcode
                           css={[
-                            'form-control county-sel  city d-md-inline-block TWZ w-md-auto',
-                            'form-control district-sel  d-md-inline-block TWZ ml-md-5 w-md-auto',
-                            'form-control zipcode  d-md-inline-block TWZ  ml-md-5 w-md-auto',
+                            'form-control county-sel  city d-lg-inline-block TWZ w-lg-auto',
+                            'form-control district-sel  d-lg-inline-block TWZ ml-lg-5 w-lg-auto',
+                            'form-control zipcode  d-lg-inline-block TWZ  ml-lg-5 w-lg-auto',
                           ]}
                           handleChangeCounty={this.handleChange}
                           handleChangeDistrict={this.handleChange}
@@ -412,8 +412,9 @@ class edit extends React.Component {
                   </div>
                   <div className="text-center">
                     <Button
-                      variant="secondary m-auto"
+                      variant="secondary mx-auto"
                       onClick={this.handleModalFormInputeditChecked}
+                      className="checkBtn"
                     >
                       修改資料
                     </Button>

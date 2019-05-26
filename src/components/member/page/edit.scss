@@ -1,60 +1,80 @@
 @mixin md {
-  @media (max-width: 768px) {
-    @content;
-  }
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (max-width: 992px) {
+        @content;
+    }
 }
 
 .member_edit {
-  font-family: Noto Sans CJK TC;
-  padding-bottom: 5%;
+    font-family: Noto Sans CJK TC;
+    padding-bottom: 5%;
 
-  .myProfile {
-    margin-top: 110px;
+    .myProfile {
+        margin-top: 110px;
 
-    .member-title {
-      background-color: #f2f2f2;
+        .member-title {
+            background-color: #f2f2f2;
+        }
+
+        ul {
+            margin-top: 110px;
+
+            li {
+                margin-bottom: 80px;
+            }
+        }
     }
 
-    ul {
-      margin-top: 110px;
-
-      li {
-        margin-bottom: 80px;
-      }
+    .myPhoto {
+        width: 150px;
+        height: 150px;
+        border: 1px solid #eeeeee;
+        border-radius: 50%;
+        margin-top: 100px;
+        overflow: hidden;
     }
-  }
 
-  .myPhoto {
-    width: 150px;
-    height: 150px;
-    border: 1px solid #eeeeee;
-    border-radius: 50%;
-    margin-top: 100px;
-    overflow: hidden;
-  }
-
-  .thumb2 {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .TWZ {
-    width: auto;
-    @include md {
-      width: 100%;
+    .thumb2 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
-  }
 
-  .county-sel,
-  .district-sel,
-  .zipcode {
-    @include md {
-      margin-bottom: 20px;
+    .TWZ {
+        width: auto;
+
+        @include lg {
+            width: 100%;
+        }
     }
-  }
 
-  .form-control {
-    border-radius: 0%;
-  }
+    .county-sel,
+    .district-sel,
+    .zipcode {
+        @include lg {
+            margin-bottom: 20px;
+        }
+    }
+
+    .form-control {
+        border-radius: 0%;
+    }
+
+    button {
+        margin-top: 50px;
+        background-color: #000000;
+        border-radius: 0;
+    }
+
+
+    .checkBtn {
+        @include lg {
+            margin-top: 50px;
+        }
+    }
 }

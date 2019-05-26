@@ -43,15 +43,44 @@
     }
 
     ul {
-        margin-top: 110px;
+        margin-top: 80px;
+
+        .redBoxlg {
+            background-color: #F52A2A;
+            height: 147px;
+            width: 12px;
+            transform: translate(-15px, 30%);
+        }
+
+        .redBoxsm {
+            background-color: #F52A2A;
+            height: 34px;
+            width: 12px;
+            transform: translate(-15px, 30%);
+            // margin-right:15px; 
+        }
 
         li {
             margin-bottom: 63px;
 
+
+
             a {
+
                 @include md {
                     text-align: center;
                     display: block;
+                    color: black;
+                }
+            }
+
+            a:hover {
+                color: black;
+                border-bottom: 2px solid #F52A2A;
+                transition: 0.5s;
+
+                @include md {
+                    border-bottom: none;
                 }
             }
 
@@ -64,14 +93,18 @@
                     a {
                         font-weight: normal;
                         color: #b7b7b7;
+
+
                     }
 
                 }
             }
 
             a {
-                color: black;
+                // color: black;
             }
         }
+
+
     }
 }

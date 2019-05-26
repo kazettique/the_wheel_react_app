@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 // import PathNow from '../component/PathNow';
 import Sidebar from '../component/Sidebar';
-import './edit.scss';
+import './password.scss';
 import checkUserState from '../util/check';
 
 class password extends React.Component {
@@ -192,7 +192,7 @@ class password extends React.Component {
     } else {
       return (
         <>
-          <Container className="member_edit">
+          <Container className="member_password">
             <Row>
               <Sidebar
                 src={this.state.m_photo}
@@ -202,8 +202,8 @@ class password extends React.Component {
 
               <Col>
                 <div className="myProfile">
-                  <div className="member-title">
-                    <h4 className="p-1">更改密碼</h4>
+                  <div className="member-title mx-auto">
+                    <h4 className="p-1 ">更改密碼</h4>
                   </div>
 
                   <div
@@ -216,13 +216,14 @@ class password extends React.Component {
                   >
                     {this.state.installtext}
                   </div>
-                  <div className="d-flex">
-                    <ul className="list-unstyled textpart flex-grow-1">
+                  <div className="passwordArea">
+                    <ul className="list-unstyled textpart mx-auto">
                       <li>
                         目前密碼
                         <input
                           type="text"
                           value={this.state.checkOld_password}
+                          className="form-control"
                           name="checkOld_password"
                           onChange={this.handleFormInputChange}
                         />
@@ -232,6 +233,7 @@ class password extends React.Component {
                         <input
                           type="text"
                           value={this.state.new_password}
+                          className="form-control"
                           name="new_password"
                           onChange={this.handleFormInputChange}
                         />
@@ -242,6 +244,7 @@ class password extends React.Component {
                         <input
                           type="text"
                           value={this.state.new_password2}
+                          className="form-control"
                           name="new_password2"
                           onChange={this.handleFormInputChange}
                         />

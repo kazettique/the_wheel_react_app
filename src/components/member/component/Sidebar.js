@@ -76,7 +76,9 @@ class Sidebar extends React.Component {
           <div className="userName">{this.props.name}</div>
 
           <ul className="list-unstyled">
-            <li>
+          <span className="redBoxlg d-lg-inline-block"></span>
+            <li className="d-lg-inline-block">
+             
               <Link to={`/member/edit/${this.props.myId}`}>編輯會員資料</Link>
               <ul className="list-unstyled">
                 <li>
@@ -88,19 +90,28 @@ class Sidebar extends React.Component {
               </ul>
             </li>
 
-            <li>
+            <div></div>
+            <span className="redBoxsm d-lg-inline-block"></span>
+            <li className="d-lg-inline-block">
               <Link to={`/member/road/${this.props.myId}`}>路線列表</Link>
             </li>
 
-            <li>
+            <div></div>
+            <span className="redBoxsm d-lg-inline-block"></span>
+            <li className="d-lg-inline-block">
               <Link to={`/member/news/${this.props.myId}`}>收藏文章</Link>
             </li>
 
-            <li>
+            <div></div>
+            <span className="redBoxsm d-lg-inline-block"></span>
+            <li className="d-lg-inline-block">
               <Link to={`/member/course/${this.props.myId}`}>我的課程</Link>
             </li>
 
-            <li>
+
+            <div></div>
+            <span className="redBoxsm d-lg-inline-block"></span>
+            <li className="d-lg-inline-block">
               <Link to={`/member/product/${this.props.myId}`}>商品管理</Link>
             </li>
           </ul>

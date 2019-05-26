@@ -84,6 +84,12 @@ class Login extends React.Component {
 
       await this.setState({ memberData: [newData] }, () => {
         // this.handleModalClose();
+        if(jsonObject.WARNING){
+          alert("您的帳號已經被停權")
+          document.location.href = '/';
+          return;
+        }
+
         if (jsonObject.success) {
           alert('登入成功!');
           this.setState({ Logindb: 'block' });
