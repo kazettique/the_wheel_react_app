@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Loading from "./components/LoadingAnimation/Loading";
+// import Loading from "./components/LoadingAnimation/Loading";
 import Nav from "./components/Nav/Nav";
 import Main from "./containers/Main/Main";
 import Routes from "./containers/Route/Route";
 import Group from "./containers/Group/Group";
-import Coach from "./containers/Coach/Coach";
+import Course from "./containers/Course/Course";
 import News from "./containers/News/News";
 import Products from "./containers/Products/Products";
 import Footer from "./containers/Footer/Footer";
@@ -19,12 +19,16 @@ import { isLoading } from "./store/loadingActions";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
+import CourseTest from "./containers/Course/CourseTest";
+import CourseMain from "./containers/Course/containers/CourseMain";
+// import CourseList from "./containers/Course/containers/CourseList";
 
 const routes = [
   // { path: '/', name: 'Home', Component: Main },
   { path: "/route", name: "About", Component: Routes },
   { path: "/group", name: "Contact", Component: Group },
-  { path: "/coach", name: "Contact", Component: Coach },
+  { path: "/course/:id", name: "Contact", Component: CourseMain },
+  { path: "/course", name: "Contact", Component: Course },
   { path: "/news", name: "Contact", Component: News },
   { path: "/products", name: "Contact", Component: Products },
   {path: "/login", name: "Contact", Component: Login},
