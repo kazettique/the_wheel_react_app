@@ -1,12 +1,17 @@
 import React from 'react'
+// React Bootstrap
 import { Container } from 'react-bootstrap'
+// Import Stylesheet
+import './course.scss'
+// React Router
+import { withRouter } from 'react-router-dom'
+// Import Components
+import CourseBackItForm from './CourseBackItForm'
+import MapDiv from '../components/MapDiv'
 import CourseNav from '../components/CourseNav'
 import CourseMainTitle from '../components/CourseMainTitle'
 import CourseBanner from '../components/CourseBanner'
 import CourseTab from '../components/CourseTab'
-import './course.scss'
-import MapDiv from '../components/MapDiv'
-import { withRouter } from 'react-router-dom'
 
 class CourseMain extends React.Component {
   // Initializing
@@ -40,10 +45,6 @@ class CourseMain extends React.Component {
       // map_display: true,
       course: null,
       id: null,
-      loginUser:'',
-      isLogined:'' ,
-      user_id:'' ,
-      myCollect:'',
     }
   }
 
@@ -109,33 +110,11 @@ class CourseMain extends React.Component {
     }
     // console.log(this.state.course)
   }
-  
-  
-  
 
-   componentDidMount() {
-
-
-    fetch('http://localhost:5000/is_logined', {
-      method: 'GET', // or 'PUT'
-      credentials: 'include',// data can be `string` or {object}!
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      })
-    }).then(res => res.json())
-      .then(obj => this.setState({
-        loginUser: obj.loginUser,
-        isLogined: obj.isLogined,
-        user_id: obj.user_id,
-        myCollect:obj.session_collect,
-      }))
-      
-    .catch(error => console.error('Error:', error))
-    
-    
+  componentDidMount() {
+    // 8 spaces of strings - "/course/"
     let id = this.props.history.location.pathname.slice(8)
-    // console.log(id)
+    // console.log("id: " + id)
     // console.log('mount')
     this.setState({
       id: id,
@@ -146,22 +125,18 @@ class CourseMain extends React.Component {
 
   // Rendering
   render() {
-    console.log(this.state);
-    if(this.state.myCollect!==""){
-      console.log(JSON.parse(this.state.myCollect))
-    }
-    // console.log(JSON.parse(this.state.myCollect))
-    // console.log(JSON.parse(this.state.myCollect))
     let list1 = null
     let list2 = null
     let list3 = null
     let list4 = null
+    let list5 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list1 = <CourseMainTitle course={this.state.course} />
       list2 = <CourseBanner course={this.state.course} />
       list3 = <CourseTab course={this.state.course} />
       list4 = <MapDiv course={this.state.course} />
+      list5 = <CourseBackItForm course={this.state.course} />
     }
     return (
       <>

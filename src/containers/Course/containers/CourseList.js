@@ -51,7 +51,8 @@ class CourseList extends React.Component {
     }
     return (
       <>
-        <Container fluid className="p-0 pb-5 pt-5 mt-5 course-list">
+        <div style={{ height: '10vh' }} />
+        <Container fluid className="p-0 pb-5 pt-3 course-list">
           <AdvanceSearch />
           {list}
           {/*<Router>{listSwitch}</Router>*/}
