@@ -27,6 +27,7 @@ class course extends React.Component {
       isLogined: '', 
       user_id: '' ,
       myCollect:[],
+      col_newsData:[],
     };
   }
 
@@ -58,7 +59,7 @@ class course extends React.Component {
           }),
         }
       );
-      console.log("收藏資料1");
+     
       // if (!response.ok) throw new Error(response.statusText);
 
       const jsonObject = await response.json();
@@ -77,7 +78,7 @@ class course extends React.Component {
         arr: this.state.myCollect,
       };
 
-      console.log("收藏資料2");
+     
       const rescourse = await fetch(
         `http://localhost:5000/myCollect`,
         { 
@@ -92,8 +93,9 @@ class course extends React.Component {
       );
 
       const courseObj = await rescourse.json();
-      console.log("收藏資料3");
-      console.log("收藏資料",courseObj);
+      await this.setState({ col_newsData:  courseObj });
+   
+      console.log("newsData",this.state.col_newsData);
 
 
 
@@ -137,7 +139,19 @@ class course extends React.Component {
     // e.target.classList.add('show');
   };
 
+
+  handleCancel=id=>()=>{
+    console.log(this.state.myCollect);
+    console.log(id);
+    const newData=this.state.myCollect.filter((item,index)=>item!==id);
+    console.log(newData)
+    // console.log(this.state.col_newsData)
+    // const newData=this.state.myCollect.filter(item=>item.id!==)
+  }
+
   render() {
+    let data = this.state.col_newsData;
+
     if (
       (this.state.id != this.state.user_id &&
         this.state.id &&
@@ -169,7 +183,32 @@ class course extends React.Component {
 
                        <div className="box1 Allbox show">123456</div>
 
-                      <div className="box2 Allbox">987654321</div>
+                        <div className="box2 Allbox">
+
+
+                          {data.map((item,index) => (
+                            <div className="card mb-3" style={{maxWidth: "540px"}} key={item.c_sid}>
+                              <div className="row no-gutters">
+                                  <div className="col-md-4">
+                                    <img src="..." className="card-img" alt="..."/>
+                                  </div>
+
+                                <div className="col-md-8">
+                                   <div className="card-body">
+                                <h5 className="card-title">{item.c_title}</h5>
+                                <h5>{item.c_level}</h5>
+                                    <p className="card-text ellipsis">{item.c_intro}</p>
+                                    <Link to={`/course/${item.c_sid}`}>查看課程資訊</Link>
+                                    
+                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                                    <Button onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+
+                        </div>
 
             </Col>
             </Row>
