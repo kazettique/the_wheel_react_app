@@ -94,7 +94,7 @@ class CourseMain extends React.Component {
     if (!this.state.course) {
       let id = this.state.id
 
-      fetch(`http://localhost:5555/course/${id}`)
+      fetch(`http://localhost:5000/course/${id}`)
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
@@ -107,6 +107,7 @@ class CourseMain extends React.Component {
   }
 
   componentDidMount() {
+    // 8 spaces of strings - "/course/"
     let id = this.props.history.location.pathname.slice(8)
     // console.log(id)
     // console.log('mount')
@@ -122,11 +123,13 @@ class CourseMain extends React.Component {
     let list1 = null
     let list2 = null
     let list3 = null
+    let list4 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list1 = <CourseMainTitle course={this.state.course} />
       list2 = <CourseBanner course={this.state.course} />
       list3 = <CourseTab course={this.state.course} />
+      list4 = <MapDiv course={this.state.course} />
     }
     return (
       <>
@@ -135,7 +138,7 @@ class CourseMain extends React.Component {
           {list1}
           {list2}
           {list3}
-          <MapDiv />
+          {list4}
         </Container>
       </>
     )

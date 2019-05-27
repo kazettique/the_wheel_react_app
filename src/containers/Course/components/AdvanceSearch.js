@@ -18,7 +18,7 @@ class AdvanceSearch extends Component {
               </Row>
               <Row>
                 <button className="r_capsule r_as_tag r_fw_bold ml-0">
-                  新手
+                  入門
                 </button>
                 <button className="r_capsule r_as_tag r_fw_bold">中級</button>
                 <button className="r_capsule r_as_tag r_fw_bold">高級</button>
@@ -28,9 +28,9 @@ class AdvanceSearch extends Component {
                   <Col className="p-0">
                     <Form.Label className="r_fw_bold">地區</Form.Label>
                     <Form.Control as="select" className="r_as_select">
-                      <option>北部</option>
-                      <option>中部</option>
-                      <option>南部</option>
+                      <option value="north">北部</option>
+                      <option value="central">中部</option>
+                      <option value="southern">南部</option>
                     </Form.Control>
                   </Col>
                   <Col className="p-0 position-relative ml-4">
@@ -45,7 +45,7 @@ class AdvanceSearch extends Component {
                 <Col className="my-0 my-lg-5 d-flex align-items-end" lg={6}>
                   <form className="w-100 d-flex justify-content-end">
                     <input type="text" className="r_as_search mx-2" />
-                    <button className="r_as_search_btn r_color_white px-3 r_fw_bold">
+                    <button className="r_as_search_btn r_color_white px-3 r_fw_bold" style={{color: 'white'}}>
                       搜尋
                     </button>
                   </form>

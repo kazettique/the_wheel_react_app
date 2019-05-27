@@ -25,7 +25,6 @@
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0",
-    "node-sass": "^4.12.0",
     "react-icons": "^3.6.1",
     "react-twzipcode": "^3.0.0"
   },
