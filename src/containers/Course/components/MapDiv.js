@@ -7,7 +7,9 @@ import GoogleMap from './GoogleMap'
 class MapDiv extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      course: this.props.course[0],
+    }
   }
 
   render() {
@@ -16,7 +18,7 @@ class MapDiv extends React.Component {
         <Container fluid>
           <Row className="my-4 justify-content-center">
             <Col lg={10}>
-              <h5>上課地點</h5>
+              <h5>上課地點：{this.state.course.c_courseLocation}</h5>
             </Col>
           </Row>
         </Container>

@@ -36,6 +36,7 @@ class CourseList extends React.Component {
             coachName={item.c_coachName}
             coachAvatar={item.c_coachAvatar}
             coachNationality={item.c_coachNationality}
+            courseDate={item.c_courseDate}
             fundNow={item.c_fundNow}
             fundGoal={item.c_fundGoal}
             startDate={item.c_startDate}
@@ -50,7 +51,7 @@ class CourseList extends React.Component {
     }
     return (
       <>
-        <Container fluid className="p-0 course-list">
+        <Container fluid className="p-0 pb-5 pt-5 mt-5 course-list">
           <AdvanceSearch />
           {list}
           {/*<Router>{listSwitch}</Router>*/}

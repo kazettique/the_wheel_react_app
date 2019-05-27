@@ -19,7 +19,6 @@ import { isLoading } from "./store/loadingActions";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
-// import CourseTest from "./containers/Course/CourseTest";
 import CourseMain from "./containers/Course/containers/CourseMain";
 // import CourseList from "./containers/Course/containers/CourseList";
 

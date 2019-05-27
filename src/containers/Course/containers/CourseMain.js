@@ -155,11 +155,13 @@ class CourseMain extends React.Component {
     let list1 = null
     let list2 = null
     let list3 = null
+    let list4 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list1 = <CourseMainTitle course={this.state.course} />
       list2 = <CourseBanner course={this.state.course} />
       list3 = <CourseTab course={this.state.course} />
+      list4 = <MapDiv course={this.state.course} />
     }
     return (
       <>
@@ -168,7 +170,7 @@ class CourseMain extends React.Component {
           {list1}
           {list2}
           {list3}
-          <MapDiv />
+          {list4}
         </Container>
       </>
     )
