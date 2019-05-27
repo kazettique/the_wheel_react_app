@@ -7,16 +7,18 @@
 }
 
 .Background {
-  
   /* background: linear-gradient(180deg, rgb(0, 0, 0, 10), rgb(0, 0, 0, 0.3)); */
   position: relative;
   background: black;
-  width: 85% ;
-  height: 10vh;
+  width: 85%;
+  height: 56px;
   overflow: visible;
   transition: 0.5s;
 }
-.Right{
+.r_h_56 {
+  height: 56px;
+}
+.Right {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,15 +27,14 @@
   top: 0;
   height: 10vh;
   width: 15%;
-  background-color: #F52A2A
+  background-color: #f52a2a;
 }
 .Right > div {
   flex-grow: 1;
   text-align: center;
-  
 }
 
-.Close{
+.Close {
   transform: translateY(-10vh);
 }
 
@@ -55,8 +56,6 @@
   height: 5vh;
   /* background-color: white; */
   cursor: pointer;
-  
-  
 }
 
 .Menu div {
@@ -78,12 +77,11 @@
   top: 0;
   transition: 0.5s;
 }
-.Nav div{
+.Nav div {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  
 }
 
 .Nav li {
@@ -128,8 +126,8 @@
   /* transform: translateZ(400px); */
 }
 
-.NavItems{
-  color: "white"; 
+.NavItems {
+  color: "white";
   font-size: "1.2rem";
 }
 
@@ -151,25 +149,23 @@
     /* display: none; */
     transform: translateY(10vh);
     width: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     left: 0;
-    right:0;
+    right: 0;
     bottom: 0;
-   
   }
 
   .Menu {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    
   }
 
   .Open {
     transition: 0.5s;
     height: 92vh;
-    
+
     /* display: block; */
   }
 
@@ -182,7 +178,7 @@
   }
 
   .Background {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     width: 100%;
   }
   .Right {

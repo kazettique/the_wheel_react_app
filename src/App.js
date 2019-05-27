@@ -21,10 +21,17 @@ import { connect } from "react-redux";
 import "./App.css";
 import CourseMain from "./containers/Course/containers/CourseMain";
 // import CourseList from "./containers/Course/containers/CourseList";
+//Route--------------------------------------------
+import RouteDisplay from './containers/Route/containers/RrouteDisplay';
+import RouteDetail from './containers/Route/containers/RouteDetail';
+import RouteAddNew from './containers/Route/containers/RouteAddNew';
+
 
 const routes = [
   // { path: '/', name: 'Home', Component: Main },
-  { path: "/route", name: "About", Component: Routes },
+    { path: "/route", name: "About", Component: RouteDisplay},
+    { path: "/route/:id", name: "About", Component: RouteDetail},
+    { path: "/route/newroute", name: "About", Component: RouteAddNew},
   { path: "/group", name: "Contact", Component: Group },
   { path: "/course/:id", name: "Contact", Component: CourseMain },
   { path: "/course", name: "Contact", Component: Course },

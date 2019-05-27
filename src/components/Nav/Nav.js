@@ -236,9 +236,9 @@ class NavTop extends React.Component {
           show={this.state.showModalIns}
           close={this.handleModalCloseIns}
         />
-        <Navbar bg="light" expand="lg" className="w-100">
+                <Navbar bg="light" expand="lg" className="w-100">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="basic-navbar-nav " >
             <Form inline className="ml-auto  h-100">
               <Nav.Link
                 href="/Login"

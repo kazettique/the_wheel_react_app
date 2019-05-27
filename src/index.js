@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import news from "./store/reducers/newsReducer";
@@ -14,9 +14,14 @@ import loginStatus from "./store/reducers/loginReducer";
 import products from "./store/reducers/productsReducer";
 import modal from "./store/reducers/modalReducer";
 import axios from "axios";
+//r_reducers----------------
+import routeReducer from "./containers/Route/reducers/routeReducer"
+import routeSingleReducer from "./containers/Route/reducers/routeSingleReducer"
+import routeCountryChange from "./containers/Route/reducers/routeCountryChange"
+import routeAddNewLocation from "./containers/Route/reducers"
 
 
-const rootReducer = combineReducers({ loading, news, fullArticle, cart, loginStatus, products, modal });
+const rootReducer = combineReducers({ loading, news, fullArticle, cart, loginStatus, products, modal, routeReducer, routeSingleReducer, routeCountryChange, routeAddNewLocation  });
 
 // function configureStore(preloadedState) {
 //   return createStore(
@@ -28,7 +33,15 @@ const rootReducer = combineReducers({ loading, news, fullArticle, cart, loginSta
 
 // const store = configureStore();
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(
+    rootReducer,
+    compose(
+        applyMiddleware(thunkMiddleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+);
 
 const token = localStorage.getItem("token")
 if(token){

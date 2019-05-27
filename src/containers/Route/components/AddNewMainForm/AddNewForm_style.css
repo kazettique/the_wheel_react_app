@@ -1,0 +1,18 @@
+.r_form_group {
+    border-radius: 0;
+}
+.r_dotted_border {
+    border-top: 2px dotted var(--main_gray2);
+}
+
+.r_an_del_btn {
+    border: none;
+    background-color: transparent;
+    right: 0;
+    top: 0;
+    font-size: 1.3rem;
+}
+
+.r_an_l_con {
+    background-color: var(--main_gray1);
+}
