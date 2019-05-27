@@ -14,13 +14,25 @@ import './components.css'
 import { Link } from 'react-router-dom'
 
 // 贊助按鈕
-function BackItButton() {
+function BackItButton(props) {
+  // console.log(props.sid)
   return (
     <>
-      <Button className="buttons" variant="secondary">
-        我要贊助
-        {/*<FontAwesomeIcon style={{ margin: '0 0.5rem' }} icon={faExclamation} />*/}
-        <FontAwesomeIcon style={{ marginLeft: '0.5rem' }} icon={faFistRaised} />
+      <Button className="buttons" variant="secondary" style={{background: "black", color:"white"}}>
+        <Link
+          to={{
+            pathname: `/course/backIt/${props.sid}`,
+            state: {
+              sid: props.sid,
+            },
+          }}
+        >
+          我要贊助
+          <FontAwesomeIcon
+            style={{ marginLeft: '0.5rem' }}
+            icon={faFistRaised}
+          />
+        </Link>
       </Button>
     </>
   )

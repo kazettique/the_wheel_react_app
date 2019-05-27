@@ -20,6 +20,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
 import CourseMain from "./containers/Course/containers/CourseMain";
+import CourseBackItForm from "./containers/Course/containers/CourseBackItForm";
 // import CourseList from "./containers/Course/containers/CourseList";
 //Route--------------------------------------------
 import RouteDisplay from './containers/Route/containers/RrouteDisplay';
@@ -33,6 +34,7 @@ const routes = [
     { path: "/route/:id", name: "About", Component: RouteDetail},
     { path: "/route/newroute", name: "About", Component: RouteAddNew},
   { path: "/group", name: "Contact", Component: Group },
+  { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
   { path: "/course/:id", name: "Contact", Component: CourseMain },
   { path: "/course", name: "Contact", Component: Course },
   { path: "/news", name: "Contact", Component: News },

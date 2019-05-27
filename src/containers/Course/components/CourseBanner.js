@@ -67,7 +67,7 @@ class CourseBanner extends React.Component {
                   </Col>
                   <Col sm={6} className="d-flex">
                     <div className="m-2">
-                      <BackItButton />
+                      <BackItButton sid={this.state.course.c_sid} />
                     </div>
                     <div className="m-2">
                       <LikeItButton />
