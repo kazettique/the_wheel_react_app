@@ -13,7 +13,7 @@ class CourseList extends React.Component {
 
   // Get data from database
   componentDidMount() {
-    fetch('http://localhost:5555/course')
+    fetch('http://localhost:5000/course')
       .then(res => res.json())
       .then(data => {
         // console.log(data)

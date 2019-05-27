@@ -54,7 +54,7 @@ class InstallModal extends React.Component {
     reader.readAsDataURL(theFile);
     reader.addEventListener('loadend', function(event) {
       //console.log(event.target.result);
-      //<img src="" class="" />
+     
       var photo = document.querySelector('.thumb');
       photo.setAttribute('src', event.target.result);
       // console.log(event.target.result);
@@ -195,7 +195,7 @@ class InstallModal extends React.Component {
 
                 <InputGroup className="mb-md-3">
                   <InputGroup.Prepend>手機號碼:</InputGroup.Prepend>
-                  <small id="m_mobileHelp" class="form-text text-muted" />
+                  <small id="m_mobileHelp" className="form-text text-muted" />
                   <div>&nbsp;&nbsp;&nbsp;</div>
                   <FormControl
                     name="m_mobile"
@@ -219,7 +219,7 @@ class InstallModal extends React.Component {
 
                 <InputGroup className="mb-md-3">
                   <InputGroup.Prepend>E-mail(帳號):</InputGroup.Prepend>
-                  <small id="m_emailHelp" class="form-text text-muted" />
+                  <small id="m_emailHelp" className="form-text text-muted" />
                   <div>&nbsp;&nbsp;&nbsp;</div>
                   <FormControl
                     name="m_email"
@@ -232,7 +232,7 @@ class InstallModal extends React.Component {
               <Col md={4}>
                 <InputGroup className="mb-md-3">
                   <InputGroup.Prepend>密碼:</InputGroup.Prepend>
-                  <small id="m_passwordHelp" class="form-text text-muted" />
+                  <small id="m_passwordHelp" className="form-text text-muted" />
                   <div>&nbsp;&nbsp;&nbsp;</div>
                   <FormControl
                     name="m_password"
@@ -245,7 +245,7 @@ class InstallModal extends React.Component {
 
                 <InputGroup className="mb-md-3">
                   <InputGroup.Prepend>確認密碼:</InputGroup.Prepend>
-                  <small id="re_passwordHelp" class="form-text text-muted" />
+                  <small id="re_passwordHelp" className="form-text text-muted" />
                   <div>&nbsp;&nbsp;&nbsp;</div>
                   <FormControl
                     name="re_password"

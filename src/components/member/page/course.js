@@ -25,7 +25,8 @@ class course extends React.Component {
       id: '', 
       loginUser: '', 
       isLogined: '', 
-      user_id: '' 
+      user_id: '' ,
+      myCollect:[],
     };
   }
 
@@ -38,6 +39,7 @@ class course extends React.Component {
       loginUser: jsonObject.loginUser,
       isLogined: jsonObject.isLogined,
       user_id: jsonObject.user_id,
+      myCollect: JSON.parse(jsonObject.session_collect),
     });
 
     try {
@@ -56,7 +58,7 @@ class course extends React.Component {
           }),
         }
       );
-
+      console.log("收藏資料1");
       // if (!response.ok) throw new Error(response.statusText);
 
       const jsonObject = await response.json();
@@ -67,11 +69,41 @@ class course extends React.Component {
         m_photo: jsonObject[0].m_photo,
         m_name: jsonObject[0].m_name,
         old_password: jsonObject[0].m_password,
+        
       });
+
+
+      var sendObj = {
+        arr: this.state.myCollect,
+      };
+
+      console.log("收藏資料2");
+      const rescourse = await fetch(
+        `http://localhost:5000/myCollect`,
+        { 
+          credentials: 'include',
+          method: 'POST',
+          body: JSON.stringify(sendObj),
+          headers: new Headers({
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }),
+        }
+      );
+
+      const courseObj = await rescourse.json();
+      console.log("收藏資料3");
+      console.log("收藏資料",courseObj);
+
+
+
     } catch (e) {
       console.log(e);
     } finally {
     }
+
+    //收藏的課程
+    
   }
 
   handleFormInputChange = event => {
@@ -115,7 +147,9 @@ class course extends React.Component {
       return <Redirect to="/" />;
       // alert(this.state.id + ' ' + this.state.user_id);
     } else {
+      console.log(this.state);
       return (
+        
         <>
           <Container className="member_course">
             <Row>

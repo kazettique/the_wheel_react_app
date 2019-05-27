@@ -17,8 +17,8 @@ class Login extends React.Component {
     super();
     this.state = {
       memberData: [],
-      m_email: '',
-      m_password: '',
+      login_email: '',
+      login_password: '',
       loginUser: '',
       isLogined: false,
       user_id: '',
@@ -39,27 +39,27 @@ class Login extends React.Component {
 
   handleModalFormInputSave = async () => {
     const item = {
-      m_email: this.state.m_email,
-      m_password: this.state.m_password,
+      m_email: this.state.login_email,
+      m_password: this.state.login_password,
     };
     console.log(item);
     const newData = [item, ...this.state.memberData];
 
-    var formData = new FormData();
+    // var formData = new FormData();
 
-    formData.append('m_email', this.state.m_email);
-    formData.append('m_password', this.state.m_password);
+    // formData.append('m_email', this.state.m_email);
+    // formData.append('m_password', this.state.m_password);
 
-    console.log(formData);
+    // console.log(formData);
 
     var sendObj = {
-      m_email: this.state.m_email,
-      m_password: this.state.m_password,
+      m_email: this.state.login_email,
+      m_password: this.state.login_password,
     };
 
     if (
-      document.querySelector('#m_email').value == '' ||
-      document.querySelector('#m_password').value == ''
+      document.querySelector('#login_email').value == '' ||
+      document.querySelector('#login_password').value == ''
     ) {
       alert('不可空白');
       return;
@@ -135,13 +135,13 @@ class Login extends React.Component {
                 <Row>
                   <Col md={3} />
                   <Col md={6}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group >
                       <Form.Label>帳號(電子郵件)</Form.Label>
                       <Form.Control
                         type="email"
                         placeholder="Enter email"
-                        id="m_email"
-                        name="m_email"
+                        id="login_email"
+                        name="login_email"
                         value={this.state.email}
                         onChange={this.handleModalFormInputChange}
                       />
@@ -150,18 +150,18 @@ class Login extends React.Component {
                       </Form.Text>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group >
                       <Form.Label>密碼</Form.Label>
                       <Form.Control
                         type="password"
                         placeholder="Password"
-                        name="m_password"
-                        id="m_password"
+                        name="login_password"
+                        id="login_password"
                         value={this.state.password}
                         onChange={this.handleModalFormInputChange}
                       />
                     </Form.Group>
-                    <Form.Group controlId="formBasicChecbox">
+                    <Form.Group >
                       <div className="m-auto">
                         <span>
                           <a href="">忘記密碼</a>

@@ -34,7 +34,6 @@ class news extends React.Component {
     // p.then(jsonObject => {
     //   console.log('2', jsonObject);
     await this.setState({
-      NavTitle1: '我收藏的文章',
       loginUser: jsonObject.loginUser,
       isLogined: jsonObject.isLogined,
       user_id: jsonObject.user_id,

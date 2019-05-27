@@ -40,6 +40,10 @@ class CourseMain extends React.Component {
       // map_display: true,
       course: null,
       id: null,
+      loginUser:'',
+      isLogined:'' ,
+      user_id:'' ,
+      myCollect:'',
     }
   }
 
@@ -94,7 +98,7 @@ class CourseMain extends React.Component {
     if (!this.state.course) {
       let id = this.state.id
 
-      fetch(`http://localhost:5555/course/${id}`)
+      fetch(`http://localhost:5000/course/${id}`)
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
@@ -105,8 +109,31 @@ class CourseMain extends React.Component {
     }
     // console.log(this.state.course)
   }
+  
+  
+  
 
-  componentDidMount() {
+   componentDidMount() {
+
+
+    fetch('http://localhost:5000/is_logined', {
+      method: 'GET', // or 'PUT'
+      credentials: 'include',// data can be `string` or {object}!
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      })
+    }).then(res => res.json())
+      .then(obj => this.setState({
+        loginUser: obj.loginUser,
+        isLogined: obj.isLogined,
+        user_id: obj.user_id,
+        myCollect:obj.session_collect,
+      }))
+      
+    .catch(error => console.error('Error:', error))
+    
+    
     let id = this.props.history.location.pathname.slice(8)
     // console.log(id)
     // console.log('mount')
@@ -119,6 +146,12 @@ class CourseMain extends React.Component {
 
   // Rendering
   render() {
+    console.log(this.state);
+    if(this.state.myCollect!==""){
+      console.log(JSON.parse(this.state.myCollect))
+    }
+    // console.log(JSON.parse(this.state.myCollect))
+    // console.log(JSON.parse(this.state.myCollect))
     let list1 = null
     let list2 = null
     let list3 = null
