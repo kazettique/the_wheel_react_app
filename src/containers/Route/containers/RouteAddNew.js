@@ -10,6 +10,7 @@ import RAlert from '../components/R_Alert/R_Alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { handleAddNewLocation, handleAddNewSubmit } from '../actions';
+import { Redirect } from 'react-router-dom';
 
 class RouteAddNew extends Component {
     state = {};
@@ -21,19 +22,23 @@ class RouteAddNew extends Component {
     addNewSubmit = async () => {
         this.props.handleAddNewSubmit();
     };
+
     render() {
+        if (this.props.l.successType === true) {
+            return <Redirect to="/route" />;
+        }
         return (
             <>
-                {this.props.l.success ? (
+                {this.props.l.success === true ? (
                     <RAlert text="新增路線成功" type="success" />
                 ) : this.props.l.success === false ? (
-                    <RAlert text="新增路線失敗" type="failure" />
+                    <RAlert text={this.props.l.error} type="failure" />
                 ) : (
                     <div />
                 )}
 
                 <Container fluid className="p-0">
-                <div style={{height:'56px'}}></div>
+                    <div style={{ height: '56px' }} />
                     <Row className="justify-content-center my-3 my-xl-5 mx-0">
                         <RoutePageHead function="AddNew" />
                     </Row>
