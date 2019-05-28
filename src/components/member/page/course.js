@@ -158,12 +158,12 @@ class course extends React.Component {
   };
 
   //刪除收藏還要更新SQL
-  handleCancel=id=>{
+  handleCancel=id=>()=>{
     console.log(this.state.myCollect);
     console.log(id);
     const newData=this.state.myCollect.filter((item,index)=>item!==id);
     console.log(newData)
-    this.setState({myCollect:newData},)
+    this.setState({myCollect:newData},()=>console.log(this.state.myCollect))
    
     var sendObj = {
       sid: newData,
@@ -183,13 +183,14 @@ class course extends React.Component {
     }).then(res => res.json())
     .then(obj=>{
       console.log(obj);
-      this.getCourse();
+      this.getCourse()
     })
+ 
     
     // .then(this.setState({myCollect:newData}))
     
    
-    // .catch(error => console.error('Error:', error))
+    .catch(error => console.error('Error:', error))
     
    
 
@@ -257,7 +258,7 @@ class course extends React.Component {
                                     <p>教練名稱:{item.c_coachName}</p>
 
                                     <div className="d-flex">
-                                      <Button className="cancel" variant="danger" onClick={() => this.handleCancel(item.c_sid)}>取消追蹤</Button>
+                                      <Button className="cancel" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button>
                                       <Link class="btn btn-success ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
                                     </div>
                                   </div>

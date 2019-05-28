@@ -69,6 +69,44 @@ class NavTop extends React.Component {
     });
 
 //查看是否登入
+    this.checkUserState();
+    // this.timerID = setInterval(this.checkUserState, 3000);
+
+    // try {
+    //   const response = await fetch('http://localhost:5000/is_logined', {
+    //     method: 'GET',
+    //     credentials: 'include',
+    //     headers: new Headers({
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     }),
+    //   });
+
+    //   // if (!response.ok) throw new Error(response.statusText);
+
+    //   const jsonObject = await response.json();
+
+    //   console.log('Nav',jsonObject);
+    //   await this.setState({
+    //     loginUser: jsonObject.loginUser,
+    //     isLogined: jsonObject.isLogined,
+    //     user_id: jsonObject.user_id,
+    //     session_name: jsonObject.session_name,
+    //     session_photo: jsonObject.session_photo,
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    // } finally {
+    // }
+  }
+
+
+  // 元件 "即將" 卸載出網頁
+  // componentWillUnmount() {
+  //   clearInterval(this.timerID);
+  // }
+
+   checkUserState =async()=> {
     try {
       const response = await fetch('http://localhost:5000/is_logined', {
         method: 'GET',
@@ -78,9 +116,10 @@ class NavTop extends React.Component {
           'Content-Type': 'application/json',
         }),
       });
-
+  
       // if (!response.ok) throw new Error(response.statusText);
-
+  
+     
       const jsonObject = await response.json();
 
       console.log('Nav',jsonObject);
@@ -91,7 +130,7 @@ class NavTop extends React.Component {
         session_name: jsonObject.session_name,
         session_photo: jsonObject.session_photo,
       });
-    } catch (e) {
+    }catch (e) {
       console.log(e);
     } finally {
     }
@@ -227,6 +266,20 @@ class NavTop extends React.Component {
                     </NavLink>
                   </li>
                 </Col>
+
+                <Col lg={2}>
+                  <li className="text-nowrap">
+                    <NavLink
+                      to="/products"
+                      activeStyle={activeStyle}
+                      onClick={this.menuHandler}
+                    >
+                      商品頁面
+                      <div style={location === "/products" ? style : null} />
+                    </NavLink>
+                  </li>
+                </Col>
+                
               </Row>
             </Container>
           </ul>
@@ -240,8 +293,8 @@ class NavTop extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " >
             <Form inline className="ml-auto  h-100">
-              <Nav.Link
-                href="/Login"
+              <NavLink
+                to="/Login"
                 className={
                   this.state.user_id == '' || this.state.user_id == undefined
                     ? 'd-block'
@@ -249,7 +302,7 @@ class NavTop extends React.Component {
                 }
               >
                 登入
-              </Nav.Link>
+              </NavLink>
               <Button
                 variant=" ml-auto mr-5"
                 onClick={this.handleAddModalShowIns}
