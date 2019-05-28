@@ -18,7 +18,7 @@ class RouteAddNew extends Component {
         this.props.handleAddNewLocation();
     };
 
-    addNewSubmit = () => {
+    addNewSubmit = async () => {
         this.props.handleAddNewSubmit();
     };
     render() {
@@ -33,6 +33,7 @@ class RouteAddNew extends Component {
                 )}
 
                 <Container fluid className="p-0">
+                <div style={{height:'56px'}}></div>
                     <Row className="justify-content-center my-3 my-xl-5 mx-0">
                         <RoutePageHead function="AddNew" />
                     </Row>
@@ -55,7 +56,7 @@ class RouteAddNew extends Component {
                                 <Col sm={2} />
                                 <Col>
                                     <Row className="m-0 r_dotted_border" />
-                                    {/* <FormHead text="新增路線" /> */}
+                                    <FormHead text="新增路線" />
                                 </Col>
                             </Row>
                             <Row className="m-0">
@@ -73,7 +74,7 @@ class RouteAddNew extends Component {
                                 </Col>
                                 <Col>
                                     <AddNewLocationsContainer
-                                        num={this.props.r.locationList}
+                                        num={this.props.l.locationList}
                                     />
                                 </Col>
                             </Row>
@@ -93,9 +94,8 @@ class RouteAddNew extends Component {
     }
 }
 
-const mapStateToProps = store => ({
-    r: store.routeAddNewLocation,
-    l: store.routeAddNewLocation,
+const mapStateToProps = state => ({
+    l: state.routeAddNewLocation,
 });
 
 const mapDispatchToProps = dispatch =>

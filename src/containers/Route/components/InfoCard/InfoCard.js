@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Link } from 'react-router-dom';
 
 class InfoCard extends Component {
     state = {};
@@ -119,10 +120,11 @@ class InfoCard extends Component {
                                     </span>
                                 </div>
                             </Col>
-                            <FontAwesomeIcon
-                                className="font-awesome r_arrow_right mr-1"
+                            <Link className="mr-1" to={`/route/${this.props.data.r_sid}`}><span>                  <FontAwesomeIcon
+                                className="font-awesome r_arrow_right "
                                 icon={faArrowRight}
-                            />
+                            /></span></Link>
+          
                         </div>
 
                         <Row className="my-2 mt-2 mt-md-2 r_list_700_dnone m-0 r_list_intro">
@@ -132,12 +134,8 @@ class InfoCard extends Component {
                         </Row>
                     </div>
 
-                    <Row className="d-flex justify-content-between r_list_700_dnone m-0">
-                        <a href="localhost:3000">
-                            <span className="r_color_red r_fw_bold r_list_700_dnone">
-                                查看路線
-                            </span>
-                        </a>
+                    <Row className="d-flex justify-content-between r_list_700_dnone m-0">  
+                            <Link className="r_list_700_dnone" to={`/route/${this.props.data.r_sid}`}><span className="r_color_red r_fw_bold ">查看路線</span></Link>
                         <div className="r_fs_12">
                             {new Date(
                                 this.props.data.r_time_added

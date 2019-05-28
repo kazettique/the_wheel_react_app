@@ -84,7 +84,7 @@ function arraymove(arr, fromIndex, toIndex) {
 }
 
 function routeAddNewLocation(
-    state = { locationList: [], success: false },
+    state = { locationList: []},
     action
 ) {
     switch (action.type) {
@@ -139,7 +139,7 @@ function routeAddNewLocation(
             };
         case ADD_NEW_SUCCESS:
             return {
-                locationList: [],
+                locationList: [...state.locationList],
                 success: true,
             };
         case ADD_NEW_FAILURE:

@@ -26,13 +26,15 @@ import CourseBackItForm from "./containers/Course/containers/CourseBackItForm";
 import RouteDisplay from './containers/Route/containers/RrouteDisplay';
 import RouteDetail from './containers/Route/containers/RouteDetail';
 import RouteAddNew from './containers/Route/containers/RouteAddNew';
-
+// import FML from './containers/Route/client01'
 
 const routes = [
   // { path: '/', name: 'Home', Component: Main },
-    { path: "/route", name: "About", Component: RouteDisplay},
-    { path: "/route/:id", name: "About", Component: RouteDetail},
-    { path: "/route/newroute", name: "About", Component: RouteAddNew},
+  { path: "/route", name: "About", Component: RouteDisplay},
+  { path: "/route/addnew", name: "About", Component: RouteAddNew},
+  { path: "/route/:id", name: "About", Component: RouteDetail},
+  
+
   { path: "/group", name: "Contact", Component: Group },
   { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
   { path: "/course/:id", name: "Contact", Component: CourseMain },
@@ -84,7 +86,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Main} />
             {routes.map(({ path, Component }) => (
-              <Route key={path} path={path}>
+              <Route key={path} path={path} exact> 
                 {({ match }) => (
                   <Component {...this.props} show={match !== null} />
                 )}
