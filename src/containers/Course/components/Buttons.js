@@ -11,6 +11,7 @@ import { faFistRaised, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeartBroken } from '@fortawesome/free-solid-svg-icons/faHeartBroken'
 // Import stylesheet
 import './components.css'
+import '../../../index.css'
 import { Link } from 'react-router-dom'
 
 // 贊助按鈕
@@ -28,7 +29,6 @@ class BackItButton extends React.Component {
           variant="secondary"
           style={{
             background: 'black',
-            color: 'white',
             display: `${this.props.buttonDisplay}`,
           }}
         >
@@ -38,6 +38,9 @@ class BackItButton extends React.Component {
               state: {
                 sid: this.props.sid,
               },
+            }}
+            style={{
+              color: '#ffffff',
             }}
           >
             我要贊助
@@ -94,20 +97,27 @@ class SNSButtons extends React.Component {
   render() {
     return (
       <>
-        <div
-          className="d-flex"
-        >
-          <div className="m-2" style={{ display: `${this.props.buttonDisplay}` }}>
+        <div className="d-flex">
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
             <a href="http://www.google.com">
               <FontAwesomeIcon icon={faInstagram} />
             </a>
           </div>
-          <div className="m-2" style={{ display: `${this.props.buttonDisplay}` }}>
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
             <a href="https://tw.yahoo.com">
               <FontAwesomeIcon icon={faTwitter} />
             </a>
           </div>
-          <div className="m-2" style={{ display: `${this.props.buttonDisplay}` }}>
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
             <a href="https://www.facebook.com">
               <FontAwesomeIcon icon={faFacebookF} />
             </a>
