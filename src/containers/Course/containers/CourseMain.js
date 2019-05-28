@@ -6,7 +6,6 @@ import './course.scss'
 // React Router
 import { withRouter } from 'react-router-dom'
 // Import Components
-import CourseBackItForm from './CourseBackItForm'
 import MapDiv from '../components/MapDiv'
 import CourseNav from '../components/CourseNav'
 import CourseMainTitle from '../components/CourseMainTitle'
@@ -18,34 +17,16 @@ class CourseMain extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // m_id: '',
-      // c_sid: '1234',
-      // c_title: '特技單車入門課程',
-      // c_subtitle: '入門課程，歡迎新手加入，一起探索特技單車的世界吧！',
-      // c_intro: 'test',
-      // c_cover: coverImg,
-      //
-      // c_level: '入門',
-      // c_courseDate: '2019/06/06',
-      // c_courseLocation: '台北市',
-      // c_coachName: 'test',
-      // c_coach_avatar: 'test',
-      //
-      // c_coachNationality: '美國',
-      // c_backers: '5566',
-      // c_fundNow: 'test',
-      // c_fundGoal: 'test',
-      // c_createDate: 'test',
-      //
-      // c_startDate: 'test',
-      // c_endDate: '2019/06/06',
-      // c_status: '集資中',
-
-      // // todo
       // map_display: true,
       course: null,
       id: null,
+      // Show buttons or not
       buttonDisplay: 'block',
+      // States for login check
+      loginUser: '',
+      isLogined: '',
+      user_id: '',
+      myCollect: '',
     }
   }
 
@@ -96,7 +77,7 @@ class CourseMain extends React.Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(this.props)
+    // if this.state.course is TRUE
     if (!this.state.course) {
       let id = this.state.id
 
@@ -115,17 +96,35 @@ class CourseMain extends React.Component {
   componentDidMount() {
     // 8 spaces of strings - "/course/"
     let id = this.props.history.location.pathname.slice(8)
-    // console.log("id: " + id)
-    // console.log('mount')
-    this.setState({
-      id: id,
+    this.setState({ id: id })
+
+    // check if login status
+    fetch('http://localhost:5000/is_logined', {
+      method: 'GET', // or 'PUT'
+      credentials: 'include', // data can be `string` or {object}!
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
     })
+      .then(res => res.json())
+      .then(obj =>
+        this.setState({
+          loginUser: obj.loginUser,
+          isLogined: obj.isLogined,
+          user_id: obj.user_id,
+          myCollect: obj.session_collect,
+        })
+      )
+
+      .catch(error => console.error('Error:', error))
   }
 
   // Methods
 
   // Rendering
   render() {
+    let list0 = null
     let list1 = null
     let list2 = null
     let list3 = null
@@ -133,6 +132,7 @@ class CourseMain extends React.Component {
     // let list5 = null
     if (this.state.course) {
       // console.log(this.state.course)
+      list0 = <CourseNav />
       list1 = <CourseMainTitle course={this.state.course} />
       list2 = (
         <CourseBanner
@@ -144,10 +144,18 @@ class CourseMain extends React.Component {
       list4 = <MapDiv course={this.state.course} />
       // list5 = <CourseBackItForm course={this.state.course} />
     }
+
+    // check collect status`
+    console.log(this.state)
+    if (this.state.myCollect !== '') {
+      console.log(JSON.parse(this.state.myCollect))
+    }
+
     return (
       <>
         <Container fluid className="p-0">
           <CourseNav />
+          {list0}
           {list1}
           {list2}
           {list3}

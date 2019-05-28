@@ -43,6 +43,7 @@ class CourseList extends React.Component {
             fundGoal={item.c_fundGoal}
             endDate={item.c_endDate}
             intro={item.c_intro}
+            status={item.c_status}
             // level={item.c_level}
             // onClick={() => {
             //   this.CourseMain(item.c_sid)

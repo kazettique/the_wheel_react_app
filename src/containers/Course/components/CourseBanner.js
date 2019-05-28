@@ -28,7 +28,7 @@ class CourseBanner extends React.Component {
     let endDate = this.state.course.c_endDate
     let status = this.state.course.c_status
 
-    let percentage = (fundNow / fundGoal) * 100
+    let percentage = parseInt((fundNow / fundGoal) * 100)
 
     let now = new Date().getTime()
     let countDownDate = new Date(endDate).getTime()
