@@ -4,10 +4,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-// import InputGroup from 'react-bootstrap/InputGroup'
 import Container from 'react-bootstrap/Container'
 // Import Components
-// import CourseBanner from '../components/CourseBanner'
+import CourseBanner from '../components/CourseBanner'
+import CourseMainTitle from '../components/CourseMainTitle'
 // React Router
 import { withRouter } from 'react-router-dom'
 
@@ -15,36 +15,61 @@ class CourseBackItForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      // Form validation
       validated: false,
-      // data from DB
+      // Data from DB
       course: null,
-      display: 'none',
-      // id: null,
-      // backItForm
-      // m_sid: 0,
+      creditDisplay: 'none',
+      // Get member ID from localStorage
       m_sid: JSON.parse(localStorage.getItem('member'))[0].m_sid,
       c_sid: 0,
       payment_method: null,
+      // Insert value into DB 'funding'
       fund_price: 0,
       backer_name: null,
       comment: null,
+      // Update value into DB 'course'
+      c_backers: 0,
+      c_fundNow: 0,
+      // Show buttons or not
+      buttonDisplay: 'none',
     }
   }
 
-  // Get data from database
   componentDidUpdate(prevProps, prevState) {
-    // console.log(this.props)
     if (!this.state.course) {
       let c_sid = this.state.c_sid
-
       fetch(`http://localhost:5000/course/${c_sid}`)
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
+          console.log('line47:' + data[0])
+          this.setState({ c_fundNow: data[0].c_fundNow })
+          this.setState({ c_backers: data[0].c_backers })
         })
         .catch(err => {
           console.log(err)
         })
+    }
+    console.log(this.state.c_backers)
+    console.log(this.state.c_fundNow)
+    if (this.state.c_fundNow) {
+      let obj = {
+        c_sid: this.state.c_sid,
+        c_backers: this.state.c_backers,
+        c_fundNow: this.state.c_fundNow,
+      }
+      // 更新課程欄位資訊（c_sid: 課程ID ,c_backers: 贊助人數; c_fundNow: 目前集資金額）
+      fetch(`http://localhost:5000/course/dataUpdate`, {
+        body: JSON.stringify(obj),
+        method: 'POST',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 
@@ -52,15 +77,12 @@ class CourseBackItForm extends React.Component {
     // 15 spaces of strings - "/course/backIt/"
     let c_sid = this.props.history.location.pathname.slice(15)
     // console.log(id)
-    // console.log('mount')
     this.setState({
       c_sid: c_sid,
     })
   }
 
   handleSubmit = () => {
-    // let id = JSON.parse(localStorage.getItem('member'))[0].m_sid
-    // this.setState({ m_sid: id })
     let obj = {
       m_sid: this.state.m_sid,
       c_sid: this.state.c_sid,
@@ -73,13 +95,6 @@ class CourseBackItForm extends React.Component {
     if (!localStorage.getItem('member')) {
       alert('請登入會員')
     } else {
-      let id = JSON.parse(localStorage.getItem('member'))[0].m_sid
-      // console.log(id)
-      // this.setState({ m_sid: id })
-      // console.log(obj)
-      // console.log(typeof obj)
-      // console.log(obj["m_sid"])
-      // console.log(obj)
       fetch(`http://localhost:5000/course/backIt/${this.state.c_sid}`, {
         body: JSON.stringify(obj),
         method: 'POST',
@@ -88,57 +103,94 @@ class CourseBackItForm extends React.Component {
           'Content-Type': 'application/json',
         }),
       })
+        .then(
+          // Update fundNow data
+          this.setState({ c_backers: Number(this.state.c_backers) + 1 }),
+          this.setState({
+            c_fundNow:
+              Number(this.state.c_fundNow) + Number(this.state.fund_price),
+          })
+        )
+        // for test use
+        .then(
+          console.log(this.state.c_fundNow),
+          console.log(this.state.c_backers)
+        )
         .then(alert('下單成功'))
+        // redirect to CourseMain.js page
         .then(window.history.back())
     }
   }
 
-  handleChange = event => {
+  handlePayment = event => {
     if (event.target.value === '信用卡') {
-      this.setState({ display: 'block' })
+      this.setState({ creditDisplay: 'block' })
     } else {
-      this.setState({ display: 'none' })
+      this.setState({ creditDisplay: 'none' })
     }
-    // console.log(event.target.value)
+    // console.log(event.target.value )
+    this.setState({ payment_method: event.target.value }, () => {
+      // console.log(this.state.payment_method)
+    })
+    // console.log(this.state.payment_method)
   }
 
   handlePrice = event => {
-    // console.log(event.target.value)
     this.setState({ fund_price: event.target.value })
   }
 
   handleBacker = event => {
-    // console.log(event.target.value)
     this.setState({ backer_name: event.target.value })
   }
 
   handleComment = event => {
-    // console.log(event.target.value)
     this.setState({ comment: event.target.value })
   }
 
   render() {
-    const { validated } = this.state
+    // console.log('updated: ' + this.state.c_backers)
+    // console.log('updated c_fundNow: ' + this.state.c_fundNow)
+    this.state = { validated: false };
+    // Render <CourseMainTitle />
+    let list1 = null
+    // Render <CourseBanner />
+    let list2 = null
+    if (this.state.course) {
+      list1 = <CourseMainTitle course={this.state.course} />
+      list2 = (
+        <CourseBanner
+          course={this.state.course}
+          buttonDisplay={this.state.buttonDisplay}
+        />
+      )
+    }
     return (
       <>
         <div style={{ height: '10vh' }} />
-        {/*{list2}*/}
-        <Container className="mb-3 mt-3">
+        <Container fluid className="p-0">
+          {list1}
+          {list2}
+        </Container>
+        <Container className="mb-3 mt-3 pb-3 pt-3">
           <Row className="justify-content-center">
-            <Col md={8}>
-              <Form /*onSubmit={this.handleSubmit().bind(this)}*/>
+            <Col
+              md={8}
+              className="p-5 course-back-it-form"
+              style={{ border: '1px solid #ccc', borderRadius: '5px' }}
+            >
+              <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>付款方式</Form.Label>
-                  <Form.Control as="select" onChange={this.handleChange}>
+                  <Form.Control as="select" onChange={this.handlePayment}>
                     <option value="default">請選擇</option>
-                    <option value="信用卡" onChange={this.handleChange}>
+                    <option value="信用卡" onChange={this.handlePayment}>
                       信用卡
                     </option>
-                    <option value="便利商店繳費" onChange={this.handleChange}>
+                    <option value="便利商店繳費" onChange={this.handlePayment}>
                       便利商店繳費
                     </option>
                   </Form.Control>
-                  <div style={{ display: `${this.state.display}` }}>
+                  <div style={{ display: `${this.state.creditDisplay}` }}>
                     <Form.Group controlId="exampleForm.ControlInput1">
                       <Container>
                         <Form.Label>卡號</Form.Label>
@@ -151,11 +203,18 @@ class CourseBackItForm extends React.Component {
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>贊助金額</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="$1,000"
-                    onChange={this.handlePrice}
-                  />
+                  <Form.Control as="select" onChange={this.handlePrice} required>
+                    <option value="default">請選擇</option>
+                    <option value="1000" onChange={this.handlePrice}>
+                      1000
+                    </option>
+                    <option value="2000" onChange={this.handlePrice}>
+                      2000
+                    </option>
+                    <option value="3000" onChange={this.handlePrice}>
+                      3000
+                    </option>
+                  </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>姓名</Form.Label>
@@ -163,6 +222,7 @@ class CourseBackItForm extends React.Component {
                     type="text"
                     placeholder="王小明"
                     onChange={this.handleBacker}
+                    required
                   />
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -181,8 +241,7 @@ class CourseBackItForm extends React.Component {
                     feedback="請點選同意接受服務條款 及隱私權保護政策"
                   />
                 </Form.Group>
-                <Button onClick={this.handleSubmit}>送出</Button>
-                {/*<Button onClick={window.location.href = "/course/"}>送出</Button>*/}
+                <Button type="submit">送出</Button>
               </Form>
             </Col>
           </Row>

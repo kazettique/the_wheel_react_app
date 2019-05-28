@@ -40,13 +40,13 @@ class CourseListCard extends React.Component {
     const courseDate = this.props.courseDate
     const fundNow = this.props.fundNow
     const fundGoal = this.props.fundGoal
-    const startDate = this.props.startDate
+    const endDate = this.props.endDate
     const intro = this.props.intro
     const level = this.props.level
     const percentage = (fundNow / fundGoal) * 100
 
     let now = new Date().getTime()
-    let countDownDate = new Date(courseDate).getTime()
+    let countDownDate = new Date(endDate).getTime()
     let distance = countDownDate - now
     let days = Math.floor(distance / (1000 * 60 * 60 * 24))
     // if (distance < 0) {
@@ -84,14 +84,6 @@ class CourseListCard extends React.Component {
                     </Badge>
                   </h6>
                   <p className="truncate">{intro}</p>
-                  {/*<Link*/}
-                  {/*  to={{*/}
-                  {/*    pathname: `/course/${sid}`,*/}
-                  {/*    state: {*/}
-                  {/*      sid: sid,*/}
-                  {/*    },*/}
-                  {/*  }}*/}
-                  {/*>*/}
                   <Link to={`/course/${sid}`}>
                     <Button
                       variant="link"

@@ -11,31 +11,48 @@ import { faFistRaised, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeartBroken } from '@fortawesome/free-solid-svg-icons/faHeartBroken'
 // Import stylesheet
 import './components.css'
+import '../../../index.css'
 import { Link } from 'react-router-dom'
 
 // 贊助按鈕
-function BackItButton(props) {
-  // console.log(props.sid)
-  return (
-    <>
-      <Button className="buttons" variant="secondary" style={{background: "black", color:"white"}}>
-        <Link
-          to={{
-            pathname: `/course/backIt/${props.sid}`,
-            state: {
-              sid: props.sid,
-            },
+class BackItButton extends React.Component {
+  constructor() {
+    super()
+    this.state = { isLiked: false }
+  }
+  render() {
+    // console.log(props.sid)
+    return (
+      <>
+        <Button
+          className="buttons"
+          variant="secondary"
+          style={{
+            background: 'black',
+            display: `${this.props.buttonDisplay}`,
           }}
         >
-          我要贊助
-          <FontAwesomeIcon
-            style={{ marginLeft: '0.5rem' }}
-            icon={faFistRaised}
-          />
-        </Link>
-      </Button>
-    </>
-  )
+          <Link
+            to={{
+              pathname: `/course/backIt/${this.props.sid}`,
+              state: {
+                sid: this.props.sid,
+              },
+            }}
+            style={{
+              color: '#ffffff',
+            }}
+          >
+            我要贊助
+            <FontAwesomeIcon
+              style={{ marginLeft: '0.5rem' }}
+              icon={faFistRaised}
+            />
+          </Link>
+        </Button>
+      </>
+    )
+  }
 }
 
 // 收藏按鈕
@@ -58,6 +75,7 @@ class LikeItButton extends React.Component {
           className="buttons"
           variant={this.state.isLiked ? 'light' : 'danger'}
           onClick={this.handleClickOnLikeButton.bind(this)}
+          style={{ display: `${this.props.buttonDisplay}` }}
         >
           {this.state.isLiked ? '取消收藏' : '收藏課程'}
           <FontAwesomeIcon
@@ -71,28 +89,43 @@ class LikeItButton extends React.Component {
 }
 
 // 社群分享按鈕
-function SNSButtons() {
-  return (
-    <>
-      <div className="d-flex">
-        <div className="m-2">
-          <a href="http://www.google.com">
-            <FontAwesomeIcon icon={faInstagram} />
-          </a>
+class SNSButtons extends React.Component {
+  constructor() {
+    super()
+    this.state = { isLiked: false }
+  }
+  render() {
+    return (
+      <>
+        <div className="d-flex">
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
+            <a href="http://www.google.com">
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+          </div>
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
+            <a href="https://tw.yahoo.com">
+              <FontAwesomeIcon icon={faTwitter} />
+            </a>
+          </div>
+          <div
+            className="m-2"
+            style={{ display: `${this.props.buttonDisplay}` }}
+          >
+            <a href="https://www.facebook.com">
+              <FontAwesomeIcon icon={faFacebookF} />
+            </a>
+          </div>
         </div>
-        <div className="m-2">
-          <a href="https://tw.yahoo.com">
-            <FontAwesomeIcon icon={faTwitter} />
-          </a>
-        </div>
-        <div className="m-2">
-          <a href="https://www.facebook.com">
-            <FontAwesomeIcon icon={faFacebookF} />
-          </a>
-        </div>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 // 返回按鈕
