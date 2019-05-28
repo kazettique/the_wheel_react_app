@@ -7,7 +7,9 @@ import Col from 'react-bootstrap/Col'
 // import InputGroup from 'react-bootstrap/InputGroup'
 import Container from 'react-bootstrap/Container'
 // Import Components
-// import CourseBanner from '../components/CourseBanner'
+import CourseBanner from '../components/CourseBanner'
+import CourseMainTitle from '../components/CourseMainTitle'
+import CourseListCard from '../components/CourseListCard'
 // React Router
 import { withRouter } from 'react-router-dom'
 
@@ -18,16 +20,14 @@ class CourseBackItForm extends React.Component {
       validated: false,
       // data from DB
       course: null,
-      display: 'none',
-      // id: null,
-      // backItForm
-      // m_sid: 0,
+      creditDisplay: 'none',
       m_sid: JSON.parse(localStorage.getItem('member'))[0].m_sid,
       c_sid: 0,
       payment_method: null,
       fund_price: 0,
       backer_name: null,
       comment: null,
+      buttonDisplay: 'none',
     }
   }
 
@@ -95,9 +95,9 @@ class CourseBackItForm extends React.Component {
 
   handleChange = event => {
     if (event.target.value === '信用卡') {
-      this.setState({ display: 'block' })
+      this.setState({ creditDisplay: 'block' })
     } else {
-      this.setState({ display: 'none' })
+      this.setState({ creditDisplay: 'none' })
     }
     // console.log(event.target.value)
   }
@@ -118,15 +118,30 @@ class CourseBackItForm extends React.Component {
   }
 
   render() {
+    let list1 = null
+    let list2 = null
+    let list3 = null
+    if (this.state.course) {
+      list1 = <CourseMainTitle course={this.state.course} />
+      list2 = (
+        <CourseBanner
+          course={this.state.course}
+          buttonDisplay={this.state.buttonDisplay}
+        />
+      )
+    }
     const { validated } = this.state
     return (
       <>
         <div style={{ height: '10vh' }} />
-        {/*{list2}*/}
-        <Container className="mb-3 mt-3">
+        <Container fluid className="p-0">
+          {list1}
+          {list2}
+        </Container>
+        <Container className="mb-3 mt-3 pb-3 pt-3">
           <Row className="justify-content-center">
-            <Col md={8}>
-              <Form /*onSubmit={this.handleSubmit().bind(this)}*/>
+            <Col md={8} className="p-5" style={{border: '1px solid #ccc', borderRadius: '5px'}}>
+              <Form>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>付款方式</Form.Label>
                   <Form.Control as="select" onChange={this.handleChange}>
@@ -138,7 +153,7 @@ class CourseBackItForm extends React.Component {
                       便利商店繳費
                     </option>
                   </Form.Control>
-                  <div style={{ display: `${this.state.display}` }}>
+                  <div style={{ display: `${this.state.creditDisplay}` }}>
                     <Form.Group controlId="exampleForm.ControlInput1">
                       <Container>
                         <Form.Label>卡號</Form.Label>
@@ -182,7 +197,6 @@ class CourseBackItForm extends React.Component {
                   />
                 </Form.Group>
                 <Button onClick={this.handleSubmit}>送出</Button>
-                {/*<Button onClick={window.location.href = "/course/"}>送出</Button>*/}
               </Form>
             </Col>
           </Row>

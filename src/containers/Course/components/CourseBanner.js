@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card'
 import coverImg from './../images/bicicleta-antigua-vintage-cadena-hojas-Fondos-de-Pantalla-HD-professor-falken.com_.jpg'
 // Button Components
 import { BackItButton, LikeItButton, SNSButtons } from './../components/Buttons'
+import Container from 'react-bootstrap/Container'
 
 class CourseBanner extends React.Component {
   constructor(props) {
@@ -25,10 +26,14 @@ class CourseBanner extends React.Component {
     let fundNow = this.state.course.c_fundNow
     let fundGoal = this.state.course.c_fundGoal
     let endDate = this.state.course.c_endDate
-
-    let status = this.state.status
+    let status = this.state.course.c_status
 
     let percentage = (fundNow / fundGoal) * 100
+
+    let now = new Date().getTime()
+    let countDownDate = new Date(endDate).getTime()
+    let distance = countDownDate - now
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24))
 
     return (
       <>
@@ -41,7 +46,6 @@ class CourseBanner extends React.Component {
             <Col sm={8}>
               <Card.Body>
                 <Row>
-                  {/*<Col>{this.state.c_status}</Col>*/}
                   <Col>{status}</Col>
                   <Col>目前贊助人數 {backers}人</Col>
                 </Row>
@@ -55,7 +59,9 @@ class CourseBanner extends React.Component {
                     />
                   </Col>
                   <Col sm={4}>
-                    <p>剩餘35天</p>
+                    <p>
+                      剩餘時間 <b>{days}</b> 天
+                    </p>
                   </Col>
                 </Row>
                 <p>
@@ -63,14 +69,18 @@ class CourseBanner extends React.Component {
                 </p>
                 <Row>
                   <Col sm={6}>
-                    <SNSButtons />
+                    <SNSButtons buttonDisplay={this.props.buttonDisplay} />
                   </Col>
                   <Col sm={6} className="d-flex">
                     <div className="m-2">
-                      <BackItButton sid={this.state.course.c_sid} />
+                      {/*<p>{this.props.buttonDisplay}</p>*/}
+                      <BackItButton
+                        sid={this.state.course.c_sid}
+                        buttonDisplay={this.props.buttonDisplay}
+                      />
                     </div>
                     <div className="m-2">
-                      <LikeItButton />
+                      <LikeItButton buttonDisplay={this.props.buttonDisplay} />
                     </div>
                   </Col>
                 </Row>

@@ -45,6 +45,7 @@ class CourseMain extends React.Component {
       // map_display: true,
       course: null,
       id: null,
+      buttonDisplay: 'block',
     }
   }
 
@@ -129,14 +130,19 @@ class CourseMain extends React.Component {
     let list2 = null
     let list3 = null
     let list4 = null
-    let list5 = null
+    // let list5 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list1 = <CourseMainTitle course={this.state.course} />
-      list2 = <CourseBanner course={this.state.course} />
+      list2 = (
+        <CourseBanner
+          course={this.state.course}
+          buttonDisplay={this.state.buttonDisplay}
+        />
+      )
       list3 = <CourseTab course={this.state.course} />
       list4 = <MapDiv course={this.state.course} />
-      list5 = <CourseBackItForm course={this.state.course} />
+      // list5 = <CourseBackItForm course={this.state.course} />
     }
     return (
       <>

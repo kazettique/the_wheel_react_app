@@ -1,6 +1,8 @@
 import React from 'react'
+// Import Components
 import AdvanceSearch from '../components/AdvanceSearch'
 import CourseListCard from '../components/CourseListCard'
+// Import React Bootstrap
 import { Container } from 'react-bootstrap'
 
 class CourseList extends React.Component {
@@ -39,7 +41,7 @@ class CourseList extends React.Component {
             courseDate={item.c_courseDate}
             fundNow={item.c_fundNow}
             fundGoal={item.c_fundGoal}
-            startDate={item.c_startDate}
+            endDate={item.c_endDate}
             intro={item.c_intro}
             // level={item.c_level}
             // onClick={() => {
