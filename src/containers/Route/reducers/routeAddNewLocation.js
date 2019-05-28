@@ -53,8 +53,11 @@ function routeAddNewLocation(
             console.log('reducer up');
             let e = [...state.locationList];
             let f = e.findIndex(i => i.num === action.num);
+            if(f!==0){
+                arraymove(e, f, f - 1);
+            }
             // arrayMove(e, f, f - 1);
-            arraymove(e, f, f - 1);
+            
 
             return {
                 ...state,
@@ -64,7 +67,10 @@ function routeAddNewLocation(
             console.log('reducer down');
             let g = [...state.locationList];
             let h = g.findIndex(i => i.num === action.num);
-            arraymove(g, h, h + 1);
+            if(h!==g.length){
+                arraymove(g, h, h + 1);
+            }
+            
 
             return {
                 ...state,

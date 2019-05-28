@@ -146,8 +146,8 @@ class AddNewLocations extends Component {
     }
 }
 
-const mapStateToProps = store => ({
-    l: store.routeAddNewLocation,
+const mapStateToProps = state => ({
+    l: state.routeAddNewLocation,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -2,9 +2,54 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './DetailPageComment_style.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { submitCommentAsync } from '../../actions';
 
 class DetailPageComment extends Component {
-    state = {};
+    constructor() {
+        super();
+        this.state = {
+            isLogined:false,
+            user_id:'',
+            r_c_time:'',
+            r_time_added:'',
+        };
+      }
+
+
+   handleSubmitComment= async ()=>{
+        try {
+            const response = await fetch('http://localhost:5000/is_logined', {
+              method: 'GET',
+              credentials: 'include',
+              headers: new Headers({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              }),
+            });
+      
+            // if (!response.ok) throw new Error(response.statusText);
+      
+            const jsonObject = await response.json();
+            if(!jsonObject.isLogined){
+                return alert('Please before Commenting')
+            }
+    
+            await this.setState({
+              isLogined: jsonObject.isLogined,
+              user_id: jsonObject.user_id,
+              r_c_time: new Date().toGMTString()
+            });
+
+            await this.props.submitCommentAsync(this.state.user_id);
+          } catch (e) {
+            console.log(e);
+          }
+        }
+      
+    
+    
     render() {
         // if (!this.props.data.m_name) {
         //     console.log('none');
@@ -31,6 +76,7 @@ class DetailPageComment extends Component {
         //     );
         // } else {
         //     console.log('yes');
+        
         return (
             <Row className="d-flex justify-content-center m-0">
                 <Col xs={11} xl={9} className="mb-5 px-0">
@@ -78,12 +124,15 @@ class DetailPageComment extends Component {
                         })}
                         <Col className="d-flex justify-content-end">
                             <Col sm={9} className="p-3 w-100 my-sm-4 ">
-                                <form>
-                                    <input
-                                        type="text"
-                                        className="r_leave_comment w-100"
-                                    />
-                                    <button className="r_comment_btn py-1 px-4 my-2 r_fw_bold">
+                                <form name="form_comment">
+                                    <input name="m_sid" id="comment_m_sid" value={this.state.user_id}
+                                     readOnly className="d-none"/>
+                                    <input name="r_c_time" className="d-none" id="r_c_time" value={this.state.r_c_time} readOnly/>
+                                    <input name="r_sid" className="d-none" value={this.props.rsid} readOnly/>
+                                    <div className="w-100">
+                                        <textarea name="r_c" className="r_leave_comment w-100 p-3"></textarea>
+                                    </div>
+                                    <button className="r_comment_btn py-1 px-4 my-2 r_fw_bold" type="button" onClick={this.handleSubmitComment}>
                                         留言
                                     </button>
                                 </form>
@@ -97,4 +146,11 @@ class DetailPageComment extends Component {
 }
 // }
 
-export default DetailPageComment;
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ submitCommentAsync }, dispatch);
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(DetailPageComment);

@@ -106,10 +106,10 @@ class AddNewMainForm extends Component {
                                 />
                             </div>
                         </Row>
+
                         <input
-                            type="text"
-                            name="r_time_added"
-                            id="r_time_added"
+                            name="m_sid"
+                            id="m_sid"
                             className="d-none"
                         />
                         <input
@@ -117,7 +117,7 @@ class AddNewMainForm extends Component {
                             min="0"
                             name="r_l_num"
                             id="r_l_num"
-                            value={this.props.l.locationList.length}
+                            value={this.props.l.locationList[0]?this.props.l.locationList.length:0}
                             readOnly
                             className="d-none"
                         />
@@ -128,9 +128,9 @@ class AddNewMainForm extends Component {
     }
 }
 
-const mapStateToProps = store => ({
-    r: store.routeCountryChange,
-    l: store.routeAddNewLocation,
+const mapStateToProps = state => ({
+    r: state.routeCountryChange,
+    l: state.routeAddNewLocation,
 });
 
 const mapDispatchToProps = dispatch =>
