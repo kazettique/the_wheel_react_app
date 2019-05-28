@@ -7,10 +7,12 @@ import RouteListMap from '../components/RouteListMap/RouteListMap';
 import InfoCardList from '../components/InfoCardList/InfoCardList';
 
 class RouteDisplay extends Component {
-    state = {};
+    state = {
+    };
     render() {
         return (
             <Container fluid className="p-0">
+                <div style={{height:'60px'}}></div>
                 <div className="d-flex justify-content-center">
                     <Col sm={11} xl={10}>
                         <Title />

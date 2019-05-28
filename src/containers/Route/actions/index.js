@@ -12,14 +12,18 @@ export const HANDLE_ADD_NEW_LOCATION_UP = 'HANDLE_ADD_NEW_LOCATION_MOVE_UP';
 export const HANDLE_ADD_NEW_LOCATION_DOWN = 'HANDLE_ADD_NEW_LOCATION_DOWN';
 export const ADD_NEW_SUCCESS = 'ADD_NEW_SUCCESS';
 export const ADD_NEW_FAILURE = 'ADD_NEW_FAILURE';
+export const SUMBMIT_COMMENT_SUCCESS='SUMBMIT_COMMENT_SUCCESS';
+export const SUMBMIT_COMMENT_FAILURE='SUMBMIT_COMMENT_FAILURE';
 
 const ROOT_URL = 'http://localhost:5000/route';
 
 // export const fetchPosts = payload => ({ type: FETCH_POSTS, payload: payload });
 export const fetchPostsAsync = page => {
     return dispatch => {
-        fetch(ROOT_URL + '?orderby=ASC&page=' + page, {
+        fetch(ROOT_URL + '/list?orderby=ASC&page=' + page, {
+            //fetch(ROOT_URL, {   
             method: 'get',
+            // credentials: 'include',
         })
             .then(res => res.json())
             .then(obj => {
@@ -136,8 +140,8 @@ export const handleAddNewLocationDown = num => {
 export const handleAddNewSubmit = () => {
     return dispatch => {
         let form1 = new FormData(document.form1);
-
-        fetch(ROOT_URL, {
+        form1.append('r_time_added', new Date().toGMTString());
+        fetch(ROOT_URL+'/list', {
             method: 'post',
             body: form1,
         })
@@ -171,6 +175,36 @@ export const addNewSuccess = () => {
 export const addNewFailure = error => {
     return {
         type: ADD_NEW_FAILURE,
+        payload: error,
+    };
+};
+
+//----------------------------------------------------------------comment ----
+export const submitCommentAsync =()=>{
+    return dispatch => {
+        let form_comment = new FormData(document.form_comment);
+
+        fetch(ROOT_URL+'/comment', {
+            method: 'post',
+            body: form_comment,
+        })
+        .then(res => res.json())
+        .then(r => dispatch(submitCommentSuccess()))
+        .catch(e => {
+                dispatch(submitCommentFailure('' + e));
+        });
+    };
+}
+
+export const submitCommentSuccess = () => {
+    return {
+        type: SUMBMIT_COMMENT_SUCCESS,
+    };
+};
+
+export const submitCommentFailure = error => {
+    return {
+        type: SUMBMIT_COMMENT_FAILURE,
         payload: error,
     };
 };

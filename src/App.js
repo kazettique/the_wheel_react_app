@@ -23,29 +23,31 @@ import CourseMain from './containers/Course/containers/CourseMain'
 import CourseBackItForm from './containers/Course/containers/CourseBackItForm'
 // import CourseList from "./containers/Course/containers/CourseList";
 //Route--------------------------------------------
-import RouteDisplay from './containers/Route/containers/RrouteDisplay'
-import RouteDetail from './containers/Route/containers/RouteDetail'
-import RouteAddNew from './containers/Route/containers/RouteAddNew'
+import RouteDisplay from './containers/Route/containers/RrouteDisplay';
+import RouteDetail from './containers/Route/containers/RouteDetail';
+import RouteAddNew from './containers/Route/containers/RouteAddNew';
+// import FML from './containers/Route/client01'
 
 const routes = [
   // { path: '/', name: 'Home', Component: Main },
-  { path: '/route', name: 'About', Component: RouteDisplay },
-  { path: '/route/:id', name: 'About', Component: RouteDetail },
-  { path: '/route/newroute', name: 'About', Component: RouteAddNew },
-  { path: '/group', name: 'Contact', Component: Group },
-  { path: '/course/backIt/:id/', name: 'Contact', Component: CourseBackItForm },
-  { path: '/course/:id', name: 'Contact', Component: CourseMain },
-  { path: '/course', name: 'Contact', Component: Course },
-  { path: '/news', name: 'Contact', Component: News },
-  { path: '/products', name: 'Contact', Component: Products },
-  { path: '/login', name: 'Contact', Component: Login },
-  { path: '/member/edit/:id', name: 'Contact', Component: edit },
-  { path: '/member/password/:id', name: 'Contact', Component: password },
-  { path: '/member/road/:id', name: 'Contact', Component: road },
-  { path: '/member/product/:id', name: 'Contact', Component: product },
-  { path: '/member/course/:id', name: 'Contact', Component: course },
-  { path: '/member/news/:id', name: 'Contact', Component: news },
-]
+  { path: "/route", name: "About", Component: RouteDisplay},
+  { path: "/route/addnew", name: "About", Component: RouteAddNew},
+  { path: "/route/:id", name: "About", Component: RouteDetail},
+  
+
+  { path: "/group", name: "Contact", Component: Group },
+  { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
+  { path: "/course/:id", name: "Contact", Component: CourseMain },
+  { path: "/course", name: "Contact", Component: Course },
+  { path: "/news", name: "Contact", Component: News },
+  { path: "/products", name: "Contact", Component: Products },
+  {path: "/login", name: "Contact", Component: Login},
+  {path: "/member/edit/:id", name: "Contact", Component: edit},
+  {path: "/member/password/:id", name: "Contact", Component: password},
+  {path: "/member/road/:id", name: "Contact", Component: road},
+  {path: "/member/product/:id", name: "Contact", Component: product},
+  {path: "/member/course/:id", name: "Contact", Component:course},
+  {path: "/member/news/:id", name: "Contact", Component:news}
 
 {
   /* 
@@ -79,7 +81,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Main} />
             {routes.map(({ path, Component }) => (
-              <Route key={path} path={path}>
+              <Route key={path} path={path} exact> 
                 {({ match }) => (
                   <Component {...this.props} show={match !== null} />
                 )}

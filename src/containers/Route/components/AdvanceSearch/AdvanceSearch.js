@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import {Container, Row, Col, Form } from 'react-bootstrap';
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
+// import Form from 'react-bootstrap/Form';
 import './AdvanceSearch_style.css';
+import { Link } from 'react-router-dom';
 
 class AdvanceSearch extends Component {
     state = {};
@@ -9,9 +14,10 @@ class AdvanceSearch extends Component {
         return (
             <Container fluid>
                 <Row className="justify-content-end r_as_add_new_btn_con">
-                    <button className="r_as_add_new_btn r_fw_medium mb-4 m-md-0">
+
+                    <Link to={`/route/addnew`}><button className="r_as_add_new_btn r_fw_medium mb-4 m-md-0">
                         新增路線
-                    </button>
+                    </button></Link>
                 </Row>
                 <Row>
                     <button className="r_capsule r_as_tag r_fw_bold ml-0">

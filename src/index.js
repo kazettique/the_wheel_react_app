@@ -18,7 +18,7 @@ import axios from "axios";
 import routeReducer from "./containers/Route/reducers/routeReducer"
 import routeSingleReducer from "./containers/Route/reducers/routeSingleReducer"
 import routeCountryChange from "./containers/Route/reducers/routeCountryChange"
-import routeAddNewLocation from "./containers/Route/reducers"
+import routeAddNewLocation from "./containers/Route/reducers/routeAddNewLocation"
 
 
 const rootReducer = combineReducers({ loading, news, fullArticle, cart, loginStatus, products, modal, routeReducer, routeSingleReducer, routeCountryChange, routeAddNewLocation  });
@@ -38,8 +38,8 @@ const store = createStore(
     rootReducer,
     compose(
         applyMiddleware(thunkMiddleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
+        // window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        // window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
 

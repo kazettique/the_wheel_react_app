@@ -9,17 +9,19 @@ import DetailPageComment from '../components/DetailPageComment/DetailPageComment
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleAsync } from '../actions';
-
+import {withRouter} from 'react-router-dom';
 class RouteDetail extends Component {
+
     state = {};
 
     componentDidMount() {
-        this.props.fetchSingleAsync(1);
+        this.props.fetchSingleAsync(this.props.match.params.id);
     }
     render() {
         if (this.props.r.data.main) {
             return (
                 <Container fluid className="p-0">
+                    <div style={{height:'56px'}}></div>
                     <Row className="d-flex justify-content-center my-3 my-xl-5 mx-0">
                         <RoutePageHead
                             data={this.props.r.data.main[0]}
@@ -54,6 +56,7 @@ class RouteDetail extends Component {
                     <DetailPageComment
                         className="mt-0 mb-5"
                         data={this.props.r.data.comment}
+                        rsid={this.props.r.data.main[0].r_sid}
                     />
                 </Container>
             );
@@ -68,7 +71,7 @@ const mapStateToProps = store => ({ r: store.routeSingleReducer });
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ fetchSingleAsync }, dispatch);
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(RouteDetail);
+)(RouteDetail));

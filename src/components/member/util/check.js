@@ -13,7 +13,7 @@ async function checkUserState() {
 
     const jsonObject = await response.json();
 
-    console.log('1:', jsonObject);
+    console.log('session:', jsonObject);
 
     return jsonObject;
   } catch (e) {
