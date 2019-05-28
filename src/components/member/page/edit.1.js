@@ -192,7 +192,7 @@ class edit extends React.Component {
           memberData: [jsonObject.body],
        
         },
-        async() => {
+        () => {
           // alert('資料已成功新增!');
           // this.handleModalClose();
 
@@ -215,22 +215,23 @@ class edit extends React.Component {
           }
 
           if (jsonObject.success) {
-            const sessionObj=await checkUserState();
-            console.log("點擊後改變session",sessionObj)
-          //  fetch('http://localhost:5000/is_logined', {
-          //   credentials: 'include',
-          //   headers: new Headers({
-          //     Accept: 'application/json',
-          //   'Content-Type': 'application/json',
-          //   }),
-          // }).then(res => res.json())
-          // .then(obj => {
-          //   console.log(obj);})
-          // .catch(error => console.error('Error:', error))
-          // .then(response => console.log('Success:', response));
+           
+
+
+           fetch('http://localhost:5000/is_logined', {
+            credentials: 'include',
+            headers: new Headers({
+              Accept: 'application/json',
+            'Content-Type': 'application/json',
+            }),
+          }).then(res => res.json())
+          .then(obj => {
+            console.log(obj);})
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
             
             alert('修改成功!');
-            // window.location.reload();
+            window.location.reload();
             this.setState({ installdb: 'block' });
             this.setState({ installtext: jsonObject.message.text });
             this.setState({ installstate: `alert alert-success` });

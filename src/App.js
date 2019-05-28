@@ -52,6 +52,22 @@ const routes = [
     { path: '/member/course/:id', name: 'Contact', Component: course },
     { path: '/member/news/:id', name: 'Contact', Component: news },
 ];
+  { path: "/group", name: "Contact", Component: Group },
+  { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
+  { path: "/course/:id", name: "Contact", Component: CourseMain },
+  { path: "/course", name: "Contact", Component: Course },
+  { path: "/news", name: "Contact", Component: News },
+  { path: "/products", name: "Contact", Component: Products },
+  {path: "/login", name: "Contact", Component: Login},
+  {path: "/member/edit/:id", name: "Contact", Component: edit},
+  {path: "/member/password/:id", name: "Contact", Component: password},
+  {path: "/member/road/:id", name: "Contact", Component: road},
+  {path: "/member/product/:id", name: "Contact", Component: product},
+  {path: "/member/course/:id", name: "Contact", Component:course},
+  {path: "/member/news/:id", name: "Contact", Component:news}
+
+{
+  /* 
 
 {
     /* 
@@ -109,4 +125,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

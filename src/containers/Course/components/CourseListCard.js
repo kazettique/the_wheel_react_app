@@ -43,7 +43,8 @@ class CourseListCard extends React.Component {
     const endDate = this.props.endDate
     const intro = this.props.intro
     const level = this.props.level
-    const percentage = (fundNow / fundGoal) * 100
+    const status = this.props.status
+    let percentage = parseInt((fundNow / fundGoal) * 100)
 
     let now = new Date().getTime()
     let countDownDate = new Date(endDate).getTime()
@@ -116,10 +117,16 @@ class CourseListCard extends React.Component {
                   style={{ background: '#ffffff' }}
                   className="py-lg-3"
                 >
-                  <p>
-                    {/*剩餘<b>35天</b>*/}
-                    剩餘時間 <b>{days}</b> 天
-                  </p>
+                  <Row>
+                    <Col md={6}>
+                      <p>{status}</p>
+                    </Col>
+                    <Col md={6}>
+                      <p>
+                        剩餘時間 <b>{days}</b> 天
+                      </p>
+                    </Col>
+                  </Row>
                   <ProgressBar
                     variant="danger"
                     now={percentage}

@@ -31,6 +31,7 @@ class CourseBackItForm extends React.Component {
       // Update value into DB 'course'
       c_backers: 0,
       c_fundNow: 0,
+      c_status: 0,
       // Show buttons or not
       buttonDisplay: 'none',
     }
@@ -44,21 +45,25 @@ class CourseBackItForm extends React.Component {
         .then(data => {
           this.setState({ course: data })
           console.log('line47:' + data[0])
+          // set data into states
           this.setState({ c_fundNow: data[0].c_fundNow })
           this.setState({ c_backers: data[0].c_backers })
+          this.setState({ c_status: data[0].c_status })
         })
         .catch(err => {
           console.log(err)
         })
     }
-    console.log(this.state.c_backers)
-    console.log(this.state.c_fundNow)
+    // console.log(this.state.c_backers)
+    // console.log(this.state.c_fundNow)
     if (this.state.c_fundNow) {
       let obj = {
         c_sid: this.state.c_sid,
         c_backers: this.state.c_backers,
         c_fundNow: this.state.c_fundNow,
+        c_status: this.state.c_status,
       }
+      console.log(this.state.c_status)
       // 更新課程欄位資訊（c_sid: 課程ID ,c_backers: 贊助人數; c_fundNow: 目前集資金額）
       fetch(`http://localhost:5000/course/dataUpdate`, {
         body: JSON.stringify(obj),
@@ -84,6 +89,7 @@ class CourseBackItForm extends React.Component {
 
   handleSubmit = () => {
     let obj = {
+      // set form input data to state
       m_sid: this.state.m_sid,
       c_sid: this.state.c_sid,
       payment_method: this.state.payment_method,
@@ -150,7 +156,7 @@ class CourseBackItForm extends React.Component {
   render() {
     // console.log('updated: ' + this.state.c_backers)
     // console.log('updated c_fundNow: ' + this.state.c_fundNow)
-    this.state = { validated: false };
+    this.state = { validated: false }
     // Render <CourseMainTitle />
     let list1 = null
     // Render <CourseBanner />
@@ -203,7 +209,11 @@ class CourseBackItForm extends React.Component {
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>贊助金額</Form.Label>
-                  <Form.Control as="select" onChange={this.handlePrice} required>
+                  <Form.Control
+                    as="select"
+                    onChange={this.handlePrice}
+                    required
+                  >
                     <option value="default">請選擇</option>
                     <option value="1000" onChange={this.handlePrice}>
                       1000
