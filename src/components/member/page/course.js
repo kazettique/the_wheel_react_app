@@ -20,8 +20,8 @@ class course extends React.Component {
   constructor(props) {
     super(props);
     this.state = {  
-      NavTitle1: '已購買課程',
-      NavTitle2: '收藏課程',
+      NavTitle1: '收藏課程',
+      NavTitle2: '已購買課程',
       id: '', 
       loginUser: '', 
       isLogined: '', 
@@ -32,6 +32,7 @@ class course extends React.Component {
   }
 
   async componentDidMount() {
+    //載入session
     const jsonObject = await checkUserState();
     console.log('jsonObject', jsonObject);
     // p.then(jsonObject => {
@@ -40,9 +41,18 @@ class course extends React.Component {
       loginUser: jsonObject.loginUser,
       isLogined: jsonObject.isLogined,
       user_id: jsonObject.user_id,
-      myCollect: JSON.parse(jsonObject.session_collect),
+      // myCollect: JSON.parse(jsonObject.session_collect),
     });
 
+    
+    this.memberDataFetch();
+   
+    
+  }
+
+
+  //載入會員資料
+  memberDataFetch = async () =>{
     try {
       let id = this.props.match.params.id;
       let user_id = this.state.user_id;
@@ -70,42 +80,43 @@ class course extends React.Component {
         m_photo: jsonObject[0].m_photo,
         m_name: jsonObject[0].m_name,
         old_password: jsonObject[0].m_password,
-        
+        myCollect:JSON.parse(jsonObject[0].c_course),
       });
 
 
-      var sendObj = {
-        arr: this.state.myCollect,
-      };
-
-     
-      const rescourse = await fetch(
-        `http://localhost:5000/myCollect`,
-        { 
-          credentials: 'include',
-          method: 'POST',
-          body: JSON.stringify(sendObj),
-          headers: new Headers({
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }),
-        }
-      );
-
-      const courseObj = await rescourse.json();
-      await this.setState({ col_newsData:  courseObj });
-   
-      console.log("newsData",this.state.col_newsData);
-
+      //拿到收藏的課程資訊
+        this.getCourse()
 
 
     } catch (e) {
       console.log(e);
     } finally {
     }
+  }
 
-    //收藏的課程
-    
+  //拿到SQL收藏的課程
+  getCourse=async()=>{
+    var sendObj = {
+      arr: this.state.myCollect,
+    }; 
+    const rescourse = await fetch(
+      `http://localhost:5000/myCollect`,
+      { 
+        credentials: 'include',
+        method: 'POST',
+        body: JSON.stringify(sendObj),
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }
+    );
+
+    const courseObj = await rescourse.json();
+    await this.setState({ col_newsData:  courseObj });
+ 
+    console.log(courseObj);
+
   }
 
   handleFormInputChange = event => {
@@ -121,6 +132,13 @@ class course extends React.Component {
     // console.log('newMyemberData');
     // console.log(this.newMyemberData);
   };
+
+  // componentDidUpdate (prevProps, prevState){
+  //   console.log("更新後",this.state.myCollect)
+  //   if(this.state.myCollect !== prevState.myCollect){
+  //     this.getCourse();
+  //   }
+  // }
 
   handleTitleClick = e => {
     this.setState({ nowPage: true });
@@ -139,17 +157,51 @@ class course extends React.Component {
     // e.target.classList.add('show');
   };
 
-
-  handleCancel=id=>()=>{
+  //刪除收藏還要更新SQL
+  handleCancel=id=>{
     console.log(this.state.myCollect);
     console.log(id);
     const newData=this.state.myCollect.filter((item,index)=>item!==id);
     console.log(newData)
-    // console.log(this.state.col_newsData)
-    // const newData=this.state.myCollect.filter(item=>item.id!==)
+    this.setState({myCollect:newData},)
+   
+    var sendObj = {
+      sid: newData,
+      user_id: this.state.user_id,
+    };
+
+    console.log(sendObj);
+    
+    fetch(`http://localhost:5000/collect`, {
+      credentials: 'include',
+      method: 'PUT', // or 'PUT'
+      body: JSON.stringify(sendObj), // data can be `string` or {object}!
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    }).then(res => res.json())
+    .then(obj=>{
+      console.log(obj);
+      this.getCourse();
+    })
+    
+    // .then(this.setState({myCollect:newData}))
+    
+   
+    // .catch(error => console.error('Error:', error))
+    
+   
+
+   
+    
+
+
+    
   }
 
   render() {
+    console.log(this.state);
     let data = this.state.col_newsData;
 
     if (
@@ -161,7 +213,7 @@ class course extends React.Component {
       return <Redirect to="/" />;
       // alert(this.state.id + ' ' + this.state.user_id);
     } else {
-      console.log(this.state);
+      // console.log(this.state);
       return (
         
         <>
@@ -181,32 +233,45 @@ class course extends React.Component {
                   handleTitleClick={this.handleTitleClick}
                 />
 
-                       <div className="box1 Allbox show">123456</div>
-
-                        <div className="box2 Allbox">
-
-
-                          {data.map((item,index) => (
+                       <div className="box1 Allbox show">
+                       {data.map((item,index) => (
                             <div className="card mb-3" style={{maxWidth: "540px"}} key={item.c_sid}>
                               <div className="row no-gutters">
-                                  <div className="col-md-4">
-                                    <img src="..." className="card-img" alt="..."/>
+                                  <div className="col-md-6">
+                                    <img src="http://lorempixel.com/440/280/sports/" className="card-img" alt="..."/>
                                   </div>
 
-                                <div className="col-md-8">
+                                <div className="col-md-6">
                                    <div className="card-body">
-                                <h5 className="card-title">{item.c_title}</h5>
-                                <h5>{item.c_level}</h5>
+                                   <div className="d-flex">
+                                    <div>
+                                      <h5 className="card-title">{item.c_title}</h5>
+                                      <p className="card-text"><small className="text-muted">開課時間{item.c_courseDate}</small></p>
+                                    </div>
+                                      <h5 className="ml-auto">{item.c_level}</h5>
+                                    </div>
                                     <p className="card-text ellipsis">{item.c_intro}</p>
-                                    <Link to={`/course/${item.c_sid}`}>查看課程資訊</Link>
                                     
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                    <Button onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button>
+                                    
+                                    
+                                    <p>教練名稱:{item.c_coachName}</p>
+
+                                    <div className="d-flex">
+                                      <Button className="cancel" variant="danger" onClick={() => this.handleCancel(item.c_sid)}>取消追蹤</Button>
+                                      <Link class="btn btn-success ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           ))}
+
+                       </div>
+
+                        <div className="box2 Allbox">
+
+
+                         
 
                         </div>
 

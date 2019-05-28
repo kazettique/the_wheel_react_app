@@ -72,7 +72,7 @@ class DetailNav extends React.Component {
           <Nav.Item>
             <a
               href="javascipt:;"
-              eventKey="link-1"
+              // eventKey="link-1"
               onClick={this.props.handleTitleClick}
               className="nav-link active" 
               id="box1"
@@ -83,7 +83,7 @@ class DetailNav extends React.Component {
           <Nav.Item style={{display:(this.props.title2)?'block':'none'}}>
             <a
               href="javascipt:;"
-              eventKey="link-2"
+              // eventKey="link-2"
               onClick={this.props.handleTitleClick}
               className="nav-link"
               id="box2"
@@ -94,7 +94,7 @@ class DetailNav extends React.Component {
           <Nav.Item style={{display:(this.props.title3)?'block':'none'}}>
             <a
               href="javascipt:;"
-              eventKey="link-3"
+              // eventKey="link-3"
               onClick={this.props.handleTitleClick}
               className="nav-link"
               id="box3"
@@ -105,7 +105,7 @@ class DetailNav extends React.Component {
           <Nav.Item style={{display:(this.props.title4)?'block':'none'}}>
             <a
               href="javascipt:;"
-              eventKey="link-4"
+              // eventKey="link-4"
               onClick={this.props.handleTitleClick}
               className="nav-link"
               id="box4"

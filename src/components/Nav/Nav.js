@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../Logo/Logo";
 import classes from "./Nav.module.css";
 import "./Nav.module.css";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter,Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import InstallModal from './InstallModal';
 import {Row ,Dropdown, Col, Navbar,Nav,Form,Button}from "react-bootstrap";
@@ -286,21 +286,27 @@ class NavTop extends React.Component {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href={`/member/edit/${this.state.user_id}`}>
-                    會員資料
-                  </Dropdown.Item>
-                  <Dropdown.Item href={`/member/road/${this.state.user_id}`}>
-                    路線列表
-                  </Dropdown.Item>
-                  <Dropdown.Item href={`/member/news/${this.state.user_id}`}>
-                    收藏文章
-                  </Dropdown.Item>
-                  <Dropdown.Item href={`/member/course/${this.state.user_id}`}>
-                    我的課程
-                  </Dropdown.Item>
-                  <Dropdown.Item href={`/member/product/${this.state.user_id}`}>
-                    商品管理
-                  </Dropdown.Item>
+                  <Link to={`/member/edit/${this.state.user_id}`} className="dropdown-item">                  
+                    會員資料                  
+                  </Link>
+
+                  <Link to={`/member/road/${this.state.user_id}`} className="dropdown-item">                  
+                    路線列表                  
+                  </Link>
+
+                  <Link to={`/member/news/${this.state.user_id}`} className="dropdown-item">                  
+                    收藏文章                  
+                  </Link>
+                  
+                  <Link to={`/member/course/${this.state.user_id}`} className="dropdown-item">                  
+                    我的課程                  
+                  </Link>
+
+                  <Link to={`/member/product/${this.state.user_id}`} className="dropdown-item">                  
+                    商品管理                  
+                  </Link>
+                  
+                 
                   <Dropdown.Item
                     eventKey="3"
                     onClick={this.logOut}
