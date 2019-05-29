@@ -267,6 +267,10 @@ class NavTop extends React.Component {
                   </li>
                 </Col>
 
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 9c59e145f50748e32e919601ec8b34a029b680a7
                 
               </Row>
             </Container>

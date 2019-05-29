@@ -16,3 +16,27 @@
 .r_an_l_con {
     background-color: var(--main_gray1);
 }
+
+.r_border_red {
+    border: 1px solid var(--main_red);
+}
+
+.r_color_red {
+    color: var(--main_red) !important;
+}
+
+.r_tag_style {
+    background-color: #000000;
+    padding: 3px 1rem;
+    color: white;
+    margin-right: 1.5rem;
+    transition:0.3s
+}
+
+.r_tag_selected {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    font-weight:600;
+    transition:0.3s
+}

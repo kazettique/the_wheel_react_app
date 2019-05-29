@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, Form } from 'react-bootstrap';
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
-// import Form from 'react-bootstrap/Form';
+
 import './AdvanceSearch_style.css';
 import { Link } from 'react-router-dom';
+import CountryData from '../../data/countryData.json';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleCountryChange } from '../../actions';
 
 class AdvanceSearch extends Component {
     state = {};
-
+    countryChange = event => {
+        this.props.handleCountryChange(event.target.value);
+    };
     render() {
         return (
             <Container fluid>
@@ -19,17 +22,20 @@ class AdvanceSearch extends Component {
                         新增路線
                     </button></Link>
                 </Row>
+                <form>
+
+                
                 <Row>
-                    <button className="r_capsule r_as_tag r_fw_bold ml-0">
+                    <button className="r_capsule r_as_tag r_fw_bold ml-0" type="button">
                         短途
                     </button>
-                    <button className="r_capsule r_as_tag r_fw_bold">
+                    <button className="r_capsule r_as_tag r_fw_bold" type="button">
                         長途
                     </button>
-                    <button className="r_capsule r_as_tag r_fw_bold">
+                    <button className="r_capsule r_as_tag r_fw_bold" type="button">
                         環島
                     </button>
-                    <button className="r_capsule r_as_tag r_fw_bold">
+                    <button className="r_capsule r_as_tag r_fw_bold" type="button">
                         跨國
                     </button>
                 </Row>
@@ -40,16 +46,20 @@ class AdvanceSearch extends Component {
                     >
                         <Col className="p-0">
                             <Form.Label className="r_fw_bold">國家</Form.Label>
-                            <Form.Control as="select" className="r_as_select">
-                                <option>1</option>
-                                <option>2</option>
+                            <Form.Control as="select" className="rr_as_select" placeholder="國家" onChange={this.countryChange}>
+                            <option value="" disabled defaultValue hidden>國家</option>
+                            {Object.keys(CountryData).map(i => (
+                            <option key={i} value={i}>{i}</option>
+                        ))}
                             </Form.Control>
                         </Col>
                         <Col className="p-0 position-relative ml-4">
                             <Form.Label className="r_fw_bold">地區</Form.Label>
-                            <Form.Control as="select" className="r_as_select">
-                                <option>1</option>
-                                <option>2</option>
+                            <Form.Control as="select" className="rr_as_select" placeholder="地區">
+                            <option value="" disabled defaultValue hidden>地區</option>
+                            {Object.keys(this.props.r.areas).map(i => (
+                            <option key={i} value={this.props.r.areas[i]}>{this.props.r.areas[i]}</option>
+                        ))}
                             </Form.Control>
                         </Col>
                     </Col>
@@ -57,17 +67,30 @@ class AdvanceSearch extends Component {
                         className="my-0 my-lg-5 d-flex align-items-end  px-0"
                         lg={6}
                     >
-                        <form className="w-100 d-flex justify-content-end">
+                        <div className="w-100 d-flex justify-content-end">
                             <input type="text" className="r_as_search mx-2" />
                             <button className="r_as_search_btn r_color_white px-3 r_fw_bold">
                                 搜尋
                             </button>
-                        </form>
+                        </div>
                     </Col>
                 </Row>
+                </form>
             </Container>
         );
     }
 }
 
-export default AdvanceSearch;
+const mapStateToProps = state => ({
+    r: state.routeCountryChange,
+
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ handleCountryChange }, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AdvanceSearch);
+
