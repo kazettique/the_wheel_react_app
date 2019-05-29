@@ -33,7 +33,7 @@ import FullArticle from './containers/FullArticle/FullArticle';
 //------------------------//
 //import 商品頁面
 import SingleProduct from './containers/Products/ProductSingle/ProductSinglePage'
-import orders from './containers/Products/oder/orders'
+import Orders from './containers/Products/oder/Orders'
 import checkout from './containers/Products/checkout/checkout'
 //----------------------//
 const routes = [
@@ -61,7 +61,7 @@ const routes = [
     { path: '/member/news/:id', name: 'Contact', Component: news },
     { path: '/products', name: 'Contact', Component: Products },
     { path: `/products2/:id`, Component: SingleProduct },
-    { path: '/orders/:id', name: 'Contact', Component: orders },
+    { path: '/orders/:id', name: 'Contact', Component: Orders },
     { path: '/checkout', name: 'Contact', Component: checkout },
 ];
 //   { path: "/group", name: "Contact", Component: Group },
@@ -163,7 +163,12 @@ class App extends Component {
         })
         localStorage.setItem('cart', JSON.stringify(cart))
       }
-
+      ModalReset=()=>{
+          console.log('RESET')
+        this.setState({
+          modal: !this.state.modal,
+        })
+      }
 
     render() {
         const { isLoading, isAnimated } = this.props;
@@ -187,6 +192,7 @@ class App extends Component {
                                         deleteCartItem={this.deleteCartItem}
                                         modal={this.state.modal}
                                         handleCollect={this.handleCollect}
+                                        ModalReset={this.ModalReset}
                                     />
                                 )}
                             </Route>

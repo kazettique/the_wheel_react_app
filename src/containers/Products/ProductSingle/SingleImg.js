@@ -26,7 +26,7 @@ class SingleImg extends React.Component {
           width="40rem"
           interval="4000"
         >
-          <div style={{ backgroundColor: 'white' }}>
+          <div style={{ backgroundColor: 'white' , width:'100%'}}>
             <img src={this.props.product.p_photo} />
             {/* <p className="legend">Legend 1</p> */}
           </div>

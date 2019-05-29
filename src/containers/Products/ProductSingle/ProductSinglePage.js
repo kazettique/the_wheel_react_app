@@ -137,6 +137,7 @@ class ProductSinglePage extends React.Component {
           onToggle={this.props.onToggle}
           deleteCartItem={this.props.deleteCartItem}
           modal={this.props.modal}
+          ModalReset={this.props.ModalReset}
         />
       )
       list3 = <SingleProductList product={this.state.product} />

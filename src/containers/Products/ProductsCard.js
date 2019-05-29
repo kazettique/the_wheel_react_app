@@ -40,7 +40,7 @@ class ProductsCard extends React.Component {
             <Col md={4}>
               <Card.Img
                 variant="top"
-                src="https://attach.mobile01.com/attach/201809/mobile01-cce4664dba207264b6b9eb925ca3694e.png"
+                src={this.props.pic}
                 alt=""
               />
             </Col>
