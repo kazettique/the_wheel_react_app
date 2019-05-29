@@ -83,10 +83,12 @@ class course extends React.Component {
         myCollect:JSON.parse(jsonObject[0].c_course),
       });
 
-
+      if(JSON.parse(jsonObject[0].c_course).length>0){
+        //拿到收藏的新聞資訊
+        console.log(JSON.parse(jsonObject[0].c_course).length);
       //拿到收藏的課程資訊
         this.getCourse()
-
+      }
 
     } catch (e) {
       console.log(e);

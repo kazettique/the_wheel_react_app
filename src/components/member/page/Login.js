@@ -100,7 +100,7 @@ class Login extends React.Component {
             isLogined: true,
             user_id: jsonObject.message.user_id,
           });
-          // document.location.href = '/';
+          document.location.href = '/';
         } else {
           this.setState({ Logindb: 'block' });
           this.setState({ Logintext: '登入失敗' });
@@ -116,7 +116,7 @@ class Login extends React.Component {
   render() {
     console.log(this.state);
     return (
-      
+
       <div className="member_login">
         <Container>
           <Row>

@@ -26,8 +26,8 @@ class news extends React.Component {
       loginUser: '', 
       isLogined: '', 
       user_id: '',
-      myCollect:null,
-      col_newsData:null, 
+      myCollect:[],
+      col_newsData:[], 
     };
   }
 
@@ -76,10 +76,11 @@ class news extends React.Component {
         myCollect:JSON.parse(jsonObject[0].collection),
       });
 
-
+      if(JSON.parse(jsonObject[0].collection).length>0){
       //拿到收藏的新聞資訊
+      console.log(JSON.parse(jsonObject[0].collection).length);
         this.getNews()
-
+      }
 
     } catch (e) {
       console.log(e);
