@@ -15,7 +15,10 @@ class ProductsCard extends React.Component {
   constructor(props) {
     super(props)
     // const product = this.props.product
-    this.state = {}
+    this.state = {
+      collectionProduct:[],
+        id:this.props.p_sid,
+    }
   }
 
   handleClick = () => {
@@ -27,6 +30,8 @@ class ProductsCard extends React.Component {
 
   render() {
     // const a = this.props.product
+    // console.log(this.props)
+    
     const single = this.props.p_sid
     return (
       <>
@@ -46,9 +51,9 @@ class ProductsCard extends React.Component {
                 <Card.Text className={classes.Space}>
                   NT{this.props.price}
                 </Card.Text>
-                <Button variant="primary" className={classes.ButtonSpace}>
+                {/* <Button variant="primary" className={classes.ButtonSpace} onClick={this.props.handleCollect}>
                   加入收藏
-                </Button>
+                </Button> */}
                 <Link
                   to={{
                     pathname: `/products2/${single}`,
@@ -64,6 +69,7 @@ class ProductsCard extends React.Component {
                     onClick={this.handleClick}
                     deleteCartItem={this.props.deleteCartItem}
                     toggle={this.props.toggle}
+                    modal={this.props.modal}
                   >
                     查看商品
                   </Button>

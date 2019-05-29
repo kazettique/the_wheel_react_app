@@ -29,7 +29,7 @@ class checkout extends React.Component {
       pay: [],
       totalprice: null,
       delivery: [],
-      id: 90,
+      id: localStorage.getItem('meber'),
     }
     this.handleChecked = this.handleChecked.bind(this)
   }
@@ -127,6 +127,10 @@ class checkout extends React.Component {
         }),
       })
       alert('下單成功')
+        this.setState({
+          modal: !this.props.modal,
+        })
+
     }
   }
 
@@ -283,6 +287,7 @@ class checkout extends React.Component {
                 <Button
                   className={classes.checkButton2}
                   onClick={this.handleSend}
+  
                 >
                   下訂單
                 </Button>

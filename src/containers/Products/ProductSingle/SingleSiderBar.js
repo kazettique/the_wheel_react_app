@@ -139,15 +139,14 @@ class SingleSiderBar extends React.Component {
   }
 
   render() {
+    console.log(this.props.history)
     const { show, product } = this.state
-    console.log(this.props)
+    
     let totalPrice = 0
     let cart = []
     if (localStorage.getItem('cart')) {
       cart = JSON.parse(localStorage.getItem('cart'))
-      console.log(cart)
       cart.forEach(item => {
-        console.log(item.p_price)
         let sum = item.quantity * Number(item.p_price)
         return (totalPrice += sum)
       })

@@ -205,6 +205,8 @@ class products extends React.Component {
             price={item.p_price}
             p_sid={item.p_sid}
             key={item.p_sid}
+            modal={this.props.modal}
+            // handleCollect={()=>this.props.handleCollect(item.p_sid)}
           />
         )
       })
