@@ -21,6 +21,7 @@ import routeSingleReducer from './containers/Route/reducers/routeSingleReducer';
 import routeCountryChange from './containers/Route/reducers/routeCountryChange';
 import routeAddNewLocation from './containers/Route/reducers/routeAddNewLocation';
 import routeFormCheck from './containers/Route/reducers/routeFormCheck';
+import alertReducer from './containers/Route/reducers/alertReducer';
 //import userStatus from './containers/Route/reducers/userStatus';
 
 const rootReducer = combineReducers({
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
     routeCountryChange,
     routeAddNewLocation,
     routeFormCheck,
+    alertReducer,
     //userStatus
 });
 
@@ -54,9 +56,9 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     compose(
-    applyMiddleware(thunkMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
+        applyMiddleware(thunkMiddleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
 
