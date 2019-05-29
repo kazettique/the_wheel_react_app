@@ -292,7 +292,7 @@ class NavTop extends React.Component {
                 <Navbar bg="light" expand="lg" className="w-100">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav " >
-            <Form inline className="ml-auto  h-100">
+            <Form inline className="w-100 h-100">
               <NavLink
                 to="/Login"
                 className={
@@ -304,7 +304,7 @@ class NavTop extends React.Component {
                 登入
               </NavLink>
               <Button
-                variant=" ml-auto mr-5"
+                variant=" ml-auto"
                 onClick={this.handleAddModalShowIns}
                 className={
                   this.state.user_id == '' || this.state.user_id == undefined
@@ -327,15 +327,17 @@ class NavTop extends React.Component {
                   id="dropdown-basic"
                   className="d-flex personal-btn h-100"
                 >
-                  <div className="littlePhoto">
+                <div className="flex-grow-1">
+                  <div className="littlePhoto mx-auto">
                     <img
                       src={this.state.session_photo}
                       className="mylittlePhoto"
                     />
                   </div>
-                  <span className="align-middle navbar-username">
+                  </div>
+                  <div className="align-middle navbar-username flex-grow-1 text-left">
                     {this.state.session_name}
-                  </span>
+                  </div>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
