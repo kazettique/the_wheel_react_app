@@ -267,18 +267,7 @@ class NavTop extends React.Component {
                   </li>
                 </Col>
 
-                <Col lg={2}>
-                  <li className="text-nowrap">
-                    <NavLink
-                      to="/products"
-                      activeStyle={activeStyle}
-                      onClick={this.menuHandler}
-                    >
-                      商品頁面
-                      <div style={location === "/products" ? style : null} />
-                    </NavLink>
-                  </li>
-                </Col>
+            
                 
               </Row>
             </Container>

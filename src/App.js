@@ -28,7 +28,13 @@ import RouteDetail from './containers/Route/containers/RouteDetail';
 import RouteAddNew from './containers/Route/containers/RouteAddNew';
 import FullArticle from './containers/FullArticle/FullArticle';
 // import FML from './containers/Route/client01'
-
+// import Loading from "./components/LoadingAnimation/Loading";
+//------------------------//
+//import 商品頁面
+import SingleProduct from './containers/Products/ProductSingle/ProductSinglePage'
+import orders from './containers/Products/oder/orders'
+import checkout from './containers/Products/checkout/checkout'
+//----------------------//
 const routes = [
     // { path: '/', name: 'Home', Component: Main },
     { path: '/route', name: 'About', Component: RouteDisplay },
@@ -45,7 +51,6 @@ const routes = [
     { path: '/course', name: 'Contact', Component: Course },
     { path: '/news', name: 'Contact', Component: News },
     { path: '/news/:id', name: 'Contact', Component: FullArticle },
-    { path: '/products', name: 'Contact', Component: Products },
     { path: '/login', name: 'Contact', Component: Login },
     { path: '/member/edit/:id', name: 'Contact', Component: edit },
     { path: '/member/password/:id', name: 'Contact', Component: password },
@@ -53,6 +58,10 @@ const routes = [
     { path: '/member/product/:id', name: 'Contact', Component: product },
     { path: '/member/course/:id', name: 'Contact', Component: course },
     { path: '/member/news/:id', name: 'Contact', Component: news },
+    { path: '/products', name: 'Contact', Component: Products },
+    { path: `/products2/:id`, Component: SingleProduct },
+    { path: '/orders/:id', name: 'Contact', Component: orders },
+    { path: '/checkout', name: 'Contact', Component: checkout },
 ];
 //   { path: "/group", name: "Contact", Component: Group },
 //   { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
@@ -73,11 +82,31 @@ const routes = [
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { modal: false,};
     }
     componentDidMount() {
         setTimeout(() => this.props.dispatch(isLoading()));
     }
+    toggle = () => {
+        console.log('click toggle!')
+        this.setState(
+          {
+            modal: !this.state.modal,
+          },
+          () => console.log(this.state.modal)
+        )
+      }
+      deleteCartItem = index => {
+        const cart = JSON.parse(localStorage.getItem('cart'))
+    
+        cart.splice(index, 1)
+    
+        this.setState({
+          cart,
+        })
+        localStorage.setItem('cart', JSON.stringify(cart))
+      }
+
 
     render() {
         const { isLoading, isAnimated } = this.props;
@@ -97,6 +126,9 @@ class App extends Component {
                                     <Component
                                         {...this.props}
                                         show={match !== null}
+                                        onToggle={this.toggle}
+                                        deleteCartItem={this.deleteCartItem}
+                                        modal={this.state.modal}
                                     />
                                 )}
                             </Route>
