@@ -26,6 +26,7 @@ import CourseBackItForm from './containers/Course/containers/CourseBackItForm'
 import RouteDisplay from './containers/Route/containers/RrouteDisplay';
 import RouteDetail from './containers/Route/containers/RouteDetail';
 import RouteAddNew from './containers/Route/containers/RouteAddNew';
+import AdvanceSearch from "./containers/Course/components/AdvanceSearch";
 // import FML from './containers/Route/client01'
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
   
 
   { path: "/group", name: "Contact", Component: Group },
+  { path: "/course/search", name: "Contact", Component: AdvanceSearch }, // for test use
   { path: "/course/backIt/:id/", name: "Contact", Component: CourseBackItForm },
   { path: "/course/:id", name: "Contact", Component: CourseMain },
   { path: "/course", name: "Contact", Component: Course },
@@ -47,9 +49,9 @@ const routes = [
   {path: "/member/road/:id", name: "Contact", Component: road},
   {path: "/member/product/:id", name: "Contact", Component: product},
   {path: "/member/course/:id", name: "Contact", Component:course},
-  {path: "/member/news/:id", name: "Contact", Component:news}
+  {path: "/member/news/:id", name: "Contact", Component:news},
 
-{
+]
   /* 
 
 
@@ -57,7 +59,7 @@ const routes = [
 <Route path="/member/course/:id" component={course} />
 <Route path="/member/news/:id" component={news} />
  */
-}
+
 
 class App extends Component {
   constructor(props) {

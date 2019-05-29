@@ -146,10 +146,10 @@ class CourseMain extends React.Component {
     }
 
     // check collect status`
-    console.log(this.state)
-    if (this.state.myCollect !== '') {
-      console.log(JSON.parse(this.state.myCollect))
-    }
+    // console.log(this.state)
+    // if (this.state.myCollect !== '') {
+    //   console.log(JSON.parse(this.state.myCollect))
+    // }
 
     return (
       <>

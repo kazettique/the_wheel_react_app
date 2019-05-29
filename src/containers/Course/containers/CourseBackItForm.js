@@ -39,19 +39,21 @@ class CourseBackItForm extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.course) {
+      console.log(this.state.c_sid) // undefined
       let c_sid = this.state.c_sid
       fetch(`http://localhost:5000/course/${c_sid}`)
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
-          console.log('line47:' + data[0])
+          // ERROR HERE!!!
+          console.log('line47:' + data[0]) // undefined
           // set data into states
           this.setState({ c_fundNow: data[0].c_fundNow })
           this.setState({ c_backers: data[0].c_backers })
           this.setState({ c_status: data[0].c_status })
         })
         .catch(err => {
-          console.log(err)
+          console.log(err) // c_fundNow of undefined
         })
     }
     // console.log(this.state.c_backers)
@@ -82,6 +84,7 @@ class CourseBackItForm extends React.Component {
     // 15 spaces of strings - "/course/backIt/"
     let c_sid = this.props.history.location.pathname.slice(15)
     // console.log(id)
+    console.log('componentDidMount')
     this.setState({
       c_sid: c_sid,
     })
