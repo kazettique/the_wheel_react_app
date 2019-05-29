@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Col from 'react-bootstrap/Col';
 import './R_Alert_style.css';
-import Tick from './alertTick.svg';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { alertDisappear } from '../../actions';
 
 class RAlert extends Component {
     state = {};
+    componentDidMount() {
+        setTimeout(() => this.props.alertDisappear(this.props.type), 1400);
+    }
     render() {
         switch (this.props.type) {
             case 'success':
@@ -53,20 +58,29 @@ class RAlert extends Component {
                             >
                                 <svg
                                     className="r_alert_svg w-100"
-                                    id="Layer_1"
                                     viewBox="0 0 283.5 283.5"
                                 >
                                     <circle
-                                        id="r_tickcircle"
+                                        id="XMLID_1_"
                                         className="st0 r_alert_path"
                                         cx="141.7"
-                                        cy="135.2"
+                                        cy="141.7"
                                         r="79.6"
                                     />
-                                    <polyline
-                                        id="r_tick"
+
+                                    <line
                                         className="st1 r_alert_path"
-                                        points="182.1,108.7 127.7,162.2 98.5,133 "
+                                        x1="179.6"
+                                        y1="101.2"
+                                        x2="98.5"
+                                        y2="182.3"
+                                    />
+                                    <line
+                                        className="st1 r_alert_path"
+                                        x1="103.8"
+                                        y1="101.2"
+                                        x2="185"
+                                        y2="182.3"
                                     />
                                 </svg>
                             </Col>
@@ -77,8 +91,16 @@ class RAlert extends Component {
                         </Col>
                     </div>
                 );
+            default:
+                return <></>;
         }
     }
 }
 
-export default RAlert;
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ alertDisappear }, dispatch);
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(RAlert);

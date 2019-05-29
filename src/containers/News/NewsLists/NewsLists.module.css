@@ -3,3 +3,10 @@
   color: white;
 }
 
+.NewsLists{
+  width: 100%;
+  background: rgb(207, 204, 204);
+  padding: 20px;
+  min-height: 51vh;
+}
+

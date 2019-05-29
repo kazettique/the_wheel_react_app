@@ -4,10 +4,7 @@ const initialState = {
   isFetching: false,
   productsLists: [],
   page: 1,
-  // isFetchingPopular: false,
-  // popularList: [],
-  search: null,
-  filter: null
+  filter: false,
 };
 
 function products(state = initialState, action) {
@@ -20,36 +17,15 @@ function products(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: false,
         productsLists: [...state.productsLists, ...action.products],
-        page: action.page
+        page: action.page,
+        totalPage: action.totalPage
       });
-      // case SEARCH_ON_CHANGE:
-      //   return Object.assign({}, state, {
-      //     search: action.search,
-      //     newsLists: [],
-      //     page: 1
-      //   });
-      // case TYPE_ON_CHANGE:
-      //   return Object.assign({}, state, {
-      //     filter: action.filter,
-      //     newsLists: [],
-      //     page: 1
-      //   });
-      // case CLEAR_ALL_FILTER:
-      //   return Object.assign({}, state, {
-      //     filter: null,
-      //     search: null,
-      //     newsLists: [],
-      //     page: 1
-      //   });
-    //   case REQUEST_POPULAR:
-    //   return Object.assign({}, state, {
-    //     isFetchingPopular: true
-    //   });
-    // case RECEIVE_POPULAR:
-    //   return Object.assign({}, state, {
-    //     isFetchingPopular: false,
-    //     popularList: [...action.posts]
-    //   });
+    case "CHANGE_FILTER":
+      return Object.assign({}, state, {
+        filter: action.filter,
+        productsLists: [],
+        page: 1
+      })
     default:
       return state;
   }

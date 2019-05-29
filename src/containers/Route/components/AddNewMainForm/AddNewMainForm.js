@@ -36,47 +36,106 @@ class AddNewMainForm extends Component {
                         className="w-100"
                         id="form1"
                     >
-                        <FormControl
-                            num="1"
-                            label="路線名稱"
-                            name="r_name"
-                            type="text"
-                            small=""
-                        />
-                        <FormControl
-                            num="1"
-                            label="預計時間"
-                            name="r_time"
-                            type="text"
-                            small="請按照格式 *天 *時 *分 可省略任意部分"
-                        />
+                        {this.props.f.r_name ? (
+                            <FormControl
+                                num="1"
+                                label="路線名稱"
+                                name="r_name"
+                                type="text"
+                                small=""
+                                passed="true"
+                            />
+                        ) : (
+                            <FormControl
+                                num="1"
+                                label="路線名稱"
+                                name="r_name"
+                                type="text"
+                                small="請為本路線命名"
+                                passed="false"
+                            />
+                        )}
+                        {this.props.f.r_time ? (
+                            <FormControl
+                                num="1"
+                                label="預計時間"
+                                name="r_time"
+                                type="text"
+                                small="請按照格式 *天 *時 *分 可省略任意部分"
+                                passed="true"
+                            />
+                        ) : (
+                            <FormControl
+                                num="1"
+                                label="預計時間"
+                                name="r_time"
+                                type="text"
+                                small="請按照格式 *天 *時 *分 可省略任意部分"
+                                passed="false"
+                            />
+                        )}
+
                         <FormControl label="路線類型" num="4" />
 
-                        <FormControl
-                            num="2"
-                            list="countryData"
-                            list2="areaData"
-                            info="路線詳情"
-                            onChange={this.countryChange}
-                            label="國家"
-                            name="r_country"
-                            small="請按照格式 *天 *時 *分 可省略任意部分"
-                            label2="地區"
-                            name2="r_area"
-                            small2="請按照格式 *天 *時 *分 可省略任意部分"
-                        />
+                        {this.props.f.r_country ? (
+                            <FormControl
+                                num="2"
+                                passed="true"
+                                list="countryData"
+                                list2="areaData"
+                                info="路線詳情"
+                                onChange={this.countryChange}
+                                label="國家"
+                                name="r_country"
+                                small=""
+                                label2="地區"
+                                name2="r_area"
+                                small2=""
+                            />
+                        ) : (
+                            <FormControl
+                                num="2"
+                                passed="false"
+                                list="countryData"
+                                list2="areaData"
+                                info="路線詳情"
+                                onChange={this.countryChange}
+                                label="國家"
+                                name="r_country"
+                                small="請選擇路線所屬國家"
+                                label2="地區"
+                                name2="r_area"
+                                small2=""
+                            />
+                        )}
 
-                        <FormControl
-                            num="2"
-                            label="出發地"
-                            name="r_depart"
-                            type="text"
-                            small="請按照格式 *天 *時 *分 可省略任意部分"
-                            label2="目的地"
-                            name2="r_arrive"
-                            type2="text"
-                            small2="請按照格式 *天 *時 *分 可省略任意部分"
-                        />
+                        {this.props.f.r_depart && this.props.f.r_arrive ? (
+                            <FormControl
+                                num="2"
+                                passed="true"
+                                label="出發地"
+                                name="r_depart"
+                                type="text"
+                                small=""
+                                label2="目的地"
+                                name2="r_arrive"
+                                type2="text"
+                                small2=""
+                            />
+                        ) : (
+                            <FormControl
+                                num="2"
+                                passed="false"
+                                label="出發地"
+                                name="r_depart"
+                                type="text"
+                                small="請輸入出發地及目的地"
+                                label2="目的地"
+                                name2="r_arrive"
+                                type2="text"
+                                small2=""
+                            />
+                        )}
 
                         <FormControl
                             num="textarea"
@@ -107,17 +166,17 @@ class AddNewMainForm extends Component {
                             </div>
                         </Row>
 
-                        <input
-                            name="m_sid"
-                            id="m_sid"
-                            className="d-none"
-                        />
+                        <input name="m_sid" id="m_sid" className="d-none" />
                         <input
                             type="number"
                             min="0"
                             name="r_l_num"
                             id="r_l_num"
-                            value={this.props.l.locationList[0]?this.props.l.locationList.length:0}
+                            value={
+                                this.props.l.locationList[0]
+                                    ? this.props.l.locationList.length
+                                    : 0
+                            }
                             readOnly
                             className="d-none"
                         />
@@ -131,6 +190,7 @@ class AddNewMainForm extends Component {
 const mapStateToProps = state => ({
     r: state.routeCountryChange,
     l: state.routeAddNewLocation,
+    f: state.routeFormCheck,
 });
 
 const mapDispatchToProps = dispatch =>

@@ -143,6 +143,7 @@ class FormControl extends Component {
                 );
 
             default:
+                // need to add red border
                 return (
                     <Row className="r_form_group m-0 my-5">
                         <Col

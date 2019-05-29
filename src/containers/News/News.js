@@ -1,10 +1,10 @@
 import React from "react";
 import classes from "./News.module.css";
-import { TweenMax } from "gsap/all";
-import { Transition } from "react-transition-group";
+// import { TweenMax } from "gsap/all";
+// import { Transition } from "react-transition-group";
 import ContentPage from "../ContentPage/ContentPage";
 import { connect } from "react-redux";
-import { searchOnChange, typeOnChange, clearAllFilter, clearSearch } from "../../store/newsActions";
+import { searchOnChange, typeOnChange, clearAllFilter } from "../../store/newsActions";
 import NewsLists from "./NewsLists/NewsLists";
 import Control from "./Control/Control";
 import PopularNews from "./PopularNews/PopularNews"
@@ -56,24 +56,23 @@ class News extends React.Component {
   
 
   render(){
-    console.log(this.props.isFetching);
   return (
-  <Transition
-    unmountOnExit
-    in={this.props.show}
-    timeout={1000}
-    onEnter={node => TweenMax.set(node, startState)}
-    addEndListener={ (node, done) => {
-      TweenMax.to(node, 0.5, {
-        autoAlpha: this.props.show ? 1 : 0,
-        y: this.props.show ? 0 : 50,
-        onComplete: done
-      });
-    }}
-  >     
+  // <Transition
+  //   unmountOnExit
+  //   in={this.props.show}
+  //   timeout={1000}
+  //   onEnter={node => TweenMax.set(node, startState)}
+  //   addEndListener={ (node, done) => {
+  //     TweenMax.to(node, 0.5, {
+  //       autoAlpha: this.props.show ? 1 : 0,
+  //       y: this.props.show ? 0 : 50,
+  //       onComplete: done
+  //     });
+  //   }}
+  // >     
   
   <div className={classes.News}>
-    <ContentPage>
+    <ContentPage style={{background: "#FAFAFA"}}>
       <Control toggle={this.toggleList}
                filterHandler={this.filterHandler}
                searchHandler={this.searchHandler} 
@@ -94,7 +93,7 @@ class News extends React.Component {
     </ContentPage>  
    
   </div>
-  </Transition>
+  // </Transition>
   )
   }
 };

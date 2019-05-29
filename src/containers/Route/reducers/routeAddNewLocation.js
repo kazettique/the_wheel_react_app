@@ -1,5 +1,4 @@
 import {
-
     HANDLE_ADD_NEW_LOCATION,
     HANDLE_ADD_NEW_LOCATION_DELETE,
     HANDLE_ADD_NEW_LOCATION_COUNTRY_CHANGE,
@@ -7,8 +6,8 @@ import {
     HANDLE_ADD_NEW_LOCATION_DOWN,
     ADD_NEW_SUCCESS,
     ADD_NEW_FAILURE,
+    ALERT_DISAPPEAR,
 } from '../actions';
-
 
 function arraymove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
@@ -16,10 +15,7 @@ function arraymove(arr, fromIndex, toIndex) {
     arr.splice(toIndex, 0, element);
 }
 
-function routeAddNewLocation(
-    state = { locationList: [], success: false },
-    action
-) {
+function routeAddNewLocation(state = { locationList: [] }, action) {
     switch (action.type) {
         case HANDLE_ADD_NEW_LOCATION:
             return {
@@ -53,11 +49,10 @@ function routeAddNewLocation(
             console.log('reducer up');
             let e = [...state.locationList];
             let f = e.findIndex(i => i.num === action.num);
-            if(f!==0){
+            if (f !== 0) {
                 arraymove(e, f, f - 1);
             }
             // arrayMove(e, f, f - 1);
-            
 
             return {
                 ...state,
@@ -67,10 +62,9 @@ function routeAddNewLocation(
             console.log('reducer down');
             let g = [...state.locationList];
             let h = g.findIndex(i => i.num === action.num);
-            if(h!==g.length){
+            if (h !== g.length) {
                 arraymove(g, h, h + 1);
             }
-            
 
             return {
                 ...state,
@@ -82,11 +76,18 @@ function routeAddNewLocation(
                 success: true,
             };
         case ADD_NEW_FAILURE:
+            let errmsg = action.payload.slice(6);
             return {
                 ...state,
                 locationList: [...state.locationList],
                 success: false,
+                error: errmsg,
             };
+        case ALERT_DISAPPEAR:
+            return (state = {
+                locationList: [...state.locationList],
+                successType: action.successType,
+            });
         default:
             return state;
     }

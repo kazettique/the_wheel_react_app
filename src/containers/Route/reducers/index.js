@@ -83,10 +83,7 @@ function arraymove(arr, fromIndex, toIndex) {
     arr.splice(toIndex, 0, element);
 }
 
-function routeAddNewLocation(
-    state = { locationList: []},
-    action
-) {
+function routeAddNewLocation(state = { locationList: [] }, action) {
     switch (action.type) {
         case HANDLE_ADD_NEW_LOCATION:
             return {
@@ -147,6 +144,7 @@ function routeAddNewLocation(
                 ...state,
                 locationList: [...state.locationList],
                 success: false,
+                error: action.payload,
             };
         default:
             return state;
@@ -159,7 +157,3 @@ export default combineReducers({
     routeCountryChange,
     routeAddNewLocation,
 });
-
-
-
-
