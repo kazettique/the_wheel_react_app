@@ -100,6 +100,7 @@ class Login extends React.Component {
             isLogined: true,
             user_id: jsonObject.message.user_id,
           });
+          localStorage.setItem("meber", jsonObject.message.user_id );
           document.location.href = '/';
         } else {
           this.setState({ Logindb: 'block' });

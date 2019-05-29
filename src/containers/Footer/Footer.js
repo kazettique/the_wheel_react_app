@@ -7,7 +7,7 @@ import "./Footer.css";
 const footer = () => {
   return (
     <Container fluid className="footers">
-      <Row>
+      <Row className="m-0">
         <Col lg={4} className="d-flex footer">
           <div className="left">友站連結</div>
           <div className="right">

@@ -11,26 +11,67 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { handleAddNewLocation, handleAddNewSubmit } from '../actions';
 import { Redirect } from 'react-router-dom';
+import {withRouter} from 'react-router';
 
 class RouteAddNew extends Component {
     state = {};
+componentDidUpdate(){
 
+    if(  this.props.l.success === true ){
+        setTimeout(()=>{
+            return  this.props.history.push("/route");
+        },1400)     
+
+    }
+    //console.log(this.props)
+}
     addNewLocation = () => {
         this.props.handleAddNewLocation();
     };
 
     addNewSubmit = async () => {
-        this.props.handleAddNewSubmit();
-    };
+       try {
+            const response = await fetch('http://localhost:5000/is_logined', {
+              method: 'GET',
+              credentials: 'include',
+              headers: new Headers({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              }),
+            });
+
+            const jsonObject = await response.json();
+            if(!jsonObject.isLogined){
+                return alert('新增路線前請先登入')
+            }
+    
+            await this.setState({
+              user_id: jsonObject.user_id,
+            });
+
+            await this.props.handleAddNewSubmit(this.state.user_id);
+          } catch (e) {
+            console.log(e);
+          }
+        };
+        
 
     render() {
-        if (this.props.l.successType === true) {
-            return <Redirect to="/route" />;
-        }
+        // let redirect=null;
+        // if (this.props.l.successType === true) {
+        //     setTimeout(()=>{
+        //         return redirect=<Redirect to="/route" />;
+        //     },3000)
+            
+        // }
         return (
             <>
                 {this.props.l.success === true ? (
+                    <>
                     <RAlert text="新增路線成功" type="success" />
+                    {/* <Redirect to="/route" /> */}
+                   
+                    </>
                 ) : this.props.l.success === false ? (
                     <RAlert text={this.props.l.error} type="failure" />
                 ) : (
@@ -109,4 +150,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(RouteAddNew);
+)(withRouter(RouteAddNew));

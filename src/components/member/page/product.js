@@ -144,9 +144,9 @@ class product extends React.Component {
                   handleTitleClick={this.handleTitleClick}
                 />
 
-                       <div className="box1 Allbox show">123456</div>
+                       <div className="box1 Allbox show">目前尚無資料</div>
 
-                      <div className="box2 Allbox">987654321</div>
+                      <div className="box2 Allbox">目前尚無資料</div>
 
             </Col>
             </Row>

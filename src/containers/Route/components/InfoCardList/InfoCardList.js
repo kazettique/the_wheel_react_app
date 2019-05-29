@@ -13,7 +13,7 @@ class InfoCardList extends Component {
     state = {};
 
     componentDidMount() {
-        this.props.fetchPostsAsync(0);
+        if(this.props.r.postsList.posts.length===0){this.props.fetchPostsAsync(0);} 
     }
 
     handleLoadMore = () => {
