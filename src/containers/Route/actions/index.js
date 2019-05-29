@@ -1,4 +1,12 @@
 import Data from '../data/countryData.json';
+
+// export const submitCommentFailure = error => {
+//     return {
+//         type: SUMBMIT_COMMENT_FAILURE,
+//         payload: error,
+//     };
+// };
+
 export const FETCH_POSTS_SUCCESS = 'FETCH_POST_SUCCESS';
 export const FETCH_POSTS_FAILURE = 'FETCH_POST_FAILURE';
 export const FETCH_SINGLE_SUCCESS = 'FETCH_SINGLE_SUCCESS';
@@ -12,43 +20,49 @@ export const HANDLE_ADD_NEW_LOCATION_UP = 'HANDLE_ADD_NEW_LOCATION_MOVE_UP';
 export const HANDLE_ADD_NEW_LOCATION_DOWN = 'HANDLE_ADD_NEW_LOCATION_DOWN';
 export const ADD_NEW_SUCCESS = 'ADD_NEW_SUCCESS';
 export const ADD_NEW_FAILURE = 'ADD_NEW_FAILURE';
+export const ADD_NEW_RESET = 'ADD_NEW_RESET';
 export const SUMBMIT_COMMENT_SUCCESS = 'SUMBMIT_COMMENT_SUCCESS';
 export const SUMBMIT_COMMENT_FAILURE = 'SUMBMIT_COMMENT_FAILURE';
-export const ALERT_DISAPPEAR = 'ALERT_DISAPPEAR';
+export const ALERT_DISAPPEAR1 = 'ALERT_DISAPPEAR1';
 export const HANDLE_IS_NOT_PASSED = 'HANDLE_IS_NOT_PASSED';
 export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
-export const UPDATE_COMMENT_SECTION='UPDATE_COMMENT_SECTION';
+export const UPDATE_COMMENT_SECTION = 'UPDATE_COMMENT_SECTION';
+export const ALERT_APPEAR = 'ALERT_APPEAR ';
+export const ALERT_DISAPPEAR = ' ALERT_DISAPPEAR';
 
 const ROOT_URL = 'http://localhost:5000/route';
 const regexp = /^\d{1,3}天\d{1,2}時\d{1,2}分$|^\d{1,3}天\d{1,2}時$|^\d{1,3}天$|^\d{1,2}時\d{1,2}分$|^\d{1,2}時$|^\d{1,2}分$|\d{1,3}天\d{1,2}分$/;
 
-export const setLoginStatus=() => {
-    console.log('setLoginStatus action')
+export const setLoginStatus = () => {
+    console.log('setLoginStatus action');
 
-    return dispatch => {   fetch('http://localhost:5000/is_logined', {
-        method: 'GET',
-        credentials: 'include',
-        headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      })
-  .then(r=>r.json())
-  .then(obj=>{    console.log('dispatch to setLoginStatus action'); dispatch(setUserStatus(obj))})
-  .catch (e=>console.log(e))     
-  }}
+    return dispatch => {
+        fetch('http://localhost:5000/is_logined', {
+            method: 'GET',
+            credentials: 'include',
+            headers: new Headers({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+            .then(r => r.json())
+            .then(obj => {
+                console.log('dispatch to setLoginStatus action');
+                dispatch(setUserStatus(obj));
+            })
+            .catch(e => console.log(e));
+    };
+};
 
-export const setUserStatus = status =>{
-    console.log('setUserStatus action')
-    console.log(status)
-    
+export const setUserStatus = status => {
+    console.log('setUserStatus action');
+    console.log(status);
+
     return {
-        type:SET_LOGIN_STATUS, 
-        payload:status
-    }
-    
-}
-
+        type: SET_LOGIN_STATUS,
+        payload: status,
+    };
+};
 
 // export const fetchPosts = payload => ({ type: FETCH_POSTS, payload: payload });
 export const fetchPostsAsync = page => {
@@ -170,8 +184,8 @@ export const handleAddNewLocationDown = num => {
     };
 };
 
-export const handleAddNewSubmit = (userid) => {
-    console.log('msid='+typeof userid)
+export const handleAddNewSubmit = userid => {
+    console.log('msid=' + typeof userid);
     return dispatch => {
         let form1 = new FormData(document.form1);
         let isPassed = true;
@@ -182,54 +196,52 @@ export const handleAddNewSubmit = (userid) => {
         //     r_depart: true,
         //     r_arrive: true,
         // }
-       // console.log('bbbbbbbbbbbbbbbb')
+        // console.log('bbbbbbbbbbbbbbbb')
         //console.log(typeof form1.get('r_country'))
-        if (form1.get('r_name').trim().length===0) {
-            console.log(form1.get('r_name'))
+        if (form1.get('r_name').trim().length === 0) {
+            console.log(form1.get('r_name'));
             //notPassedObj.r_name=false;
             isPassed = false;
             dispatch(handleIsNotPassed({ r_name: false }));
-            
-        }else{
+        } else {
             dispatch(handleIsNotPassed({ r_name: true }));
         }
-        if (form1.get('r_country').length===0) {
+        if (form1.get('r_country').length === 0) {
             isPassed = false;
             dispatch(handleIsNotPassed({ r_country: false }));
-        }else{
+        } else {
             dispatch(handleIsNotPassed({ r_country: true }));
         }
-        if (form1.get('r_arrive').length===0) {
+        if (form1.get('r_arrive').length === 0) {
             isPassed = false;
             dispatch(handleIsNotPassed({ r_arrive: false }));
-        }else{
+        } else {
             dispatch(handleIsNotPassed({ r_arrive: true }));
         }
-        if (form1.get('r_depart').length===0) {
+        if (form1.get('r_depart').length === 0) {
             isPassed = false;
             dispatch(handleIsNotPassed({ r_depart: false }));
-        }else{
+        } else {
             dispatch(handleIsNotPassed({ r_depart: true }));
         }
         if (
-            form1.get('r_time').length===0 ||
+            form1.get('r_time').length === 0 ||
             form1.get('r_time').match(regexp) == null
         ) {
             isPassed = false;
             //notPassedObj.r_time=false;
             dispatch(handleIsNotPassed({ r_time: false }));
-        }else{
+        } else {
             dispatch(handleIsNotPassed({ r_time: true }));
         }
         if (!isPassed) {
-            
-            //dispatch(handleIsNotPassed(notPassedObj))  
+            //dispatch(handleIsNotPassed(notPassedObj))
             return dispatch(addNewFailure('Error:資料輸入不完整或不符合格式'));
-         
+
             //throw new Error('資料輸入不完整或不符合格式')
         }
         //console.log(form1);
-        form1.append('m_sid', userid)
+        form1.append('m_sid', userid);
         form1.append('r_time_added', new Date().toGMTString());
         fetch(ROOT_URL + '/list', {
             method: 'post',
@@ -245,13 +257,15 @@ export const handleAddNewSubmit = (userid) => {
                 let a = document.getElementsByClassName('rr_sid');
                 for (let i = 0; i < a.length; i++) {
                     a[i].value = obj.thisRoute;
-                }return (a.length)
-               
+                }
+                return a.length;
             })
-            .then(a=>{
-            if (+a===0){dispatch(addNewSuccess());
-            throw new Error('NOT')}
-        })
+            .then(a => {
+                if (+a === 0) {
+                    dispatch(addNewSuccess());
+                    throw new Error('NOT');
+                }
+            })
             .then(r => {
                 //console.log('3:location insert success');
                 let form2 = new FormData(document.form2);
@@ -273,17 +287,31 @@ export const handleAddNewSubmit = (userid) => {
             .catch(e => {
                 //console.log(e)
                 //console.log(typeof e)
-                if (""+e ==="Error: NOT"){
+                if ('' + e === 'Error: NOT') {
                     dispatch(addNewSuccess());
-                }else{dispatch(addNewFailure('' + e));}
-                
+                } else {
+                    dispatch(addNewFailure('' + e));
+                }
             });
     };
 };
 
+export const addNewSuccessA = () => {
+    return dispatch => {
+        //dispatch(alertAppear('success'));
+        dispatch(addNewSuccess('success'));
+    };
+};
 export const addNewSuccess = () => {
     return {
         type: ADD_NEW_SUCCESS,
+    };
+};
+
+export const addNewFailureA = error => {
+    return dispatch => {
+        //dispatch(alertAppear('fail'));
+        dispatch(addNewFailure(error));
     };
 };
 
@@ -291,6 +319,12 @@ export const addNewFailure = error => {
     return {
         type: ADD_NEW_FAILURE,
         payload: error,
+    };
+};
+
+export const addNewReset = () => {
+    return {
+        type: ADD_NEW_RESET,
     };
 };
 
@@ -305,46 +339,65 @@ export const submitCommentAsync = () => {
         })
             .then(res => res.json())
             .then(r => {
-                if (r.success){
-                    dispatch(submitCommentSuccess())    
-                    return r.rsid    
-                }else {throw new Error(r.errMsg)}
+                if (r.success) {
+                    dispatch(submitCommentSuccess());
+                    return r.rsid;
+                } else {
+                    throw new Error(r.errMsg);
+                }
             })
-            .then(rsid=>fetch(ROOT_URL+'/comment/'+rsid,{
-                method: 'get',
-            }))
+            .then(rsid =>
+                fetch(ROOT_URL + '/comment/' + rsid, {
+                    method: 'get',
+                })
+            )
             .then(res => res.json())
-            .then(r=>dispatch(updateCommentSection(r.comment)))
+            .then(r => dispatch(updateCommentSection(r.comment)))
             .catch(e => {
                 dispatch(submitCommentFailure('' + e));
             });
     };
 };
 
-export const updateCommentSection=(payload)=>{
+export const updateCommentSection = payload => {
+    console.log('payload');
+    console.log(payload);
+    console.log('payload------------');
     return {
-        type:UPDATE_COMMENT_SECTION,
-        payload:payload
-    }
-}
+        type: UPDATE_COMMENT_SECTION,
+        payload: payload,
+    };
+};
 
 export const submitCommentSuccess = () => {
     return {
         type: SUMBMIT_COMMENT_SUCCESS,
     };
 };
-
-
 export const submitCommentFailure = error => {
     return {
-        type: SUMBMIT_COMMENT_FAILURE,
+        type: ALERT_APPEAR,
         payload: error,
     };
 };
+//alert -------------------alert
 
-export const alertDisappear = successType => {
+export const alertAppear = payload => {
+    return {
+        type: ALERT_APPEAR,
+        payload: payload,
+    };
+};
+
+export const alertDisappear = () => {
     return {
         type: ALERT_DISAPPEAR,
+    };
+};
+
+export const alertDisappear1 = successType => {
+    return {
+        type: ALERT_DISAPPEAR1,
         successType: successType,
     };
 };
@@ -355,3 +408,30 @@ export const handleIsNotPassed = payload => {
         payload: payload,
     };
 };
+
+export const handleSearch = () => {
+    let formSearch = new FormData(document.searchform);
+return dispatch => {
+    fetch(ROOT_URL + 'search', {
+        method: 'post',
+        body:formSearch
+    })
+        .then(res => res.json())
+        .then(obj => {
+            // console.log(obj);
+            dispatch(fetchPostsSuccess(obj, page));
+        })
+        .catch(e => {
+            dispatch(fetchPostsFailure('' + e));
+        });
+};
+
+// function fetch_routes() {
+//     fetch('./display_API.php?page=' + page + '&perPage=' + perPage + '&orderBy=' + orderBy)
+//         .then(res => res.json())
+//         .then(
+//             obj => {
+
+//             }
+//         )
+// }

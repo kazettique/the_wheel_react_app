@@ -11,10 +11,10 @@ function routeFormCheck(
     action
 ) {
     switch (action.type) {
-        case HANDLE_IS_NOT_PASSED:       
-            console.log(action.payload)
+        case HANDLE_IS_NOT_PASSED:
+            console.log(action.payload);
             return Object.assign({}, state, action.payload);
-            //return action.payload
+        //return action.payload
         default:
             return state;
     }
