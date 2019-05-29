@@ -220,6 +220,7 @@ class news extends React.Component {
                        {data.map((item,index) => {
                         let str= item.text;
                         let src = str.slice(32,str.indexOf("alt") -2);
+                        let text=str.slice(str.indexOf("<p>")+3,str.indexOf("</p>")-3);
                         {/* console.log(src); */}
                           return  (<div className="card mb-3" style={{maxWidth: "800px"}} key={item.sid}>
                               <div className="row no-gutters">
@@ -230,22 +231,28 @@ class news extends React.Component {
                                 <div className="col-md-6">
                                    <div className="card-body">
                                    <div className="d-flex">
-                                    <div className="titlearea">
+                                      <div className="titlearea">
                                       <h5 className="card-title ellipsis">{item.title}</h5>
-                                      <p className="card-text"><small className="text-muted">發布時間{item.date}</small></p>
+                                      
+                                      </div>
+                                      <Button className="cancel ml-auto" variant="danger" onClick={this.handleCancel(item.sid)}>取消追蹤</Button>
                                     </div>
-                                      <h5 className="ml-auto">{item.c_level}</h5>
-                                    </div>
-                                    <p className="card-text ellipsis">{item.c_intro}</p>
-                                    
-                                    
-                                    
-                                    <p>#{item.type}</p>
 
+                                    <div className="textcontent">
+                                    <p className="card-text ellipsis">{text}</p>
+                                    </div>
+                                    
+                                    
+                                    <div  className="d-flex">
+                                    <p>#{item.type}</p>
+                                    <p className="card-text ml-3"><small className="text-muted">發布時間{item.date}</small></p>
+                                    </div>
                                     <div className="d-flex">
                                       {/* <Button className="cancel" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button> */}
-                                      <Button className="cancel" variant="danger" onClick={this.handleCancel(item.sid)}>取消追蹤</Button>
-                                      <Link className="btn btn-success ml-auto" to={`/news/${item.sid}`}>查看課程資訊</Link>
+                                     
+                                      <a href="javascript:;" ><i className="fab fa-facebook"></i></a>
+                                      <a href="javascript:;" ><i className="fab fa-instagram"></i></a>
+                                      <Link className="btn btn-success ml-auto" to={`/news/${item.sid}`}>查看新聞資訊</Link>
                                     </div>
                                   </div>
                                 </div>

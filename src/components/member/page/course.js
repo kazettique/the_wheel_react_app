@@ -248,16 +248,20 @@ class course extends React.Component {
                                       <h5 className="card-title">{item.c_title}</h5>
                                       <p className="card-text"><small className="text-muted">開課時間{item.c_courseDate}</small></p>
                                     </div>
-                                      <h5 className="ml-auto">{item.c_level}</h5>
+                                    <Button className="cancel ml-auto" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button> 
                                     </div>
                                     <p className="card-text ellipsis">{item.c_intro}</p>
                                     
                                     
-                                    
-                                    <p>教練名稱:{item.c_coachName}</p>
-
                                     <div className="d-flex">
-                                      <Button className="cancel" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button>
+                                    <p>教練名稱:{item.c_coachName}</p>
+                                    <h5 className="ml-auto">{item.c_level}</h5>
+                                    </div>
+                                    <div className="d-flex">
+                                    <a href="javascript:;" ><i className="fab fa-facebook"></i></a>
+                                    <a href="javascript:;" ><i className="fab fa-instagram"></i></a>
+                                    
+                                    
                                       <Link class="btn btn-success ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
                                     </div>
                                   </div>
