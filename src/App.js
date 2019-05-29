@@ -26,6 +26,7 @@ import CourseBackItForm from './containers/Course/containers/CourseBackItForm';
 import RouteDisplay from './containers/Route/containers/RrouteDisplay';
 import RouteDetail from './containers/Route/containers/RouteDetail';
 import RouteAddNew from './containers/Route/containers/RouteAddNew';
+import FullArticle from './containers/FullArticle/FullArticle';
 // import FML from './containers/Route/client01'
 
 const routes = [
@@ -43,6 +44,7 @@ const routes = [
     { path: '/course/:id', name: 'Contact', Component: CourseMain },
     { path: '/course', name: 'Contact', Component: Course },
     { path: '/news', name: 'Contact', Component: News },
+    { path: '/news/:id', name: 'Contact', Component: FullArticle },
     { path: '/products', name: 'Contact', Component: Products },
     { path: '/login', name: 'Contact', Component: Login },
     { path: '/member/edit/:id', name: 'Contact', Component: edit },
@@ -66,18 +68,7 @@ const routes = [
 //   {path: "/member/course/:id", name: "Contact", Component:course},
 //   {path: "/member/news/:id", name: "Contact", Component:news}
 
-{
-  /* 
-
-{
-    /* 
-
-
-
-<Route path="/member/course/:id" component={course} />
-<Route path="/member/news/:id" component={news} />
- */
-}
+// {
 
 class App extends Component {
     constructor(props) {
@@ -125,4 +116,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(App);

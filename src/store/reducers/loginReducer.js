@@ -1,4 +1,4 @@
-import {LOGIN_REQUEST, LOGIN_RESULT, USERNAME_INPUT, PASSWORD_INPUT, SHOW_SIGN_IN, CLEAR_FORM, GET_ORDERS} from "../loginActions";
+import {LOGIN_REQUEST, LOGIN_RESULT, USERNAME_INPUT, PASSWORD_INPUT, SHOW_SIGN_IN, CLEAR_FORM, GET_ORDERS, SET_USER_PAGE} from "../loginActions";
 
 const loginStatus = (state = {
   username: "",
@@ -8,14 +8,16 @@ const loginStatus = (state = {
   result: null,
   showSignIn: false,
   user: null,
-  orders: null
+  orders: null,
+  userPage: null
 }, action) => {
   switch(action.type){
     case "LOG_OUT":
       return Object.assign({}, state, {
         result: null,
         isAuth: false,
-        user: null
+        user: null,
+        orders: null,
       })
 
     case "ALREADY_AUTH":
@@ -55,6 +57,14 @@ const loginStatus = (state = {
       return Object.assign({}, state, {
         orders: action.orders
       })
+    case SET_USER_PAGE:
+      return Object.assign({}, state, {
+        userPage: action.data
+      })
+    case "NEW_COLLECTION":
+      return Object.assign({}, state, {
+        user: action.user
+      }) 
     default:
       return state;
   }

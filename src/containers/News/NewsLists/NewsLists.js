@@ -9,7 +9,7 @@ import { Route, withRouter } from "react-router-dom";
 import {connect} from "react-redux";
 import { fetchPosts, fetchPopular } from "../../../store/newsActions";
 import classes from "./NewsLists.module.css";
-
+import 'intersection-observer';
 
 class NewsLists extends React.Component{
   constructor(props){
@@ -22,7 +22,7 @@ class NewsLists extends React.Component{
      
       entries.forEach(entry => {
                 
-        if(entry.intersectionRatio >= 0.3){
+        if(entry.intersectionRatio >= 0.1){
           
          TweenMax.to(entry.target, 1.5, {
            y: 0,
@@ -35,7 +35,7 @@ class NewsLists extends React.Component{
     }
     this.observer = new IntersectionObserver(callback,{
       root: null,
-      threshold: 0.3
+      threshold: 0.1
     })
 
     this.tl = new TimelineLite();
@@ -44,16 +44,17 @@ class NewsLists extends React.Component{
 
   componentDidMount(prevProps){
     this.setState({currentShow: true});//切換route後觸發動畫
-    if(this.props.newsLists.length !== +this.props.page * 7){
-    this.props.dispatch(fetchPosts(this.props.page));
+    if(this.props.newsLists.length === 0){
+    this.props.dispatch(fetchPosts(this.props.page, this.props.search, this.props.filter));
     }
     if(this.props.popularList.length === 0){
       this.props.dispatch(fetchPopular()); 
      
     }
+    
   }
 
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps){
     let lists = document.querySelectorAll(".lists");
     lists.forEach(list => this.observer.observe(list) );
    
@@ -70,8 +71,13 @@ class NewsLists extends React.Component{
   }
 
   fullArticleHandler = (sid) => {
-    let scrollY = window.scrollY;
-    this.setState({scrollY});
+    // let scrollY = window.scrollY;
+    // this.setState({scrollY});
+    this.props.dispatch({
+      type: "OPEN",
+      selectedSid: sid,
+      scrollY: window.scrollY
+    })
     this.props.history.push("/news/" + sid);
   }
 
@@ -102,20 +108,18 @@ class NewsLists extends React.Component{
     return (
       <React.Fragment>
      
-        
+        <div className={classes.NewsLists}>
           <Row>
             <Col xs={12} className="d-flex justify-content-center">
-              <h2 className={classes.Font}>文章列表</h2>
+              <h2 style={{}} className={classes.Font}>文章列表</h2>
             </Col>
             
             {lists}
             
           </Row>
-        
+        </div>
     
-        <Route path="/news/:id" exact render={()=> <FullArticle 
-        selectedSid={this.state.selectedSid} scrollY={this.state.scrollY}
-        />}/>
+        <Route path="/news/:id" exact render={()=> <FullArticle/>}/>
     
       </React.Fragment>
     );

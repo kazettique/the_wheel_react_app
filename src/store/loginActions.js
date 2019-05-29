@@ -7,6 +7,7 @@ export const PASSWORD_INPUT = "PASSWORD_INPUT";
 export const SHOW_SIGN_IN = "SHOW_SIGN_IN";
 export const CLEAR_FORM = "CLEAR_FORM";
 export const GET_ORDERS = "GET_ORDERS";
+export const SET_USER_PAGE = "SET_USER_PAGE"
 
 const loginRequest = () => {
   return {
@@ -45,7 +46,7 @@ function get_orders (orders) {
 
 export const getOrders = (id) => {
   return dispatch => {
-    return axios.get("http://localhost:5000/get_order.api", {
+    return axios.get("http://52.221.144.169:5000/get_order.api", {
       params:{
         id: id
       }
@@ -69,14 +70,12 @@ export const passwordInput = (value) => {
 export const login = (email, password) => {
   return dispatch => {
     dispatch(loginRequest());
-    axios.post("http://localhost:5000/logintest", {
+    axios.post("http://52.221.144.169:5000/logintest", {
       email: email,
       password: password
     }).then(res => {
-      console.log(res);
       dispatch(loginResult(res));
       if(res.data.token){
-        console.log("token");
         localStorage.setItem("token", res.data.token);
         setTimeout(() => {
           dispatch(showSignIn(false))
@@ -85,5 +84,24 @@ export const login = (email, password) => {
           dispatch(clearForm())}, 1000);
       }
     })
+  }
+}
+
+function setUserPage (data) {
+  return {
+    type: SET_USER_PAGE,
+    data: data
+  }
+}
+
+export const getUserPage = (id) => {
+  return dispatch => {
+    return  axios.get("http://52.221.144.169:5000/get_userpage.api", {
+      params : {
+        id: id
+      }
+    }).then(res => {
+      dispatch(setUserPage(res.data));
+    });
   }
 }

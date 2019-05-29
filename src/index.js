@@ -13,6 +13,7 @@ import cart from './store/reducers/cartReducer';
 import loginStatus from './store/reducers/loginReducer';
 import products from './store/reducers/productsReducer';
 import modal from './store/reducers/modalReducer';
+import verify from './store/reducers/verifyReducer';
 import axios from 'axios';
 //r_reducers----------------
 import routeReducer from './containers/Route/reducers/routeReducer';
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     loginStatus,
     products,
     modal,
+    verify,
     routeReducer,
     routeSingleReducer,
     routeCountryChange,
@@ -49,11 +51,11 @@ const rootReducer = combineReducers({
 // const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 const store = createStore(
     rootReducer,
-    compose(
-        applyMiddleware(thunkMiddleware),
-        // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        // window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    // compose(
+    applyMiddleware(thunkMiddleware)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    // window.__REDUX_DEVTOOLS_EXTENSION__()
+    // )
 );
 
 const token = localStorage.getItem('token');
