@@ -12,7 +12,25 @@ import {
     HANDLE_ADD_NEW_LOCATION_DOWN,
     ADD_NEW_SUCCESS,
     ADD_NEW_FAILURE,
+    SET_LOGIN_STATUS
 } from '../actions';
+
+function userStatus (state = {loginUser:'', isLogined:false, user_id:'', session_name:'', session_photo:''}, action){
+    switch (action.type){
+        case SET_LOGIN_STATUS:
+            return {
+                loginUser: action.payload.loginUser,
+                isLogined: action.payload.isLogined,
+                user_id: action.payload.user_id,
+                session_name: action.payload.session_name,
+                session_photo: action.payload.session_photo,
+            }
+        default:
+            return state;
+    }
+
+}
+
 const INITIAL_STATE = { postsList: { posts: [], error: null, loading: false } };
 
 function routeReducer(state = INITIAL_STATE, action) {

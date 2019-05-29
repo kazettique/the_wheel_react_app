@@ -14,7 +14,9 @@ class AddNewMainForm extends Component {
     countryChange = event => {
         this.props.handleCountryChange(event.target.value);
     };
+
     render() {
+    
         return (
             <Container fluid className="p-0">
                 <Row className="d-flex flex-column w-100 m-0">
@@ -150,7 +152,8 @@ class AddNewMainForm extends Component {
                             label="路線封面"
                             name="r_img"
                             type="file"
-                            small="請按照格式 *天 *時 *分 可省略任意部分"
+                            small=""
+                            passed='true'
                         />
                         <Row>
                             <div
@@ -166,7 +169,7 @@ class AddNewMainForm extends Component {
                             </div>
                         </Row>
 
-                        <input name="m_sid" id="m_sid" className="d-none" />
+                       
                         <input
                             type="number"
                             min="0"

@@ -46,7 +46,7 @@ function routeAddNewLocation(state = { locationList: [] }, action) {
                 locationList: d,
             };
         case HANDLE_ADD_NEW_LOCATION_UP:
-            console.log('reducer up');
+            //console.log('reducer up');
             let e = [...state.locationList];
             let f = e.findIndex(i => i.num === action.num);
             if (f !== 0) {
@@ -59,7 +59,7 @@ function routeAddNewLocation(state = { locationList: [] }, action) {
                 locationList: e,
             };
         case HANDLE_ADD_NEW_LOCATION_DOWN:
-            console.log('reducer down');
+            //console.log('reducer down');
             let g = [...state.locationList];
             let h = g.findIndex(i => i.num === action.num);
             if (h !== g.length) {

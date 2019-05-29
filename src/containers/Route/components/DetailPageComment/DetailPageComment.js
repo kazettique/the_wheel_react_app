@@ -33,7 +33,7 @@ class DetailPageComment extends Component {
       
             const jsonObject = await response.json();
             if(!jsonObject.isLogined){
-                return alert('Please before Commenting')
+                return alert('留言前請先登入')
             }
     
             await this.setState({
@@ -43,6 +43,7 @@ class DetailPageComment extends Component {
             });
 
             await this.props.submitCommentAsync(this.state.user_id);
+            this.textArea.value = '';
           } catch (e) {
             console.log(e);
           }
@@ -76,7 +77,7 @@ class DetailPageComment extends Component {
         //     );
         // } else {
         //     console.log('yes');
-        
+
         return (
             <Row className="d-flex justify-content-center m-0">
                 <Col xs={11} xl={9} className="mb-5 px-0">
@@ -84,7 +85,7 @@ class DetailPageComment extends Component {
                         留言
                     </Col>
                     <Col>
-                        {this.props.data.map(i => {
+                        {this.props.r.data.comment.map(i => {
                             return (
                                 <Row
                                     key={i.r_c_sid}
@@ -130,7 +131,7 @@ class DetailPageComment extends Component {
                                     <input name="r_c_time" className="d-none" id="r_c_time" value={this.state.r_c_time} readOnly/>
                                     <input name="r_sid" className="d-none" value={this.props.rsid} readOnly/>
                                     <div className="w-100">
-                                        <textarea name="r_c" className="r_leave_comment w-100 p-3"></textarea>
+                                        <textarea name="r_c" className="r_leave_comment w-100 p-3" ref={el=>this.textArea = el}></textarea>
                                     </div>
                                     <button className="r_comment_btn py-1 px-4 my-2 r_fw_bold" type="button" onClick={this.handleSubmitComment}>
                                         留言
@@ -146,11 +147,13 @@ class DetailPageComment extends Component {
 }
 // }
 
+const mapStateToProps = store => ({ r: store.routeSingleReducer });
+
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ submitCommentAsync }, dispatch);
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(DetailPageComment);

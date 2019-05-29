@@ -6,6 +6,7 @@ import AdvanceSearch from '../components/AdvanceSearch/AdvanceSearch';
 import RouteListMap from '../components/RouteListMap/RouteListMap';
 import InfoCardList from '../components/InfoCardList/InfoCardList';
 
+
 class RouteDisplay extends Component {
     state = {
     };
@@ -27,4 +28,5 @@ class RouteDisplay extends Component {
     }
 }
 
-export default RouteDisplay;
+export default RouteDisplay
+
