@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { TimelineLite, TweenMax, Power4 } from "gsap/all";
 import CSSPlugin from 'gsap/CSSPlugin';
+import classes from "./PopularNews.module.css"
 
 const C = CSSPlugin;
 
@@ -44,7 +45,6 @@ class PopularNews extends React.Component {
   }
 
   fullArticleHandler = (sid) => {
-    // console.log(this.props.newsLists);
     let selectedSid = sid
     this.setState({selectedSid});
     this.props.history.push("/news/" + sid);
@@ -52,18 +52,18 @@ class PopularNews extends React.Component {
 
   render(){
   let list = this.props.popularList.map((list, index) => {
-    console.log(list.sid);
-    return <NewsList size={10} text={list.text} title={list.title} onClick={() => this.fullArticleHandler(list.sid)}/>
+    return <NewsList size={10} text={list.text} title={list.title} onClick={() => this.fullArticleHandler(list.sid)} type={list.type}/>
   })
   return (
     <React.Fragment>
+    <div className={classes.PopularList}>
     <Row className="d-flex justify-content-center">
       <Col xs={12} className="d-flex justify-content-center">
-        <h2>熱門文章</h2>
+        <h2 style={{color: "white"}}>熱門文章</h2>
       </Col>
       {list}
     </Row>
-
+    </div>
     <Route path="/news/:id" exact render={()=> <FullArticle 
         selectedSid={this.state.selectedSid}
         />}/>

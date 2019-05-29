@@ -1,18 +1,14 @@
 import React from "react";
-import {Row, Col} from "react-bootstrap";
+import {Row, Col, Container} from "react-bootstrap";
 import classes from "./Control.module.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-
 library.add(faSearch);
 
-
-
-
 const control = ({filterHandler, toggle, setRef, searchHandler, filter, search, clearAllHandler, showPopular}) => {
-  let style = { background: "white" };
+  let style = { background: "rgb(207, 204, 204)" };
   return (
     <div className={classes.Control}>
     <Row>
@@ -33,7 +29,9 @@ const control = ({filterHandler, toggle, setRef, searchHandler, filter, search, 
           <ul>
           <li onClick={(e) => {
           toggle(e);
-          clearAllHandler();
+          if(filter || search){
+           clearAllHandler();
+          }
           }} value="false">所有文章</li>
           <li onClick={(e) => {
             toggle(e);
@@ -46,14 +44,14 @@ const control = ({filterHandler, toggle, setRef, searchHandler, filter, search, 
       <Col lg={12} className="text-nowrap">
         <div className={classes.Search}>
           <div className={classes.SearchInner}>
-            {search
-              ? <div className={classes.SearchFilter} onClick={searchHandler}>目前搜尋條件： {search} <span>X</span></div>
-              : null}
-            <div className={classes.SearchBar}>
-              <input type="text" ref={setRef}/>
-              <span className={classes.Icon}><FontAwesomeIcon icon={faSearch}/></span>
-            </div>
-            <button onClick={searchHandler}>search</button>
+                  {search
+                  ? <div className={classes.SearchFilter} onClick={searchHandler}>目前搜尋條件： {search} <span>X</span></div>
+                  : <div style={{border: "none"}} className={classes.SearchFilter}></div>}
+                  <div className={classes.SearchBar}>
+                      <input type="text" ref={setRef}/>
+                      <span className={classes.Icon}><FontAwesomeIcon icon={faSearch}/></span>
+                      <button onClick={searchHandler}>search</button>
+                  </div>
           </div>
         </div>
       </Col>

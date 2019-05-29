@@ -1,4 +1,4 @@
-import { CART_IS_OPEN, ADD_TO_CART, CART_ON_REFRESH, CHECK_OUT } from "../cartActions";
+import { CART_IS_OPEN, ADD_TO_CART, CART_ON_REFRESH, CHECK_OUT, CHECK_OUT_SUCCESS, IS_ADDING } from "../cartActions";
 
 const totalPrice = (list) => {
   let total = 0;
@@ -13,7 +13,8 @@ const cart = (state = {
   cartIsOpen: false,
   selected: [],
   totalPrice: 0,
-  checkout: false
+  checkout: false,
+  isAdding: false
 }, action) => {
   switch(action.type){
     case CART_IS_OPEN:
@@ -28,16 +29,13 @@ const cart = (state = {
     case ADD_TO_CART:
       let selected = JSON.parse(localStorage.getItem("selected"));
       if(!selected){
-        console.log("!")
         selected = [];
       }
-      console.log(selected);
       let list = selected.map(obj => obj.p_sid);
       let updatedList = null;
       if(list.includes(action.item.p_sid)){
         for(let obj of selected){
           if(obj.p_sid === action.item.p_sid){
-            console.log(action.qty);
             let updatedQty = Number(obj.qty) + Number(action.qty);
             obj.qty = updatedQty;
             if(obj.qty === 0){
@@ -66,7 +64,16 @@ const cart = (state = {
     case CHECK_OUT:
       return Object.assign({}, state, {
         checkout: action.checkout
-      })
+      });
+    case CHECK_OUT_SUCCESS:
+      return Object.assign({},state, {
+        selected: action.selected,
+        totalPrice: action.totalPrice
+      });
+    case IS_ADDING:
+      return Object.assign({}, state, {
+        isAdding: action.isAdding
+      })    
     default:
       return state
   }
