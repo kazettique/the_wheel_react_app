@@ -10,8 +10,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchSingleAsync } from '../actions';
 import {withRouter} from 'react-router-dom';
-class RouteDetail extends Component {
+import RAlert from '../components/R_Alert/R_Alert';
 
+
+class RouteDetail extends Component {
     state = {};
 
     componentDidMount() {
@@ -20,6 +22,13 @@ class RouteDetail extends Component {
     render() {
         if (this.props.r.data.main) {
             return (
+                <>
+                {this.props.r.submitcommentfail ? 
+                (
+                    <RAlert text={'ERROR'} type="failure" />
+                ) : (
+                    <div />
+                )}
                 <Container fluid className="p-0">
                     <div style={{height:'56px'}}></div>
                     <Row className="d-flex justify-content-center my-3 my-xl-5 mx-0">
@@ -59,6 +68,7 @@ class RouteDetail extends Component {
                         rsid={this.props.r.data.main[0].r_sid}
                     />
                 </Container>
+                </>
             );
         } else {
             return <></>;

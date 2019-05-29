@@ -82,17 +82,24 @@ class course extends React.Component {
         old_password: jsonObject[0].m_password,
         myCollect:JSON.parse(jsonObject[0].c_course),
       });
+      
+      if(jsonObject[0].c_course!==null){
 
-
+      if(JSON.parse(jsonObject[0].c_course).length>0){
+        //拿到收藏的新聞資訊
+        console.log(JSON.parse(jsonObject[0].c_course).length);
       //拿到收藏的課程資訊
         this.getCourse()
-
-
+      }
+    }else{
+      this.setState({myCollect:[]});
+    }
     } catch (e) {
       console.log(e);
     } finally {
     }
   }
+
 
   //拿到SQL收藏的課程
   getCourse=async()=>{
@@ -219,7 +226,7 @@ class course extends React.Component {
               />
 
 
-            <Col className="detailArea">
+            <Col  md={9} className="detailArea">
               <DetailNav
                   title1={this.state.NavTitle1}
                   title2={this.state.NavTitle2}
