@@ -185,19 +185,11 @@ class course extends React.Component {
       console.log(obj);
       this.getCourse()
     })
- 
-    
+  
     // .then(this.setState({myCollect:newData}))
-    
-   
     .catch(error => console.error('Error:', error))
     
-   
-
-   
-    
-
-
+  
     
   }
 
