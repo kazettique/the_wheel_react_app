@@ -68,6 +68,7 @@ class news extends React.Component {
       const jsonObject = await response.json();
 
       console.log(jsonObject);
+      console.log(JSON.parse(jsonObject[0].collection));
       await this.setState({
         myMemberData: jsonObject,
         m_photo: jsonObject[0].m_photo,
@@ -75,12 +76,17 @@ class news extends React.Component {
         old_password: jsonObject[0].m_password,
         myCollect:JSON.parse(jsonObject[0].collection),
       });
+      
+      if(jsonObject[0].colletion!==null){
 
       if(JSON.parse(jsonObject[0].collection).length>0){
       //拿到收藏的新聞資訊
       console.log(JSON.parse(jsonObject[0].collection).length);
         this.getNews()
       }
+    }else{
+      this.setState({myCollect:[]});
+    }
 
     } catch (e) {
       console.log(e);
@@ -204,7 +210,7 @@ class news extends React.Component {
                 myId={this.state.id}
               />
 
-              <Col  className="detailArea">
+              <Col   md={9}  className="detailArea">
               <DetailNav
                   title1={this.state.NavTitle1}
                   handleTitleClick={this.handleTitleClick}
