@@ -80,7 +80,10 @@ class CourseBanner extends React.Component {
                       />
                     </div>
                     <div className="m-2">
-                      <LikeItButton buttonDisplay={this.props.buttonDisplay} />
+                      <LikeItButton
+                        buttonDisplay={this.props.buttonDisplay}
+                        onClick={this.props.collectHandler}
+                      />
                     </div>
                   </Col>
                 </Row>
