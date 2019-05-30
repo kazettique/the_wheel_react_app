@@ -203,6 +203,7 @@ class products extends React.Component {
             name={item.p_name}
             description={item.p_description}
             price={item.p_price}
+            genre={item.p_genre}
             p_sid={item.p_sid}
             key={item.p_sid}
             modal={this.props.modal}
@@ -310,7 +311,7 @@ class products extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Link to="/checkout">
-              <Button color="primary">結帳</Button>
+              <Button color="primary" onClick={this.props.ModalReset}>結帳</Button>
             </Link>
             <Button color="secondary" onClick={this.props.onToggle}>
               取消

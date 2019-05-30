@@ -95,7 +95,11 @@
 }
 
 .Comment > * {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.Comment span {
+  cursor: pointer;
 }
 
 .Reply {
@@ -136,6 +140,11 @@
 .Verify {
   display: flex;
   justify-content: flex-end;
+}
+
+.ReplyInput span {
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 @media (max-width: 992px) {

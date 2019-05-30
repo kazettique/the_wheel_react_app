@@ -40,7 +40,7 @@ class SingleProductList extends React.Component {
               <img
                 className={classes.imgSmallGroups}
                 style={{ width: '80%' }}
-                src={this.props.product.p_photo}
+                src={this.props.product.p_photo2}
                 alt=""
               />
             </Col>
@@ -52,7 +52,7 @@ class SingleProductList extends React.Component {
               <p>{this.props.product.p_description}</p>
             </Col>
             <Col>
-              <p>{this.props.product.p_description}</p>
+              <p>{this.props.product.p_description2}</p>
             </Col>
           </Row>
         </Container>
@@ -65,17 +65,17 @@ class SingleProductList extends React.Component {
               <img
                 className={classes.productDescriptionImg}
                 style={{ width: '70%' }}
-                src={this.props.product.p_photo}
+                src={this.props.product.p_photo3}
                 alt=""
               />
             </Col>
-            <Col className={classes.productDescription2}>
+            {/* <Col className={classes.productDescription2}>
               <div className={classes.productDescription3}>
                 <p style={{ marginTop: '60px' }}>
                   {this.props.product.p_description}
                 </p>
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </>

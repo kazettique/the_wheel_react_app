@@ -9,52 +9,53 @@ import AddNewLocationsContainer from '../components/AddNewMainForm/AddNewLocatio
 import RAlert from '../components/R_Alert/R_Alert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handleAddNewLocation, handleAddNewSubmit } from '../actions';
-import { Redirect } from 'react-router-dom';
-import {withRouter} from 'react-router';
+import {
+    handleAddNewLocation,
+    handleAddNewSubmit,
+    addNewReset,
+} from '../actions';
+import { withRouter } from 'react-router';
 
 class RouteAddNew extends Component {
     state = {};
-componentDidUpdate(){
-
-    if(  this.props.l.success === true ){
-        setTimeout(()=>{
-            return  this.props.history.push("/route");
-        },1400)     
-
+    componentDidUpdate() {
+        if (this.props.l.success === true) {
+            setTimeout(() => {
+                this.props.addNewReset();
+                return this.props.history.push('/route');
+            }, 1400);
+        }
+        //console.log(this.props)
     }
-    //console.log(this.props)
-}
     addNewLocation = () => {
         this.props.handleAddNewLocation();
     };
 
     addNewSubmit = async () => {
-       try {
+        try {
             const response = await fetch('http://localhost:5000/is_logined', {
-              method: 'GET',
-              credentials: 'include',
-              headers: new Headers({
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              }),
+                method: 'GET',
+                credentials: 'include',
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }),
             });
 
             const jsonObject = await response.json();
-            if(!jsonObject.isLogined){
-                return alert('新增路線前請先登入')
+            if (!jsonObject.isLogined) {
+                return alert('新增路線前請先登入');
             }
-    
+
             await this.setState({
-              user_id: jsonObject.user_id,
+                user_id: jsonObject.user_id,
             });
 
             await this.props.handleAddNewSubmit(this.state.user_id);
-          } catch (e) {
+        } catch (e) {
             console.log(e);
-          }
-        };
-        
+        }
+    };
 
     render() {
         // let redirect=null;
@@ -62,15 +63,14 @@ componentDidUpdate(){
         //     setTimeout(()=>{
         //         return redirect=<Redirect to="/route" />;
         //     },3000)
-            
+
         // }
         return (
             <>
                 {this.props.l.success === true ? (
                     <>
-                    <RAlert text="新增路線成功" type="success" />
-                    {/* <Redirect to="/route" /> */}
-                   
+                        <RAlert text="新增路線成功" type="success" />
+                        {/* <Redirect to="/route" /> */}
                     </>
                 ) : this.props.l.success === false ? (
                     <RAlert text={this.props.l.error} type="failure" />
@@ -142,10 +142,14 @@ componentDidUpdate(){
 
 const mapStateToProps = state => ({
     l: state.routeAddNewLocation,
+    a: state.alertReducer,
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ handleAddNewLocation, handleAddNewSubmit }, dispatch);
+    bindActionCreators(
+        { handleAddNewLocation, handleAddNewSubmit, addNewReset },
+        dispatch
+    );
 
 export default connect(
     mapStateToProps,

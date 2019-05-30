@@ -22,6 +22,7 @@ class ProductSinglePage extends React.Component {
       id: null,
       product: null,
       collectionProduct:[],
+      user:null,
     }
   }
 
@@ -60,24 +61,19 @@ class ProductSinglePage extends React.Component {
               console.log(data)
               if(data.user_id){
                   this.setState({user:data});
+                  
                   axios
-                  .get("http://localhost:5000/collectionProduct", {
+                  .get("http://localhost:5000/collection", {
                     params: {
                       sid: data.user_id
                     }
+                    
                   })
                   .then(res => {
-                    this.setState({ collectionProduct: JSON.parse(res.data[0].collectionProduct) });
+                  
+                    this.setState({ collectionProduct: JSON.parse(res.data[0].c_product)});
                   })
-                    axios
-                    .get("http://localhost:5000/collectionProduct", {
-                      params: {
-                        sid: data.user_id
-                      }
-                    
-                  }).then(res=>{
-                    this.setState({ collection: JSON.parse(res.data.collection) });
-                  })
+               
                 }
             })
     // //
@@ -98,12 +94,15 @@ class ProductSinglePage extends React.Component {
      
           
             let collectionProduct = [];
-            let sid =this.props.history.location.pathname.slice(11)
+            console.log(collectionProduct)
+            let sid =+this.props.history.location.pathname.slice(11)
             if(this.state.collectionProduct){
+              console.log("123")
                 collectionProduct=this.state.collectionProduct
             }
             let include = false;
             if(collectionProduct.length > 0){
+              
                 for(let id of collectionProduct ){
                     if(id===sid){
                         collectionProduct=collectionProduct.filter(item => item !== sid);
@@ -115,13 +114,15 @@ class ProductSinglePage extends React.Component {
             }
             if(!include){
                 collectionProduct.push(sid)
+                console.log('555')
                 this.setState({collectionProduct:collectionProduct})
+                console.log(this.state.collectionProduct)
             }
             axios.post("http://localhost:5000/collectionProduct",{
                 collectionProduct:JSON.stringify(collectionProduct),
                 sid:localStorage.meber
             })
-            console.log(this.state.p_sid, localStorage.meber);
+            // console.log(this.state.p_sid, localStorage.meber);
         }
 
 
@@ -137,12 +138,13 @@ class ProductSinglePage extends React.Component {
           onToggle={this.props.onToggle}
           deleteCartItem={this.props.deleteCartItem}
           modal={this.props.modal}
+          ModalReset={this.props.ModalReset}
         />
       )
       list3 = <SingleProductList product={this.state.product} />
       list4 = <SingleImg product={this.state.product} />
     }
-    console.log(this.state.id)
+    // console.log(this.state.id)
 
     return (
       <>

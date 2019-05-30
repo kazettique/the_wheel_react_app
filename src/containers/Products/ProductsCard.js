@@ -40,17 +40,18 @@ class ProductsCard extends React.Component {
             <Col md={4}>
               <Card.Img
                 variant="top"
-                src="https://attach.mobile01.com/attach/201809/mobile01-cce4664dba207264b6b9eb925ca3694e.png"
+                src={this.props.pic}
                 alt=""
               />
             </Col>
             <Col md={7}>
-              <Card.Title>{this.props.name}</Card.Title>
+              <Card.Title>{this.props.name} <br/>車種類別:{this.props.genre}</Card.Title>
               <Card.Text>{this.props.description}</Card.Text>
               <Card.Body>
                 <Card.Text className={classes.Space}>
                   NT{this.props.price}
                 </Card.Text>
+             
                 {/* <Button variant="primary" className={classes.ButtonSpace} onClick={this.props.handleCollect}>
                   加入收藏
                 </Button> */}

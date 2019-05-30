@@ -132,14 +132,11 @@ class SingleSiderBar extends React.Component {
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
     localStorage.setItem('cart', JSON.stringify(cart))
   }
-  ModalReset=()=>{
-    this.setState({
-      modal: !this.props.modal,
-    })
-  }
+ 
 
   render() {
-    console.log(this.props.history)
+    let meber = localStorage.getItem('meber')
+    console.log(meber)
     const { show, product } = this.state
     
     let totalPrice = 0
@@ -293,7 +290,7 @@ class SingleSiderBar extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Link to="/checkout">
-              <Button color="primary" onClick={this.ModalReset}>結帳</Button>
+              <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
             </Link>
             <Button color="secondary" onClick={this.props.onToggle}>
               取消
