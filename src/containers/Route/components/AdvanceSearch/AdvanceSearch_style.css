@@ -24,7 +24,7 @@
     }
 }
 
-.r_as_select {
+.rr_as_select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -36,6 +36,9 @@
     max-width: 20rem;
     color: #000000;
 }
+/* .rr_as_select option{
+    color
+} */
 
 .r_as_select option {
     color: #000000;

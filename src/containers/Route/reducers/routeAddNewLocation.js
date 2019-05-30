@@ -6,7 +6,8 @@ import {
     HANDLE_ADD_NEW_LOCATION_DOWN,
     ADD_NEW_SUCCESS,
     ADD_NEW_FAILURE,
-    ALERT_DISAPPEAR,
+    ALERT_DISAPPEAR1,
+    ADD_NEW_RESET,
 } from '../actions';
 
 function arraymove(arr, fromIndex, toIndex) {
@@ -46,7 +47,7 @@ function routeAddNewLocation(state = { locationList: [] }, action) {
                 locationList: d,
             };
         case HANDLE_ADD_NEW_LOCATION_UP:
-            console.log('reducer up');
+            //console.log('reducer up');
             let e = [...state.locationList];
             let f = e.findIndex(i => i.num === action.num);
             if (f !== 0) {
@@ -59,7 +60,7 @@ function routeAddNewLocation(state = { locationList: [] }, action) {
                 locationList: e,
             };
         case HANDLE_ADD_NEW_LOCATION_DOWN:
-            console.log('reducer down');
+            //console.log('reducer down');
             let g = [...state.locationList];
             let h = g.findIndex(i => i.num === action.num);
             if (h !== g.length) {
@@ -83,11 +84,15 @@ function routeAddNewLocation(state = { locationList: [] }, action) {
                 success: false,
                 error: errmsg,
             };
-        case ALERT_DISAPPEAR:
+
+        case ALERT_DISAPPEAR1:
             return (state = {
                 locationList: [...state.locationList],
                 successType: action.successType,
             });
+
+        case ADD_NEW_RESET:
+            return state;
         default:
             return state;
     }

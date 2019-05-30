@@ -10,7 +10,7 @@ import news from './store/reducers/newsReducer';
 import loading from './store/reducers/loadingReducer';
 import fullArticle from './store/reducers/fullArticleReducer';
 import cart from './store/reducers/cartReducer';
-import loginStatus from './store/reducers/loginReducer';
+//import loginStatus from './store/reducers/loginReducer';
 import products from './store/reducers/productsReducer';
 import modal from './store/reducers/modalReducer';
 import verify from './store/reducers/verifyReducer';
@@ -21,13 +21,15 @@ import routeSingleReducer from './containers/Route/reducers/routeSingleReducer';
 import routeCountryChange from './containers/Route/reducers/routeCountryChange';
 import routeAddNewLocation from './containers/Route/reducers/routeAddNewLocation';
 import routeFormCheck from './containers/Route/reducers/routeFormCheck';
+import alertReducer from './containers/Route/reducers/alertReducer';
+//import userStatus from './containers/Route/reducers/userStatus';
 
 const rootReducer = combineReducers({
     loading,
     news,
     fullArticle,
     cart,
-    loginStatus,
+    //loginStatus,
     products,
     modal,
     verify,
@@ -36,6 +38,8 @@ const rootReducer = combineReducers({
     routeCountryChange,
     routeAddNewLocation,
     routeFormCheck,
+    alertReducer,
+    //userStatus
 });
 
 // function configureStore(preloadedState) {
@@ -51,11 +55,11 @@ const rootReducer = combineReducers({
 // const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 const store = createStore(
     rootReducer,
-    // compose(
-    applyMiddleware(thunkMiddleware)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    // window.__REDUX_DEVTOOLS_EXTENSION__()
-    // )
+    compose(
+    applyMiddleware(thunkMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
 
 const token = localStorage.getItem('token');

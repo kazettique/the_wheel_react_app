@@ -68,9 +68,10 @@ class Fullarticle extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         if(data.user_id){
           this.setState({ user: data });
-          if (this.state.user) {
+         
             axios
               .get("http://localhost:5000/collection.api", {
                 params: {
@@ -81,7 +82,7 @@ class Fullarticle extends React.Component {
                 this.setState({ collection: JSON.parse(res.data[0].collection) });
               });
           }
-        }  
+       
       });
   }
 
