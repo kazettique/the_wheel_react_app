@@ -20,7 +20,7 @@ class orders extends React.Component {
   }
 
   componentDidMount() {
-    let id = JSON.parse(localStorage.getItem('meber'))[0].id
+    let id = JSON.parse(localStorage.getItem('meber'))
     console.log(id)
 
     fetch(`http://localhost:5000/orders/${id}`)

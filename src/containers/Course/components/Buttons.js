@@ -63,10 +63,16 @@ class LikeItButton extends React.Component {
   }
 
   handleClickOnLikeButton() {
+    console.log('handleClickOnLikeButton!')
     this.setState({
       isLiked: !this.state.isLiked,
     })
   }
+/*
+  handleBtnColorChangeAndCollect = () => {
+    this.handleClickOnLikeButton.bind(this)
+    this.props.collectHandler
+  }*/
 
   render() {
     return (
@@ -74,7 +80,9 @@ class LikeItButton extends React.Component {
         <Button
           className="buttons"
           variant={this.state.isLiked ? 'light' : 'danger'}
-          onClick={this.handleClickOnLikeButton.bind(this)}
+          // onClick={this.handleClickOnLikeButton.bind(this)}
+          // onClick={this.handleBtnColorChangeAndCollect}
+          onClick={this.props.collectHandler}
           style={{ display: `${this.props.buttonDisplay}` }}
         >
           {this.state.isLiked ? '取消收藏' : '收藏課程'}

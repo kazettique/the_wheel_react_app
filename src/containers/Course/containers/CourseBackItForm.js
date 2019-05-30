@@ -38,20 +38,23 @@ class CourseBackItForm extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // console.log('componentDidUpdate c_fundNow: ' + this.state.c_fundNow)
     if (!this.state.course) {
+      // console.log('componentDidUpdate c_sid: ' + this.state.c_sid)
       let c_sid = this.state.c_sid
+      console.log('c_sid: ' + c_sid)
       fetch(`http://localhost:5000/course/${c_sid}`)
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
-          console.log('line47:' + data[0])
+          // console.log('line47:' + data[0]) // undefined
           // set data into states
           this.setState({ c_fundNow: data[0].c_fundNow })
           this.setState({ c_backers: data[0].c_backers })
           this.setState({ c_status: data[0].c_status })
         })
         .catch(err => {
-          console.log(err)
+          console.log(err) // c_fundNow of undefined
         })
     }
     // console.log(this.state.c_backers)
@@ -82,12 +85,17 @@ class CourseBackItForm extends React.Component {
     // 15 spaces of strings - "/course/backIt/"
     let c_sid = this.props.history.location.pathname.slice(15)
     // console.log(id)
+    console.log('componentDidMount c_sid: ' + c_sid)
+    console.log('componentDidMount c_fundNow: ' + this.state.c_fundNow)
     this.setState({
       c_sid: c_sid,
     })
+    console.log('componentDidMount2 c_sid: ' + c_sid)
+    console.log('componentDidMount2 c_fundNow: ' + this.state.c_fundNow)
   }
 
   handleSubmit = () => {
+    console.log('enter handleSubmit!')
     let obj = {
       // set form input data to state
       m_sid: this.state.m_sid,
@@ -156,7 +164,11 @@ class CourseBackItForm extends React.Component {
   render() {
     // console.log('updated: ' + this.state.c_backers)
     // console.log('updated c_fundNow: ' + this.state.c_fundNow)
-    this.state = { validated: false }
+    console.log('render c_sid: ' + this.state.c_sid)
+    // console.log(this.state)
+    console.log('render c_fundNow: ' + this.state.c_fundNow)
+    // this.state = { validated: false }
+    // console.log(this.state)
     // Render <CourseMainTitle />
     let list1 = null
     // Render <CourseBanner />

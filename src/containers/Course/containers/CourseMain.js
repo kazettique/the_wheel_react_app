@@ -5,6 +5,8 @@ import { Container } from 'react-bootstrap'
 import './course.scss'
 // React Router
 import { withRouter } from 'react-router-dom'
+// Import axios
+import axios from 'axios'
 // Import Components
 import MapDiv from '../components/MapDiv'
 import CourseNav from '../components/CourseNav'
@@ -27,6 +29,9 @@ class CourseMain extends React.Component {
       isLogined: '',
       user_id: '',
       myCollect: '',
+      // Check collect or not
+      user: null,
+      collection: null,
     }
   }
 
@@ -98,26 +103,75 @@ class CourseMain extends React.Component {
     let id = this.props.history.location.pathname.slice(8)
     this.setState({ id: id })
 
-    // check if login status
+    let sid = this.props.selectedSid
+    if (!this.props.selectedSid) {
+      sid = this.props.match.params.id
+    }
+    // check login status
     fetch('http://localhost:5000/is_logined', {
-      method: 'GET', // or 'PUT'
-      credentials: 'include', // data can be `string` or {object}!
+      method: 'GET',
+      credentials: 'include',
       headers: new Headers({
         Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
     })
       .then(res => res.json())
-      .then(obj =>
-        this.setState({
-          loginUser: obj.loginUser,
-          isLogined: obj.isLogined,
-          user_id: obj.user_id,
-          myCollect: obj.session_collect,
-        })
-      )
+      .then(data => {
+        if (data.user_id) {
+          this.setState({ user: data })
+          console.log('data: ' + data)
+          if (this.state.user) {
+            axios
+              .get('http://localhost:5000/collection.api', {
+                params: {
+                  sid: data.user_id,
+                },
+              })
+              .then(res => {
+                this.setState({
+                  collection: JSON.parse(res.data[0].collection),
+                })
+              })
+          }
+        }
+      })
+  }
 
-      .catch(error => console.error('Error:', error))
+  collectHandler = () => {
+    console.log('enter collectHandler!')
+    let collection = []
+    let sid = this.props.selectedSid
+    if (this.state.collection) {
+      collection = this.state.collection
+    }
+    let included = false
+    if (collection.length > 0) {
+      for (let id of collection) {
+        if (id === sid) {
+          collection = collection.filter(item => item !== sid)
+          this.setState({ collection: collection })
+          included = true
+          break
+        }
+      }
+    }
+    if (!included) {
+      collection.push(sid)
+      this.setState({ collection: collection })
+    }
+
+    //52.221.144.169
+    axios.post('http://localhost:5000/new_collection.api', {
+      collection: JSON.stringify(collection),
+      sid: this.state.user.user_id,
+    })
+    // .then(res => {
+    //   this.props.dispatch({
+    //     type: "NEW_COLLECTION",
+    //     user: res.data[0]
+    //   });
+    // });
   }
 
   // Methods
@@ -129,7 +183,6 @@ class CourseMain extends React.Component {
     let list2 = null
     let list3 = null
     let list4 = null
-    // let list5 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list0 = <CourseNav />
@@ -138,19 +191,28 @@ class CourseMain extends React.Component {
         <CourseBanner
           course={this.state.course}
           buttonDisplay={this.state.buttonDisplay}
+          collectHandler={this.collectHandler}
         />
       )
       list3 = <CourseTab course={this.state.course} />
       list4 = <MapDiv course={this.state.course} />
-      // list5 = <CourseBackItForm course={this.state.course} />
     }
 
     // check collect status`
-    console.log(this.state)
-    if (this.state.myCollect !== '') {
-      console.log(JSON.parse(this.state.myCollect))
+    // console.log(this.state)
+    // if (this.state.myCollect !== '') {
+    //   console.log(JSON.parse(this.state.myCollect))
+    // }
+    let collected = false
+    if (this.state.collection) {
+      if (this.state.collection.length > 0) {
+        for (let sid of this.state.collection) {
+          if (sid === +this.props.selectedSid) {
+            collected = true
+          }
+        }
+      }
     }
-
     return (
       <>
         <Container fluid className="p-0">
