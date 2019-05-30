@@ -68,21 +68,20 @@ class Fullarticle extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        if(data.user_id){
+        console.log(data);
+        if (data.user_id) {
           this.setState({ user: data });
-         
-            axios
-              .get("http://localhost:5000/collection.api", {
-                params: {
-                  sid: data.user_id
-                }
-              })
-              .then(res => {
-                this.setState({ collection: JSON.parse(res.data[0].collection) });
-              });
-          }
-       
+
+          axios
+            .get("http://localhost:5000/collection.api", {
+              params: {
+                sid: data.user_id
+              }
+            })
+            .then(res => {
+              this.setState({ collection: JSON.parse(res.data[0].collection) });
+            });
+        }
       });
   }
 
@@ -140,6 +139,28 @@ class Fullarticle extends React.Component {
     this.textarea.current.value = "";
     this.props.dispatch(newCommentCode());
     this.verify.value = "";
+  };
+
+  userReply = id => {
+    let comment = JSON.parse(this.props.post.comment)[id - 1];
+    console.log(comment);
+    let userReply = [];
+    if (comment.userReply) {
+      userReply = comment.userReply;
+    }
+    console.log(userReply);
+    let content = {
+      userId: this.state.user ? this.state.user.user_id : null,
+      userName: this.state.user ? this.state.user.session_name : null,
+      text: "testtest"
+    };
+    userReply.push(content);
+    comment.userReply = userReply;
+    let updatedComment = JSON.parse(this.props.post.comment);
+    updatedComment[id - 1] = comment;
+    this.props.dispatch(
+      replyArticle(this.props.post.sid, JSON.stringify(updatedComment))
+    );
   };
 
   closeFull = event => {
@@ -268,92 +289,111 @@ class Fullarticle extends React.Component {
                   >
                     {decodeURIComponent(comment.text)}
                   </div>
-                  <div>
+                  <div className="d-flex">
                     {comment.edited && +comment.edited === 1 ? (
-                      <span>編輯於</span>
+                      <span>*留言編輯於</span>
                     ) : null}
                     <span>{comment.date}</span>
                   </div>
-                  {this.props.user &&
-                  this.props.user.m_sid === comment.userId ? (
+                  <div
+                    className="d-flex"
+                    style={{ justifyContent: "space-between" }}
+                  >
                     <div>
-                      <span
-                        onClick={() => {
-                          let text = document.getElementById(`text${index}`);
-                          let send = document.getElementById(`send${index}`);
-                          let cancel = document.getElementById(
-                            `cancel${index}`
-                          );
-                          text.contentEditable = true;
-                          send.style.display = "initial";
-                          cancel.style.display = "initial";
-                          text.style.background = "white";
-                          text.focus();
-                        }}
-                      >
-                        編輯
-                      </span>
-                      <span
-                        id={`send${index}`}
-                        style={{ display: "none" }}
-                        onClick={() => {
-                          let newComments = JSON.parse(this.props.post.comment);
-                          let send = document.getElementById(`send${index}`);
-                          let text = document.getElementById(`text${index}`);
-                          let cancel = document.getElementById(
-                            `cancel${index}`
-                          );
-                          let date = new Date().toLocaleDateString("zh-tw", {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit"
-                          });
-                          newComments[index].text = text.innerText.replace(
-                            /\s+/g,
-                            ""
-                          );
-                          newComments[index].date = date;
-                          newComments[index].edited = 1;
-                          this.props.dispatch(
-                            replyArticle(
-                              this.props.post.sid,
-                              JSON.stringify(newComments)
-                            )
-                          );
-                          text.style.background = "#f7f7f8";
-                          send.style.display = "none";
-                          cancel.style.display = "none";
-                        }}
-                      >
-                        送出
-                      </span>
-                      <span
-                        id={`cancel${index}`}
-                        style={{ display: "none" }}
-                        onClick={() => {
-                          let text = document.getElementById(`text${index}`);
-                          let send = document.getElementById(`send${index}`);
-                          let cancel = document.getElementById(
-                            `cancel${index}`
-                          );
-                          text.contentEditable = false;
-                          text.innerText = JSON.parse(this.props.post.comment)[
-                            index
-                          ].text;
-                          send.style.display = "none";
-                          cancel.style.display = "none";
-                          text.style.background = "#f7f7f8";
-                          text.blur();
-                        }}
-                      >
-                        取消
+                      <span onClick={() => this.userReply(comment.id)}>
+                        回覆
                       </span>
                     </div>
-                  ) : null}
+                    {this.state.user &&
+                    this.state.user.user_id === comment.userId ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end"
+                        }}
+                      >
+                        <span
+                          onClick={() => {
+                            let text = document.getElementById(`text${index}`);
+                            let send = document.getElementById(`send${index}`);
+                            let cancel = document.getElementById(
+                              `cancel${index}`
+                            );
+                            text.contentEditable = true;
+                            send.style.display = "initial";
+                            cancel.style.display = "initial";
+                            text.style.background = "white";
+                            text.focus();
+                          }}
+                        >
+                          編輯
+                        </span>
+                        <span
+                          id={`send${index}`}
+                          style={{ display: "none" }}
+                          onClick={() => {
+                            let newComments = JSON.parse(
+                              this.props.post.comment
+                            );
+                            let send = document.getElementById(`send${index}`);
+                            let text = document.getElementById(`text${index}`);
+                            let cancel = document.getElementById(
+                              `cancel${index}`
+                            );
+                            let date = new Date().toLocaleDateString("zh-tw", {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit"
+                            });
+                            newComments[index].text = text.innerText.replace(
+                              /\s+/g,
+                              ""
+                            );
+                            newComments[index].date = date;
+                            newComments[index].edited = 1;
+                            this.props.dispatch(
+                              replyArticle(
+                                this.props.post.sid,
+                                JSON.stringify(newComments)
+                              )
+                            );
+                            text.style.background = "#f7f7f8";
+                            send.style.display = "none";
+                            cancel.style.display = "none";
+                          }}
+                        >
+                          {` | `}
+                          送出
+                          {` | `}
+                        </span>
+                        <span
+                          id={`cancel${index}`}
+                          style={{ display: "none" }}
+                          onClick={() => {
+                            let text = document.getElementById(`text${index}`);
+                            let send = document.getElementById(`send${index}`);
+                            let cancel = document.getElementById(
+                              `cancel${index}`
+                            );
+                            text.contentEditable = false;
+                            text.innerText = JSON.parse(
+                              this.props.post.comment
+                            )[index].text;
+                            send.style.display = "none";
+                            cancel.style.display = "none";
+                            text.style.background = "#f7f7f8";
+                            text.blur();
+                          }}
+                        >
+                          取消
+                        </span>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
                 {comment.reply ? (
                   <div className={classes.Reply}>
@@ -361,6 +401,17 @@ class Fullarticle extends React.Component {
                     <p>{comment.reply}</p>
                   </div>
                 ) : null}
+                {comment.userReply
+                  ? comment.userReply.map(reply => {
+                      return (
+                        <div>
+                          <p>{reply.userName}</p>
+                          <p>{reply.userId}</p>
+                          <p>{reply.text}</p>
+                        </div>
+                      );
+                    })
+                  : null}
               </div>
             );
           } else {
@@ -464,7 +515,6 @@ const mapStateToProps = state => {
   return {
     isFetching: state.fullArticle.isFetching,
     post: state.fullArticle.post,
-    user: state.loginStatus.user,
     commentInput: state.fullArticle.commentInput,
     selectedSid: state.fullArticle.selectedSid,
     scrollY: state.fullArticle.scrollY,
