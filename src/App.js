@@ -32,9 +32,9 @@ import FullArticle from "./containers/FullArticle/FullArticle";
 // import Loading from "./components/LoadingAnimation/Loading";
 //------------------------//
 //import 商品頁面
-import SingleProduct from "./containers/Products/ProductSingle/ProductSinglePage";
-import Orders from "./containers/Products/oder/orders";
-import checkout from "./containers/Products/checkout/checkout";
+import SingleProduct from './containers/Products/ProductSingle/ProductSinglePage'
+import Orders from './containers/Products/oder/orders'
+import checkout from './containers/Products/checkout/checkout'
 //----------------------//
 const routes = [
   // { path: '/', name: 'Home', Component: Main },

@@ -203,6 +203,7 @@ class products extends React.Component {
             name={item.p_name}
             description={item.p_description}
             price={item.p_price}
+            genre={item.p_genre}
             p_sid={item.p_sid}
             key={item.p_sid}
             modal={this.props.modal}
