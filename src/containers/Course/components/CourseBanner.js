@@ -18,6 +18,10 @@ class CourseBanner extends React.Component {
     }
   }
 
+  handleTest() {
+    console.log('handleTest!!')
+  }
+
   render() {
     // Transfer Portal For Props
     // let cover = this.state.course.c_cover
@@ -73,7 +77,6 @@ class CourseBanner extends React.Component {
                   </Col>
                   <Col sm={6} className="d-flex">
                     <div className="m-2">
-                      {/*<p>{this.props.buttonDisplay}</p>*/}
                       <BackItButton
                         sid={this.state.course.c_sid}
                         buttonDisplay={this.props.buttonDisplay}
@@ -82,7 +85,7 @@ class CourseBanner extends React.Component {
                     <div className="m-2">
                       <LikeItButton
                         buttonDisplay={this.props.buttonDisplay}
-                        onClick={this.props.collectHandler}
+                        collectHandler={this.props.collectHandler}
                       />
                     </div>
                   </Col>

@@ -120,6 +120,7 @@ class CourseMain extends React.Component {
       .then(data => {
         if (data.user_id) {
           this.setState({ user: data })
+          console.log('data: ' + data)
           if (this.state.user) {
             axios
               .get('http://localhost:5000/collection.api', {
@@ -138,6 +139,7 @@ class CourseMain extends React.Component {
   }
 
   collectHandler = () => {
+    console.log('enter collectHandler!')
     let collection = []
     let sid = this.props.selectedSid
     if (this.state.collection) {
@@ -181,7 +183,6 @@ class CourseMain extends React.Component {
     let list2 = null
     let list3 = null
     let list4 = null
-    // let list5 = null
     if (this.state.course) {
       // console.log(this.state.course)
       list0 = <CourseNav />
@@ -195,7 +196,6 @@ class CourseMain extends React.Component {
       )
       list3 = <CourseTab course={this.state.course} />
       list4 = <MapDiv course={this.state.course} />
-      // list5 = <CourseBackItForm course={this.state.course} />
     }
 
     // check collect status`
