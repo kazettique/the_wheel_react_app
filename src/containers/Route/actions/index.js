@@ -409,7 +409,7 @@ export const handleIsNotPassed = payload => {
     };
 };
 
-export const handleSearch = () => {
+export const handleSearch = (page) => {
     let formSearch = new FormData(document.searchform);
 return dispatch => {
     fetch(ROOT_URL + 'search', {
@@ -435,3 +435,4 @@ return dispatch => {
 //             }
 //         )
 // }
+}
