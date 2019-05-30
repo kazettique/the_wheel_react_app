@@ -131,7 +131,7 @@ class Fullarticle extends React.Component {
       userName: this.state.user ? this.state.user.session_name : null,
       userId: this.state.user ? this.state.user.user_id : null,
       userImg: this.state.user ? this.state.user.session_photo : null,
-      date: date
+      date: date,
     });
     this.props.dispatch(
       replyArticle(this.props.post.sid, JSON.stringify(comments))
@@ -140,6 +140,28 @@ class Fullarticle extends React.Component {
     this.props.dispatch(newCommentCode());
     this.verify.value = "";
   };
+
+  userReply = id => {
+    let comment = JSON.parse(this.props.post.comment)[id - 1];
+    console.log(comment);
+    let userReply = [];
+    if(comment.userReply){
+      userReply = comment.userReply;
+    }
+    console.log(userReply);
+    let content = {
+      userId: this.state.user? this.state.user.user_id : null,
+      userName: this.state.user? this.state.user.session_name : null,
+      text: "testtest"
+    }
+    userReply.push(content);
+    comment.userReply = userReply;
+    let updatedComment = JSON.parse(this.props.post.comment);
+    updatedComment[id -1] = comment;
+    this.props.dispatch(
+      replyArticle(this.props.post.sid, JSON.stringify(updatedComment))
+    );
+  }
 
   closeFull = event => {
     if (event.target.id === "back") {
@@ -267,15 +289,21 @@ class Fullarticle extends React.Component {
                   >
                     {decodeURIComponent(comment.text)}
                   </div>
-                  <div>
+                  <div className="d-flex">
+                   
                     {comment.edited && +comment.edited === 1 ? (
-                      <span>編輯於</span>
+                      <span>*留言編輯於</span>
                     ) : null}
                     <span>{comment.date}</span>
                   </div>
-                  {this.props.user &&
-                  this.props.user.m_sid === comment.userId ? (
-                    <div>
+                  <div className="d-flex" style={{justifyContent: "space-between"}}>
+                    <div><span onClick={() => this.userReply(comment.id)}>回覆</span></div>
+                  {this.state.user &&
+                  this.state.user.user_id === comment.userId ? (
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "flex-end"
+                    }}>
                       <span
                         onClick={() => {
                           let text = document.getElementById(`text${index}`);
@@ -328,7 +356,9 @@ class Fullarticle extends React.Component {
                           cancel.style.display = "none";
                         }}
                       >
+                        {` | `}
                         送出
+                        {` | `}
                       </span>
                       <span
                         id={`cancel${index}`}
@@ -353,6 +383,7 @@ class Fullarticle extends React.Component {
                       </span>
                     </div>
                   ) : null}
+                   </div> 
                 </div>
                 {comment.reply ? (
                   <div className={classes.Reply}>
@@ -360,6 +391,18 @@ class Fullarticle extends React.Component {
                     <p>{comment.reply}</p>
                   </div>
                 ) : null}
+                {comment.userReply
+                ?comment.userReply.map(reply => {
+                  return (
+                    <div>
+                      <p>{reply.userName}</p>
+                      <p>{reply.userId}</p>
+                      <p>{reply.text}</p>
+                    </div>
+                  )
+                })
+                :null
+                }
               </div>
             );
           } else {
