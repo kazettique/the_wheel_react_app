@@ -32,7 +32,9 @@ class Fullarticle extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      user: null
+      user: null,
+      collection: null,
+      showReplyInput: []
     };
     this.canvas = null;
     this.verify = null;
@@ -85,7 +87,8 @@ class Fullarticle extends React.Component {
       });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.collection);
     window.twttr.widgets.load();
     var fbBtn = document.querySelector(".facebook-share");
     var title = encodeURIComponent("Hey everyone, come & see how good I look!");
@@ -101,7 +104,23 @@ class Fullarticle extends React.Component {
       var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
       win.opener = null;
     });
+    ////////////////////////////
+
+    if (
+      this.props.post &&
+      this.props.post.comment &&
+      this.state.showReplyInput.length === 0
+    ) {
+      console.log("123");
+      let comment = JSON.parse(this.props.post.comment);
+      let arr = [];
+      for (let i = 0; i < comment.length; i++) {
+        arr.push(false);
+      }
+      this.setState({ showReplyInput: arr });
+    }
   }
+
   commentHandler = () => {
     if (this.verify.value.toUpperCase() !== this.props.code) {
       return window.alert("驗證碼錯誤!請重新輸入");
@@ -142,6 +161,11 @@ class Fullarticle extends React.Component {
   };
 
   userReply = id => {
+    let input = document.getElementById(`reply${id}`).value;
+
+    if (!input.length > 0) {
+      return;
+    }
     let comment = JSON.parse(this.props.post.comment)[id - 1];
     console.log(comment);
     let userReply = [];
@@ -152,7 +176,8 @@ class Fullarticle extends React.Component {
     let content = {
       userId: this.state.user ? this.state.user.user_id : null,
       userName: this.state.user ? this.state.user.session_name : null,
-      text: "testtest"
+      userImg: this.state.user ? this.state.user.session_photo : null,
+      text: input
     };
     userReply.push(content);
     comment.userReply = userReply;
@@ -254,7 +279,8 @@ class Fullarticle extends React.Component {
                           height: "50px",
                           objectFit: "cover",
                           borderRadius: "50%",
-                          marginRight: "5px"
+                          marginRight: "5px",
+                          border: "1px solid black"
                         }}
                         alt="userImage"
                         src={src}
@@ -300,7 +326,13 @@ class Fullarticle extends React.Component {
                     style={{ justifyContent: "space-between" }}
                   >
                     <div>
-                      <span onClick={() => this.userReply(comment.id)}>
+                      <span
+                        onClick={() => {
+                          let arr = this.state.showReplyInput;
+                          arr[index] = !arr[index];
+                          this.setState({ showReplyInput: arr });
+                        }}
+                      >
                         回覆
                       </span>
                     </div>
@@ -395,18 +427,99 @@ class Fullarticle extends React.Component {
                     ) : null}
                   </div>
                 </div>
+
+                {this.state.showReplyInput[index] ? (
+                  <div
+                    style={{
+                      background: "#f7f7f8",
+                      width: "100%",
+                      display: "flex",
+                      padding: "10px",
+                      marginBottom: "10px"
+                    }}
+                    className={classes.ReplyInput}
+                  >
+                    <input type="text" id={`reply${comment.id}`} />
+                    <span
+                      onClick={() => {
+                        this.userReply(comment.id);
+                        let arr = this.state.showReplyInput;
+                        arr[index] = !arr[index];
+                        this.setState({ showReplyInput: arr });
+                      }}
+                    >
+                      送出
+                    </span>
+                    {` | `}
+                    <span
+                      onClick={() => {
+                        let arr = this.state.showReplyInput;
+                        arr[index] = !arr[index];
+                        this.setState({ showReplyInput: arr });
+                      }}
+                    >
+                      取消
+                    </span>
+                  </div>
+                ) : null}
+
                 {comment.reply ? (
                   <div className={classes.Reply}>
-                    <p>作者回覆:</p>
+                    <div
+                      className="d-flex"
+                      style={{
+                        alignItems: "center"
+                      }}
+                    >
+                      <img
+                        src={image}
+                        alt=".."
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "50%",
+                          marginRight: "5px",
+                          border: "1px solid black"
+                        }}
+                      />
+                      <p>作者回覆:</p>
+                    </div>
                     <p>{comment.reply}</p>
                   </div>
                 ) : null}
+
                 {comment.userReply
                   ? comment.userReply.map(reply => {
                       return (
-                        <div>
-                          <p>{reply.userName}</p>
-                          <p>{reply.userId}</p>
+                        <div
+                          className={classes.Reply}
+                          style={{ marginBottom: "10px" }}
+                        >
+                          {reply.userName ? (
+                            <div
+                              className="d-flex"
+                              style={{
+                                alignItems: "center"
+                              }}
+                            >
+                              <img
+                                src={reply.userImg}
+                                alt=".."
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  borderRadius: "50%",
+                                  marginRight: "5px",
+                                  border: "1px solid black"
+                                }}
+                              />
+                              <p>{reply.userName}</p>
+                            </div>
+                          ) : (
+                            <p>匿名</p>
+                          )}
+
+                          {/* <p>{reply.userId}</p> */}
                           <p>{reply.text}</p>
                         </div>
                       );
