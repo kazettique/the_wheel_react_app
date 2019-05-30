@@ -40,7 +40,7 @@ class ProductControlledCarousel extends React.Component {
     return (
       <>
         <div>
-          <h4 className={classes.CarouselTitle2}>推薦濕品</h4>
+          <h4 className={classes.CarouselTitle2}>推薦商品</h4>
         </div>
         <Carousel
           activeIndex={index}
@@ -57,7 +57,7 @@ class ProductControlledCarousel extends React.Component {
               <img
                 className="d-block w-100  "
                 className={classes.imgHeight}
-                src="http://www.sportslab.com.tw/image/member/album/resize/623/629/1504596555497.png"
+                src={item.p_photo}
                 alt="First slide"
                 style={{ objectFit: 'contain' }}
               />

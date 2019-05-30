@@ -227,8 +227,8 @@ class checkout extends React.Component {
               <div style={{ display: `${this.state.display}` }}>
                 <Form.Group as={Col} md={3}>
                   <Form.Label>卡號</Form.Label>
-                  <input id="number" type="text" onChange={this.inputNumber} />
-                  {/* <Form.Control /> */}
+                  {/* <input id="number" type="text" onChange={this.inputNumber} /> */}
+                  <Form.Control />
                 </Form.Group>
 
                 <Form.Group as={Col} md={1} controlId="formGridPassword">
@@ -258,6 +258,7 @@ class checkout extends React.Component {
               </div>
               <div style={{ display: `${txt}` }}>
                 <Form.Group as={Col} md={4}>
+                <Form.Label>地址</Form.Label>
                   <Form.Control />
                 </Form.Group>
                 {/* <Form.Group as={Col} md={2} controlId="formGridState">
