@@ -411,20 +411,20 @@ export const handleIsNotPassed = payload => {
 
 export const handleSearch = (page) => {
     let formSearch = new FormData(document.searchform);
-return dispatch => {
-    fetch(ROOT_URL + 'search', {
-        method: 'post',
-        body:formSearch
-    })
-      .then(res => res.json())
-      .then(obj => {
-        // console.log(obj);
-        dispatch(fetchPostsSuccess(obj, obj.page));
-      })
-      .catch(e => {
-        dispatch(fetchPostsFailure("" + e));
-      });
-  };
+    return dispatch => {
+        fetch(ROOT_URL + '/search', {
+            method: 'post',
+            body:formSearch
+        })
+        .then(res => res.json())
+        .then(obj => {
+            console.log(obj);
+            dispatch(fetchPostsSuccess(obj, obj.page));
+        })
+        .catch(e => {
+            dispatch(fetchPostsFailure("" + e));
+        });
+    };
 };
 
 // function fetch_routes() {

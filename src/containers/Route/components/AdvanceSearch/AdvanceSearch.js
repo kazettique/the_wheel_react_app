@@ -127,7 +127,7 @@ class AdvanceSearch extends Component {
                                     className="r_as_search mx-2"
                                     name="r_search"
                                 />
-                                <button className="r_as_search_btn r_color_white px-3 r_fw_bold">
+                                <button className="r_as_search_btn r_color_white px-3 r_fw_bold" type="button" onClick={this.handleSearch}>
                                     搜尋
                                 </button>
                             </div>
