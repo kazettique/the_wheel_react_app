@@ -220,7 +220,7 @@ class news extends React.Component {
                        {data.map((item,index) => {
                         let str= item.text;
                         let src = str.slice(32,str.indexOf("alt") -2);
-                        let text=str.slice(str.indexOf("<p>")+3,str.indexOf("</p>")-3);
+                        let text=str.slice(str.indexOf("<p>")+3,str.indexOf("</p>")-4);
                         {/* console.log(src); */}
                           return  (<div className="card mb-3" style={{maxWidth: "800px"}} key={item.sid}>
                               <div className="row no-gutters">
