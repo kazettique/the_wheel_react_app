@@ -21,7 +21,7 @@ class CourseBackItForm extends React.Component {
       course: null,
       creditDisplay: 'none',
       // Get member ID from localStorage
-      m_sid: JSON.parse(localStorage.getItem('member'))[0].m_sid,
+      m_sid: JSON.parse(localStorage.getItem('meber'))[0].m_sid,
       c_sid: 0,
       payment_method: null,
       // Insert value into DB 'funding'
@@ -42,7 +42,7 @@ class CourseBackItForm extends React.Component {
     if (!this.state.course) {
       // console.log('componentDidUpdate c_sid: ' + this.state.c_sid)
       let c_sid = this.state.c_sid
-      console.log('c_sid: ' + c_sid)
+      // console.log('c_sid: ' + c_sid)
       fetch(`http://localhost:5000/course/${c_sid}`)
         .then(res => res.json())
         .then(data => {
@@ -66,7 +66,7 @@ class CourseBackItForm extends React.Component {
         c_fundNow: this.state.c_fundNow,
         c_status: this.state.c_status,
       }
-      console.log(this.state.c_status)
+      // console.log(this.state.c_status)
       // 更新課程欄位資訊（c_sid: 課程ID ,c_backers: 贊助人數; c_fundNow: 目前集資金額）
       fetch(`http://localhost:5000/course/dataUpdate`, {
         body: JSON.stringify(obj),
@@ -85,13 +85,13 @@ class CourseBackItForm extends React.Component {
     // 15 spaces of strings - "/course/backIt/"
     let c_sid = this.props.history.location.pathname.slice(15)
     // console.log(id)
-    console.log('componentDidMount c_sid: ' + c_sid)
-    console.log('componentDidMount c_fundNow: ' + this.state.c_fundNow)
+    // console.log('componentDidMount c_sid: ' + c_sid)
+    // console.log('componentDidMount c_fundNow: ' + this.state.c_fundNow)
     this.setState({
       c_sid: c_sid,
     })
-    console.log('componentDidMount2 c_sid: ' + c_sid)
-    console.log('componentDidMount2 c_fundNow: ' + this.state.c_fundNow)
+    // console.log('componentDidMount2 c_sid: ' + c_sid)
+    // console.log('componentDidMount2 c_fundNow: ' + this.state.c_fundNow)
   }
 
   handleSubmit = () => {
@@ -106,7 +106,7 @@ class CourseBackItForm extends React.Component {
       comment: this.state.comment,
     }
     // console.log(obj)
-    if (!localStorage.getItem('member')) {
+    if (!localStorage.getItem('meber')) {
       alert('請登入會員')
     } else {
       fetch(`http://localhost:5000/course/backIt/${this.state.c_sid}`, {
@@ -164,9 +164,9 @@ class CourseBackItForm extends React.Component {
   render() {
     // console.log('updated: ' + this.state.c_backers)
     // console.log('updated c_fundNow: ' + this.state.c_fundNow)
-    console.log('render c_sid: ' + this.state.c_sid)
+    // console.log('render c_sid: ' + this.state.c_sid)
     // console.log(this.state)
-    console.log('render c_fundNow: ' + this.state.c_fundNow)
+    // console.log('render c_fundNow: ' + this.state.c_fundNow)
     // this.state = { validated: false }
     // console.log(this.state)
     // Render <CourseMainTitle />
@@ -215,6 +215,8 @@ class CourseBackItForm extends React.Component {
                         <Form.Control />
                         <Form.Label>安全碼</Form.Label>
                         <Form.Control />
+                        <Form.Label>有效日期</Form.Label>
+                        <Form.Control />
                       </Container>
                     </Form.Group>
                   </div>
@@ -235,6 +237,12 @@ class CourseBackItForm extends React.Component {
                     </option>
                     <option value="3000" onChange={this.handlePrice}>
                       3000
+                    </option>
+                    <option value="" onChange={this.handlePrice}>
+                      ----
+                    </option>
+                    <option value="10000" onChange={this.handlePrice}>
+                      10000
                     </option>
                   </Form.Control>
                 </Form.Group>

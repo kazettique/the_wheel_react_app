@@ -21,17 +21,19 @@ class CourseMain extends React.Component {
     this.state = {
       // map_display: true,
       course: null,
-      id: null,
+      id: null, // c_sid
       // Show buttons or not
       buttonDisplay: 'block',
       // States for login check
       loginUser: '',
       isLogined: '',
-      user_id: '',
       myCollect: '',
       // Check collect or not
+      user_id: '',
+      collectionCourse: [],
+      // collectionCourseTest: [2, 3, 5, 7, 1],
+      isLiked: false,
       user: null,
-      collection: null,
     }
   }
 
@@ -95,19 +97,34 @@ class CourseMain extends React.Component {
           console.log(err)
         })
     }
-    // console.log(this.state.course)
+    console.log(this.state.isLiked)
+    // console.log('line99 collectionCourse: ' + this.state.collectionCourse)
+    // console.log('collectionCourse: ' + this.state.collectionCourse)
+    /*
+    let sid = +this.state.id
+    let collectionCourse = this.state.collectionCourseTest
+    console.log(this.state.collectionCourseTest)
+    let isLiked = this.state.isLiked
+    for (let id of collectionCourse) {
+      if (id === sid) {
+        collectionCourse = collectionCourse.filter(item => item !== sid)
+        isLiked = true
+        break
+      }
+    }
+    console.log('isLiked: ' + isLiked)
+    // this.setState({ isLiked: isLiked })
+    */
   }
 
   componentDidMount() {
+    // console.log('line103: enter componentDidMount!')
+    // get id from url
     // 8 spaces of strings - "/course/"
-    let id = this.props.history.location.pathname.slice(8)
-    this.setState({ id: id })
-
-    let sid = this.props.selectedSid
-    if (!this.props.selectedSid) {
-      sid = this.props.match.params.id
-    }
+    let c_sid = this.props.history.location.pathname.slice(8)
+    this.setState({ id: c_sid })
     // check login status
+    // console.log('line114: diving into fetch!')
     fetch('http://localhost:5000/is_logined', {
       method: 'GET',
       credentials: 'include',
@@ -120,58 +137,83 @@ class CourseMain extends React.Component {
       .then(data => {
         if (data.user_id) {
           this.setState({ user: data })
-          console.log('data: ' + data)
+          // console.log(this.state.user)
+          // this.setState({ user_id: data.user_id })
+          // console.log('user_id: ' + this.state.user_id) // ok
+          // get collection status
           if (this.state.user) {
             axios
-              .get('http://localhost:5000/collection.api', {
+              .get('http://localhost:5000/collectionCourse', {
                 params: {
                   sid: data.user_id,
                 },
               })
               .then(res => {
                 this.setState({
-                  collection: JSON.parse(res.data[0].collection),
+                  collectionCourse: JSON.parse(res.data[0].c_course),
                 })
               })
           }
         }
       })
+    console.log('c_sid ' + c_sid)
+    let collectionCourse = this.state.collectionCourse
+    console.log(this.state.collectionCourse)
+    let isLiked = this.state.isLiked
+    for (let id of collectionCourse) {
+      console.log('world: ' + id)
+      // todo: should I use triple equal sign?
+      if (id == c_sid) {
+        console.log('hello')
+        collectionCourse = collectionCourse.filter(item => item !== c_sid)
+        isLiked = true
+        break
+      }
+    }
+    console.log('isLiked: ' + isLiked)
+    this.setState({ isLiked: isLiked })
   }
 
   collectHandler = () => {
-    console.log('enter collectHandler!')
-    let collection = []
-    let sid = this.props.selectedSid
-    if (this.state.collection) {
-      collection = this.state.collection
+    let collectionCourse = []
+    let sid = +this.state.id
+    // console.log('show c_sid: ' + sid)
+    // console.log('line159 collectionCourse: ' + this.state.collectionCourse)
+    if (this.state.collectionCourse) {
+      collectionCourse = this.state.collectionCourse
     }
-    let included = false
-    if (collection.length > 0) {
-      for (let id of collection) {
-        if (id === sid) {
-          collection = collection.filter(item => item !== sid)
-          this.setState({ collection: collection })
-          included = true
+    // isLiked = false 沒有收藏
+    let isLiked = false
+    if (collectionCourse.length > 0) {
+      console.log('flag166: ' + collectionCourse)
+      for (let i of collectionCourse) {
+        console.log(i)
+        if (i === sid) {
+          collectionCourse = collectionCourse.filter(item => item !== sid)
+          this.setState({ collectionCourse: collectionCourse })
+          isLiked = true
           break
         }
       }
     }
-    if (!included) {
-      collection.push(sid)
-      this.setState({ collection: collection })
+    console.log('isLiked: ' + isLiked)
+    // 若為未收藏
+    if (!isLiked) {
+      console.log('flag179: ' + collectionCourse)
+      collectionCourse.push(sid)
+      this.setState({ collectionCourse: collectionCourse })
+      // this.setState({ isLiked: true })
     }
-
-    //52.221.144.169
-    axios.post('http://localhost:5000/new_collection.api', {
-      collection: JSON.stringify(collection),
-      sid: this.state.user.user_id,
-    })
-    // .then(res => {
-    //   this.props.dispatch({
-    //     type: "NEW_COLLECTION",
-    //     user: res.data[0]
-    //   });
-    // });
+    axios
+      .post('http://localhost:5000/collectionCourse_update', {
+        collectionCourse: JSON.stringify(collectionCourse),
+        sid: localStorage.meber,
+        // sid: this.state.user_id,
+      })
+      .then(
+        // console.log(JSON.stringify(collectionCourse)),
+        this.setState({ collectionCourse: JSON.stringify(collectionCourse) })
+      )
   }
 
   // Methods
@@ -192,6 +234,7 @@ class CourseMain extends React.Component {
           course={this.state.course}
           buttonDisplay={this.state.buttonDisplay}
           collectHandler={this.collectHandler}
+          isLiked={this.state.isLiked}
         />
       )
       list3 = <CourseTab course={this.state.course} />
@@ -216,7 +259,7 @@ class CourseMain extends React.Component {
     return (
       <>
         <Container fluid className="p-0">
-          <CourseNav />
+          <div style={{ height: '35px' }} />
           {list0}
           {list1}
           {list2}
