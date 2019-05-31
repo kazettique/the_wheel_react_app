@@ -57,9 +57,11 @@ class BackItButton extends React.Component {
 
 // 收藏按鈕
 class LikeItButton extends React.Component {
-  constructor() {
-    super()
-    this.state = { isLiked: false }
+  constructor(props) {
+    super(props)
+    this.state = {
+      // isLiked: false
+    }
   }
 
   handleClickOnLikeButton() {
@@ -73,19 +75,23 @@ class LikeItButton extends React.Component {
     this.handleClickOnLikeButton.bind(this)
     this.props.collectHandler
   }*/
+  // componentDidMount() {
+  //   this.setState({isLiked: this.state.isLiked })
+  // }
+
 
   render() {
     return (
       <>
         <Button
           className="buttons"
-          variant={this.state.isLiked ? 'light' : 'danger'}
+          variant={this.props.isLiked ? 'light' : 'danger'}
           // onClick={this.handleClickOnLikeButton.bind(this)}
           // onClick={this.handleBtnColorChangeAndCollect}
           onClick={this.props.collectHandler}
           style={{ display: `${this.props.buttonDisplay}` }}
         >
-          {this.state.isLiked ? '取消收藏' : '收藏課程'}
+          {this.props.isLiked ? '取消收藏' : '收藏課程'}
           <FontAwesomeIcon
             style={{ marginLeft: '0.5rem' }}
             icon={this.state.isLiked ? faHeartBroken : faHeart}

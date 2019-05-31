@@ -18,9 +18,9 @@ class CourseBanner extends React.Component {
     }
   }
 
-  handleTest() {
-    console.log('handleTest!!')
-  }
+  // handleTest() {
+  //   console.log('handleTest!!')
+  // }
 
   render() {
     // Transfer Portal For Props
@@ -86,6 +86,7 @@ class CourseBanner extends React.Component {
                       <LikeItButton
                         buttonDisplay={this.props.buttonDisplay}
                         collectHandler={this.props.collectHandler}
+                        isLiked={this.props.isLiked}
                       />
                     </div>
                   </Col>
