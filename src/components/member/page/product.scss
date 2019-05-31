@@ -43,12 +43,9 @@
     }
 
     .ellipsis {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      margin-bottom: 120px;
       line-height: 24px;
-      height: 200px;
+      height: 100px;
     }
 
     .card-text2 {
@@ -72,10 +69,24 @@
       height: 110px;
     }
 
+
     .fab {
       color: #2699fb;
       font-size: 28px;
       margin-right: 20px;
+    }
+
+    .card-title{
+      font-weight: bolder;
+      font-size:16px; 
+    }
+
+    .titlename{
+      // width: 70%;
+    }
+
+    a{
+      font-size: 1rem;
     }
   }
 }

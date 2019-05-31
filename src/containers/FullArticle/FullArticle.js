@@ -332,6 +332,7 @@ class Fullarticle extends React.Component {
                           arr[index] = !arr[index];
                           this.setState({ showReplyInput: arr });
                         }}
+                        className={classes.SpanSuccess}
                       >
                         回覆
                       </span>
@@ -357,6 +358,7 @@ class Fullarticle extends React.Component {
                             text.style.background = "white";
                             text.focus();
                           }}
+                          className={classes.SpanSuccess}
                         >
                           編輯
                         </span>
@@ -397,10 +399,9 @@ class Fullarticle extends React.Component {
                             send.style.display = "none";
                             cancel.style.display = "none";
                           }}
+                          className={classes.SpanConfirm}
                         >
-                          {` | `}
                           送出
-                          {` | `}
                         </span>
                         <span
                           id={`cancel${index}`}
@@ -420,6 +421,7 @@ class Fullarticle extends React.Component {
                             text.style.background = "#f7f7f8";
                             text.blur();
                           }}
+                          className={classes.SpanDanger}
                         >
                           取消
                         </span>
@@ -447,16 +449,18 @@ class Fullarticle extends React.Component {
                         arr[index] = !arr[index];
                         this.setState({ showReplyInput: arr });
                       }}
+                      className={classes.SpanConfirm}
                     >
                       送出
                     </span>
-                    {` | `}
+
                     <span
                       onClick={() => {
                         let arr = this.state.showReplyInput;
                         arr[index] = !arr[index];
                         this.setState({ showReplyInput: arr });
                       }}
+                      className={classes.SpanDanger}
                     >
                       取消
                     </span>

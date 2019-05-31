@@ -16,12 +16,27 @@ import "./product.scss";
 import DetailNav from "../component/DetailNav";
 import checkUserState from "./../util/check";
 
+var getWindowOptions = function() {
+  var width = 500;
+  var height = 450;
+  var left = window.innerWidth / 2 - width / 2;
+  var top = window.innerHeight / 2 - height / 2;
+
+  return [
+    "resizable,scrollbars,status",
+    "height=" + height,
+    "width=" + width,
+    "left=" + left,
+    "top=" + top
+  ].join();
+};
+
 class product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      NavTitle1: "已購買商品",
-      NavTitle2: "收藏商品",
+      NavTitle1: "收藏商品",
+      NavTitle2: "已購買商品",
       myMemberData: [{}],
       memberData: [],
       m_name: "",
@@ -38,8 +53,32 @@ class product extends React.Component {
       isLogined: "",
       user_id: "",
       myCollect: [],
-      col_newsData: []
+      col_newsData: [],
+      orders: ""
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    window.twttr.widgets.load();
+    if (this.state.col_newsData.length > 0) {
+      var fbBtn = document.querySelector(".facebook-share");
+      console.log(fbBtn);
+      var title = encodeURIComponent(
+        "Hey everyone, come & see how good I look!"
+      );
+      var shareUrl =
+        "https://www.facebook.com/sharer/sharer.php?u=" +
+        window.location.href +
+        "&title=" +
+        title;
+      fbBtn.href = shareUrl;
+
+      fbBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
+        win.opener = null;
+      });
+    }
   }
 
   async componentDidMount() {
@@ -53,6 +92,7 @@ class product extends React.Component {
       user_id: jsonObject.user_id
     });
     this.memberDataFetch();
+    this.getBuy();
   }
 
   //載入會員資料
@@ -125,6 +165,20 @@ class product extends React.Component {
     console.log(productObj);
   };
 
+  //拿到SQL購買的商品
+  getBuy = () => {
+    let id = this.props.match.params.id;
+    let user_id = this.state.user_id;
+    fetch(`http://localhost:5000/orders/${user_id ? user_id : id}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ orders: data }, () => console.log(this.state.orders));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   handleFormInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
@@ -157,45 +211,60 @@ class product extends React.Component {
   };
 
   //刪除收藏還要更新SQL
-  handleCancel=id=>()=>{
+  handleCancel = id => () => {
     console.log(this.state.myCollect);
     console.log(id);
-    const newData=this.state.myCollect.filter((item,index)=>item!==id);
-    console.log(newData)
-    this.setState({myCollect:newData},()=>console.log(this.state.myCollect))
-   
+    const newData = this.state.myCollect.filter((item, index) => item !== id);
+    console.log(newData);
+    this.setState({ myCollect: newData }, () =>
+      console.log(this.state.myCollect)
+    );
+
     var sendObj = {
       sid: newData,
-      user_id: this.state.user_id,
+      user_id: this.state.user_id
     };
 
     console.log(sendObj);
-    
+
     fetch(`http://localhost:5000/c_product`, {
-      credentials: 'include',
-      method: 'PUT', // or 'PUT'
+      credentials: "include",
+      method: "PUT", // or 'PUT'
       body: JSON.stringify(sendObj), // data can be `string` or {object}!
       headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    }).then(res => res.json())
-    .then(obj=>{
-      console.log(obj);
-      this.getProduct()
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      })
     })
-  
-    // .then(this.setState({myCollect:newData}))
-    .catch(error => console.error('Error:', error))
-    
-  
-    
-  }
+      .then(res => res.json())
+      .then(obj => {
+        console.log(obj);
+        this.getProduct();
+      })
+
+      // .then(this.setState({myCollect:newData}))
+      .catch(error => console.error("Error:", error));
+  };
 
   render() {
     let data = [];
-    if(this.state.col_newsData){
+    if (this.state.col_newsData) {
       data = this.state.col_newsData;
+    }
+
+    let orderData = [];
+    let orderCart = [];
+    if (this.state.orders) {
+      orderData = this.state.orders;
+      console.log(orderData);
+
+      for (let s of orderData) {
+        console.log(s.cart);
+        console.log(JSON.parse(s.cart));
+        orderCart=JSON.parse(s.cart);
+        // orderCart=JSON.parse(s.cart)
+        // console.log(orderCart)
+      }
     }
     if (
       (this.state.id != this.state.user_id &&
@@ -216,7 +285,7 @@ class product extends React.Component {
                 myId={this.state.id}
               />
 
-              <Col  md={9} className="detailArea">
+              <Col md={9} className="detailArea">
                 <DetailNav
                   title1={this.state.NavTitle1}
                   title2={this.state.NavTitle2}
@@ -227,7 +296,7 @@ class product extends React.Component {
                   {data.map((item, index) => (
                     <div
                       className="card mb-3"
-                      style={{ maxWidth: "800px" }}
+                      style={{ maxWidth: "850px" }}
                       key={item.c_sid}
                     >
                       <div className="row no-gutters">
@@ -242,8 +311,8 @@ class product extends React.Component {
                         <div className="col-md-6">
                           <div className="card-body">
                             <div className="d-flex">
-                              <div>
-                                <h5 className="card-title">{item.p_name}</h5>
+                              <div className="titlename flex-grow-1">
+                                <p className="card-title">{item.p_name}</p>
                                 <p className="card-text">
                                   <small className="text-muted">
                                     品牌:{item.p_brand}
@@ -251,34 +320,54 @@ class product extends React.Component {
                                 </p>
                               </div>
                               <Button
-                                className="cancel ml-auto"
+                                className="cancel ml-auto flex-grow-1"
                                 variant="danger"
                                 onClick={this.handleCancel(item.p_sid)}
                               >
                                 取消追蹤
                               </Button>
                             </div>
-                            <p className="card-text2 ellipsis">{item.p_description}</p>
+                            <p className="card-text2 ellipsis">
+                              {item.p_description}
+                            </p>
 
                             {/* <div className="d-flex">
                               <p>價格:{item.p_price}</p>
                               <h5 className="ml-auto">{item.c_level}</h5>
                             </div> */}
 
-
                             <div className="d-flex">
-                              <a href="javascript:;">
+                            <div>
+                                <a
+                                  style={{ fontSize: "1rem", color: "black" }}
+                                  href={`https://twitter.com/intent/tweet?url=${
+                                    window.location.href
+                                  }&text="bike news!"`}
+                                >
+                                  <i className="fab fa-twitter" />
+                                </a>
+                              </div>
+                              <div>
+                                <a
+                                  href="/"
+                                  style={{ fontSize: "1rem", color: "black" }}
+                                  className="facebook-share"
+                                >
+                                  <i className="fab fa-facebook-f" />
+                                </a>
+                              </div>
+                              {/* <a href="javascript:;">
                                 <i className="fab fa-facebook" />
                               </a>
                               <a href="javascript:;">
                                 <i className="fab fa-instagram" />
-                              </a>
-                              <p className="price">價格:{item.p_price}</p>
+                              </a> */}
+                              <h5 className="price">價格:{item.p_price}</h5>
                               <Link
                                 class="btn btn-success ml-auto"
                                 to={`/products2/${item.p_sid}`}
                               >
-                                查看課程資訊
+                                查看商品資訊
                               </Link>
                             </div>
                           </div>
@@ -288,7 +377,62 @@ class product extends React.Component {
                   ))}
                 </div>
 
-                <div className="box2 Allbox">目前尚無資料</div>
+                <div className="box2 Allbox">
+                  {orderData.map((item, index) => (
+                    <div
+                      className="card mb-3"
+                      style={{ maxWidth: "850px" }}
+                      key={item.sid}
+                    >
+                      <div className="row no-gutters">
+                        <div className="col-md-6">
+                          <img
+                            src={orderCart[0].p_photo}
+                            className="card-img"
+                            alt="..."
+                          />
+                        </div>
+
+                        <div className="col-md-6">
+                          <div className="card-body">
+                          <div className="d-flex">
+                                <div className="titlearea">
+                                  <h5 className="card-title">
+                                    訂單編號:{item.sid}
+                                  </h5>
+                                </div>
+                              <Button
+                                className="cancel ml-auto"
+                                variant="danger"
+                                onClick={this.handleCancel(item.p_sid)}
+                              >
+                                取消訂單
+                              </Button>
+                            </div>
+                            <div className="card-text2 ellipsis">
+                                {orderCart.map(item=>
+                                   <div>{item.p_name} <br/>數量:{item.qty} <br/>單價:{item.p_price}元</div>
+                                  
+                                )}
+                             
+                            </div>
+
+                            <div className="d-flex">
+                              
+                              <h4 className="price">總價:{item.totalprice}</h4>
+                              <Link
+                                class="btn btn-success ml-auto"
+                                to={`/products2/${item.p_sid}`}
+                              >
+                                查看訂單資訊
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </Col>
             </Row>
           </Container>
