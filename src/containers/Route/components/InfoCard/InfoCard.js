@@ -11,7 +11,7 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-// import { handlelikeAsync } from "../../actions";
+import { handlelikeAsync } from "../../actions";
 
 class InfoCard extends Component {
   state = {};
@@ -211,5 +211,5 @@ const mapStateToProps = store => ({ h: store.likeRouteReducer });
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(InfoCard);
