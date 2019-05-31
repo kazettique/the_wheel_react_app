@@ -437,27 +437,27 @@ export const clearPostsBefore = () => {
   };
 };
 
-export const handlelikeAsync = r_sid => {
-  return dispatch => {
-    r_sid;
-    let a = new FormData();
-    a.append();
-    fetch(ROOT_URL + "/like", {
-      method: "put",
-      body: "a"
-    })
-      .then(res => res.json())
+// export const handlelikeAsync = r_sid => {
+//   return dispatch => {
+//     r_sid;
+//     let a = new FormData();
+//     a.append();
+//     fetch(ROOT_URL + "/like", {
+//       method: "put",
+//       body: "a"
+//     })
+//       .then(res => res.json())
 
-        dispatch(addToLikeSuccess(obj.data, 0));
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-};
-export const addToLikeSuccess = r_sid => {
-  return {
-    type: ADD_TO_LIKE_SUCCESS,
-    payload: payload
-  };
-};
+//         dispatch(addToLikeSuccess(obj.data, 0));
+//       })
+//       .catch(e => {
+//         console.log(e);
+//       });
+//   };
+// };
+// export const addToLikeSuccess = r_sid => {
+//   return {
+//     type: ADD_TO_LIKE_SUCCESS,
+//     payload: payload
+//   };
+// };
