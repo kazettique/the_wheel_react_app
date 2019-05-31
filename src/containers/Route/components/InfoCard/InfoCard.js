@@ -15,42 +15,71 @@ import { bindActionCreators } from "redux";
 
 class InfoCard extends Component {
   state = {};
-  handlelike = async() => {
-      try {
-          const response = await fetch("http://localhost:5000/is_logined", {
-              method: "GET",
-              credentials: "include",
-              headers: new Headers({
-                  Accept: "application/json",
-                  "Content-Type": "application/json"
-              })
-          });
-
-          const jsonObject = await response.json();
-          if (!jsonObject.isLogined) {
-              return alert("收藏路線前請先登入");
-          }
-
-          await this.setState({
-              user_id: jsonObject.user_id
-          });
-
-          await this.props.handlelikeAsync(this.props.data.r_sid);;
-      } catch (e) {
-          console.log(e);
+  componentDidMount() {}
+  handlelike = async () => {
+    const response = await fetch("http://localhost:5000/is_logined", {
+      method: "GET",
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      })
+    });
+    const jsonObject = await response.json();
+    // if (jsonObject.isLogined) {
+    //   this.setState({
+    //     user_id: jsonObject.user_id
+    //   });
+    // }
+    if (!jsonObject.user_id) {
+      alert("收藏路線前請先登入");
+      return;
+    }
+    let arr = this.props.r_collection;
+    let rsid = this.props.data.r_sid;
+    //console.log(arr);
+    //console.log(rsid);
+    let newlike = 0;
+    arr.forEach(function(el) {
+      //console.log("el:" + el + "rsid:" + rsid);
+      if (el === rsid) {
+        newlike = rsid;
       }
+      console.log("newLike" + newlike);
+    });
+
+    if (newlike !== 0) {
+      console.log("no");
+      arr.splice(arr.indexOf(newlike), 1);
+    } else {
+      console.log("yes");
+      arr.push(this.props.data.r_sid);
+    }
+    console.log(arr);
+    this.props.handlelikeAsync(this.props.user_id, arr);
   };
-  
   render() {
+    let rsid = this.props.data.r_sid;
+    let heartRed = false;
+    if (this.props.h.liked) {
+      this.props.h.liked.forEach(function(el) {
+        if (el === rsid) {
+          heartRed = true;
+        }
+      });
+    }
     return (
       <Row className="justify-content-between w-100 r_card_con m-0 my-2 my-md-3 flex-nowrap">
         <Col className="r_list_img_con p-0 position-relative col-3">
           <FontAwesomeIcon
-            className="font-awesome r_heart position-absolute"
+            className={
+              "font-awesome r_heart position-absolute" +
+              (heartRed ? "  r_heart_red" : "")
+            }
             icon={faHeart}
             onClick={this.handlelike}
           />
-          {/* NEED TO CHANGE THIS */}
+          {/* ---------------NEED TO CHANGE THIS------------------------------------- */}
           <img
             src="https://loremflickr.com/320/240/brazil,rio"
             alt="route img"
@@ -177,8 +206,8 @@ class InfoCard extends Component {
 
 const mapStateToProps = store => ({ h: store.likeRouteReducer });
 
-// const mapDispatchToProps = dispatch =>
-//     bindActionCreators({ handlelikeAsync }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ handlelikeAsync }, dispatch);
 
 export default connect(
   mapStateToProps,

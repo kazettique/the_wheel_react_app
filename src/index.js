@@ -23,6 +23,7 @@ import routeCountryChange from "./containers/Route/reducers/routeCountryChange";
 import routeAddNewLocation from "./containers/Route/reducers/routeAddNewLocation";
 import routeFormCheck from "./containers/Route/reducers/routeFormCheck";
 import alertReducer from "./containers/Route/reducers/alertReducer";
+import likeRouteReducer from "./containers/Route/reducers/likeRouteReducer";
 //import userStatus from './containers/Route/reducers/userStatus';
 
 const rootReducer = combineReducers({
@@ -39,7 +40,8 @@ const rootReducer = combineReducers({
   routeCountryChange,
   routeAddNewLocation,
   routeFormCheck,
-  alertReducer
+  alertReducer,
+  likeRouteReducer
   //userStatus
 });
 

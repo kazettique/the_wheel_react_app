@@ -437,27 +437,37 @@ export const clearPostsBefore = () => {
   };
 };
 
-// export const handlelikeAsync = r_sid => {
-//   return dispatch => {
-//     r_sid;
-//     let a = new FormData();
-//     a.append();
-//     fetch(ROOT_URL + "/like", {
-//       method: "put",
-//       body: "a"
-//     })
-//       .then(res => res.json())
-
-//         dispatch(addToLikeSuccess(obj.data, 0));
-//       })
-//       .catch(e => {
-//         console.log(e);
-//       });
-//   };
-// };
-// export const addToLikeSuccess = r_sid => {
-//   return {
-//     type: ADD_TO_LIKE_SUCCESS,
-//     payload: payload
-//   };
-// };
+export const handlelikeAsync = (msid, arr) => {
+  return dispatch => {
+    let a = new FormData();
+    let b = new FormData();
+    b.append("m_sid", msid);
+    a.append("arr", JSON.stringify(arr));
+    a.append("m_sid", msid);
+    fetch(ROOT_URL + "collect", {
+      method: "put",
+      body: a
+    })
+      .then(res => res.json())
+      .then(r =>
+        fetch("http://localhost:5000/routeCollect", {
+          method: "post",
+          body: b
+        })
+      )
+      .then(r => r.json())
+      .then(obj => {
+        arr = JSON.parse(obj[0]["r_collection"]);
+        dispatch(addToLikeSuccess(arr));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+export const addToLikeSuccess = arr => {
+  return {
+    type: ADD_TO_LIKE_SUCCESS,
+    payload: arr
+  };
+};
