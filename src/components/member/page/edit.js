@@ -220,6 +220,18 @@ class edit extends React.Component {
                     async () => {
                         // alert('資料已成功新增!');
                         // this.handleModalClose();
+                        if (!jsonObject.success) {
+                            this.setState({ installdb: 'block' });
+                            this.setState({
+                                installstate: 'alert alert-warning',
+                            });
+                            this.setState({
+                                installtext: jsonObject.message.text,
+                            });
+                            alert('E-mail重複使用');
+
+                            return;
+                        }
 
                         if (jsonObject.message.info == '檔案格式不符') {
                             this.setState({ installdb: 'block' });

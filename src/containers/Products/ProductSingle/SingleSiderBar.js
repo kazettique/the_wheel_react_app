@@ -2,6 +2,7 @@ import React from 'react'
 import classes from '../Products.module.css'
 import { Container, Col, Row, Form } from 'react-bootstrap'
 import { IoIosCart } from 'react-icons/io'
+import { withRouter } from "react-router-dom";
 import {
   Jumbotron,
   Card,
@@ -20,7 +21,7 @@ import {
   ModalFooter,
   Alert,
 } from 'reactstrap'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 // import { TweenMax } from 'gsap/all'
 // import { Transition } from 'react-transition-group'
 // import ContentPage from '../ContentPage/ContentPage'
@@ -114,6 +115,7 @@ class SingleSiderBar extends React.Component {
     if (quantity === 0) {
       alert('請選擇數量')
     } else {
+      this.props.history.push("/checkout");
       let product = this.state.product
       // const cart = JSON.parse(localStorage.getItem('cart'))
       const item = Object.assign({}, product, { quantity })
@@ -152,7 +154,7 @@ class SingleSiderBar extends React.Component {
     } else {
       console.log(123)
     }
-
+    let cartlength = cart.length
     return (
       <>
         <Container
@@ -169,7 +171,7 @@ class SingleSiderBar extends React.Component {
                 >
                   {this.props.buttonLabel}
                   <IoIosCart size={25} />
-                  購物車({this.state.cart.length})
+                  購物車({cartlength})
                 </h5>
               </div>
               <div className={classes.productSideBarGenre}>
@@ -218,18 +220,18 @@ class SingleSiderBar extends React.Component {
             </Col>
             <Col className={classes.productSideBarButtonControl} md={4}>
               <div>
-                <Link
+                {/* <Link
                   to={{
                     pathname: `/checkout`,
                   }}
-                >
+                > */}
                   <Button
                     className={classes.productSideBarButton}
                     onClick={this.handleBuy}
                   >
                     直接購買
                   </Button>
-                </Link>
+                {/* </Link> */}
               </div>
               <div>
                 <Button
@@ -289,9 +291,9 @@ class SingleSiderBar extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
-            <Link to="/checkout">
+           
               <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
-            </Link>
+          
             <Button color="secondary" onClick={this.props.onToggle}>
               取消
             </Button>
@@ -302,4 +304,4 @@ class SingleSiderBar extends React.Component {
   }
 }
 
-export default SingleSiderBar
+export default withRouter(SingleSiderBar)
