@@ -127,6 +127,7 @@ class ProductSinglePage extends React.Component {
           
           this.setState({
             isLike:true
+
           })
           
         }else{
@@ -164,6 +165,8 @@ class ProductSinglePage extends React.Component {
                         break;
                     }
                 }
+            }else{
+              
             }
             if(!include){
                 collectionProduct.push(sid)
@@ -175,7 +178,7 @@ class ProductSinglePage extends React.Component {
                 collectionProduct:JSON.stringify(collectionProduct),
                 sid:localStorage.meber
             })
-            // .then(res => this.setState({isLike: !this.state.isLike}))
+            .then(res => this.setState({isLike: !this.state.isLike}))
             // console.log(this.state.p_sid, localStorage.meber);
         }
 
