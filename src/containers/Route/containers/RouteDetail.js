@@ -8,7 +8,11 @@ import DetailPageIntro from "../components/DetailPageIntro/DetailPageIntro";
 import DetailPageComment from "../components/DetailPageComment/DetailPageComment";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchSingleAsync, handlelikeAsync } from "../actions";
+import {
+  fetchSingleAsync,
+  handlelikeAsync,
+  addToLikeSuccess
+} from "../actions";
 import { withRouter } from "react-router-dom";
 import RAlert from "../components/R_Alert/R_Alert";
 
@@ -17,7 +21,45 @@ class RouteDetail extends Component {
 
   componentDidMount() {
     this.props.fetchSingleAsync(this.props.match.params.id);
+    let r_Collection = new FormData();
+    let arr = [];
+    fetch("http://localhost:5000/is_logined", {
+      method: "GET",
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      })
+    })
+      .then(res => res.json())
+      .then(obj => {
+        if (obj.isLogined) {
+          this.setState({
+            user_id: obj.user_id
+          });
+          console.log("yayyyy1");
+          r_Collection.append("m_sid", obj.user_id);
+        }
+        if (!obj.user_id) {
+          throw new Error("not Logged in");
+        }
+        return obj.user_id;
+      })
+      .then(r =>
+        fetch("http://localhost:5000/routeCollect", {
+          method: "post",
+          body: r_Collection
+        })
+          .then(res => res.json())
+          .then(obj => {
+            arr = JSON.parse(obj[0]["r_collection"]);
+
+            this.props.addToLikeSuccess(arr);
+          })
+      )
+      .catch(e => console.log(e));
   }
+
   handlelike = async () => {
     const response = await fetch("http://localhost:5000/is_logined", {
       method: "GET",
@@ -55,6 +97,15 @@ class RouteDetail extends Component {
   };
   render() {
     if (this.props.r.data.main) {
+      let rsid = this.props.r.data.main[0].r_sid;
+      let heartRed = false;
+      if (this.props.h.liked) {
+        this.props.h.liked.forEach(function(el) {
+          if (el === rsid) {
+            heartRed = true;
+          }
+        });
+      }
       return (
         <>
           {this.props.a.appear ? (
@@ -74,6 +125,7 @@ class RouteDetail extends Component {
             <DetailPageMainCard
               className="my-xl-5"
               data={this.props.r.data.main[0]}
+              heartRed={heartRed ? true : false}
             />
             <DetailPageIntro
               className="my-xl-5"
@@ -116,7 +168,10 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchSingleAsync, handlelikeAsync }, dispatch);
+  bindActionCreators(
+    { fetchSingleAsync, handlelikeAsync, addToLikeSuccess },
+    dispatch
+  );
 
 export default withRouter(
   connect(
