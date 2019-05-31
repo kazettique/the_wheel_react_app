@@ -34,12 +34,7 @@ class orders extends React.Component {
   }
 
   render() {
-    // let list3 = null
-    // if (this.state.orders) {
-    //   console.log(this.state.orders)
-    //   list3 = <OrdersCard orders={this.state.orders} />
-
-    // }
+   
     console.log(this.state.orders)
     let list3 = null
     if (this.state.orders) {

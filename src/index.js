@@ -15,6 +15,7 @@ import products from "./store/reducers/productsReducer";
 import modal from "./store/reducers/modalReducer";
 import verify from "./store/reducers/verifyReducer";
 import axios from "axios";
+import { BrowserRouter as Router } from "react-router-dom";
 //r_reducers----------------
 import routeReducer from "./containers/Route/reducers/routeReducer";
 import routeSingleReducer from "./containers/Route/reducers/routeSingleReducer";
@@ -22,6 +23,7 @@ import routeCountryChange from "./containers/Route/reducers/routeCountryChange";
 import routeAddNewLocation from "./containers/Route/reducers/routeAddNewLocation";
 import routeFormCheck from "./containers/Route/reducers/routeFormCheck";
 import alertReducer from "./containers/Route/reducers/alertReducer";
+import likeRouteReducer from "./containers/Route/reducers/likeRouteReducer";
 //import userStatus from './containers/Route/reducers/userStatus';
 
 const rootReducer = combineReducers({
@@ -38,7 +40,8 @@ const rootReducer = combineReducers({
   routeCountryChange,
   routeAddNewLocation,
   routeFormCheck,
-  alertReducer
+  alertReducer,
+  likeRouteReducer
   //userStatus
 });
 
@@ -57,7 +60,7 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunkMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
 
@@ -79,7 +82,9 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

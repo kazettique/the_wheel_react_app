@@ -159,21 +159,7 @@ class products extends React.Component {
         console.log(err)
       })
   }
-  // toggle = () => {
-  //   this.setState({
-  //     modal: !this.state.modal,
-  //   })
-  // }
-  // deleteCartItem = index => {
-  //   const cart = JSON.parse(localStorage.getItem('cart'))
-
-  //   cart.splice(index, 1)
-
-  //   this.setState({
-  //     cart,
-  //   })
-  //   localStorage.setItem('cart', JSON.stringify(cart))
-  // }
+  
   render() {
     console.log(this.props)
     let totalPrice = 0
@@ -310,9 +296,9 @@ class products extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
-            <Link to="/checkout">
+           
               <Button color="primary" onClick={this.props.ModalReset}>結帳</Button>
-            </Link>
+           
             <Button color="secondary" onClick={this.props.onToggle}>
               取消
             </Button>

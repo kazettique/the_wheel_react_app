@@ -20,8 +20,8 @@ class NewsLists extends React.Component {
         };
         const callback = entries => {
             entries.forEach(entry => {
-                if (entry.intersectionRatio >= 0.1) {
-                    TweenMax.to(entry.target, 1.5, {
+        if (entry.intersectionRatio >= 0.1) {
+          TweenMax.to(entry.target, 1.5, {
                         y: 0,
                         autoAlpha: 1,
 
@@ -36,10 +36,10 @@ class NewsLists extends React.Component {
         });
 
         this.tl = new TimelineLite();
-        this.search = null;
-    }
+    this.search = null;
+  }
 
-    componentDidMount(prevProps) {
+  componentDidMount(prevProps) {
         this.setState({ currentShow: true }); //切換route後觸發動畫
         if (this.props.newsLists.length === 0) {
             this.props.dispatch(
@@ -51,8 +51,8 @@ class NewsLists extends React.Component {
             );
         }
         if (this.props.popularList.length === 0) {
-            this.props.dispatch(fetchPopular());
-        }
+      this.props.dispatch(fetchPopular());
+    }
     }
 
     componentDidUpdate(prevProps) {
@@ -60,7 +60,7 @@ class NewsLists extends React.Component {
         lists.forEach(list => this.observer.observe(list));
 
         if (
-            this.props.search !== prevProps.search ||
+      this.props.search !== prevProps.search ||
             this.props.filter !== prevProps.filter
         ) {
             this.props.dispatch(
@@ -83,7 +83,7 @@ class NewsLists extends React.Component {
         );
     };
 
-    fullArticleHandler = sid => {
+  fullArticleHandler = sid => {
         // let scrollY = window.scrollY;
         // this.setState({scrollY});
         this.props.dispatch({
@@ -113,9 +113,9 @@ class NewsLists extends React.Component {
                         }}
                     />
                 );
-            });
-            lists.push(
-                <Button
+      });
+      lists.push(
+        <Button
                     key={this.props.page}
                     btnName="更多文章"
                     onClick={this.moreArticle}
@@ -125,38 +125,38 @@ class NewsLists extends React.Component {
                 />
             );
         } else {
-            lists = this.props.isFetching ? null : (
-                <Col xs={12} className="d-flex    justify-content-center">
-                    <h5 className={classes.Font}>沒有相關文章！</h5>
-                </Col>
-            );
-        }
-        return (
-            <React.Fragment>
-                <div className={classes.NewsLists}>
-                    <Row>
-                        <Col xs={12} className="d-flex justify-content-center">
-                            <h2 style={{}} className={classes.Font}>
-                                文章列表
-                            </h2>
-                        </Col>
-
-                        {lists}
-                    </Row>
-                </div>
-
-                <Route path="/news/:id" exact render={() => <FullArticle />} />
-            </React.Fragment>
-        );
+      lists = this.props.isFetching ? null : (
+        <Col xs={12} className="d-flex    justify-content-center">
+          <h5 className={classes.Font}>沒有相關文章！</h5>
+        </Col>
+      );
     }
+    return (
+      <React.Fragment>
+        <div className={classes.NewsLists}>
+          <Row>
+            <Col xs={12} className="d-flex justify-content-center">
+              <h2 style={{}} className={classes.Font}>
+                文章列表
+              </h2>
+            </Col>
+
+            {lists}
+          </Row>
+        </div>
+
+        <Route path="/news/:id" exact render={() => <FullArticle />} />
+      </React.Fragment>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        isFetching: state.news.isFetching,
-        newsLists: state.news.newsLists,
-        page: state.news.page,
-        popularList: state.news.popularList,
+  return {
+    isFetching: state.news.isFetching,
+    newsLists: state.news.newsLists,
+    page: state.news.page,
+    popularList: state.news.popularList,
         isFetchingPopular: state.news.isFetchingPopular,
         filter: state.news.filter,
         search: state.news.search,

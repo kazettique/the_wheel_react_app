@@ -3,6 +3,8 @@ import classes from './checkout.module.css'
 import { TweenMax } from 'gsap/all'
 import { Transition } from 'react-transition-group'
 import Card from 'react-bootstrap/Card'
+import { withRouter } from "react-router-dom";
+import Swal from 'sweetalert2'
 // import ContentPage from '../ContentPage/ContentPage'
 import {
   Button,
@@ -15,6 +17,7 @@ import {
   Alert,
 } from 'react-bootstrap'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { join } from 'path';
 
 const startState = { autoAlpha: 0, y: -50 }
 
@@ -62,6 +65,25 @@ class checkout extends React.Component {
       })
     }
   }
+  PlusCartItem = () => {
+    
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    // const quantity = '3'
+        if (localStorage.getItem('cart')) {
+      // cart = JSON.parse(localStorage.getItem('cart'))
+      cart.forEach(item =>  {
+        if(item.quantity){
+          console.log(item.quantity)
+         let sum = item.quantity + 1
+         return (item.quantity += sum)
+        }
+       
+      //  localStorage.setItem('cart',JSON.stringify(cart))
+      
+      }
+      )
+    }
+  }
   handleChange = event => {
     if (event.target.value === '信用卡') {
       this.setState({
@@ -83,16 +105,18 @@ class checkout extends React.Component {
     }
   }
 
-  handleChecked() {
-    this.setState({ isChecked: !this.state.isChecked })
+  handleChecked=event=> {
+    console.log(event.target.value)
+    this.setState({ isChecked: !this.state.isChecked,
+                      delivery:event.target.value })
   }
 
-  inputNumber = event => {
-    this.setState({
-      pay: ['信用卡:' + event.target.value],
-    })
-    console.log(this.state)
-  }
+  // inputNumber = event => {
+  //   this.setState({
+  //     pay: ['信用卡:' + event.target.value],
+  //   })
+  //   console.log(this.state)
+  // }
 
   deleteCartItem = index => {
     const cart = JSON.parse(localStorage.getItem('cart'))
@@ -105,18 +129,36 @@ class checkout extends React.Component {
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 
-  PlusCartItem = () => {}
+  
 
   handleSend = () => {
+    
+    console.log(this.state.cart)
+    let arr = [];
+    let order = this.state.cart;
+    order.forEach(obj => {
+      let item = {};
+      item.p_sid = obj.p_sid;
+      item.p_price = obj.p_price;
+      item.p_photo = obj.p_photo;
+      item.p_name = obj.p_name;
+      item.qty = obj.quantity;
+      arr.push(item);
+    })
+   
     var obj = {
       id: this.state.id,
-      cart: JSON.stringify(this.state.cart),
+      cart: JSON.stringify(arr),
       pay: this.state.pay,
       totalprice: this.state.totalprice,
     }
-    console.log(this.state.cart)
+    console.log(arr);
     if (!localStorage.getItem('meber')) {
-      alert('請登入會員')
+      Swal.fire({
+        type: 'error',
+        title: '請登入會員',
+    
+      })
     } else {
       fetch('http://localhost:5000/checkout', {
         method: 'POST',
@@ -126,11 +168,17 @@ class checkout extends React.Component {
           'Content-Type': 'application/json',
         }),
       })
-      alert('下單成功')
+      Swal.fire(
+        '下單成功',
+        '',
+        'success'
+      )
         this.setState({
           modal: !this.props.modal,
         })
-
+      localStorage.removeItem("cart");
+      localStorage.removeItem("totalPrice");
+      this.props.history.push("/products");
     }
   }
 
@@ -196,10 +244,10 @@ class checkout extends React.Component {
                       />
                       <Card.Text>商品車種:{item.p_genre}</Card.Text>
                       <Card.Text>商品品牌:{item.p_brand}</Card.Text>
-                      <Card.Text>商品說明:{item.p_description}</Card.Text>
+                      <Card.Text>商品說明:{item.p_description}{item.p_description2}</Card.Text>
                       <Card.Text>
-                        數量:{item.quantity}{' '}
-                        <Button onClick={() => this.PlusCartItem()}>+</Button>
+                        數量:{item.quantity}
+                        <Button onClick={this.PlusCartItem}>+</Button>
                       </Card.Text>
                       <Card.Text>
                         <Button
@@ -247,13 +295,14 @@ class checkout extends React.Component {
                     type="checkbox"
                     label="宅配"
                     onChange={this.handleChecked}
+                    value="宅配"
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicChecbox">
-                  <Form.Check type="checkbox" label="7-11寄送" />
+                  <Form.Check type="checkbox" label="7-11寄送" value="7-11寄送"/>
                 </Form.Group>
                 <Form.Group controlId="formBasicChecbox">
-                  <Form.Check type="checkbox" label="郵局領取" />
+                  <Form.Check type="checkbox" label="郵局領取"  value="郵局領取"/>
                 </Form.Group>
               </div>
               <div style={{ display: `${txt}` }}>
@@ -303,4 +352,4 @@ class checkout extends React.Component {
   }
 }
 
-export default checkout
+export default withRouter(checkout);

@@ -23,6 +23,7 @@ class ProductSinglePage extends React.Component {
       product: null,
       collectionProduct:[],
       user:null,
+      isLike:false,
     }
   }
 
@@ -41,7 +42,33 @@ class ProductSinglePage extends React.Component {
           console.log(err)
         })
     }
+  
+    // console.log(Like)
+    console.log(  this.state.p_sid , prevState.p_sid)
+    if(this.state.collectionProduct && this.state.p_sid !== prevState.p_sid){
+     
+    let Like = this.state.collectionProduct
+    Like.forEach(num=>{
+      if(+this.state.p_sid === +num){
+        
+        this.setState({
+          isLike:true
+        })
+        
+      }else{
+        this.setState({
+          isLike:false
+        })
+      }
+
+    })
+    if(Like.length === 0){
+      this.setState({
+        isLike:false
+      })
+    }
   }
+}
 
   componentDidMount() {
     let p_sid = this.props.history.location.pathname.slice(11)
@@ -88,12 +115,12 @@ class ProductSinglePage extends React.Component {
     //   .then(res => res.json())
     //   .then(data => {
         
-  }
+ }
 //收藏按鈕
  handleCollect=()=>{
      
           
-            let collectionProduct = [];
+            let collectionProduct = this.state.collectionProduct;
             console.log(collectionProduct)
             let sid =+this.props.history.location.pathname.slice(11)
             if(this.state.collectionProduct){
@@ -121,7 +148,7 @@ class ProductSinglePage extends React.Component {
             axios.post("http://localhost:5000/collectionProduct",{
                 collectionProduct:JSON.stringify(collectionProduct),
                 sid:localStorage.meber
-            })
+            }).then(res => this.setState({isLike: !this.state.isLike}))
             // console.log(this.state.p_sid, localStorage.meber);
         }
 
@@ -168,7 +195,7 @@ class ProductSinglePage extends React.Component {
             </div>
             <Button className={classes.productButton} onClick={this.handleCollect}>
               <IoIosHeart size={25} />
-              加入收藏
+             {this.state.isLike ? '已收藏':'加入收藏'}
             </Button>
 
             {/* <SingleSiderBar /> */}
