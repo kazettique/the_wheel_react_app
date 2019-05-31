@@ -20,8 +20,8 @@ class product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      NavTitle1: "已購買商品",
-      NavTitle2: "收藏商品",
+      NavTitle1: "收藏商品",
+      NavTitle2: "已購買商品",
       myMemberData: [{}],
       memberData: [],
       m_name: "",
