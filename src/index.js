@@ -15,6 +15,7 @@ import products from "./store/reducers/productsReducer";
 import modal from "./store/reducers/modalReducer";
 import verify from "./store/reducers/verifyReducer";
 import axios from "axios";
+import { BrowserRouter as Router } from "react-router-dom";
 //r_reducers----------------
 import routeReducer from "./containers/Route/reducers/routeReducer";
 import routeSingleReducer from "./containers/Route/reducers/routeSingleReducer";
@@ -55,11 +56,10 @@ const rootReducer = combineReducers({
 // const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 const store = createStore(
   rootReducer,
-  // compose(
-  applyMiddleware(thunkMiddleware)
-  // window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  // window.__REDUX_DEVTOOLS_EXTENSION__()
-  // )
+  compose(
+    applyMiddleware(thunkMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
 
 const token = localStorage.getItem("token");
@@ -80,7 +80,9 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

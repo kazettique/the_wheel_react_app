@@ -11,6 +11,8 @@ import {
 } from 'react-bootstrap';
 // import './member.css';
 import './Login.scss';
+import Swal from 'sweetalert2'
+import {withRouter} from "react-router-dom";
 
 class Login extends React.Component {
   constructor() {
@@ -85,13 +87,25 @@ class Login extends React.Component {
       await this.setState({ memberData: [newData] }, () => {
         // this.handleModalClose();
         if(jsonObject.WARNING){
-          alert("您的帳號已經被停權")
-          document.location.href = '/';
+          // alert("您的帳號已經被停權")
+          Swal.fire({
+            type: 'error',
+            title: '您的帳號已被停權',
+            text: '若有疑問，請聯繫客服人員',
+            // footer: '<a href>Why do I have this issue?</a>'
+          })
+          // document.location.href = '/';
+          setTimeout(()=>this.props.history.push("/"),2000)
           return;
         }
 
         if (jsonObject.success) {
-          alert('登入成功!');
+          // alert('登入成功!');
+           Swal.fire(
+            '登入成功!',
+            '',
+            'success'
+          )
           this.setState({ Logindb: 'block' });
           this.setState({ Logintext: '登入成功' });
           this.setState({ Loginstate: 'alert alert-success' });
@@ -101,12 +115,18 @@ class Login extends React.Component {
             user_id: jsonObject.message.user_id,
           });
           localStorage.setItem("meber", jsonObject.message.user_id );
-          document.location.href = '/';
+          // setTimeout(document.location.href = '/',5000) 
+          setTimeout(()=>this.props.history.push("/"),2000)
         } else {
           this.setState({ Logindb: 'block' });
           this.setState({ Logintext: '登入失敗' });
           this.setState({ Loginstate: 'alert alert-danger' });
-          alert('帳號或密碼錯誤');
+          Swal.fire({
+            type: 'error',
+            title: '帳號或密碼錯誤',
+            text: '若有疑問，請聯繫客服人員',
+            // footer: '<a href>Why do I have this issue?</a>'
+          })
         }
       });
     } catch (e) {
@@ -188,4 +208,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default  withRouter(Login);

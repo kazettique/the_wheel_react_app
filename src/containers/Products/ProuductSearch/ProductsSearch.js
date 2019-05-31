@@ -10,10 +10,20 @@ import { Button, Form } from 'react-bootstrap'
 import { IoIosHand } from 'react-icons/io'
 
 class ProductsSearch extends React.Component {
+  handleButtonClick = () => {
+    this.form.reset() 
+  }
+  clearAndSearch = () => {
+    // console.log('enter onClick!');
+    this.props.handleSearch()
+    this.handleButtonClick()
+  }
+
   render() {
+
     return (
       <>
-        <Form>
+        <Form ref={form => (this.form = form)}>
           <Form.Group>
             <Form.Control
               placeholder="搜尋"
@@ -63,7 +73,7 @@ class ProductsSearch extends React.Component {
             variant="primary"
             type="button"
             className={classes.SearchButton}
-            onClick={this.props.handleSearch}
+            onClick={this.clearAndSearch}
           >
             搜尋
           </Button>
