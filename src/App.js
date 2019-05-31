@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 // import Loading from "./components/LoadingAnimation/Loading";
 import Nav from "./components/Nav/Nav";
 import Main from "./containers/Main/Main";
@@ -160,10 +161,20 @@ class App extends Component {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
   ModalReset = () => {
-    console.log("RESET");
-    this.setState({
-      modal: !this.state.modal
-    });
+    if(localStorage.getItem("cart")){
+      this.setState({
+        modal: !this.state.modal
+      });
+      this.props.history.push("/checkout");
+    }else{
+      this.setState({
+        modal: !this.state.modal
+      });
+     
+      alert("請先選擇商品")
+      
+   
+    }
   };
 
   render() {
@@ -173,7 +184,7 @@ class App extends Component {
     //   <Loading {...this.props} />
     // ) :
     return (
-      <Router>
+      // <Router>
         <div>
           <Nav {...this.props} />
           <Switch>
@@ -196,7 +207,7 @@ class App extends Component {
           </Switch>
           <Footer />
         </div>
-      </Router>
+      // </Router>
     );
   }
 }
@@ -208,4 +219,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));

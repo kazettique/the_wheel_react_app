@@ -11,11 +11,11 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { handlelikeAsync } from "../../actions";
+// import { handlelikeAsync } from "../../actions";
 
 class InfoCard extends Component {
   state = {};
-  handlelike = () => {
+  handlelike = async() => {
       try {
           const response = await fetch("http://localhost:5000/is_logined", {
               method: "GET",
@@ -177,10 +177,10 @@ class InfoCard extends Component {
 
 const mapStateToProps = store => ({ h: store.likeRouteReducer });
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({ handlelikeAsync }, dispatch);
+// const mapDispatchToProps = dispatch =>
+//     bindActionCreators({ handlelikeAsync }, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  // mapDispatchToProps
 )(InfoCard);
