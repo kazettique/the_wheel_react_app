@@ -86,6 +86,7 @@ class CourseBanner extends React.Component {
                       <LikeItButton
                         buttonDisplay={this.props.buttonDisplay}
                         collectHandler={this.props.collectHandler}
+                        isLiked={this.props.isLiked}
                       />
                     </div>
                   </Col>

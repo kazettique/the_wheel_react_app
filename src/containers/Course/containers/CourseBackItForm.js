@@ -21,7 +21,7 @@ class CourseBackItForm extends React.Component {
       course: null,
       creditDisplay: 'none',
       // Get member ID from localStorage
-      m_sid: JSON.parse(localStorage.getItem('member'))[0].m_sid,
+      m_sid: JSON.parse(localStorage.getItem('meber'))[0].m_sid,
       c_sid: 0,
       payment_method: null,
       // Insert value into DB 'funding'
@@ -106,7 +106,7 @@ class CourseBackItForm extends React.Component {
       comment: this.state.comment,
     }
     // console.log(obj)
-    if (!localStorage.getItem('member')) {
+    if (!localStorage.getItem('meber')) {
       alert('請登入會員')
     } else {
       fetch(`http://localhost:5000/course/backIt/${this.state.c_sid}`, {
