@@ -40,53 +40,13 @@ class LikeItButton extends React.Component {
   //     });
   //   }
 
-  handlelike = async () => {
-    const response = await fetch("http://localhost:5000/is_logined", {
-      method: "GET",
-      credentials: "include",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
-    });
-    const jsonObject = await response.json();
-    if (!jsonObject.user_id) {
-      alert("收藏路線前請先登入");
-      return;
-    }
-    let arr = this.props.h.liked;
-    let rsid = this.props.data.r_sid;
-    let newlike = 0;
-    if (arr) {
-      arr.forEach(function(el) {
-        if (el === rsid) {
-          newlike = rsid;
-        }
-        console.log("newLike" + newlike);
-      });
-
-      if (newlike !== 0) {
-        console.log("no");
-        arr.splice(arr.indexOf(newlike), 1);
-      } else {
-        console.log("yes");
-        arr.push(this.props.data.r_sid);
-      }
-    } else {
-      arr = [this.props.data.r_sid];
-    }
-
-    console.log(arr);
-    this.props.handlelikeAsync(this.props.user_id, arr);
-  };
-
   render() {
     return (
       <>
         <button
           className="r_d_buttons r_like_button r_fw_bold ml-3 ml-sm-5"
           variant={this.state.isLiked ? "light" : "danger"}
-          onClick={this.handlelike}
+          onClick={this.props.handlelike}
         >
           <FontAwesomeIcon
             style={{ marginRight: "0.7rem" }}
