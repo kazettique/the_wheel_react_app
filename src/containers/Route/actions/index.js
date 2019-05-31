@@ -23,12 +23,14 @@ export const ADD_NEW_FAILURE = "ADD_NEW_FAILURE";
 export const ADD_NEW_RESET = "ADD_NEW_RESET";
 export const SUMBMIT_COMMENT_SUCCESS = "SUMBMIT_COMMENT_SUCCESS";
 export const SUMBMIT_COMMENT_FAILURE = "SUMBMIT_COMMENT_FAILURE";
-export const ALERT_DISAPPEAR1 = "ALERT_DISAPPEAR1";
 export const HANDLE_IS_NOT_PASSED = "HANDLE_IS_NOT_PASSED";
 export const SET_LOGIN_STATUS = "SET_LOGIN_STATUS";
 export const UPDATE_COMMENT_SECTION = "UPDATE_COMMENT_SECTION";
 export const ALERT_APPEAR = "ALERT_APPEAR ";
 export const ALERT_DISAPPEAR = " ALERT_DISAPPEAR";
+export const HANDLE_DEPART_ARRIVE_CHANGE = "HANDLE_DEPART_ARRIVE_CHANGE";
+export const CLEAR_POSTS_BEFORE = "CLEAR_POSTS_BEFORE";
+export const ADD_TO_LIKE_SUCCESS = "ADD_TO_LIKE_SUCCESS";
 
 const ROOT_URL = "http://localhost:5000/route";
 const regexp = /^\d{1,3}天\d{1,2}時\d{1,2}分$|^\d{1,3}天\d{1,2}時$|^\d{1,3}天$|^\d{1,2}時\d{1,2}分$|^\d{1,2}時$|^\d{1,2}分$|\d{1,3}天\d{1,2}分$/;
@@ -67,7 +69,10 @@ export const setUserStatus = status => {
 // export const fetchPosts = payload => ({ type: FETCH_POSTS, payload: payload });
 export const fetchPostsAsync = page => {
   return dispatch => {
-    fetch(ROOT_URL + "/list?orderby=ASC&page=" + page, {
+    if (!page) {
+      page = 0;
+    }
+    fetch(ROOT_URL + "/list?orderby=DESC&page=" + page, {
       //fetch(ROOT_URL, {
       method: "get"
       // credentials: 'include',
@@ -126,7 +131,13 @@ export const fetchSingleFailure = error => {
     payload: error
   };
 };
-
+export const handleChangeDepartArrive = (depart, arrive) => {
+  return {
+    type: HANDLE_DEPART_ARRIVE_CHANGE,
+    depart: depart,
+    arrive: arrive
+  };
+};
 export const handleCountryChange = country => {
   if (Data[country]) {
     return {
@@ -236,9 +247,9 @@ export const handleAddNewSubmit = userid => {
     }
     if (!isPassed) {
       //dispatch(handleIsNotPassed(notPassedObj))
-      return dispatch(addNewFailure("Error:資料輸入不完整或不符合格式"));
+      return dispatch(addNewFail2("資料輸入不完整或不符合格式"));
 
-      //throw new Error('資料輸入不完整或不符合格式')
+      //throw new Error("資料輸入不完整或不符合格式");
     }
     //console.log(form1);
     form1.append("m_sid", userid);
@@ -263,6 +274,7 @@ export const handleAddNewSubmit = userid => {
       .then(a => {
         if (+a === 0) {
           dispatch(addNewSuccess());
+          dispatch(alertAppear(true, "路線新增成功"));
           throw new Error("NOT");
         }
       })
@@ -282,6 +294,7 @@ export const handleAddNewSubmit = userid => {
         } else {
           //console.log('5:location insert success');
           dispatch(addNewSuccess());
+          dispatch(alertAppear(true, "路線新增成功"));
         }
       })
       .catch(e => {
@@ -289,29 +302,19 @@ export const handleAddNewSubmit = userid => {
         //console.log(typeof e)
         if ("" + e === "Error: NOT") {
           dispatch(addNewSuccess());
+          dispatch(alertAppear(true, "路線新增成功"));
         } else {
+          console.log("in fail2");
           dispatch(addNewFailure("" + e));
+          dispatch(alertAppear(false, e + "".slice(6)));
         }
       });
   };
 };
 
-export const addNewSuccessA = () => {
-  return dispatch => {
-    //dispatch(alertAppear('success'));
-    dispatch(addNewSuccess("success"));
-  };
-};
 export const addNewSuccess = () => {
   return {
     type: ADD_NEW_SUCCESS
-  };
-};
-
-export const addNewFailureA = error => {
-  return dispatch => {
-    //dispatch(alertAppear('fail'));
-    dispatch(addNewFailure(error));
   };
 };
 
@@ -319,6 +322,13 @@ export const addNewFailure = error => {
   return {
     type: ADD_NEW_FAILURE,
     payload: error
+  };
+};
+
+export const addNewFail2 = error => {
+  return dispatch => {
+    dispatch(addNewFailure(error));
+    dispatch(alertAppear(false, error));
   };
 };
 
@@ -360,9 +370,6 @@ export const submitCommentAsync = () => {
 };
 
 export const updateCommentSection = payload => {
-  console.log("payload");
-  console.log(payload);
-  console.log("payload------------");
   return {
     type: UPDATE_COMMENT_SECTION,
     payload: payload
@@ -382,23 +389,16 @@ export const submitCommentFailure = error => {
 };
 //alert -------------------alert
 
-export const alertAppear = payload => {
+export const alertAppear = (success, msg) => {
   return {
     type: ALERT_APPEAR,
-    payload: payload
+    payload: { success: success, msg: msg }
   };
 };
 
 export const alertDisappear = () => {
   return {
     type: ALERT_DISAPPEAR
-  };
-};
-
-export const alertDisappear1 = successType => {
-  return {
-    type: ALERT_DISAPPEAR1,
-    successType: successType
   };
 };
 
@@ -409,30 +409,55 @@ export const handleIsNotPassed = payload => {
   };
 };
 
-export const handleSearch = (page) => {
-    let formSearch = new FormData(document.searchform);
-    return dispatch => {
-        fetch(ROOT_URL + '/search', {
-            method: 'post',
-            body:formSearch
-        })
-        .then(res => res.json())
-        .then(obj => {
-            console.log(obj);
-            dispatch(fetchPostsSuccess(obj, obj.page));
-        })
-        .catch(e => {
-            dispatch(fetchPostsFailure("" + e));
-        });
-    };
+export const handleSearch = page => {
+  let formSearch = new FormData(document.searchform);
+  return dispatch => {
+    fetch(ROOT_URL + "/search", {
+      method: "post",
+      body: formSearch
+    })
+      .then(res => res.json())
+      .then(obj => {
+        console.log("fetch-search-success");
+        console.log(obj);
+        if (obj.errMsg !== "未輸入關鍵字") {
+          dispatch(clearPostsBefore());
+        }
+        dispatch(fetchPostsSuccess(obj.data, 0));
+      })
+      .catch(e => {
+        dispatch(fetchPostsFailure("" + e));
+      });
+  };
 };
 
-// function fetch_routes() {
-//     fetch('./display_API.php?page=' + page + '&perPage=' + perPage + '&orderBy=' + orderBy)
-//         .then(res => res.json())
-//         .then(
-//             obj => {
+export const clearPostsBefore = () => {
+  return {
+    type: CLEAR_POSTS_BEFORE
+  };
+};
 
-//             }
-//         )
-// }
+export const handlelikeAsync = r_sid => {
+  return dispatch => {
+    r_sid;
+    let a = new FormData();
+    a.append();
+    fetch(ROOT_URL + "/like", {
+      method: "put",
+      body: "a"
+    })
+      .then(res => res.json())
+
+        dispatch(addToLikeSuccess(obj.data, 0));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+export const addToLikeSuccess = r_sid => {
+  return {
+    type: ADD_TO_LIKE_SUCCESS,
+    payload: payload
+  };
+};

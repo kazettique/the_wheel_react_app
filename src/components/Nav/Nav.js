@@ -26,6 +26,20 @@ class NavTop extends React.Component {
     this.observer = null;
   }
 
+  
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.onRouteChanged();
+    }
+  }
+
+  onRouteChanged() {
+    console.log("ROUTE CHANGED");
+    this.checkUserState();
+  }
+
+
   menuHandler = () => {
     if (window.innerWidth <= 992) {
       this.setState((prevState, prevProp) => ({
@@ -70,34 +84,6 @@ class NavTop extends React.Component {
 
 //查看是否登入
     this.checkUserState();
-    // this.timerID = setInterval(this.checkUserState, 3000);
-
-    // try {
-    //   const response = await fetch('http://localhost:5000/is_logined', {
-    //     method: 'GET',
-    //     credentials: 'include',
-    //     headers: new Headers({
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //     }),
-    //   });
-
-    //   // if (!response.ok) throw new Error(response.statusText);
-
-    //   const jsonObject = await response.json();
-
-    //   console.log('Nav',jsonObject);
-    //   await this.setState({
-    //     loginUser: jsonObject.loginUser,
-    //     isLogined: jsonObject.isLogined,
-    //     user_id: jsonObject.user_id,
-    //     session_name: jsonObject.session_name,
-    //     session_photo: jsonObject.session_photo,
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-    // } finally {
-    // }
   }
 
 
