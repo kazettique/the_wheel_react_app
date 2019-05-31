@@ -411,7 +411,7 @@ class product extends React.Component {
                             </div>
                             <div className="card-text2 ellipsis">
                                 {orderCart.map(item=>
-                                   <div>{item.p_name} <br/>數量:{item.qty} <br/>單價:{item.p_prcie}元</div>
+                                   <div>{item.p_name} <br/>數量:{item.qty} <br/>單價:{item.p_price}元</div>
                                   
                                 )}
                              
