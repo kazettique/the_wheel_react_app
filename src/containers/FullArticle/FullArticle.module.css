@@ -100,6 +100,9 @@
 
 .Comment span {
   cursor: pointer;
+  padding: 3px 10px;
+  margin-left: 5px;
+  transition: 0.5s;
 }
 
 .Reply {
@@ -132,7 +135,7 @@
   margin: 10px;
 }
 
-.CommnetButton canvas {
+.CommentButton canvas {
   width: 100px;
   height: 100px;
 }
@@ -142,9 +145,42 @@
   justify-content: flex-end;
 }
 
+.ReplyInput input {
+  width: 1000px;
+}
+
 .ReplyInput span {
   cursor: pointer;
   margin-left: 5px;
+  padding: 3px 10px;
+  transition: 0.5s;
+}
+
+.SpanSuccess {
+  background: #5bc0de;
+  color: white;
+}
+
+.SpanConfirm {
+  background: #5cb85c;
+  color: white;
+}
+
+.SpanDanger {
+  background: #d9534f;
+  color: white;
+}
+
+.SpanSuccess:hover {
+  background: #356e80;
+}
+
+.SpanConfirm:hover {
+  background: #316431;
+}
+
+.SpanDanger:hover {
+  background: #7e2f2d;
 }
 
 @media (max-width: 992px) {

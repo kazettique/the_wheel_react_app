@@ -63,7 +63,12 @@ class Login extends React.Component {
       document.querySelector('#login_email').value == '' ||
       document.querySelector('#login_password').value == ''
     ) {
-      alert('不可空白');
+      Swal.fire({
+        type: 'error',
+        title: '不可空白',
+        text: '',
+        // footer: '<a href>Why do I have this issue?</a>'
+      })
       return;
     }
 
