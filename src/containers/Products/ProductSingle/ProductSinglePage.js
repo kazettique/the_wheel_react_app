@@ -18,7 +18,7 @@ class ProductSinglePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      p_sid:null,
+      p_sid:0,
       id: null,
       product: null,
       collectionProduct:[],
@@ -28,7 +28,7 @@ class ProductSinglePage extends React.Component {
   }
 
   componentDidUpdate(prevporps, prevState) {
-    console.log(this.props)
+   
     if (!this.state.product) {
       let p_sid = this.state.p_sid
 
@@ -44,34 +44,37 @@ class ProductSinglePage extends React.Component {
     }
   
     // console.log(Like)
-    console.log(  this.state.p_sid , prevState.p_sid)
-    if(this.state.collectionProduct && this.state.p_sid !== prevState.p_sid){
+    console.log(  this.state.collectionProduct , prevState.p_sid)
+    console.log(this.state.p_sid)
+    if(this.state.collectionProduct && this.state.collectionProduct.length >0){
      
-    let Like = this.state.collectionProduct
-    Like.forEach(num=>{
-      if(+this.state.p_sid === +num){
+    // let Like = this.state.collectionProduct
+  
+    // Like.forEach(num=>{
+    //   console.log('num')
+    //   if(+this.state.p_sid === +num){
         
-        this.setState({
-          isLike:true
-        })
+    //     this.setState({
+    //       isLike:true
+    //     })
         
-      }else{
-        this.setState({
-          isLike:false
-        })
-      }
+    //   }else{
+    //     this.setState({
+    //       isLike:false
+    //     })
+    //   }
 
-    })
-    if(Like.length === 0){
-      this.setState({
-        isLike:false
-      })
-    }
+    // })
+    // if(Like.length === 0){
+    //   this.setState({
+    //     isLike:false
+    //   })
+    // }
   }
 }
 
   componentDidMount() {
-    let p_sid = this.props.history.location.pathname.slice(11)
+    let p_sid = +this.props.history.location.pathname.slice(11)
     this.setState({
       p_sid: p_sid,
     })
@@ -85,7 +88,9 @@ class ProductSinglePage extends React.Component {
           })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
+            
+             
+             
               if(data.user_id){
                   this.setState({user:data});
                   
@@ -94,10 +99,9 @@ class ProductSinglePage extends React.Component {
                     params: {
                       sid: data.user_id
                     }
-                    
                   })
                   .then(res => {
-                  
+                    console.log(res.data[0].c_product)
                     this.setState({ collectionProduct: JSON.parse(res.data[0].c_product)});
                   })
                
@@ -114,7 +118,29 @@ class ProductSinglePage extends React.Component {
     // })
     //   .then(res => res.json())
     //   .then(data => {
-        
+      
+      let Like = this.state.collectionProduct
+  
+      Like.forEach(num=>{
+        console.log('num')
+        if(+this.state.p_sid === +num){
+          
+          this.setState({
+            isLike:true
+          })
+          
+        }else{
+          this.setState({
+            isLike:false
+          })
+        }
+  
+      })
+      if(Like.length === 0){
+        this.setState({
+          isLike:false
+        })
+      }
  }
 //收藏按鈕
  handleCollect=()=>{
@@ -124,7 +150,7 @@ class ProductSinglePage extends React.Component {
             console.log(collectionProduct)
             let sid =+this.props.history.location.pathname.slice(11)
             if(this.state.collectionProduct){
-              console.log("123")
+             
                 collectionProduct=this.state.collectionProduct
             }
             let include = false;
@@ -141,14 +167,15 @@ class ProductSinglePage extends React.Component {
             }
             if(!include){
                 collectionProduct.push(sid)
-                console.log('555')
+          
                 this.setState({collectionProduct:collectionProduct})
-                console.log(this.state.collectionProduct)
+             
             }
             axios.post("http://localhost:5000/collectionProduct",{
                 collectionProduct:JSON.stringify(collectionProduct),
                 sid:localStorage.meber
-            }).then(res => this.setState({isLike: !this.state.isLike}))
+            })
+            // .then(res => this.setState({isLike: !this.state.isLike}))
             // console.log(this.state.p_sid, localStorage.meber);
         }
 

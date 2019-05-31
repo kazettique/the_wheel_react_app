@@ -206,8 +206,8 @@ class InfoCard extends Component {
 
 const mapStateToProps = store => ({ h: store.likeRouteReducer });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ handlelikeAsync }, dispatch);
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators({ handlelikeAsync }, dispatch);
 
 export default connect(
   mapStateToProps,
