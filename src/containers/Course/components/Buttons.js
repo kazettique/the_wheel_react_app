@@ -59,7 +59,9 @@ class BackItButton extends React.Component {
 class LikeItButton extends React.Component {
   constructor() {
     super()
-    this.state = { isLiked: false }
+    this.state = {
+      isLiked: false
+    }
   }
 
   handleClickOnLikeButton() {
@@ -73,6 +75,10 @@ class LikeItButton extends React.Component {
     this.handleClickOnLikeButton.bind(this)
     this.props.collectHandler
   }*/
+  componentDidMount() {
+    this.setState({isLiked: this.props })
+  }
+
 
   render() {
     return (

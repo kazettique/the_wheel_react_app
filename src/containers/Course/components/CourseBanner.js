@@ -18,9 +18,9 @@ class CourseBanner extends React.Component {
     }
   }
 
-  handleTest() {
-    console.log('handleTest!!')
-  }
+  // handleTest() {
+  //   console.log('handleTest!!')
+  // }
 
   render() {
     // Transfer Portal For Props

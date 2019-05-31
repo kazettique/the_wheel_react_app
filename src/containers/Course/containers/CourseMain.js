@@ -31,7 +31,7 @@ class CourseMain extends React.Component {
       myCollect: '',
       // Check collect or not
       user: null,
-      collection: null,
+      collectionCourse: null,
     }
   }
 
@@ -99,14 +99,15 @@ class CourseMain extends React.Component {
   }
 
   componentDidMount() {
+    // get id from url
     // 8 spaces of strings - "/course/"
     let id = this.props.history.location.pathname.slice(8)
     this.setState({ id: id })
 
-    let sid = this.props.selectedSid
-    if (!this.props.selectedSid) {
-      sid = this.props.match.params.id
-    }
+    // let sid = this.state.id
+    // if (!this.props.selectedSid) {
+    //   sid = this.props.match.params.id
+    // }
     // check login status
     fetch('http://localhost:5000/is_logined', {
       method: 'GET',
@@ -121,6 +122,7 @@ class CourseMain extends React.Component {
         if (data.user_id) {
           this.setState({ user: data })
           console.log('data: ' + data)
+          // get collection status
           if (this.state.user) {
             axios
               .get('http://localhost:5000/collection.api', {
@@ -140,38 +142,34 @@ class CourseMain extends React.Component {
 
   collectHandler = () => {
     console.log('enter collectHandler!')
-    let collection = []
-    let sid = this.props.selectedSid
+    let collectionCourse = []
+    let sid = this.state.id
+    // console.log('show sid: ' + sid)
     if (this.state.collection) {
-      collection = this.state.collection
+      collectionCourse = this.state.collection
     }
     let included = false
-    if (collection.length > 0) {
-      for (let id of collection) {
+    if (collectionCourse.length > 0) {
+      for (let id of collectionCourse) {
         if (id === sid) {
-          collection = collection.filter(item => item !== sid)
-          this.setState({ collection: collection })
+          collectionCourse = collectionCourse.filter(item => item !== sid)
+          this.setState({ collectionCourse: collectionCourse })
           included = true
           break
         }
       }
     }
     if (!included) {
-      collection.push(sid)
-      this.setState({ collection: collection })
+      collectionCourse.push(sid)
+      this.setState({ collectionCourse: collectionCourse })
+      console.log(this.state.collectionCourse)
     }
 
     //52.221.144.169
-    axios.post('http://localhost:5000/new_collection.api', {
-      collection: JSON.stringify(collection),
-      sid: this.state.user.user_id,
+    axios.post('http://localhost:5000/collection_update', {
+      collection: JSON.stringify(collectionCourse),
+      sid: this.state.id,
     })
-    // .then(res => {
-    //   this.props.dispatch({
-    //     type: "NEW_COLLECTION",
-    //     user: res.data[0]
-    //   });
-    // });
   }
 
   // Methods
