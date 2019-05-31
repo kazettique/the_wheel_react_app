@@ -256,15 +256,14 @@ class product extends React.Component {
     let orderCart = [];
     if (this.state.orders) {
       orderData = this.state.orders;
-      console.log(orderData);
+     
 
-      for (let s of orderData) {
-        console.log(s.cart);
-        console.log(JSON.parse(s.cart));
-        orderCart=JSON.parse(s.cart);
-        // orderCart=JSON.parse(s.cart)
-        // console.log(orderCart)
+      for (let s in orderData) {
+        orderData[s].cart2=JSON.parse(orderData[s].cart)
       }
+
+      console.log(orderData);
+     
     }
     if (
       (this.state.id != this.state.user_id &&
@@ -379,18 +378,24 @@ class product extends React.Component {
 
                 <div className="box2 Allbox">
                   {orderData.map((item, index) => (
+                    
                     <div
                       className="card mb-3"
                       style={{ maxWidth: "850px" }}
                       key={item.sid}
                     >
                       <div className="row no-gutters">
-                        <div className="col-md-6">
+                        <div className="col-md-6">   
+                        {item.cart2.map(item=>(
                           <img
-                            src={orderCart[0].p_photo}
+                            src= {item.p_photo}
                             className="card-img"
                             alt="..."
                           />
+                        ))}
+                         
+                        
+                        {console.log(item.cart2[0].p_photo)}
                         </div>
 
                         <div className="col-md-6">
@@ -410,7 +415,7 @@ class product extends React.Component {
                               </Button>
                             </div>
                             <div className="card-text2 ellipsis">
-                                {orderCart.map(item=>
+                                {item.cart2.map(item=>
                                    <div>{item.p_name} <br/>數量:{item.qty} <br/>單價:{item.p_price}元</div>
                                   
                                 )}
