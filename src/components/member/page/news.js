@@ -117,6 +117,7 @@ class news extends React.Component {
         if (JSON.parse(jsonObject[0].collection).length > 0) {
           //拿到收藏的新聞資訊
           console.log(JSON.parse(jsonObject[0].collection).length);
+          console.log(this.state.myCollect);
           this.getNews();
         }
       } else {
