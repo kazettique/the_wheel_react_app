@@ -2,11 +2,9 @@ import React from 'react'
 import classes from '../Products'
 import { TweenMax } from 'gsap/all'
 import { Transition } from 'react-transition-group'
-// import ContentPage from '../../ContentPage/ContentPage'
 import { Button } from 'react-bootstrap'
 import { IoIosHeart } from 'react-icons/io'
 import ProductControlledCarousel from '../ProductControlledCarousel'
-// import ControlledCarousel2 from './ControlledCarousel2'
 import SingleImg from './SingleImg'
 import SingleSiderBar from './SingleSiderBar'
 import SingleProductList from './SingleProductList'
@@ -18,21 +16,21 @@ class ProductSinglePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      p_sid:0,
+      p_sid: 0,
       id: null,
       product: null,
-      collectionProduct:[],
-      user:null,
-      isLike:false,
+      collectionProduct: [],
+      user: null,
+      isLike: false,
     }
   }
 
   componentDidUpdate(prevporps, prevState) {
-   
+
     if (!this.state.product) {
       let p_sid = this.state.p_sid
 
-      // const newproject = this.state.product[0]
+    
       fetch(`http://localhost:5000/product/${p_sid}`)
         .then(res => res.json())
         .then(data => {
@@ -42,36 +40,9 @@ class ProductSinglePage extends React.Component {
           console.log(err)
         })
     }
-  
-    // console.log(Like)
-    console.log(  this.state.collectionProduct , prevState.p_sid)
-    console.log(this.state.p_sid)
-    if(this.state.collectionProduct && this.state.collectionProduct.length >0){
-     
-    // let Like = this.state.collectionProduct
-  
-    // Like.forEach(num=>{
-    //   console.log('num')
-    //   if(+this.state.p_sid === +num){
-        
-    //     this.setState({
-    //       isLike:true
-    //     })
-        
-    //   }else{
-    //     this.setState({
-    //       isLike:false
-    //     })
-    //   }
 
-    // })
-    // if(Like.length === 0){
-    //   this.setState({
-    //     isLike:false
-    //   })
-    // }
+
   }
-}
 
   componentDidMount() {
     let p_sid = +this.props.history.location.pathname.slice(11)
@@ -79,108 +50,94 @@ class ProductSinglePage extends React.Component {
       p_sid: p_sid,
     })
     fetch("http://localhost:5000/is_logined", {
-            method: "GET",
-            credentials: "include",
-            headers: new Headers({
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            
-             
-             
-              if(data.user_id){
-                  this.setState({user:data});
-                  
-                  axios
-                  .get("http://localhost:5000/collection", {
-                    params: {
-                      sid: data.user_id
-                    }
-                  })
-                  .then(res => {
-                    console.log(res.data[0].c_product)
-                    this.setState({ collectionProduct: JSON.parse(res.data[0].c_product)});
-                  })
-               
-                }
-            })
-    // //
-    // fetch("http://localhost:5000/is_logined", {
-    //   method: "GET",
-    //   credentials: "include",
-    //   headers: new Headers({
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-      
-      let Like = this.state.collectionProduct
-  
-      Like.forEach(num=>{
-        console.log('num')
-        if(+this.state.p_sid === +num){
-          
-          this.setState({
-            isLike:true
-
-          })
-          
-        }else{
-          this.setState({
-            isLike:false
-          })
-        }
-  
+      method: "GET",
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json"
       })
-      if(Like.length === 0){
-        this.setState({
-          isLike:false
-        })
-      }
- }
-//收藏按鈕
- handleCollect=()=>{
-     
-          
-            let collectionProduct = this.state.collectionProduct;
-            console.log(collectionProduct)
-            let sid =+this.props.history.location.pathname.slice(11)
-            if(this.state.collectionProduct){
-             
-                collectionProduct=this.state.collectionProduct
-            }
-            let include = false;
-            if(collectionProduct.length > 0){
-              
-                for(let id of collectionProduct ){
-                    if(id===sid){
-                        collectionProduct=collectionProduct.filter(item => item !== sid);
-                        this.setState({collectionProduct:collectionProduct})
-                        include = true
-                        break;
-                    }
-                }
-            }else{
-              
-            }
-            if(!include){
-                collectionProduct.push(sid)
-          
-                this.setState({collectionProduct:collectionProduct})
-             
-            }
-            axios.post("http://localhost:5000/collectionProduct",{
-                collectionProduct:JSON.stringify(collectionProduct),
-                sid:localStorage.meber
+    })
+      .then(res => res.json())
+      .then(data => {
+
+
+
+        if (data.user_id) {
+          this.setState({ user: data });
+
+          axios
+            .get("http://localhost:5000/collection", {
+              params: {
+                sid: data.user_id
+              }
             })
-            .then(res => this.setState({isLike: !this.state.isLike}))
-            // console.log(this.state.p_sid, localStorage.meber);
+            .then(res => {
+              console.log(res.data[0].c_product)
+              this.setState({ collectionProduct: JSON.parse(res.data[0].c_product) });
+            })
+            .then(()=>{
+              if (this.state.collectionProduct) {
+
+                let Like = this.state.collectionProduct
+          
+          
+                for (let num of Like) {
+                  if (+this.state.p_sid === +num) {
+                    console.log('true')
+                    this.setState({ isLike: true })
+                    break
+          
+                  } else {
+                    this.setState({
+                      isLike: false
+                    })
+          
+                  }
+          
+                }
+          
+              }
+            })
+
         }
+      })
+
+  }
+  //收藏按鈕
+  handleCollect = () => {
+
+    let collectionProduct = []
+    console.log(collectionProduct)
+    let sid = +this.props.history.location.pathname.slice(11)
+    if (this.state.collectionProduct) {
+
+      collectionProduct = this.state.collectionProduct
+    }
+    let include = false;
+
+    if (collectionProduct.length > 0) {
+
+      for (let id of collectionProduct) {
+        if (id === sid) {
+          collectionProduct = collectionProduct.filter(item => item !== sid);
+          this.setState({ collectionProduct: collectionProduct })
+          include = true
+          break;
+        }
+      }
+    }
+    if (!include) {
+      collectionProduct.push(sid)
+
+      this.setState({ collectionProduct: collectionProduct })
+
+    }
+    axios.post("http://localhost:5000/collectionProduct", {
+      collectionProduct: JSON.stringify(collectionProduct),
+      sid: localStorage.meber
+    })
+    .then(res => this.setState({isLike: !this.state.isLike}))
+  }
 
 
 
@@ -201,7 +158,6 @@ class ProductSinglePage extends React.Component {
       list3 = <SingleProductList product={this.state.product} />
       list4 = <SingleImg product={this.state.product} />
     }
-    // console.log(this.state.id)
 
     return (
       <>
@@ -225,7 +181,7 @@ class ProductSinglePage extends React.Component {
             </div>
             <Button className={classes.productButton} onClick={this.handleCollect}>
               <IoIosHeart size={25} />
-             {this.state.isLike ? '已收藏':'加入收藏'}
+              {this.state.isLike ? '已收藏' : '加入收藏'}
             </Button>
 
             {/* <SingleSiderBar /> */}

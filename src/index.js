@@ -58,11 +58,11 @@ const rootReducer = combineReducers({
 // const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 const store = createStore(
   rootReducer,
-  compose(
+  // compose(
     applyMiddleware(thunkMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
-);
+// );
 
 const token = localStorage.getItem("token");
 if (token) {
