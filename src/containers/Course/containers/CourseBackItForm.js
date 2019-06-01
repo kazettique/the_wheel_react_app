@@ -21,7 +21,7 @@ class CourseBackItForm extends React.Component {
       course: null,
       creditDisplay: 'none',
       // Get member ID from localStorage
-      m_sid: JSON.parse(localStorage.getItem('meber'))[0].m_sid,
+      m_sid: localStorage.meber,
       c_sid: 0,
       payment_method: null,
       // Insert value into DB 'funding'

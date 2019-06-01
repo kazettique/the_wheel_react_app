@@ -14,7 +14,7 @@ class CourseList extends React.Component {
       course: [],
       // 搜尋課程難度（c_level課程難度）
       search_level: null,
-      // 搜尋開課地區（c_courseLocation開課時間）
+      // 搜尋開課地區（c_courseLocation開課地區）
       search_region: null,
       // 搜尋集資結束日期（c_endDate集資截止日期）
       search_date: null,

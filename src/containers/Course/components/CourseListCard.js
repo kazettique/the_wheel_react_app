@@ -50,10 +50,6 @@ class CourseListCard extends React.Component {
     let countDownDate = new Date(endDate).getTime()
     let distance = countDownDate - now
     let days = Math.floor(distance / (1000 * 60 * 60 * 24))
-    // if (distance < 0) {
-    //   clearInterval (x);
-    //   this.setState()
-    // }
 
     return (
       <>
@@ -136,7 +132,7 @@ class CourseListCard extends React.Component {
                     集資金額 NT$ <span className="fundNow">{fundNow}</span> /
                     NT$ {fundGoal}
                   </p>
-                  <p>開課時間：{courseDate}</p>
+                  <p>集資結束時間：{endDate}</p>
                 </Col>
               </Row>
             </Col>
