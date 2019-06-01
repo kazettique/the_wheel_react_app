@@ -20,27 +20,21 @@ class CourseMain extends React.Component {
     super(props)
     this.state = {
       // map_display: true,
+      c_sid: null,
       course: null,
-      c_sid: null, // c_sid
       // Show buttons or not
       buttonDisplay: 'block',
       // Check collect or not
       user_id: '',
       collectionCourse: [],
-      // for test use
-      c_course: '',
-      // c_course: '',
-      // TRUE為已收藏；FALSE為未收藏
-      isLiked: false,
       user: null,
+      isLiked: false,
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // if this.state.course is TRUE
     if (!this.state.course) {
       let c_sid = this.state.c_sid
-
       fetch(`http://localhost:5000/course/${c_sid}`)
         .then(res => res.json())
         .then(data => {
@@ -53,13 +47,11 @@ class CourseMain extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('line103: enter componentDidMount!')
     // get id from url
     // 8 spaces of strings - "/course/"
-    let c_sid = this.props.history.location.pathname.slice(8)
+    let c_sid = +this.props.history.location.pathname.slice(8)
     this.setState({ c_sid: c_sid })
     // check login status
-    // console.log('line114: diving into fetch!')
     fetch('http://localhost:5000/is_logined', {
       method: 'GET',
       credentials: 'include',
@@ -88,10 +80,9 @@ class CourseMain extends React.Component {
             .then(() => {
               if (this.state.collectionCourse) {
                 let collectionCourse = this.state.collectionCourse
-                for (let id of collectionCourse) {
-                  console.log('loop thru id: ' + id)
+                for (let item of collectionCourse) {
                   // 當collectionCourse裡面有此課程的ID：
-                  if (id === c_sid) {
+                  if (item === c_sid) {
                     this.setState({ isLiked: true })
                     break
                   } else {
@@ -102,38 +93,18 @@ class CourseMain extends React.Component {
             })
         }
       })
-    // console.log('this.state.id ' + this.state.id) // can not get this.state.id at this moment
-    // let c_course = this.state.c_course
-    // let isLiked = this.state.isLiked
-    // console.log(this.state.collectionCourse)
-    // for (let id of c_course) {
-    //   console.log('loop thru id: ' + id)
-    //   // 當collectionCourse裡面有此課程的ID：
-    //   if (id === c_sid) {
-    //     // collectionCourse = collectionCourse.filter(item => item !== c_sid)
-    //     isLiked = true
-    //     break
-    //   } else {
-    //     isLiked = false
-    //   }
-    // }
-    // this.setState({ isLiked: isLiked })
-    // console.log('isLiked: ' + isLiked)
   }
 
+  // Methods
   collectHandler = () => {
     let collectionCourse = []
-    let c_sid = this.props.history.location.pathname.slice(8)
-    // let isLiked = this.state.isLiked
-    // console.log(typeof this.state.c_course)/**/
-    // let c_course = this.state.c_course // convert it into object
-    // console.log(c_course)
-    // console.log('typeof c_course: ' + typeof c_course)
-    // c_course = String(c_course)
-    // c_course = c_course.split(',')
-    // console.log('typeof c_course: ' + typeof c_course)
-    // 若有已收藏，拿掉此c_sid
+    console.log(collectionCourse)
+    let c_sid = +this.props.history.location.pathname.slice(8)
+    if (this.state.collectionCourse) {
+      collectionCourse = this.state.collectionCourse
+    }
     let isLiked = false
+
     if (collectionCourse.length > 0) {
       for (let id of collectionCourse) {
         if (id === c_sid) {
@@ -146,16 +117,8 @@ class CourseMain extends React.Component {
 
     if (!isLiked) {
       collectionCourse.push(c_sid)
+      this.setState({ collectionCourse: collectionCourse })
     }
-    // 更新收藏狀態
-    // console.log(typeof c_course)
-    // this.setState({ isLiked: isLiked })
-    // this.setState({ c_course: c_course })
-    // // console.log('isLiked: ' + this.state.isLiked)
-    // // console.log('c_course: ' + this.state.c_course)
-    // c_course = String(c_course)
-    // console.log('typeof c_course: ' + typeof c_course)
-    // console.log('c_course: ' + c_course)
     axios
       .post('http://localhost:5000/collectionCourse_update', {
         collectionCourse: JSON.stringify(collectionCourse),
@@ -163,8 +126,6 @@ class CourseMain extends React.Component {
       })
       .then(() => this.setState({ isLiked: !this.state.isLiked }))
   }
-
-  // Methods
 
   // Rendering
   render() {
@@ -174,7 +135,6 @@ class CourseMain extends React.Component {
     let list3 = null
     let list4 = null
     if (this.state.course) {
-      // console.log(this.state.course)
       list0 = <CourseNav />
       list1 = <CourseMainTitle course={this.state.course} />
       list2 = (
