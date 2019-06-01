@@ -10,11 +10,11 @@ import SingleSiderBar from './SingleSiderBar'
 import SingleProductList from './SingleProductList'
 import { withRouter } from 'react-router-dom'
 import axios from "axios";
-const startState = { autoAlpha: 0, y: -50 }
+const startState = { autoAlpha: 0, y: -50 };
 
 class ProductSinglePage extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       p_sid: 0,
       id: null,
@@ -28,17 +28,17 @@ class ProductSinglePage extends React.Component {
   componentDidUpdate(prevporps, prevState) {
 
     if (!this.state.product) {
-      let p_sid = this.state.p_sid
+      let p_sid = this.state.p_sid;
 
     
       fetch(`http://localhost:5000/product/${p_sid}`)
         .then(res => res.json())
         .then(data => {
-          this.setState({ product: data[0] })
+          this.setState({ product: data[0] });
         })
         .catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     }
 
 
@@ -47,8 +47,8 @@ class ProductSinglePage extends React.Component {
   componentDidMount() {
     let p_sid = +this.props.history.location.pathname.slice(11)
     this.setState({
-      p_sid: p_sid,
-    })
+      p_sid: p_sid
+    });
     fetch("http://localhost:5000/is_logined", {
       method: "GET",
       credentials: "include",
@@ -142,9 +142,9 @@ class ProductSinglePage extends React.Component {
 
 
   render() {
-    let list2 = null
-    let list3 = null
-    let list4 = null
+    let list2 = null;
+    let list3 = null;
+    let list4 = null;
     if (this.state.product) {
       list2 = (
         <SingleSiderBar
@@ -154,9 +154,9 @@ class ProductSinglePage extends React.Component {
           modal={this.props.modal}
           ModalReset={this.props.ModalReset}
         />
-      )
-      list3 = <SingleProductList product={this.state.product} />
-      list4 = <SingleImg product={this.state.product} />
+      );
+      list3 = <SingleProductList product={this.state.product} />;
+      list4 = <SingleImg product={this.state.product} />;
     }
 
     return (
@@ -170,16 +170,19 @@ class ProductSinglePage extends React.Component {
             TweenMax.to(node, 0.5, {
               autoAlpha: this.props.show ? 1 : 0,
               y: this.props.show ? 0 : 50,
-              onComplete: done,
-            })
+              onComplete: done
+            });
           }}
         >
           <div>
             {/* <div style={{ height: '100vh' }}> */}
-            <div style={{ marginTop: '200px', textAlign: '-webkit-center' }}>
+            <div style={{ marginTop: "200px", textAlign: "-webkit-center" }}>
               {list4}
             </div>
-            <Button className={classes.productButton} onClick={this.handleCollect}>
+            <Button
+              className={classes.productButton}
+              onClick={this.handleCollect}
+            >
               <IoIosHeart size={25} />
               {this.state.isLike ? '已收藏' : '加入收藏'}
             </Button>
@@ -194,8 +197,8 @@ class ProductSinglePage extends React.Component {
           </div>
         </Transition>
       </>
-    )
+    );
   }
 }
 
-export default withRouter(ProductSinglePage)
+export default withRouter(ProductSinglePage);
