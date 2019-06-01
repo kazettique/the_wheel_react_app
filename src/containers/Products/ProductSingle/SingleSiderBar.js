@@ -57,7 +57,7 @@ class SingleSiderBar extends React.Component {
   //   }))
   // }
   addToCart = product => {
-    console.log(product)
+   
     let quantity = this.state.quantity
     if (quantity === 0) {
       alert('請選擇數量')
@@ -71,7 +71,7 @@ class SingleSiderBar extends React.Component {
         })
 
         localStorage.setItem('cart', JSON.stringify(cart))
-        console.log(this.state)
+    
       } else {
         const cart = JSON.parse(localStorage.getItem('cart'))
         const item = Object.assign({}, product, { quantity })
@@ -124,9 +124,9 @@ class SingleSiderBar extends React.Component {
         cart,
       })
 
-      console.log(cart)
+     
       cart.forEach(item => {
-        console.log(item.p_price)
+       
         let sum = item.quantity * Number(item.p_price)
         return (totalPrice += sum)
       })
@@ -138,7 +138,7 @@ class SingleSiderBar extends React.Component {
 
   render() {
     let meber = localStorage.getItem('meber')
-    console.log(meber)
+  
     const { show, product } = this.state
     
     let totalPrice = 0

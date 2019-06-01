@@ -247,7 +247,7 @@ class checkout extends React.Component {
                       <Card.Text>商品說明:{item.p_description}{item.p_description2}</Card.Text>
                       <Card.Text>
                         數量:{item.quantity}
-                        <Button onClick={this.PlusCartItem}>+</Button>
+                        {/* <Button onClick={this.PlusCartItem}>+</Button> */}
                       </Card.Text>
                       <Card.Text>
                         <Button
