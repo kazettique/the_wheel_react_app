@@ -5,7 +5,6 @@ import CourseListCard from '../components/CourseListCard'
 // Import React Bootstrap
 import { Container } from 'react-bootstrap'
 import Col from 'reactstrap/es/Col'
-import Row from 'react-bootstrap/Row'
 
 class CourseList extends React.Component {
   constructor(props) {
@@ -20,6 +19,8 @@ class CourseList extends React.Component {
       search_date: null,
       // 搜尋關鍵字（c_title標題、c_intro課程內容）
       search_input: null,
+      // course status
+      c_status: '',
     }
   }
 
@@ -125,7 +126,6 @@ class CourseList extends React.Component {
             fundGoal={item.c_fundGoal}
             endDate={item.c_endDate}
             intro={item.c_intro}
-            status={item.c_status}
           />
         )
       })
@@ -134,17 +134,14 @@ class CourseList extends React.Component {
       <>
         <div style={{ height: '35px' }} />
         <div style={{ height: '48px' }} />
-        <Container
-          fluid
-          className="d-flex justify-content-center p-0"
-        >
-          <Col lg={10} className="p-0 m-0" >
+        <Container fluid className="d-flex justify-content-center p-0">
+          <Col lg={10} className="p-0 m-0">
             <p className="r_fs_20 m-0 r_color_red r_fw_extra_bold">集資課程</p>
             <p className="m-0 r_fw_medium mt-1">
-                專業教練帶你入門競技單車的世界
+              專業教練帶你入門競技單車的世界
             </p>
           </Col>
-            <div style={{ height: '88px' }} />
+          <div style={{ height: '88px' }} />
         </Container>
         <Container fluid className="course-list ">
           <AdvanceSearch

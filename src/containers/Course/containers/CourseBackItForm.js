@@ -10,6 +10,7 @@ import CourseBanner from '../components/CourseBanner'
 import CourseMainTitle from '../components/CourseMainTitle'
 // React Router
 import { withRouter } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 class CourseBackItForm extends React.Component {
   constructor(props) {
@@ -47,11 +48,16 @@ class CourseBackItForm extends React.Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
-          // console.log('line47:' + data[0]) // undefined
           // set data into states
+          // console.log(data[0].c_status)
+          console.log(data[0].c_fundNow)
+          console.log(data[0].c_fundGoal)
+          if (data[0].c_fundNow >= data[0].c_fundGoal)
+            this.setState({ c_status: '集資成功' })
+          else this.setState({ c_status: '集資中' })
+          console.log(this.state.c_status)
           this.setState({ c_fundNow: data[0].c_fundNow })
           this.setState({ c_backers: data[0].c_backers })
-          this.setState({ c_status: data[0].c_status })
         })
         .catch(err => {
           console.log(err) // c_fundNow of undefined
@@ -64,7 +70,7 @@ class CourseBackItForm extends React.Component {
         c_sid: this.state.c_sid,
         c_backers: this.state.c_backers,
         c_fundNow: this.state.c_fundNow,
-        c_status: this.state.c_status,
+        // c_status: this.state.c_status,
       }
       // console.log(this.state.c_status)
       // 更新課程欄位資訊（c_sid: 課程ID ,c_backers: 贊助人數; c_fundNow: 目前集資金額）
@@ -84,18 +90,13 @@ class CourseBackItForm extends React.Component {
   componentDidMount() {
     // 15 spaces of strings - "/course/backIt/"
     let c_sid = this.props.history.location.pathname.slice(15)
-    // console.log(id)
-    // console.log('componentDidMount c_sid: ' + c_sid)
-    // console.log('componentDidMount c_fundNow: ' + this.state.c_fundNow)
     this.setState({
       c_sid: c_sid,
     })
-    // console.log('componentDidMount2 c_sid: ' + c_sid)
-    // console.log('componentDidMount2 c_fundNow: ' + this.state.c_fundNow)
   }
 
   handleSubmit = () => {
-    console.log('enter handleSubmit!')
+    // console.log('enter handleSubmit!')
     let obj = {
       // set form input data to state
       m_sid: this.state.m_sid,
@@ -104,10 +105,12 @@ class CourseBackItForm extends React.Component {
       fund_price: this.state.fund_price,
       backer_name: this.state.backer_name,
       comment: this.state.comment,
+      // c_status: this.state.c_status,
     }
-    // console.log(obj)
+    console.log(obj)
     if (!localStorage.getItem('meber')) {
-      alert('請登入會員')
+      // alert('請登入會員')
+      Swal.fire('請先登入', '您需要登入後才能進行贊助', 'warning')
     } else {
       fetch(`http://localhost:5000/course/backIt/${this.state.c_sid}`, {
         body: JSON.stringify(obj),
@@ -126,13 +129,18 @@ class CourseBackItForm extends React.Component {
           })
         )
         // for test use
+        // .then(
+        // console.log(this.state.c_fundNow),
+        // console.log(this.state.c_backers)
+        // )
         .then(
-          console.log(this.state.c_fundNow),
-          console.log(this.state.c_backers)
+          // () => alert('集資成功')
+          () => {
+            Swal.fire('集資成功', '感謝您的支持！', 'success')
+          }
         )
-        .then(alert('下單成功'))
         // redirect to CourseMain.js page
-        .then(window.history.back())
+        .then(() => window.history.back())
     }
   }
 
@@ -179,6 +187,7 @@ class CourseBackItForm extends React.Component {
         <CourseBanner
           course={this.state.course}
           buttonDisplay={this.state.buttonDisplay}
+          status={this.state.c_status}
         />
       )
     }
