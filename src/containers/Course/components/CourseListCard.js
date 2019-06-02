@@ -28,8 +28,6 @@ class CourseListCard extends React.Component {
     })
   }
 
-  handleDateCountdown = () => {}
-
   render() {
     // Transfer Portal For Props
     const sid = this.props.sid
@@ -43,13 +41,18 @@ class CourseListCard extends React.Component {
     const endDate = this.props.endDate
     const intro = this.props.intro
     const level = this.props.level
-    const status = this.props.status
     let percentage = parseInt((fundNow / fundGoal) * 100)
+
+    let status = ''
+    if (fundNow >= fundGoal) status = '集資成功'
+    else status = '集資中'
 
     let now = new Date().getTime()
     let countDownDate = new Date(endDate).getTime()
     let distance = countDownDate - now
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    let days = 0
+    if (distance > 0) days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    else days = '-'
 
     return (
       <>

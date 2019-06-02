@@ -22,6 +22,7 @@ class CourseMain extends React.Component {
       // map_display: true,
       c_sid: null,
       course: null,
+      c_status: 0,
       // Show buttons or not
       buttonDisplay: 'block',
       // Check collect or not
@@ -39,6 +40,9 @@ class CourseMain extends React.Component {
         .then(res => res.json())
         .then(data => {
           this.setState({ course: data })
+          if (data[0].c_fundNow >= data[0].c_fundGoal)
+            this.setState({ c_status: '集資成功' })
+          else this.setState({ c_status: '集資中' })
         })
         .catch(err => {
           console.log(err)
@@ -127,6 +131,10 @@ class CourseMain extends React.Component {
       .then(() => this.setState({ isLiked: !this.state.isLiked }))
   }
 
+  handleStatusCompleted = () => {
+
+  }
+
   // Rendering
   render() {
     let list0 = null
@@ -143,6 +151,7 @@ class CourseMain extends React.Component {
           buttonDisplay={this.state.buttonDisplay}
           collectHandler={this.collectHandler}
           isLiked={this.state.isLiked}
+          status={this.state.c_status}
         />
       )
       list3 = <CourseTab course={this.state.course} />
