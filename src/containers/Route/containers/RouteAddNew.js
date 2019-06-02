@@ -16,9 +16,32 @@ import {
   alertDisappear
 } from "../actions";
 import { withRouter } from "react-router";
+import map_style from "../data/google_map_style.json";
+const google = window.google;
+var directionsService = new google.maps.DirectionsService();
+var directionsDisplay = new google.maps.DirectionsRenderer();
 
 class RouteAddNew extends Component {
   state = {};
+
+  async componentDidMount() {
+    try {
+      const response = await fetch("http://localhost:5000/is_logined", {
+        method: "GET",
+        credentials: "include",
+        headers: new Headers({
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        })
+      });
+      const jsonObject = await response.json();
+      if (!jsonObject.isLogined) {
+        return this.props.history.push("/route/addnew");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
   componentDidUpdate() {
     if (this.props.l.success === true) {
       setTimeout(() => {
@@ -60,6 +83,111 @@ class RouteAddNew extends Component {
     }
   };
 
+  //   getcoordinates = (address, field) => {
+  //     geocoder.geocode({ address: address }, async (results, status) => {
+  //       try {
+  //         if (status === "OK") {
+  //           document.querySelector("#" + field).value = JSON.stringify(results);
+  //           this.markerD = new google.maps.Marker({
+  //             map: this.map22,
+  //             position: results[0].geometry.location,
+  //             title: address
+  //           });
+  //           this.markerD.setMap(this.map22);
+  //           this.map22.setCenter(results[0].geometry.location);
+  //         } else {
+  //           alert("Geocode was not successfull because " + status);
+  //           throw new Error("Geocode was not successfull because " + status);
+  //         }
+  //       } catch (e) {
+  //         console.log("" + e);
+  //       }
+  //     });
+  //   };
+
+  handleMapPreview = () => {
+    console.log("xxx");
+    // if (this.markerD) {
+    //   this.markerD.setMap(null);
+    // }
+    // this.getcoordinates(event.target.value, "depart_info");
+    let country = document.querySelector("#r_country").value;
+    let area = document.querySelector("#r_area").value;
+    let rdepart = document.querySelector("#r_depart").value;
+    let rarrive = document.querySelector("#r_arrive").value;
+    console.log(country);
+    console.log(area);
+    if (!rdepart || !rarrive) {
+      //alert("no information");
+      //return console.log("no information");
+      return this.props.alertAppear(false, "請輸入出發地及目的地");
+    }
+    let lnum = document.querySelectorAll(".rr_sid").length;
+    let geolname = document.querySelectorAll(".geol_name");
+    let geolcountry = document.querySelectorAll(".geol_country");
+    let geolarea = document.querySelectorAll(".geol_area");
+    let arr = [];
+    if (lnum > 0) {
+      for (let i = 0; i < lnum; i++) {
+        arr.push({
+          location:
+            (geolcountry[i].value ? geolcountry[i].value + " " : "") +
+            (geolarea[i].value ? geolarea[i].value + " " : "") +
+            geolname[i].value
+        });
+      }
+    }
+    this.map22 = new google.maps.Map(document.getElementById("map22"), {
+      zoom: 4,
+      center: { lat: 25.04776, lng: 121.53185 },
+      styles: map_style
+    });
+    let map22 = this.map22;
+
+    directionsDisplay.setMap(this.map22);
+    var request = {
+      origin:
+        (country ? country + " " : "") + (area ? area + " " : "") + rdepart,
+      destination:
+        (country ? country + " " : "") + (area ? area + " " : "") + rarrive,
+      waypoints: arr ? arr : null,
+      travelMode: "DRIVING",
+      optimizeWaypoints: true
+    };
+    console.log(arr);
+    console.log(request);
+    directionsService.route(request, function(result, status) {
+      if (status === "OK") {
+        // 回傳路線上每個步驟的細節
+        //console.log(result.routes[0].legs[0].steps);
+        document.querySelector("#r_map_info").value = JSON.stringify(
+          result.geocoded_waypoints
+        );
+        //console.log(result);
+        // console.log(result.geocoded_waypoints);
+        directionsDisplay.setDirections(result);
+        // let Line = new google.maps.Polyline({
+        //   path: result.routes[0].overview_path,
+        //   geodesic: true,
+        //   strokeColor: "#F52A2A",
+        //   strokeOpacity: 1.0,
+        //   strokeWeight: 5
+        // });
+
+        // Line.setMap(map22);
+      } else {
+        console.log(result);
+        console.log(status);
+      }
+    });
+  };
+
+  //   handleMapPreview = event => {
+  //     console.log("yyy");
+  //     console.log(event.target.value);
+  //     //getcoordinates(event.target.value, "arrive_info");
+  //   };
+
   render() {
     // let redirect=null;
     if (this.props.a.appear) {
@@ -91,7 +219,10 @@ class RouteAddNew extends Component {
                   <h3 className="r_fs_14"> 基本信息</h3>
                 </Col>
                 <Col>
-                  <AddNewMainForm />
+                  <AddNewMainForm
+                    handlegeolocation1={this.handlegeolocation1}
+                    handlegeolocation2={this.handlegeolocation2}
+                  />
                 </Col>
               </Row>
 
@@ -116,6 +247,41 @@ class RouteAddNew extends Component {
                   <AddNewLocationsContainer num={this.props.l.locationList} />
                 </Col>
               </Row>
+              <Row className="m-0">
+                <button className="m-3 w-100" onClick={this.handleMapPreview}>
+                  預覽地圖
+                </button>
+                <small
+                  className="form-text text-muted"
+                  style={{ height: "18px" }}
+                >
+                  地圖預覽並不支援所有國家敬請見諒
+                </small>
+              </Row>
+              <Row
+                className="m-0 my-xl-5"
+                style={{
+                  width: "100%",
+                  height: "400px",
+                  backgroundColor: "#ccc"
+                }}
+              >
+                <div id="map22" className="w-100 h-100" />
+                {/* <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: "AIzaSyCNjMMcvnKTcRCOJvpxFe6xgqytgjl0tBI"
+                  }}
+                  defaultCenter={this.props.center}
+                  defaultZoom={this.props.zoom}
+                >
+                  <AnyReactComponent
+                    lat={59.955413}
+                    lng={30.337844}
+                    text="My Marker"
+                  /> */}
+                {/* </GoogleMapReact> */}
+              </Row>
+
               <Row className="m-0">
                 <button className="m-3 w-100" onClick={this.addNewSubmit}>
                   提交

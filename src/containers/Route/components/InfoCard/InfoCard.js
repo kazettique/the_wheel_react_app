@@ -12,6 +12,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { handlelikeAsync } from "../../actions";
+function controlcollectnum(instruction, rsid) {
+  fetch(
+    "http://localhost:5000/route/collection/num/" + instruction + "/" + rsid,
+    {
+      method: "GET"
+    }
+  );
+}
 
 class InfoCard extends Component {
   state = {};
@@ -51,9 +59,11 @@ class InfoCard extends Component {
       if (newlike !== 0) {
         console.log("no");
         arr.splice(arr.indexOf(newlike), 1);
+        controlcollectnum(0, rsid);
       } else {
         console.log("yes");
         arr.push(this.props.data.r_sid);
+        controlcollectnum(1, rsid);
       }
     } else {
       arr = [this.props.data.r_sid];
@@ -75,17 +85,27 @@ class InfoCard extends Component {
     return (
       <Row className="justify-content-between w-100 r_card_con m-0 my-2 my-md-3 flex-nowrap">
         <Col className="r_list_img_con p-0 position-relative col-3">
-          <FontAwesomeIcon
-            className={
-              "font-awesome r_heart position-absolute" +
-              (heartRed ? "  r_heart_red" : "")
-            }
-            icon={faHeart}
-            onClick={this.handlelike}
-          />
+          <div className="like_wrap  position-absolute">
+            <FontAwesomeIcon
+              className={
+                "font-awesome r_heart " + (heartRed ? "  r_heart_red" : "")
+              }
+              icon={faHeart}
+              onClick={this.handlelike}
+            />
+            <p className={"collect_num" + (heartRed ? "  r_heart_red" : "")}>
+              {this.props.data.r_collect_num}
+            </p>
+          </div>
+
           {/* ---------------NEED TO CHANGE THIS------------------------------------- */}
           <img
-            src="https://loremflickr.com/320/240/brazil,rio"
+            src={
+              this.props.data.r_img
+                ? "https://localhost:5000/public/r_upload_img/" +
+                  this.props.data.r_img
+                : "https://loremflickr.com/320/240"
+            }
             alt="route img"
           />
         </Col>
@@ -168,7 +188,7 @@ class InfoCard extends Component {
                   </div>
                 </div>
 
-                <div className="d-flex flex-column col-6 r_list-400_dnone">
+                <div className="d-flex flex-column col-6 r_list-400_dnone p-0">
                   <span>預計{this.props.data.r_time}</span>
                   <span>經過{this.props.data.r_l_num}個地點</span>
                 </div>

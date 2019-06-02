@@ -11,18 +11,27 @@ import { bindActionCreators } from "redux";
 import {
   fetchSingleAsync,
   handlelikeAsync,
-  addToLikeSuccess
+  addToLikeSuccess,
+  addToChallengeSuccess
 } from "../actions";
 import { withRouter } from "react-router-dom";
 import RAlert from "../components/R_Alert/R_Alert";
+import map_style from "../data/google_map_style.json";
+const google = window.google;
+var directionsService = new google.maps.DirectionsService();
+var directionsDisplay = new google.maps.DirectionsRenderer();
 
 class RouteDetail extends Component {
   state = {};
 
   componentDidMount() {
+    this.count = 0;
     this.props.fetchSingleAsync(this.props.match.params.id);
+
     let r_Collection = new FormData();
     let arr = [];
+    let arr2 = [];
+
     fetch("http://localhost:5000/is_logined", {
       method: "GET",
       credentials: "include",
@@ -53,49 +62,73 @@ class RouteDetail extends Component {
           .then(res => res.json())
           .then(obj => {
             arr = JSON.parse(obj[0]["r_collection"]);
-
+            console.log(arr);
+            arr2 = JSON.parse(obj[0]["r_challengeSuccess"]);
+            this.setState({ r_collection: arr, r_challengeSuccess: arr2 });
             this.props.addToLikeSuccess(arr);
+            this.props.addToChallengeSuccess(arr2);
           })
       )
       .catch(e => console.log(e));
   }
-
-  handlelike = async () => {
-    const response = await fetch("http://localhost:5000/is_logined", {
-      method: "GET",
-      credentials: "include",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
-    });
-    const jsonObject = await response.json();
-
-    if (!jsonObject.user_id) {
-      alert("收藏路線前請先登入");
-      return;
-    }
-    let arr = this.props.h.liked;
-    let rsid = this.props.r.data.main[0].r_sid;
-    //console.log(arr);
-    //console.log(rsid);
-    let newlike = 0;
-    arr.forEach(function(el) {
-      if (el === rsid) {
-        newlike = rsid;
+  componentDidUpdate() {
+    if (this.props.r.data.main && this.count === 2) {
+      console.log(this.props.r.data.main[0].r_country);
+      let country = this.props.r.data.main[0].r_country;
+      let area = this.props.r.data.main[0].r_area;
+      let rdepart = this.props.r.data.main[0].r_depart;
+      let rarrive = this.props.r.data.main[0].r_arrive;
+      console.log(country);
+      console.log(area);
+      if (!rdepart || !rarrive) {
+        alert("no information");
       }
-      console.log("newLike" + newlike);
-    });
+      let lnum = this.props.r.data.location.length;
+      console.log(lnum);
+      let arr3 = [];
+      if (lnum > 0) {
+        for (let i = 0; i < lnum; i++) {
+          arr3.push({
+            location:
+              (this.props.r.data.location[i].l_country
+                ? this.props.r.data.location[i].l_country + " "
+                : "") +
+              (this.props.r.data.location[i].l_area
+                ? this.props.r.data.location[i].l_area + " "
+                : "") +
+              this.props.r.data.location[i].l_name
+          });
+        }
+      }
 
-    if (newlike !== 0) {
-      arr.splice(arr.indexOf(newlike), 1);
-    } else {
-      arr.push(this.rsid);
+      let map11 = new google.maps.Map(document.getElementById("map11"), {
+        zoom: 4,
+        center: { lat: 25.04776, lng: 121.53185 },
+        styles: map_style
+      });
+
+      directionsDisplay.setMap(map11);
+      var request = {
+        origin:
+          (country ? country + " " : "") + (area ? area + " " : "") + rdepart,
+        destination:
+          (country ? country + " " : "") + (area ? area + " " : "") + rarrive,
+        waypoints: arr3 ? arr3 : null,
+        travelMode: "DRIVING",
+        optimizeWaypoints: true
+      };
+      directionsService.route(request, function(result, status) {
+        if (status === "OK") {
+          directionsDisplay.setDirections(result);
+        } else {
+          console.log(status);
+        }
+      });
     }
-    console.log(arr);
-    this.props.handlelikeAsync(rsid, arr);
-  };
+  }
   render() {
+    this.count++;
+    console.log(this.count);
     if (this.props.r.data.main) {
       let rsid = this.props.r.data.main[0].r_sid;
       let heartRed = false;
@@ -106,6 +139,15 @@ class RouteDetail extends Component {
           }
         });
       }
+      let challengeSuccess = false;
+      if (this.props.h.challengeSuccess) {
+        this.props.h.challengeSuccess.forEach(function(el) {
+          if (el === rsid) {
+            challengeSuccess = true;
+          }
+        });
+      }
+
       return (
         <>
           {this.props.a.appear ? (
@@ -126,6 +168,7 @@ class RouteDetail extends Component {
               className="my-xl-5"
               data={this.props.r.data.main[0]}
               heartRed={heartRed ? true : false}
+              challengeSuccess={challengeSuccess ? true : false}
             />
             <DetailPageIntro
               className="my-xl-5"
@@ -139,7 +182,9 @@ class RouteDetail extends Component {
                 height: "400px",
                 backgroundColor: "#ccc"
               }}
-            />
+            >
+              <div id="map11" className="h-100 w-100" />
+            </Row>
 
             <DetailPageLocation
               className="my-5"
@@ -169,7 +214,12 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { fetchSingleAsync, handlelikeAsync, addToLikeSuccess },
+    {
+      fetchSingleAsync,
+      handlelikeAsync,
+      addToLikeSuccess,
+      addToChallengeSuccess
+    },
     dispatch
   );
 

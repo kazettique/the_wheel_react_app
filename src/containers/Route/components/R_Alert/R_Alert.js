@@ -12,6 +12,9 @@ class RAlert extends Component {
     console.log("a");
     if (this.props.a.appear) {
       console.log("yes");
+      setTimeout(() => {
+        return this.props.alertDisappear();
+      }, 1300);
       switch (this.props.a.success) {
         case true:
           console.log("yes2");

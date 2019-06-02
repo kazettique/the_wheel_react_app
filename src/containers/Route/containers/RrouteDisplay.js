@@ -12,11 +12,11 @@ class RouteDisplay extends Component {
     return (
       <Container fluid className="p-0">
         <div style={{ height: "60px" }} />
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center mb-4">
           <Col sm={11} xl={10}>
             <Title />
             <AdvanceSearch />
-            <RouteListMap />
+            {/* <RouteListMap /> */}
           </Col>
         </div>
 

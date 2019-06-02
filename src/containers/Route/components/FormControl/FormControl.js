@@ -63,6 +63,7 @@ class FormControl extends Component {
                     id={this.props.name}
                     placeholder={this.props.label}
                     onChange={this.props.onChange}
+                    //onBlur={this.props.onBlur1}
                   />
                 )}
 
@@ -95,6 +96,7 @@ class FormControl extends Component {
                     id={this.props.name2}
                     placeholder={this.props.label2}
                     onChange={this.props.onChange}
+                    //onBlur={this.props.onBlur2}
                   />
                 )}
 
