@@ -123,6 +123,7 @@ class DetailMainCard extends Component {
     this.props.handleChallengeSuccessAsync(this.state.user_id, arr);
   };
   render() {
+    //console.log(this.props.heartRed);
     return (
       <>
         <div

@@ -58,28 +58,28 @@ class product extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    window.twttr.widgets.load();
-    if (this.state.col_newsData.length > 0) {
-      var fbBtn = document.querySelector(".facebook-share");
-      console.log(fbBtn);
-      var title = encodeURIComponent(
-        "Hey everyone, come & see how good I look!"
-      );
-      var shareUrl =
-        "https://www.facebook.com/sharer/sharer.php?u=" +
-        window.location.href +
-        "&title=" +
-        title;
-      fbBtn.href = shareUrl;
+  // componentDidUpdate(prevProps, prevState) {
+  //   window.twttr.widgets.load();
+  //   if (this.state.col_newsData.length > 0) {
+  //     var fbBtn = document.querySelector(".facebook-share");
+  //     console.log(fbBtn);
+  //     var title = encodeURIComponent(
+  //       "Hey everyone, come & see how good I look!"
+  //     );
+  //     var shareUrl =
+  //       "https://www.facebook.com/sharer/sharer.php?u=" +
+  //       window.location.href +
+  //       "&title=" +
+  //       title;
+  //     fbBtn.href = shareUrl;
 
-      fbBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
-        win.opener = null;
-      });
-    }
-  }
+  //     fbBtn.addEventListener("click", function(e) {
+  //       e.preventDefault();
+  //       var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
+  //       win.opener = null;
+  //     });
+  //   }
+  // }
 
   async componentDidMount() {
     const jsonObject = await checkUserState();
@@ -179,6 +179,38 @@ class product extends React.Component {
       });
   };
 
+  //取消訂單
+  cancelOrder = id => () => {
+    console.log(id);
+    for (let s in this.state.orders) {
+      console.log(this.state.orders[s].sid);
+
+      if (this.state.orders[s].sid == id) {
+        console.log("刪除");
+        var sendObj = {
+          id: id
+        };
+        fetch(`http://localhost:5000/cancelOrder`, {
+          credentials: "include",
+          method: "POST", // or 'PUT'
+          body: JSON.stringify(sendObj), // data can be `string` or {object}!
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          })
+        })
+          .then(res => res.json())
+          .then(obj => {
+            console.log(obj);
+            this.getBuy();
+          })
+
+          // .then(this.setState({myCollect:newData}))
+          .catch(error => console.error("Error:", error));
+      }
+    }
+  };
+
   handleFormInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
@@ -253,17 +285,14 @@ class product extends React.Component {
     }
 
     let orderData = [];
-    let orderCart = [];
     if (this.state.orders) {
       orderData = this.state.orders;
-     
 
       for (let s in orderData) {
-        orderData[s].cart2=JSON.parse(orderData[s].cart)
+        orderData[s].cart2 = JSON.parse(orderData[s].cart);
       }
 
       console.log(orderData);
-     
     }
     if (
       (this.state.id != this.state.user_id &&
@@ -336,7 +365,7 @@ class product extends React.Component {
                             </div> */}
 
                             <div className="d-flex">
-                            <div>
+                              <div>
                                 <a
                                   style={{ fontSize: "1rem", color: "black" }}
                                   href={`https://twitter.com/intent/tweet?url=${
@@ -378,52 +407,51 @@ class product extends React.Component {
 
                 <div className="box2 Allbox">
                   {orderData.map((item, index) => (
-                    
                     <div
                       className="card mb-3"
                       style={{ maxWidth: "850px" }}
                       key={item.sid}
                     >
                       <div className="row no-gutters">
-                        <div className="col-md-6">   
-                        {item.cart2.map(item=>(
-                          <img
-                            src= {item.p_photo}
-                            className="card-img"
-                            alt="..."
-                          />
-                        ))}
-                         
-                        
-                        {console.log(item.cart2[0].p_photo)}
+                        <div className="col-md-6">
+                          {item.cart2.map(item => (
+                            <img
+                              src={item.p_photo}
+                              className="card-img"
+                              alt="..."
+                            />
+                          ))}
+
+                          {console.log(item.cart2[0].p_photo)}
                         </div>
 
                         <div className="col-md-6">
                           <div className="card-body">
-                          <div className="d-flex">
-                                <div className="titlearea">
-                                  <h5 className="card-title">
-                                    訂單編號:{item.sid}
-                                  </h5>
-                                </div>
+                            <div className="d-flex">
+                              <div className="titlearea">
+                                <h5 className="card-title">
+                                  訂單編號:{item.sid}
+                                </h5>
+                              </div>
                               <Button
                                 className="cancel ml-auto"
                                 variant="danger"
-                                onClick={this.handleCancel(item.p_sid)}
+                                onClick={this.cancelOrder(item.sid)}
                               >
                                 取消訂單
                               </Button>
                             </div>
                             <div className="card-text2 ellipsis">
-                                {item.cart2.map(item=>
-                                   <div>{item.p_name} <br/>數量:{item.qty} <br/>單價:{item.p_price}元</div>
-                                  
-                                )}
-                             
+                              {item.cart2.map(item => (
+                                <div>
+                                  {item.p_name} <br />
+                                  數量:{item.qty} <br />
+                                  單價:{item.p_price}元
+                                </div>
+                              ))}
                             </div>
 
                             <div className="d-flex">
-                              
                               <h4 className="price">總價:{item.totalprice}</h4>
                               <Link
                                 class="btn btn-success ml-auto"

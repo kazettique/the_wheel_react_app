@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 // import './member.css';
 import './InstallModal.scss';
+import Swal from 'sweetalert2'
 
 class InstallModal extends React.Component {
   constructor() {
@@ -140,7 +141,11 @@ class InstallModal extends React.Component {
           // alert('資料已成功新增!');
           // this.handleModalClose();
           if (jsonObject.success) {
-            alert('註冊成功!');
+            Swal.fire(
+              '註冊成功!',
+              '',
+              'success'
+            )
             this.setState({ installdb: 'block' });
             this.setState({ installtext: '註冊成功' });
             this.setState({ installstate: 'alert alert-success' });
@@ -149,7 +154,12 @@ class InstallModal extends React.Component {
 
           if (!jsonObject.success) {
             this.setState({ installdb: 'block' });
-            alert('e-mail重複使用');
+            Swal.fire({
+              type: 'error',
+              title: 'E-mail重複使用',
+              text: '',
+              // footer: '<a href>Why do I have this issue?</a>'
+            })
 
             return;
           }

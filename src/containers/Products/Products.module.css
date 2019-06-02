@@ -124,8 +124,15 @@
   display: flex;
 }
 .productSideBarCart2 {
+  cursor: pointer; 
   margin: auto;
 }
+
+.productSideBarCart:hover{
+  color: #FFF;
+  
+}
+
 .productSideBarGenre {
   background-color: #f52a2a;
   color: black;
@@ -198,7 +205,7 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  padding: 8rem;
+  /* padding: 8rem; */
 }
 .productDescription2 {
   height: 18rem;

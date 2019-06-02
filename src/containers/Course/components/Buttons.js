@@ -94,7 +94,7 @@ class LikeItButton extends React.Component {
           {this.props.isLiked ? '取消收藏' : '收藏課程'}
           <FontAwesomeIcon
             style={{ marginLeft: '0.5rem' }}
-            icon={this.state.isLiked ? faHeartBroken : faHeart}
+            icon={this.props.isLiked ? faHeartBroken : faHeart}
           />
         </Button>
       </>
@@ -147,7 +147,7 @@ function ReturnButton() {
   return (
     <>
       <Link to="/course">
-        <Button variant="link">返回</Button>
+        <Button variant="secondary" className="buttons">返回</Button>
       </Link>
     </>
   )
