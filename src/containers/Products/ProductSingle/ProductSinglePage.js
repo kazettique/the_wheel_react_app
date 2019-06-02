@@ -8,6 +8,7 @@ import ProductControlledCarousel from '../ProductControlledCarousel'
 import SingleImg from './SingleImg'
 import SingleSiderBar from './SingleSiderBar'
 import SingleProductList from './SingleProductList'
+import SingleComment from './SingleComment'
 import { withRouter } from 'react-router-dom'
 import axios from "axios";
 const startState = { autoAlpha: 0, y: -50 };
@@ -158,7 +159,7 @@ class ProductSinglePage extends React.Component {
       list3 = <SingleProductList product={this.state.product} />;
       list4 = <SingleImg product={this.state.product} />;
     }
-
+  
     return (
       <>
         <Transition
@@ -191,7 +192,9 @@ class ProductSinglePage extends React.Component {
             {list2}
             {/* </div> */}
             {list3}
-            <ProductControlledCarousel />
+            <SingleComment  p_sid={this.state.p_sid}/>
+
+            <ProductControlledCarousel/>
 
             {this.props.children}
           </div>

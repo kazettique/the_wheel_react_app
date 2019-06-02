@@ -64,7 +64,7 @@ class SingleProductList extends React.Component {
             >
               <img
                 className={classes.productDescriptionImg}
-                style={{ width: '70%' }}
+                style={{ width: '50%' }}
                 src={this.props.product.p_photo3}
                 alt=""
               />

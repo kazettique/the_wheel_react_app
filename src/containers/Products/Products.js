@@ -49,17 +49,6 @@ class products extends React.Component {
         if(data.user_id){
           console.log(data)
           // this.setState({ user: data });
-          // if (this.state.user) {
-          //   axios
-          //     .get("http://localhost:5000/collection.api", {
-          //       params: {
-          //         sid: data.user_id
-          //       }
-          //     })
-          //     .then(res => {
-          //       this.setState({ collection: JSON.parse(res.data[0].collection) });
-          //     });
-          // }
         }  
       });
 
