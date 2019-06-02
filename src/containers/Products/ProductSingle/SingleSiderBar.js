@@ -57,7 +57,7 @@ class SingleSiderBar extends React.Component {
   //   }))
   // }
   addToCart = product => {
-   
+
     let quantity = this.state.quantity
     if (quantity === 0) {
       alert('請選擇數量')
@@ -71,7 +71,7 @@ class SingleSiderBar extends React.Component {
         })
 
         localStorage.setItem('cart', JSON.stringify(cart))
-    
+
       } else {
         const cart = JSON.parse(localStorage.getItem('cart'))
         const item = Object.assign({}, product, { quantity })
@@ -124,9 +124,9 @@ class SingleSiderBar extends React.Component {
         cart,
       })
 
-     
+
       cart.forEach(item => {
-       
+
         let sum = item.quantity * Number(item.p_price)
         return (totalPrice += sum)
       })
@@ -134,13 +134,13 @@ class SingleSiderBar extends React.Component {
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
     localStorage.setItem('cart', JSON.stringify(cart))
   }
- 
+
 
   render() {
     let meber = localStorage.getItem('meber')
-  
+
     const { show, product } = this.state
-    
+
     let totalPrice = 0
     let cart = []
     if (localStorage.getItem('cart')) {
@@ -175,12 +175,15 @@ class SingleSiderBar extends React.Component {
                 </h5>
               </div>
               <div className={classes.productSideBarGenre}>
+
                 <p className={classes.productSideBarGenre2}>
+                  車種類別:
                   {this.props.product.p_genre}/{this.props.product.p_genre2}
                 </p>
               </div>
               <div className={classes.productSideBarBarnd}>
                 <p className={classes.productSideBarBarnd2}>
+                  單車品牌:
                   {this.props.product.p_brand}
                 </p>
               </div>
@@ -189,9 +192,8 @@ class SingleSiderBar extends React.Component {
               <div className={classes.productSideBarPrice}>
                 <Col className={classes.productSideBarPrice2} md={10}>
                   <h1>NT:{this.props.product.p_price}</h1>
-
                   <p>
-                    {this.props.product.p_name}
+                  名稱:{this.props.product.p_name}
                     {/* <img src= {this.props.product.photos[0]}></img> */}
                   </p>
                 </Col>
@@ -225,11 +227,11 @@ class SingleSiderBar extends React.Component {
                     pathname: `/checkout`,
                   }}
                 > */}
-                  <Button
-                    className={classes.productSideBarButton}
-                    onClick={this.handleBuy}
-                  >
-                    直接購買
+                <Button
+                  className={classes.productSideBarButton}
+                  onClick={this.handleBuy}
+                >
+                  直接購買
                   </Button>
                 {/* </Link> */}
               </div>
@@ -246,6 +248,8 @@ class SingleSiderBar extends React.Component {
             </Col>
           </Row>
         </Container>
+
+        
         <Modal
           isOpen={this.props.modal}
           toggle={this.props.onToggle}
@@ -291,9 +295,9 @@ class SingleSiderBar extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
-           
-              <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
-          
+
+            <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
+
             <Button color="secondary" onClick={this.props.onToggle}>
               取消
             </Button>
