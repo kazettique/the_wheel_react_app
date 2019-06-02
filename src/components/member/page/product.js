@@ -31,13 +31,15 @@ var getWindowOptions = function() {
   ].join();
 };
 
+
+
 class product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       NavTitle1: "收藏商品",
       NavTitle2: "已購買商品",
-      myMemberData: [{}],
+      myMemberData: [],
       memberData: [],
       m_name: "",
       m_photo: "",
@@ -54,7 +56,7 @@ class product extends React.Component {
       user_id: "",
       myCollect: [],
       col_newsData: [],
-      orders: ""
+      orders: [],
     };
   }
 
@@ -91,8 +93,8 @@ class product extends React.Component {
       isLogined: jsonObject.isLogined,
       user_id: jsonObject.user_id
     });
-    this.memberDataFetch();
-    this.getBuy();
+    await this.memberDataFetch();
+    await this.getBuy();
   }
 
   //載入會員資料
@@ -131,6 +133,7 @@ class product extends React.Component {
           //拿到收藏的產品資訊
           console.log(JSON.parse(jsonObject[0].c_product).length);
           this.getProduct();
+          
         }
       } else {
         this.setState({ myCollect: [] });
@@ -166,17 +169,25 @@ class product extends React.Component {
   };
 
   //拿到SQL購買的商品
-  getBuy = () => {
+  getBuy = async () => {
     let id = this.props.match.params.id;
     let user_id = this.state.user_id;
-    fetch(`http://localhost:5000/orders/${user_id ? user_id : id}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ orders: data }, () => console.log(this.state.orders));
-      })
-      .catch(err => {
-        console.log(err);
+    const response = await fetch(
+      `http://localhost:5000/orders/${user_id ? user_id : id}`,
+      {
+        method: "GET",
+        headers: new Headers({
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        })
       });
+
+    // if (!response.ok) throw new Error(response.statusText);
+
+    const jsonObject = await response.json();
+    console.log(jsonObject);
+
+    await this.setState({orders:jsonObject})
   };
 
   //取消訂單
@@ -287,13 +298,20 @@ class product extends React.Component {
     let orderData = [];
     if (this.state.orders) {
       orderData = this.state.orders;
+      
 
       for (let s in orderData) {
+        console.log(s)
+        console.log(orderData[s].cart)
         orderData[s].cart2 = JSON.parse(orderData[s].cart);
+        
       }
+
 
       console.log(orderData);
     }
+
+
     if (
       (this.state.id != this.state.user_id &&
         this.state.id &&
