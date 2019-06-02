@@ -283,7 +283,7 @@ class news extends React.Component {
                               </div>
 
                               <div className="textcontent">
-                                <p className="card-text ellipsis">{text}</p>
+                                <p className="card-text2 ellipsis">{text}</p>
                               </div>
 
                               <div className="d-flex">

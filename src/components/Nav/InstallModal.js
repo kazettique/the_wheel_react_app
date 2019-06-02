@@ -9,6 +9,8 @@ import {
 } from 'react-bootstrap';
 // import './member.css';
 import './InstallModal.scss';
+import Swal from 'sweetalert2';
+import {withRouter} from "react-router-dom";
 
 class InstallModal extends React.Component {
   constructor() {
@@ -140,17 +142,25 @@ class InstallModal extends React.Component {
           // alert('資料已成功新增!');
           // this.handleModalClose();
           if (jsonObject.success) {
-            alert('註冊成功!');
+            Swal.fire(
+              '註冊成功!',
+              '',
+              'success'
+            )
             this.setState({ installdb: 'block' });
             this.setState({ installtext: '註冊成功' });
             this.setState({ installstate: 'alert alert-success' });
-            document.location.href = '/';
+            setTimeout(()=>this.props.history.push("/"),2000)
             return;
           }
 
           if (!jsonObject.success) {
             this.setState({ installdb: 'block' });
-            alert('e-mail重複使用');
+            Swal.fire({
+              type: 'error',
+              title: 'E-mail重複使用',
+              text: '',
+            })
 
             return;
           }
@@ -305,4 +315,4 @@ class InstallModal extends React.Component {
   }
 }
 
-export default InstallModal;
+export default withRouter(InstallModal);
