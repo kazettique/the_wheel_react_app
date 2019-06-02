@@ -179,6 +179,18 @@ class product extends React.Component {
       });
   };
 
+  //取消訂單
+  // cancelOrder=id=>()=>{
+  //   fetch(`http://localhost:5000/cancelOrder/${}`)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     this.setState({ orders: data }, () => console.log(this.state.orders));
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+  // };
+
   handleFormInputChange = event => {
     let value = event.target.value;
     const name = event.target.name;
@@ -253,7 +265,6 @@ class product extends React.Component {
     }
 
     let orderData = [];
-    let orderCart = [];
     if (this.state.orders) {
       orderData = this.state.orders;
      

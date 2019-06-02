@@ -8,7 +8,6 @@ import Card from 'react-bootstrap/Card'
 import coverImg from './../images/bicicleta-antigua-vintage-cadena-hojas-Fondos-de-Pantalla-HD-professor-falken.com_.jpg'
 // Button Components
 import { BackItButton, LikeItButton, SNSButtons } from './../components/Buttons'
-import Container from 'react-bootstrap/Container'
 
 class CourseBanner extends React.Component {
   constructor(props) {
@@ -18,10 +17,6 @@ class CourseBanner extends React.Component {
     }
   }
 
-  // handleTest() {
-  //   console.log('handleTest!!')
-  // }
-
   render() {
     // Transfer Portal For Props
     // let cover = this.state.course.c_cover
@@ -30,14 +25,16 @@ class CourseBanner extends React.Component {
     let fundNow = this.state.course.c_fundNow
     let fundGoal = this.state.course.c_fundGoal
     let endDate = this.state.course.c_endDate
-    let status = this.state.course.c_status
+    let status = this.props.status
 
     let percentage = parseInt((fundNow / fundGoal) * 100)
 
     let now = new Date().getTime()
     let countDownDate = new Date(endDate).getTime()
     let distance = countDownDate - now
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    let days = 0
+    if (distance > 0) days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    else days = '-'
 
     return (
       <>

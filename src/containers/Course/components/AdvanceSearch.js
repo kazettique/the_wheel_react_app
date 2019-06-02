@@ -79,7 +79,7 @@ class AdvanceSearch extends Component {
                     </Form.Control>
                   </Col>
                   <Col className="p-0 position-relative" lg={4}>
-                    <Form.Label className="r_fw_bold">課程時間</Form.Label>
+                    <Form.Label className="r_fw_bold">集資結束時間</Form.Label>
                     <Form.Control
                       as="select"
                       className="r_as_select"

@@ -67,7 +67,7 @@ POINT2
   render() {
     return (
       <>
-        <Container fluid style={{ background: '#ccc' }}>
+        <Container fluid>
           {/*<div dangerouslySetInnerHTML={{__html: this.state.c_intro}} />*/}
           <div dangerouslySetInnerHTML={{__html: this.props.courseInfo}} />
           {/*<p>{this.props.courseInfo}</p>*/}

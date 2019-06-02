@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 function CourseComment() {
   return (
     <>
-      <Container fluid style={{ background: '#ccc' }}>
+      <Container fluid>
         <Container>
           <Form>
             <Form.Group controlId="formBasicEmail">

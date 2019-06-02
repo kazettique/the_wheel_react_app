@@ -241,7 +241,12 @@ class edit extends React.Component {
                             this.setState({
                                 installtext: jsonObject.message.text,
                             });
-                            alert('檔案格式不符資料沒有修改');
+                            Swal.fire({
+                                type: 'error',
+                                title: '檔案格式不符',
+                                text: '資料沒有修改',
+                                // footer: '<a href>Why do I have this issue?</a>'
+                              })
 
                             return;
                         }
@@ -252,7 +257,12 @@ class edit extends React.Component {
                                 installstate: 'alert alert-warning',
                             });
                             this.setState({ installtext: '資料沒有修改' });
-                            alert('資料沒有修改');
+                            Swal.fire({
+                                type: 'error',
+                                title: '資料沒有修改',
+                                text: '',
+                                // footer: '<a href>Why do I have this issue?</a>'
+                              })
 
                             return;
                         }
@@ -277,6 +287,7 @@ class edit extends React.Component {
                               '',
                               'success'
                             )
+                            setTimeout(()=>this.props.history.push(`/member/edit/${id}`),2000)
                             // window.location.reload();
                             this.setState({ installdb: 'block' });
                             this.setState({
