@@ -17,7 +17,7 @@ class ProductsCard extends React.Component {
     this.state = {
       isLogined:false,
       user_id:null,
-      p_sid:p_sid,
+      p_sid:null,
       user:null,
       comment:[],
       m_name:'',
@@ -27,21 +27,22 @@ class ProductsCard extends React.Component {
   }
   
   componentDidMount = () => {
-    let p_sid = this.props.p_sid
+    // let p_sid = this.props.p_sid
 
-    fetch("http://localhost:5000/is_logined", {
-      method: "GET",
-      credentials: "include",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.user_id) {
-            this.setState({ user: data });
-           
+    // fetch("http://localhost:5000/is_logined", {
+    //   method: "GET",
+    //   credentials: "include",
+    //   headers: new Headers({
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   })
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+        
+        // if (this.props.p_sid) {
+            // this.setState({ user: data });
+  
             axios
               .get("http://localhost:5000/comment", {
                 params: {
@@ -53,9 +54,11 @@ class ProductsCard extends React.Component {
                
                 this.setState({ comment: res.data});
               })
-       
-            }
-      })
+              .then(res => {
+                console.log('123')
+            })
+            // }
+    //   })
     
       
  
@@ -67,7 +70,8 @@ class ProductsCard extends React.Component {
         m_sid:localStorage.getItem('meber'),
         p_comment:this.state.commentinput
     }
- 
+    if(localStorage.getItem('meber')){
+       
       fetch('http://localhost:5000/NEWcomment', {
         method: 'POST',
         body: JSON.stringify(obj),
@@ -77,7 +81,7 @@ class ProductsCard extends React.Component {
       })
     // .then(res => res.json())
      .then(res => {
-         console.log(res)
+        //  console.log(res)
         axios
         .get("http://localhost:5000/comment", {
             params: {
@@ -87,11 +91,16 @@ class ProductsCard extends React.Component {
       
         .then(res => {
             this.setState({ comment: res.data});
-            document.querySelector('#text').value=''    
+            document.querySelector('#text').value='' 
+            // localStorage.removeItem("meber");   
         })
         
         
-    })
+    }) 
+    }else{
+        alert('請登入會員')
+    }
+ 
   }
 
   handleInput=event=>{
@@ -106,14 +115,16 @@ class ProductsCard extends React.Component {
     // console.log(localStorage.getItem('meber'))
     let list = null
     list = this.state.comment.map(item => {
+       
         return (
           <SingleCommentProps 
             p_comment={item.p_comment}
             m_name={item.m_name}
+            m_photo={item.m_photo}
           />
         )
       })
-
+   
     
     
     return (
