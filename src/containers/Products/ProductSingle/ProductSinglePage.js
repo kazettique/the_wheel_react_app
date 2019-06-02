@@ -146,6 +146,8 @@ class ProductSinglePage extends React.Component {
     let list2 = null;
     let list3 = null;
     let list4 = null;
+    let list5 = null;
+    console.log(this.state.p_sid)
     if (this.state.product) {
       list2 = (
         <SingleSiderBar
@@ -158,6 +160,7 @@ class ProductSinglePage extends React.Component {
       );
       list3 = <SingleProductList product={this.state.product} />;
       list4 = <SingleImg product={this.state.product} />;
+      list5 =  <SingleComment  p_sid={this.state.p_sid}/>
     }
   
     return (
@@ -192,7 +195,7 @@ class ProductSinglePage extends React.Component {
             {list2}
             {/* </div> */}
             {list3}
-            <SingleComment  p_sid={this.state.p_sid}/>
+            {list5}
 
             <ProductControlledCarousel/>
 
