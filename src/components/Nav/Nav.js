@@ -143,7 +143,8 @@ class NavTop extends React.Component {
         isLogined: jsonObject.isLogined,
         user_id: jsonObject.user_id,
       });
-      document.location.href = '/';
+      // document.location.href = '/';
+      this.props.history.push("/");
     } catch (e) {
       console.log(e);
     }
