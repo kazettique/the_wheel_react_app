@@ -10,6 +10,7 @@ import {
 // import './member.css';
 import './InstallModal.scss';
 import Swal from 'sweetalert2'
+import { Link, Redirect, withRouter } from 'react-router-dom';
 
 class InstallModal extends React.Component {
   constructor() {
@@ -144,11 +145,18 @@ class InstallModal extends React.Component {
             Swal.fire(
               '註冊成功!',
               '',
-              'success'
+              'success',
             )
             this.setState({ installdb: 'block' });
             this.setState({ installtext: '註冊成功' });
             this.setState({ installstate: 'alert alert-success' });
+            // setTimeout(()=>this.props.history.push("/"),2000);
+          //  this.props.history.push('/');
+          //  document.location.href="/";
+          // window.location.reload(true);
+            // window. location.replace('/')
+
+          //  window.location='/';
             return;
           }
 
@@ -314,4 +322,4 @@ class InstallModal extends React.Component {
   }
 }
 
-export default InstallModal;
+export default withRouter(InstallModal);

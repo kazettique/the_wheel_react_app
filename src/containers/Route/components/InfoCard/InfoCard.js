@@ -106,10 +106,11 @@ class InfoCard extends Component {
           <img
             src={
               this.props.data.r_img
-                ? "https://localhost:5000/public/r_upload_img/" +
+                ? "http://localhost:5000/r_upload_img/" +
                   this.props.data.r_img
                 : "https://loremflickr.com/320/240"
             }
+            
             alt="route img"
           />
         </Col>

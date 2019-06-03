@@ -126,6 +126,9 @@ class CourseList extends React.Component {
             fundGoal={item.c_fundGoal}
             endDate={item.c_endDate}
             intro={item.c_intro}
+            cover={item.c_cover}
+            level={item.c_level}
+            location={item.c_courseLocation}
           />
         )
       })

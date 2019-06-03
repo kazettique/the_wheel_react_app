@@ -6,9 +6,6 @@ import Row from 'react-bootstrap/Row'
 import Badge from 'react-bootstrap/Badge'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
-// Images
-import coverImg from '../images/old-man-on-the-bicycle-wide-hd-wallpaper-for-desktop-background-download-bicycle-images-397440.jpg'
-import coachAvatar from '../images/coachPhotos/David-Mirra-641320.jpg'
 // React Router Dom
 import { Link } from 'react-router-dom'
 // StyleSheet
@@ -33,14 +30,16 @@ class CourseListCard extends React.Component {
     const sid = this.props.sid
     const title = this.props.title
     const coachName = this.props.coachName
-    // const coachAvatar = this.props.coachAvatar
+    const coachAvatar = this.props.coachAvatar
     const coachNationality = this.props.coachNationality
     const courseDate = this.props.courseDate
     const fundNow = this.props.fundNow
     const fundGoal = this.props.fundGoal
     const endDate = this.props.endDate
     const intro = this.props.intro
+    const cover = this.props.cover
     const level = this.props.level
+    const location = this.props.location
     let percentage = parseInt((fundNow / fundGoal) * 100)
 
     let status = ''
@@ -66,7 +65,7 @@ class CourseListCard extends React.Component {
                   style={{ background: '#ffffff' }}
                 >
                   <img
-                    src={coverImg}
+                    src={cover}
                     // src={`https://loremflickr.com/320/320/bicycle/all?random=${sid}`}
                     alt="coverImg"
                     className="course-list-card-cover-img"
@@ -78,17 +77,18 @@ class CourseListCard extends React.Component {
                   className="py-lg-3"
                 >
                   <h5>{title}</h5>
-                  <h6 className="ml-2">
-                    <Badge variant="secondary" className="rankBadge">
-                      {level}
-                    </Badge>
-                  </h6>
                   <p className="truncate">{intro}</p>
+                  <Badge variant="secondary" className="rankBadge mr-lg-3">
+                    {level}
+                  </Badge>
+                  <span>上課地點：<b>{location}</b></span>
+                  <br/><br/>
                   <Link to={`/course/${sid}`}>
                     <Button
                       variant="link"
                       className="courseMoreInfo"
                       onClick={this.handleClick}
+                      style={{ color: '#f52a2a' }}
                     >
                       查看課程資訊
                     </Button>
@@ -100,15 +100,19 @@ class CourseListCard extends React.Component {
                   className="py-lg-3"
                 >
                   <img
-                    // src={`https://loremflickr.com/320/320/people/all?random=${sid}`}
                     src={coachAvatar}
                     alt={' '}
-                    style={{ height: '80px', width: 'auto' }}
+                    style={{
+                      height: '80px',
+                      width: 'auto',
+                      borderRadius: '50%',
+                      margin: '1rem',
+                    }}
                   />
                   <p>
                     <b>教練：{coachName}</b>
                     <br />
-                    國籍：<b>{coachNationality}</b>
+                    <b>國籍：{coachNationality}</b>
                   </p>
                 </Col>
                 <Col
@@ -118,7 +122,9 @@ class CourseListCard extends React.Component {
                 >
                   <Row>
                     <Col md={6}>
-                      <p>{status}</p>
+                      <p>
+                        <b>{status}</b>
+                      </p>
                     </Col>
                     <Col md={6}>
                       <p>
@@ -126,11 +132,13 @@ class CourseListCard extends React.Component {
                       </p>
                     </Col>
                   </Row>
-                  <ProgressBar
-                    variant="danger"
-                    now={percentage}
-                    label={`${percentage}%`}
-                  />
+                  <div className="pt-lg-2 pb-lg-4 pr-lg-5">
+                    <ProgressBar
+                      variant="danger"
+                      now={percentage}
+                      label={`${percentage}%`}
+                    />
+                  </div>
                   <p>
                     集資金額 NT$ <span className="fundNow">{fundNow}</span> /
                     NT$ {fundGoal}
