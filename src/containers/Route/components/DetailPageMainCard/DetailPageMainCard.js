@@ -13,7 +13,8 @@ import { bindActionCreators } from "redux";
 import {
   handlelikeAsync,
   addToLikeSuccess,
-  handleChallengeSuccessAsync
+  handleChallengeSuccessAsync,
+  alertAppear
 } from "../../actions";
 function controlchallengenum(instruction, rsid) {
   console.log("working...");
@@ -46,7 +47,8 @@ class DetailMainCard extends Component {
     });
     const jsonObject = await response.json();
     if (!jsonObject.user_id) {
-      alert("收藏路線前請先登入");
+      //alert("收藏路線前請先登入");
+      this.props.alertAppear(false,"收藏路線前請先登入")
       return;
     } else {
       this.setState({ user_id: jsonObject.user_id });
@@ -90,7 +92,8 @@ class DetailMainCard extends Component {
     });
     const jsonObject = await response.json();
     if (!jsonObject.user_id) {
-      alert("挑戰路線前請先登入");
+      //alert("挑戰路線前請先登入");
+      this.props.alertAppear(false,"挑戰路線前請先登入")
       return;
     } else {
       this.setState({ user_id: jsonObject.user_id });
@@ -207,7 +210,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { handlelikeAsync, addToLikeSuccess, handleChallengeSuccessAsync },
+    { handlelikeAsync, addToLikeSuccess, handleChallengeSuccessAsync,  alertAppear },
     dispatch
   );
 

@@ -11,7 +11,8 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { handlelikeAsync } from "../../actions";
+import { handlelikeAsync,alertAppear } from "../../actions";
+import RAlert from "../R_Alert/R_Alert";
 function controlcollectnum(instruction, rsid) {
   fetch(
     "http://localhost:5000/route/collection/num/" + instruction + "/" + rsid,
@@ -40,7 +41,8 @@ class InfoCard extends Component {
     //   });
     // }
     if (!jsonObject.user_id) {
-      alert("收藏路線前請先登入");
+      //alert("收藏路線前請先登入");
+      this.props.alertAppear(false, "收藏路線前請先登入")
       return;
     }
     let arr = this.props.h.liked;
@@ -83,6 +85,8 @@ class InfoCard extends Component {
       });
     }
     return (
+        <>
+       
       <Row className="justify-content-between w-100 r_card_con m-0 my-2 my-md-3 flex-nowrap">
         <Col className="r_list_img_con p-0 position-relative col-3">
           <div className="like_wrap  position-absolute">
@@ -102,10 +106,11 @@ class InfoCard extends Component {
           <img
             src={
               this.props.data.r_img
-                ? "https://localhost:5000/public/r_upload_img/" +
+                ? "http://localhost:5000/r_upload_img/" +
                   this.props.data.r_img
                 : "https://loremflickr.com/320/240"
             }
+            
             alt="route img"
           />
         </Col>
@@ -224,14 +229,15 @@ class InfoCard extends Component {
           </Row>
         </Col>
       </Row>
+      </>
     );
   }
 }
 
-const mapStateToProps = store => ({ h: store.likeRouteReducer });
+const mapStateToProps = store => ({ h: store.likeRouteReducer, a: store.alertReducer });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ handlelikeAsync }, dispatch);
+  bindActionCreators({ handlelikeAsync, alertAppear }, dispatch);
 
 export default connect(
   mapStateToProps,

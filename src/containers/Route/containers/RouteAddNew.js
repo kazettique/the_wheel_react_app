@@ -13,7 +13,8 @@ import {
   handleAddNewLocation,
   handleAddNewSubmit,
   addNewReset,
-  alertDisappear
+  alertDisappear,
+  alertAppear
 } from "../actions";
 import { withRouter } from "react-router";
 import map_style from "../data/google_map_style.json";
@@ -70,7 +71,9 @@ class RouteAddNew extends Component {
 
       const jsonObject = await response.json();
       if (!jsonObject.isLogined) {
-        return alert("新增路線前請先登入");
+        //return alert("新增路線前請先登入");
+        this.props.alertAppear(false, "新增路線前請先登入")
+        return
       }
 
       await this.setState({
@@ -190,9 +193,9 @@ class RouteAddNew extends Component {
 
   render() {
     // let redirect=null;
-    if (this.props.a.appear) {
-      setTimeout(() => this.props.alertDisappear(), 1400);
-    }
+    // if (this.props.a.appear) {
+    //   setTimeout(() => this.props.alertDisappear(), 1400);
+    // }
     return (
       <>
         {/* {this.props.l.success === true ? (
@@ -302,7 +305,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { handleAddNewLocation, handleAddNewSubmit, addNewReset, alertDisappear },
+    { handleAddNewLocation, handleAddNewSubmit, addNewReset, alertDisappear, alertAppear },
     dispatch
   );
 
