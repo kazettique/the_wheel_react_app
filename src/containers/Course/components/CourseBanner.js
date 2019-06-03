@@ -20,7 +20,7 @@ class CourseBanner extends React.Component {
   render() {
     // Transfer Portal For Props
     // let cover = this.state.course.c_cover
-    let cover = coverImg // todo: FOR TEST USE
+    let cover = this.state.course.c_cover
     let backers = this.state.course.c_backers
     let fundNow = this.state.course.c_fundNow
     let fundGoal = this.state.course.c_fundGoal
