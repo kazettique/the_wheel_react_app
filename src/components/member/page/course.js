@@ -45,7 +45,8 @@ class course extends React.Component {
     });
 
     
-    this.memberDataFetch();
+    await this.memberDataFetch();
+    
    
     
   }
@@ -200,6 +201,9 @@ class course extends React.Component {
     
   }
 
+
+  
+
   render() {
     console.log(this.state);
     let data = this.state.col_newsData;
@@ -238,7 +242,7 @@ class course extends React.Component {
                             <div className="card mb-3" style={{maxWidth: "540px"}} key={item.c_sid}>
                               <div className="row no-gutters">
                                   <div className="col-md-6">
-                                    <img src="http://lorempixel.com/440/280/sports/" className="card-img" alt="..."/>
+                                    <img src={item.c_cover} className="card-img" alt="..."/>
                                   </div>
 
                                 <div className="col-md-6">
@@ -246,7 +250,7 @@ class course extends React.Component {
                                    <div className="d-flex">
                                     <div>
                                       <h5 className="card-title">{item.c_title}</h5>
-                                      <p className="card-text"><small className="text-muted">開課時間{item.c_courseDate}</small></p>
+                                      <p className="card-text"><small className="text-muted">集資截止時間:{item.c_endDate}</small></p>
                                     </div>
                                     <Button className="cancel ml-auto" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button> 
                                     </div>
