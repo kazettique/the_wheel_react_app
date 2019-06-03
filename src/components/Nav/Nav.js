@@ -1,13 +1,12 @@
-import React from "react";
-import Logo from "../Logo/Logo";
-import classes from "./Nav.module.css";
-import "./Nav.module.css";
-import { NavLink, withRouter,Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
+import React from 'react';
+import Logo from '../Logo/Logo';
+import classes from './Nav.module.css';
+import './Nav.module.css';
+import { NavLink, withRouter, Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import InstallModal from './InstallModal';
-import {Row ,Dropdown, Col, Navbar,Nav,Form,Button}from "react-bootstrap";
+import { Row, Dropdown, Col, Navbar, Nav, Form, Button } from 'react-bootstrap';
 import './myMember-App.scss';
-
 
 class NavTop extends React.Component {
   constructor(props) {
@@ -26,8 +25,6 @@ class NavTop extends React.Component {
     this.observer = null;
   }
 
-  
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.onRouteChanged();
@@ -35,15 +32,14 @@ class NavTop extends React.Component {
   }
 
   onRouteChanged() {
-    console.log("ROUTE CHANGED");
+    console.log('ROUTE CHANGED');
     this.checkUserState();
   }
-
 
   menuHandler = () => {
     if (window.innerWidth <= 992) {
       this.setState((prevState, prevProp) => ({
-        showMenu: !prevState.showMenu
+        showMenu: !prevState.showMenu,
       }));
     }
   };
@@ -82,18 +78,16 @@ class NavTop extends React.Component {
     //   }
     // });
 
-//查看是否登入
-    this.checkUserState()
-    
+    //查看是否登入
+    this.checkUserState();
   }
-
 
   // 元件 "即將" 卸載出網頁
   // componentWillUnmount() {
   //   clearInterval(this.timerID);
   // }
 
-   checkUserState =async()=> {
+  checkUserState = async () => {
     try {
       const response = await fetch('http://localhost:5000/is_logined', {
         method: 'GET',
@@ -103,13 +97,12 @@ class NavTop extends React.Component {
           'Content-Type': 'application/json',
         }),
       });
-  
+
       // if (!response.ok) throw new Error(response.statusText);
-  
-     
+
       const jsonObject = await response.json();
 
-      console.log('Nav',jsonObject);
+      console.log('Nav', jsonObject);
       await this.setState({
         loginUser: jsonObject.loginUser,
         isLogined: jsonObject.isLogined,
@@ -117,15 +110,14 @@ class NavTop extends React.Component {
         session_name: jsonObject.session_name,
         session_photo: jsonObject.session_photo,
       });
-    }catch (e) {
+    } catch (e) {
       console.log(e);
     } finally {
     }
-  }
+  };
 
-
-   //登出
-   logOut = async () => {
+  //登出
+  logOut = async () => {
     try {
       const response = await fetch('http://localhost:5000/logout', {
         method: 'GET',
@@ -134,8 +126,7 @@ class NavTop extends React.Component {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
-      }).then(localStorage.removeItem('meber'))
-      ;
+      }).then(localStorage.removeItem('meber'));
       const jsonObject = await response.json();
       console.log(jsonObject);
       await this.setState({
@@ -144,7 +135,7 @@ class NavTop extends React.Component {
         user_id: jsonObject.user_id,
       });
       // document.location.href = '/';
-      this.props.history.push("/");
+      this.props.history.push('/');
     } catch (e) {
       console.log(e);
     }
@@ -160,8 +151,8 @@ class NavTop extends React.Component {
       rgb(255, 6, 0, 0.9),
       rgb(255, 255, 255, 0.2)
     )`,
-      opacity: "0.7",
-      width: "100%"
+      opacity: '0.7',
+      width: '100%',
     };
     let navClass = [classes.Background];
     if (!this.state.showNav) {
@@ -170,21 +161,21 @@ class NavTop extends React.Component {
 
     let menuClass = [classes.Nav];
     let activeStyle = {
-      color: "white",
-      fontSize: "1.4rem",
-      textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column"
+      color: 'white',
+      fontSize: '1.4rem',
+      textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
     };
     if (this.state.showMenu) {
       menuClass = [classes.Nav, classes.Open];
-      activeStyle = { color: "white", fontSize: "2.5rem" };
+      activeStyle = { color: 'white', fontSize: '2.5rem' };
     }
     return (
-      <nav className={classes.Navbar} >
-        <div className={navClass.join(" ")} ref={el => (this.nav = el)}>
+      <nav className={classes.Navbar}>
+        <div className={navClass.join(' ')} ref={el => (this.nav = el)}>
           <Logo />
 
           <div className={classes.Menu} onClick={this.menuHandler}>
@@ -192,18 +183,18 @@ class NavTop extends React.Component {
             <div />
             <div />
           </div>
-          <ul className={menuClass.join(" ")}>
-            <Container fluid={true} className="text-nowrap">
-              <Row>
-                <Col lg={2}>
-                  <li>
+          <ul className={menuClass.join(' ')}>
+            <Container fluid={true} className="text-nowrap h-100">
+              <Row className="h-100 justify-content-end">
+                <Col lg={2} className="h-100 nav_m_w_80">
+                  <li className="m-0">
                     <NavLink
                       to="/route"
                       activeStyle={activeStyle}
                       onClick={this.menuHandler}
                     >
                       騎車路線
-                      <div style={location === "/route" ? style : null} />
+                      <div style={location === '/route' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -219,138 +210,150 @@ class NavTop extends React.Component {
                     </NavLink>
                   </li>
                 </Col> */}
-                <Col lg={2}>
-                  <li className="text-nowrap">
+                <Col lg={2} className="nav_m_w_80">
+                  <li className="text-nowrap m-0">
                     <NavLink
                       to="/course"
                       activeStyle={activeStyle}
                       onClick={this.menuHandler}
                     >
                       課程專區
-                      <div style={location === "/course" ? style : null} />
+                      <div style={location === '/course' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
-                <Col lg={2}>
-                  <li className="text-nowrap">
+                <Col lg={2} className="nav_m_w_80">
+                  <li className="text-nowrap m-0">
                     <NavLink
                       to="/news"
                       activeStyle={activeStyle}
                       onClick={this.menuHandler}
                     >
                       文章專區
-                      <div style={location === "/news" ? style : null} />
+                      <div style={location === '/news' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
-                <Col lg={2}>
-                  <li className="text-nowrap">
+                <Col lg={2} className="nav_m_w_80">
+                  <li className="text-nowrap m-0">
                     <NavLink
                       to="/products"
                       activeStyle={activeStyle}
                       onClick={this.menuHandler}
                     >
                       商品頁面
-                      <div style={location === "/products" ? style : null} />
+                      <div style={location === '/products' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
-
-                
               </Row>
             </Container>
           </ul>
         </div>
         <div className="myMember-App ml-auto">
-        <InstallModal
-          show={this.state.showModalIns}
-          close={this.handleModalCloseIns}
-        />
-                <Navbar bg="light" expand="lg" className="w-100">
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav " >
-            <Form inline className="w-100 h-100">
-              <NavLink
-                to="/Login"
-                className={
-                  this.state.user_id == '' || this.state.user_id == undefined
-                    ? 'd-block'
-                    : 'd-none'
-                }
-              >
-                登入
-              </NavLink>
-              <Button
-                variant=" ml-auto"
-                onClick={this.handleAddModalShowIns}
-                className={
-                  this.state.user_id == '' || this.state.user_id == undefined
-                    ? 'd-block'
-                    : 'd-none'
-                }
-              >
-                註冊
-              </Button>
-
-              <Dropdown
-                className={
-                  this.state.user_id == '' || this.state.user_id == undefined
-                    ? 'd-none'
-                    : 'd-block'
-                }
-              >
-                <Dropdown.Toggle
-                  variant=""
-                  id="dropdown-basic"
-                  className="d-flex personal-btn h-100"
+          <InstallModal
+            show={this.state.showModalIns}
+            close={this.handleModalCloseIns}
+          />
+          <Navbar bg="light" expand="lg" className="w-100">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav ">
+              <Form inline className="w-100 h-100">
+                <NavLink
+                  to="/Login"
+                  className={
+                    this.state.user_id == '' || this.state.user_id == undefined
+                      ? 'd-block'
+                      : 'd-none'
+                  }
                 >
-                <div className="flex-grow-1">
-                  <div className="littlePhoto mx-auto">
-                    <img
-                      src={this.state.session_photo}
-                      className="mylittlePhoto"
-                    />
-                  </div>
-                  </div>
-                  <div className="align-middle navbar-username flex-grow-1 text-left">
-                    {this.state.session_name}
-                  </div>
-                </Dropdown.Toggle>
+                  登入
+                </NavLink>
+                <Button
+                  variant=" ml-auto"
+                  onClick={this.handleAddModalShowIns}
+                  className={
+                    this.state.user_id == '' || this.state.user_id == undefined
+                      ? 'd-block'
+                      : 'd-none'
+                  }
+                >
+                  註冊
+                </Button>
 
-                <Dropdown.Menu>
-                  <Link to={`/member/edit/${this.state.user_id}`} className="dropdown-item">                  
-                    會員資料                  
-                  </Link>
-
-                  <Link to={`/member/road/${this.state.user_id}`} className="dropdown-item">                  
-                    路線列表                  
-                  </Link>
-
-                  <Link to={`/member/news/${this.state.user_id}`} className="dropdown-item">                  
-                    收藏文章                  
-                  </Link>
-                  
-                  <Link to={`/member/course/${this.state.user_id}`} className="dropdown-item">                  
-                    我的課程                  
-                  </Link>
-
-                  <Link to={`/member/product/${this.state.user_id}`} className="dropdown-item">                  
-                    商品管理                  
-                  </Link>
-                  
-                 
-                  <Dropdown.Item
-                    eventKey="3"
-                    onClick={this.logOut}
-                    className="logout-btn"
+                <Dropdown
+                  className={
+                    this.state.user_id == '' || this.state.user_id == undefined
+                      ? 'd-none'
+                      : 'd-block'
+                  }
+                >
+                  <Dropdown.Toggle
+                    variant=""
+                    id="dropdown-basic"
+                    className="d-flex personal-btn h-100"
                   >
-                    登出
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form>
-          </Navbar.Collapse>
-        </Navbar>
+                    <div className="flex-grow-1">
+                      <div className="littlePhoto mx-auto">
+                        <img
+                          src={this.state.session_photo}
+                          className="mylittlePhoto"
+                        />
+                      </div>
+                    </div>
+                    <div className="align-middle navbar-username flex-grow-1 text-left">
+                      {this.state.session_name}
+                    </div>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Link
+                      to={`/member/edit/${this.state.user_id}`}
+                      className="dropdown-item"
+                    >
+                      會員資料
+                    </Link>
+
+                    <Link
+                      to={`/member/road/${this.state.user_id}`}
+                      className="dropdown-item"
+                    >
+                      路線列表
+                    </Link>
+
+                    <Link
+                      to={`/member/news/${this.state.user_id}`}
+                      className="dropdown-item"
+                    >
+                      收藏文章
+                    </Link>
+
+                    <Link
+                      to={`/member/course/${this.state.user_id}`}
+                      className="dropdown-item"
+                    >
+                      我的課程
+                    </Link>
+
+                    <Link
+                      to={`/member/product/${this.state.user_id}`}
+                      className="dropdown-item"
+                    >
+                      商品管理
+                    </Link>
+
+                    <Dropdown.Item
+                      eventKey="3"
+                      onClick={this.logOut}
+                      className="logout-btn"
+                    >
+                      登出
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Form>
+            </Navbar.Collapse>
+          </Navbar>
         </div>
       </nav>
     );

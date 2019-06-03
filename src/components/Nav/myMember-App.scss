@@ -10,18 +10,30 @@
   }
 }
 
+// @media (max-width: 992px) {
+//   .myMember-App {
+
+//   }
 .myMember-App {
   font-family: Noto Sans CJK TC;
   width: 15%;
 
   form {
     display: flex;
+    background-color: var(--main_red) !important;
+    @include lg {
+      background-color: black !important;
+    }
     a {
       flex-grow: 1 !important;
       text-align: center;
+      font-weight: 700;
+      color: white;
     }
     button {
       flex-grow: 1 !important;
+      font-weight: 700;
+      color: white !important;
     }
   }
 

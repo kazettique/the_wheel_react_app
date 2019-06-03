@@ -1,9 +1,10 @@
 .Display {
   width: 60%;
-  height: 80vh;
+  height: 70vh;
   position: absolute;
-  top: 15vh;
-  left: 200px;
+  /* top: 10vh; */
+  bottom: 15vh;
+  left: 100px;
   right: 0;
   margin: 0 auto;
 }
@@ -17,8 +18,8 @@
 
 .Display > img {
   object-fit: cover;
-  width: 545px;
-  height: 788px;
+  /* width: 545px; */
+  height: calc(100vh - 150px);
 }
 
 .Display > figure > img {
