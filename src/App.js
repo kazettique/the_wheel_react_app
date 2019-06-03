@@ -84,64 +84,14 @@ const routes = [
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { modal: false, collectionProduct: [], id: null };
+    this.state = { modal: false, collectionProduct: [], id: null, test: false };
   }
   componentDidMount() {
     setTimeout(() => this.props.dispatch(isLoading()));
-    // fetch("http://localhost:5000/is_logined", {
-    //     method: "GET",
-    //     credentials: "include",
-    //     headers: new Headers({
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json"
-    //     })
-    //   })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       if(data.user_id){
-    //           this.setState({user:data});
-    //           axios
-    //           .get("http://localhost:5000/collectionProduct", {
-    //             params: {
-    //               id: data.user_id
-    //             }
-    //           })
-    //           .then(res => {
-    //             this.setState({ collectionProduct: JSON.parse(res.data[0].collectionProduct) });
-    //           });
-    //         }
-    //     })
+   
   }
 
-  //按下收藏按鈕
-  // handleCollect=id=>{
-  //     console.log(id, localStorage.meber);
-  //     console.log('click Collect')
-  //     let collectionProduct = [];
-
-  //     if(this.state.collectionProduct){
-  //         collectionProduct=this.state.collectionProduct
-  //     }
-  //     let include = false;
-  //     if(collectionProduct.length > 0){
-  //         for(let sid of collectionProduct ){
-  //             if(sid===id){
-  //                 collectionProduct=collectionProduct.filter(item => item !== sid);
-  //                 this.setState({collectionProduct:collectionProduct})
-  //                 include = true
-  //                 break;
-  //             }
-  //         }
-  //     }
-  //     if(!include){
-  //         collectionProduct.push(id)
-  //         this.setState({collectionProduct:collectionProduct})
-  //     }
-  //     axios.post("http://localhost:5000/collectionProduct",{
-  //         collectionProduct:JSON.stringify(collectionProduct),
-  //         sid:localStorage.meber
-  //     })
-  // }
+ 
   toggle = () => {
     this.setState(
       {
@@ -176,6 +126,8 @@ class App extends Component {
    
     }
   };
+
+
 
   render() {
     const { isLoading, isAnimated } = this.props;

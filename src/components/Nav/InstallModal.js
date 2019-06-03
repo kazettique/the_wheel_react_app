@@ -150,7 +150,12 @@ class InstallModal extends React.Component {
             this.setState({ installdb: 'block' });
             this.setState({ installtext: '註冊成功' });
             this.setState({ installstate: 'alert alert-success' });
-            setTimeout(()=>this.props.history.push("/"),2000)
+            // setTimeout(()=>this.props.history.push("/"),2000)
+
+            setTimeout(()=>{
+              this.props.close();
+              },2000)
+            
             return;
           }
 
