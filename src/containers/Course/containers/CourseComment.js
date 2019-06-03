@@ -5,10 +5,14 @@ import BackerCommentCard from '../components/BackerCommentCard'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
-import BackCommentCard from '../components/BackerCommentCard'
 import Row from 'react-bootstrap/Row'
 import Col from 'reactstrap/es/Col'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
+import RAlert from '../../Route/components/R_Alert/R_Alert'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { alertAppear } from '../../Route/actions'
+import { withRouter } from 'react-router-dom'
 
 class CourseComment extends React.Component {
   constructor(props) {
@@ -70,8 +74,7 @@ class CourseComment extends React.Component {
         })
       // .then(() => localStorage.clear('meber'))
     } else {
-      // alert('請先登入！')
-      Swal.fire('請先登入', '您需要登入後才能進行贊助', 'warning')
+      this.props.alertAppear(false, '您需要登入後才能進行贊助')
     }
   }
 
@@ -86,12 +89,15 @@ class CourseComment extends React.Component {
     console.log(this.state.comment)
     let list = this.state.comment.map(item => {
       return (
-        <BackerCommentCard
-          key={item.c_c_sid}
-          c_comment={item.c_comment}
-          m_name={item.m_name}
-          m_photo={item.m_photo}
-        />
+        <>
+          <RAlert />
+          <BackerCommentCard
+            key={item.c_c_sid}
+            c_comment={item.c_comment}
+            m_name={item.m_name}
+            m_photo={item.m_photo}
+          />
+        </>
       )
     })
 
@@ -131,11 +137,21 @@ class CourseComment extends React.Component {
               </Col>
             </Row>
           </Container>
-
         </Container>
       </>
     )
   }
 }
 
-export default CourseComment
+const mapStateToProps = state => ({
+  a: state.alertReducer,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ alertAppear }, dispatch)
+
+// export default CourseComment
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CourseComment))
