@@ -282,8 +282,8 @@ class news extends React.Component {
                                 </Button>
                               </div>
 
-                              <div className="textcontent">
-                                <p className="card-text2 ellipsis">{text}</p>
+                              <div className="textcontent" dangerouslySetInnerHTML={{__html: text}}>
+                                {/* <p className="card-text2 ellipsis">{text}</p> */}
                               </div>
 
                               <div className="d-flex">
