@@ -110,6 +110,11 @@ class checkout extends React.Component {
     this.setState({ isChecked: !this.state.isChecked,
                       delivery:event.target.value })
   }
+  handleCheckedtoggle=event=> {
+
+    this.setState({ isChecked: false,
+                      })
+  }
 
   // inputNumber = event => {
   //   this.setState({
@@ -292,18 +297,21 @@ class checkout extends React.Component {
                     配送方式
                   </Form.Label>
                   <Form.Check
-                    type="checkbox"
+                     type="radio"
                     label="宅配"
                     onChange={this.handleChecked}
                     value="宅配"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios1"
                   />
+                  <Form.Check  type="radio" label="7-11寄送" value="7-11寄送"  name="formHorizontalRadios"
+                               id="formHorizontalRadios2" onChange={this.handleCheckedtoggle}/>
+                  <Form.Check type="radio" label="郵局領取"  value="郵局領取"  name="formHorizontalRadios"
+                                id="formHorizontalRadios3" onChange={this.handleCheckedtoggle}/>
+    
                 </Form.Group>
-                <Form.Group controlId="formBasicChecbox">
-                  <Form.Check type="checkbox" label="7-11寄送" value="7-11寄送"/>
-                </Form.Group>
-                <Form.Group controlId="formBasicChecbox">
-                  <Form.Check type="checkbox" label="郵局領取"  value="郵局領取"/>
-                </Form.Group>
+              
+                 
               </div>
               <div style={{ display: `${txt}` }}>
                 <Form.Group as={Col} md={4}>
