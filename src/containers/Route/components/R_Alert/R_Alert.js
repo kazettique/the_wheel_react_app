@@ -8,13 +8,15 @@ import { alertDisappear } from "../../actions";
 class RAlert extends Component {
   state = {};
 
+ handleokalert=()=>{
+ return this.props.alertDisappear();
+ }
+
   render() {
-    console.log("a");
     if (this.props.a.appear) {
-      console.log("yes");
       setTimeout(() => {
         return this.props.alertDisappear();
-      }, 1300);
+      }, 2000);
       switch (this.props.a.success) {
         case true:
           console.log("yes2");
@@ -46,14 +48,14 @@ class RAlert extends Component {
                   </svg>
                 </Col>
 
-                <Col className="r_alert_text d-flex align-items-center justify-content-center ">
+                <Col className="r_alert_text d-flex flex-column align-items-center justify-content-center ">
                   <p>{this.props.a.msg}</p>
+                  <div className="m-3 mt-5"><button type="button" className="alertokbtnblack" onClick={this.handleokalert}>確定</button></div>
                 </Col>
               </Col>
             </div>
           );
         case false:
-          console.log("yes3");
           return (
             <div className="position-fixed r_alert_bg d-flex justify-content-center align-items-center">
               <Col xs={8} className="r_fs_20 r_alert_box d-flex p-0 ">
@@ -88,8 +90,9 @@ class RAlert extends Component {
                   </svg>
                 </Col>
 
-                <Col className="r_alert_text d-flex align-items-center justify-content-center r_alert_text_red">
+                <Col className="r_alert_text d-flex flex-column align-items-center justify-content-center r_alert_text_red">
                   <p>{this.props.a.msg}</p>
+                  <div className="m-3 mt-5"><button type="button" className="alertokbtnred" onClick={this.handleokalert}>確定</button></div>
                 </Col>
               </Col>
             </div>

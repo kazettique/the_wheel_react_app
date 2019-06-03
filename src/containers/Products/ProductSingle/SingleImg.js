@@ -25,16 +25,17 @@ class SingleImg extends React.Component {
           showStatus={false}
           width="40rem"
           interval="4000"
+          style={{ backgroundColor: 'white'}}
         >
-          <div style={{ backgroundColor: 'white' , width:'100%'}}>
-            <img src={this.props.product.p_photo} />
+          <div style={{ backgroundColor: 'white' , width:'100%' ,height:'40rem'}}>
+            <img src={this.props.product.p_photo} style={{ backgroundColor: 'white'}} />
             {/* <p className="legend">Legend 1</p> */}
           </div>
-          <div style={{ backgroundColor: 'white' }}>
-            <img src={this.props.product.p_photo2} />
+          <div style={{ backgroundColor: 'white' , width:'100%' ,height:'40rem'}}>
+            <img src={this.props.product.p_photo2} style={{ backgroundColor: 'white'}}/>
             {/* <p className="legend">Legend 2</p> */}
           </div>
-          <div style={{ backgroundColor: 'white' }}>
+          <div style={{ backgroundColor: 'white', width:'100%' ,height:'40rem' }}>
             <img src={this.props.product.p_photo3} />
             {/* <p className="legend">Legend 3</p> */}
           </div>
