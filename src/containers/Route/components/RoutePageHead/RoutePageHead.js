@@ -3,9 +3,29 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ReturnBtn from "../ReturnBtn/ReturnBtn";
 import "./RoutePageHead_style.css";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  fetchPostsAsync,
+  handlecurrentPage,
+  fetchPopularPostsAsync
+} from "../../actions";
 
 class RoutePageHead extends Component {
   state = {};
+  handlePageChange = page => async () => {
+    await this.props.handlecurrentPage(page);
+    switch (this.props.r.currentState) {
+      case "popular":
+        this.props.fetchPopularPostsAsync(0);
+        this.props.history.push("/route");
+        break;
+      default:
+        this.props.fetchPostsAsync(0);
+        return this.props.history.push("/route");
+    }
+  };
   render() {
     switch (this.props.function) {
       case "Details":
@@ -15,12 +35,10 @@ class RoutePageHead extends Component {
             <Row className="d-flex justify-content-between mb-2 mb-xl-5">
               <ReturnBtn />
               <div>
-                <a href="localhost:3000">
-                  <span className="mx-3 r_infocard_list">熱門路線</span>
-                </a>
-                <a href="localhost:3000">
-                  <span className="ml-3 r_infocard_list">最新路線</span>
-                </a>
+              <span className=" mx-3 r_infocard_list" onClick={this.handlePageChange("newest")}>最新路線</span>
+            <span className="ml-3 r_infocard_list"  onClick={this.handlePageChange("popular")}>熱門路線</span>
+             
+             
               </div>
             </Row>
             <Row>
@@ -66,4 +84,19 @@ class RoutePageHead extends Component {
   }
 }
 
-export default RoutePageHead;
+const mapStateToProps = store => ({ r: store.routeReducer });
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchPostsAsync,
+      handlecurrentPage,
+      fetchPopularPostsAsync
+    },
+    dispatch
+  );
+
+export default connect(
+    mapStateToProps,
+  mapDispatchToProps
+)(withRouter(RoutePageHead));

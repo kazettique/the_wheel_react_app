@@ -150,11 +150,12 @@ class RouteDetail extends Component {
 
       return (
         <>
-          {this.props.a.appear ? (
+          {/* {this.props.a.appear ? (
             <RAlert text={"" + this.props.a.success.slice(6)} type="failure" />
           ) : (
             <div />
-          )}
+          )} */}
+          <RAlert/>
           <Container fluid className="p-0">
             <div style={{ height: "56px" }} />
             <Row className="d-flex justify-content-center my-3 my-xl-5 mx-0">
