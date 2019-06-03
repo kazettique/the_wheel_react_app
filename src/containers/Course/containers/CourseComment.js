@@ -98,6 +98,7 @@ class CourseComment extends React.Component {
     return (
       <>
         <Container fluid>
+          {list}
           <Container className="my-lg-5">
             <Row className="d-flex justify-content-center">
               <Col lg={8}>
@@ -120,7 +121,7 @@ class CourseComment extends React.Component {
                   <div className="text-right">
                     <Button
                       variant="secondary"
-                      type="submit"
+                      type="button"
                       onClick={this.handleSubmitComment}
                     >
                       送出
@@ -130,7 +131,7 @@ class CourseComment extends React.Component {
               </Col>
             </Row>
           </Container>
-          {list}
+
         </Container>
       </>
     )

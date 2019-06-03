@@ -134,7 +134,8 @@ class NavTop extends React.Component {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
-      });
+      }).then(localStorage.removeItem('meber'))
+      ;
       const jsonObject = await response.json();
       console.log(jsonObject);
       await this.setState({

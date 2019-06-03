@@ -22,8 +22,8 @@ class CourseMainTitle extends React.Component {
             <h2>{this.state.course.c_title}</h2>
             <h3 className="ml-2">
               <Badge variant="secondary" className="rankBadge">
-                {this.state.course.c_level}
-              </Badge>
+              {this.state.course.c_level}
+            </Badge>
             </h3>
           </Row>
           <Row>
