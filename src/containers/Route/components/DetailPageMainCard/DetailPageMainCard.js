@@ -8,8 +8,120 @@ import {
   LikeItButton,
   SNSButtons
 } from "../DetailPageBtn/DetailPageBtn";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  handlelikeAsync,
+  addToLikeSuccess,
+  handleChallengeSuccessAsync
+} from "../../actions";
+function controlchallengenum(instruction, rsid) {
+  console.log("working...");
+  fetch(
+    "http://localhost:5000/route/challenge/num/" + instruction + "/" + rsid,
+    {
+      method: "GET"
+    }
+  );
+}
+function controlcollectnum(instruction, rsid) {
+  fetch(
+    "http://localhost:5000/route/collection/num/" + instruction + "/" + rsid,
+    {
+      method: "GET"
+    }
+  );
+}
 
 class DetailMainCard extends Component {
+  handlelike = async () => {
+    console.log("click");
+    const response = await fetch("http://localhost:5000/is_logined", {
+      method: "GET",
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      })
+    });
+    const jsonObject = await response.json();
+    if (!jsonObject.user_id) {
+      alert("收藏路線前請先登入");
+      return;
+    } else {
+      this.setState({ user_id: jsonObject.user_id });
+    }
+    let arr = this.props.h.liked;
+    let rsid = this.props.data.r_sid;
+    let newlike = 0;
+    if (arr) {
+      arr.forEach(function(el) {
+        if (el === rsid) {
+          newlike = rsid;
+        }
+        console.log("newLike" + newlike);
+      });
+
+      if (newlike !== 0) {
+        console.log("no");
+        arr.splice(arr.indexOf(newlike), 1);
+        controlcollectnum(0, rsid);
+      } else {
+        console.log("yes");
+        arr.push(this.props.data.r_sid);
+        controlcollectnum(1, rsid);
+      }
+    } else {
+      arr = [this.props.data.r_sid];
+    }
+
+    console.log(arr);
+    this.props.handlelikeAsync(this.state.user_id, arr);
+  };
+  handleChallengeSuccess = async () => {
+    console.log("challenge");
+    const response = await fetch("http://localhost:5000/is_logined", {
+      method: "GET",
+      credentials: "include",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      })
+    });
+    const jsonObject = await response.json();
+    if (!jsonObject.user_id) {
+      alert("挑戰路線前請先登入");
+      return;
+    } else {
+      this.setState({ user_id: jsonObject.user_id });
+    }
+    let arr = this.props.h.challengeSuccess;
+    let rsid = this.props.data.r_sid;
+    let newlike = 0;
+    if (arr) {
+      arr.forEach(function(el) {
+        if (el === rsid) {
+          newlike = rsid;
+        }
+        console.log("newLike" + newlike);
+      });
+
+      if (newlike !== 0) {
+        console.log("no");
+        arr.splice(arr.indexOf(newlike), 1);
+        controlchallengenum(0, rsid);
+      } else {
+        console.log("yes");
+        arr.push(this.props.data.r_sid);
+        controlchallengenum(1, rsid);
+      }
+    } else {
+      arr = [this.props.data.r_sid];
+    }
+
+    console.log(arr);
+    this.props.handleChallengeSuccessAsync(this.state.user_id, arr);
+  };
   render() {
     //console.log(this.props.heartRed);
     return (
@@ -68,8 +180,16 @@ class DetailMainCard extends Component {
 
                 <Row className="my-2 mb-xl-3">
                   <Col>
-                    <BackItButton />
-                    <LikeItButton heartRed={this.props.heartRed} />
+                    <BackItButton
+                      r_sid={this.props.data.r_sid}
+                      challengeSuccess={this.props.challengeSuccess}
+                      onClick={this.handleChallengeSuccess}
+                    />
+                    <LikeItButton
+                      heartRed={this.props.heartRed}
+                      r_sid={this.props.data.r_sid}
+                      onClick={this.handlelike}
+                    />
                   </Col>
                 </Row>
               </Card.Body>
@@ -81,4 +201,17 @@ class DetailMainCard extends Component {
   }
 }
 
-export default DetailMainCard;
+const mapStateToProps = store => ({
+  h: store.likeRouteReducer
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { handlelikeAsync, addToLikeSuccess, handleChallengeSuccessAsync },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DetailMainCard);

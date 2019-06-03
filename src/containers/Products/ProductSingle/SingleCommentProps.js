@@ -29,7 +29,7 @@ class ProductsCard extends React.Component {
 
 
   render() {
-
+   
     return (
       <>
                     <Col>
@@ -41,7 +41,11 @@ class ProductsCard extends React.Component {
                                         <div className="d-flex flex-column align-items-center">
                                             <div
                                                 className="r_comment_avstar"
-                                               
+                                                style={{
+                                                    backgroundImage: `url(${
+                                                        this.props.m_photo
+                                                    })`,
+                                                }}
                                             />
                                             <p className="r_fw_bold m-0 mt-1 mt-sm-2">
                                             {this.props.m_name}

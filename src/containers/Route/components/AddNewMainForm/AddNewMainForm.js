@@ -152,6 +152,8 @@ class AddNewMainForm extends Component {
                 name2="r_arrive"
                 type2="text"
                 small2=""
+                //onBlur1={this.props.handlegeolocation1}
+                //onBlur2={this.props.handlegeolocation2}
               />
             ) : (
               <FormControl
@@ -166,8 +168,12 @@ class AddNewMainForm extends Component {
                 name2="r_arrive"
                 type2="text"
                 small2=""
+                onBlur1={this.handlegeolocation1}
+                onBlur2={this.handlegeolocation2}
               />
             )}
+            <input type="hidden" name="r_map_info" id="r_map_info" />
+            {/* <input type="hidden" name="arrive_info" id="arrive_info" /> */}
 
             <FormControl
               num="textarea"
@@ -202,12 +208,12 @@ class AddNewMainForm extends Component {
                 <Col sm={9} className="p-0">
                   <div
                     className="imgarea w-100 h-100 overflow-hidden"
-                    style={{ "max-height": "280px" }}
+                    style={{ maxHeight: "280px" }}
                   >
                     <img
                       className="thumb1"
                       src=""
-                      style={{ width: "500px", "object-fit": "cover" }}
+                      style={{ width: "500px", objectFit: "cover" }}
                       alt="your pic"
                     />
                   </div>

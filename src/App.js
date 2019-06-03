@@ -13,7 +13,7 @@ import Login from "./components/member/page/Login";
 import edit from "./components/member/page/edit";
 import password from "./components/member/page/password";
 import road from "./components/member/page/road";
-import product from "./components/member/page/product";
+import memberProduct from "./components/member/page/product";
 import course from "./components/member/page/course";
 import news from "./components/member/page/news";
 import { isLoading } from "./store/loadingActions";
@@ -57,7 +57,7 @@ const routes = [
   { path: "/member/edit/:id", name: "Contact", Component: edit },
   { path: "/member/password/:id", name: "Contact", Component: password },
   { path: "/member/road/:id", name: "Contact", Component: road },
-  { path: "/member/product/:id", name: "Contact", Component: product },
+  { path: "/member/product/:id", name: "Contact", Component: memberProduct },
   { path: "/member/course/:id", name: "Contact", Component: course },
   { path: "/member/news/:id", name: "Contact", Component: news },
   { path: "/products", name: "Contact", Component: Products },

@@ -31,6 +31,11 @@ export const ALERT_DISAPPEAR = " ALERT_DISAPPEAR";
 export const HANDLE_DEPART_ARRIVE_CHANGE = "HANDLE_DEPART_ARRIVE_CHANGE";
 export const CLEAR_POSTS_BEFORE = "CLEAR_POSTS_BEFORE";
 export const ADD_TO_LIKE_SUCCESS = "ADD_TO_LIKE_SUCCESS";
+export const ADD_TO_CHALLENGE_SUCCESS_SUCCESS =
+  "ADD_TO_CHALLENGE_SUCCESS_SUCCESS";
+export const HANDLE_CURRENT_PAGE = "HANDLE_CURRENT_PAGE";
+export const FETCH_POPULAR_FAILURE = "FETCH_POPULAR_FAILURE";
+export const FETCH_POPULAR_SUCCESS = "FETCH_POPULAR_SUCCESS";
 
 const ROOT_URL = "http://localhost:5000/route";
 const regexp = /^\d{1,3}天\d{1,2}時\d{1,2}分$|^\d{1,3}天\d{1,2}時$|^\d{1,3}天$|^\d{1,2}時\d{1,2}分$|^\d{1,2}時$|^\d{1,2}分$|\d{1,3}天\d{1,2}分$/;
@@ -67,6 +72,7 @@ export const setUserStatus = status => {
 };
 
 // export const fetchPosts = payload => ({ type: FETCH_POSTS, payload: payload });
+//fetchPopularPostsAsync
 export const fetchPostsAsync = page => {
   return dispatch => {
     if (!page) {
@@ -100,6 +106,23 @@ export const fetchPostsFailure = error => {
   return {
     type: FETCH_POSTS_FAILURE,
     payload: error
+  };
+};
+export const fetchPopularPostsAsync = page => {
+  return dispatch => {
+    if (!page) {
+      page = 0;
+    }
+    fetch(ROOT_URL + "/list/popular?orderby=DESC&page=" + page, {
+      method: "get"
+    })
+      .then(res => res.json())
+      .then(obj => {
+        dispatch(fetchPostsSuccess(obj, page));
+      })
+      .catch(e => {
+        dispatch(fetchPostsFailure("" + e));
+      });
   };
 };
 
@@ -200,18 +223,9 @@ export const handleAddNewSubmit = userid => {
   return dispatch => {
     let form1 = new FormData(document.form1);
     let isPassed = true;
-    // let notPassedObj={
-    //     r_name: true,
-    //     r_time: true,
-    //     r_country: true,
-    //     r_depart: true,
-    //     r_arrive: true,
-    // }
-    // console.log('bbbbbbbbbbbbbbbb')
-    //console.log(typeof form1.get('r_country'))
+
     if (form1.get("r_name").trim().length === 0) {
-      console.log(form1.get("r_name"));
-      //notPassedObj.r_name=false;
+      //console.log(form1.get("r_name"));
       isPassed = false;
       dispatch(handleIsNotPassed({ r_name: false }));
     } else {
@@ -240,18 +254,13 @@ export const handleAddNewSubmit = userid => {
       form1.get("r_time").match(regexp) == null
     ) {
       isPassed = false;
-      //notPassedObj.r_time=false;
       dispatch(handleIsNotPassed({ r_time: false }));
     } else {
       dispatch(handleIsNotPassed({ r_time: true }));
     }
     if (!isPassed) {
-      //dispatch(handleIsNotPassed(notPassedObj))
       return dispatch(addNewFail2("資料輸入不完整或不符合格式"));
-
-      //throw new Error("資料輸入不完整或不符合格式");
     }
-    //console.log(form1);
     form1.append("m_sid", userid);
     form1.append("r_time_added", new Date().toGMTString());
     fetch(ROOT_URL + "/list", {
@@ -261,10 +270,8 @@ export const handleAddNewSubmit = userid => {
       .then(res => res.json())
       .then(obj => {
         if (!obj.success) {
-          //console.log('1:route insert not success');
           throw new Error(obj.errMsg);
         }
-        //console.log('2:route insert success');
         let a = document.getElementsByClassName("rr_sid");
         for (let i = 0; i < a.length; i++) {
           a[i].value = obj.thisRoute;
@@ -275,6 +282,8 @@ export const handleAddNewSubmit = userid => {
         if (+a === 0) {
           dispatch(addNewSuccess());
           dispatch(alertAppear(true, "路線新增成功"));
+          dispatch(clearPostsBefore());
+          dispatch(fetchPostsAsync(0));
           throw new Error("NOT");
         }
       })
@@ -295,6 +304,8 @@ export const handleAddNewSubmit = userid => {
           //console.log('5:location insert success');
           dispatch(addNewSuccess());
           dispatch(alertAppear(true, "路線新增成功"));
+          dispatch(clearPostsBefore());
+          dispatch(fetchPostsAsync(0));
         }
       })
       .catch(e => {
@@ -411,6 +422,7 @@ export const handleIsNotPassed = payload => {
 
 export const handleSearch = page => {
   let formSearch = new FormData(document.searchform);
+  formSearch.append("page", page);
   return dispatch => {
     fetch(ROOT_URL + "/search", {
       method: "post",
@@ -420,10 +432,10 @@ export const handleSearch = page => {
       .then(obj => {
         console.log("fetch-search-success");
         console.log(obj);
-        if (obj.errMsg !== "未輸入關鍵字") {
+        if (obj.errMsg !== "未輸入關鍵字" && page === 0) {
           dispatch(clearPostsBefore());
         }
-        dispatch(fetchPostsSuccess(obj.data, 0));
+        dispatch(fetchPostsSuccess(obj.data, page));
       })
       .catch(e => {
         dispatch(fetchPostsFailure("" + e));
@@ -431,6 +443,12 @@ export const handleSearch = page => {
   };
 };
 
+export const handlecurrentPage = page => {
+  return {
+    type: HANDLE_CURRENT_PAGE,
+    payload: page
+  };
+};
 export const clearPostsBefore = () => {
   return {
     type: CLEAR_POSTS_BEFORE
@@ -469,5 +487,40 @@ export const addToLikeSuccess = arr => {
   return {
     type: ADD_TO_LIKE_SUCCESS,
     payload: arr
+  };
+};
+export const addToChallengeSuccess = arr => {
+  return {
+    type: ADD_TO_CHALLENGE_SUCCESS_SUCCESS,
+    payload: arr
+  };
+};
+
+export const handleChallengeSuccessAsync = (msid, arr) => {
+  return dispatch => {
+    let a = new FormData();
+    let b = new FormData();
+    b.append("m_sid", msid);
+    a.append("arr", JSON.stringify(arr));
+    a.append("m_sid", msid);
+    fetch("http://localhost:5000/routechallenge", {
+      method: "put",
+      body: a
+    })
+      .then(res => res.json())
+      .then(r =>
+        fetch("http://localhost:5000/routeCollect", {
+          method: "post",
+          body: b
+        })
+      )
+      .then(r => r.json())
+      .then(obj => {
+        arr = JSON.parse(obj[0]["r_challengeSuccess"]);
+        dispatch(addToChallengeSuccess(arr));
+      })
+      .catch(e => {
+        console.log(e);
+      });
   };
 };
