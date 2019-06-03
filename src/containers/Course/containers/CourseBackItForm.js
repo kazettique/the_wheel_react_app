@@ -10,7 +10,11 @@ import CourseBanner from '../components/CourseBanner'
 import CourseMainTitle from '../components/CourseMainTitle'
 // React Router
 import { withRouter } from 'react-router-dom'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { alertAppear } from '../../Route/actions'
+import RAlert from '../../Route/components/R_Alert/R_Alert'
 
 class CourseBackItForm extends React.Component {
   constructor(props) {
@@ -110,7 +114,8 @@ class CourseBackItForm extends React.Component {
     console.log(obj)
     if (!localStorage.getItem('meber')) {
       // alert('請登入會員')
-      Swal.fire('請先登入', '您需要登入後才能進行贊助', 'warning')
+      // Swal.fire('請先登入', '您需要登入後才能進行贊助', 'warning')
+      this.props.alertAppear(false, '請先登入會員才能進行贊助')
     } else {
       fetch(`http://localhost:5000/course/backIt/${this.state.c_sid}`, {
         body: JSON.stringify(obj),
@@ -128,20 +133,19 @@ class CourseBackItForm extends React.Component {
               Number(this.state.c_fundNow) + Number(this.state.fund_price),
           })
         )
-        // for test use
-        // .then(
-        // console.log(this.state.c_fundNow),
-        // console.log(this.state.c_backers)
-        // )
         .then(
           // () => alert('集資成功')
           () => {
-            Swal.fire('集資成功', '感謝您的支持！', 'success')
-            // setTimeout(()=>window.history.back(),2000)
+            // Swal.fire('集資成功', '感謝您的支持！', 'success')
+            this.props.alertAppear(true, '集資成功！謝您的支持！')
           }
         )
-        // redirect to CourseMain.js page
-        .then(() => window.history.back())
+        .then(() =>
+          setTimeout(
+            () => this.props.history.push(`/course/${this.state.c_sid}`),
+            3000
+          )
+        )
     }
   }
 
@@ -194,6 +198,7 @@ class CourseBackItForm extends React.Component {
     }
     return (
       <>
+        <RAlert />
         <div style={{ height: '10vh' }} />
         <Container fluid className="p-0">
           {list1}
@@ -206,7 +211,7 @@ class CourseBackItForm extends React.Component {
               className="p-5 course-back-it-form"
               style={{ border: '1px solid #ccc', borderRadius: '5px' }}
             >
-              <Form onSubmit={this.handleSubmit}>
+              <Form>
                 <Form.Group controlId="exampleForm.ControlInput1">
                   <Form.Label>付款方式</Form.Label>
                   <Form.Control as="select" onChange={this.handlePayment}>
@@ -284,10 +289,11 @@ class CourseBackItForm extends React.Component {
                 <Button
                   className="buttons"
                   variant="secondary"
-                  type="submit"
+                  type="button"
                   style={{
                     background: 'black',
                   }}
+                  onClick={this.handleSubmit}
                 >
                   送出
                 </Button>
@@ -300,4 +306,15 @@ class CourseBackItForm extends React.Component {
   }
 }
 
-export default withRouter(CourseBackItForm)
+const mapStateToProps = state => ({
+  a: state.alertReducer,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ alertAppear }, dispatch)
+
+// export default withRouter(CourseBackItForm)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CourseBackItForm))
