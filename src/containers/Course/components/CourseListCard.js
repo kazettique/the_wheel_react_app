@@ -7,8 +7,8 @@ import Badge from 'react-bootstrap/Badge'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
 // Images
-import coverImg from '../images/old-man-on-the-bicycle-wide-hd-wallpaper-for-desktop-background-download-bicycle-images-397440.jpg'
-import coachAvatar from '../images/coachPhotos/David-Mirra-641320.jpg'
+// import coverImg from '../images/old-man-on-the-bicycle-wide-hd-wallpaper-for-desktop-background-download-bicycle-images-397440.jpg'
+// import coachAvatar from '../images/coachPhotos/David-Mirra-641320.jpg'
 // React Router Dom
 import { Link } from 'react-router-dom'
 // StyleSheet
@@ -33,13 +33,14 @@ class CourseListCard extends React.Component {
     const sid = this.props.sid
     const title = this.props.title
     const coachName = this.props.coachName
-    // const coachAvatar = this.props.coachAvatar
+    const coachAvatar = this.props.coachAvatar
     const coachNationality = this.props.coachNationality
     const courseDate = this.props.courseDate
     const fundNow = this.props.fundNow
     const fundGoal = this.props.fundGoal
     const endDate = this.props.endDate
     const intro = this.props.intro
+    const cover = this.props.cover
     const level = this.props.level
     let percentage = parseInt((fundNow / fundGoal) * 100)
 
@@ -66,7 +67,7 @@ class CourseListCard extends React.Component {
                   style={{ background: '#ffffff' }}
                 >
                   <img
-                    src={coverImg}
+                    src={cover}
                     // src={`https://loremflickr.com/320/320/bicycle/all?random=${sid}`}
                     alt="coverImg"
                     className="course-list-card-cover-img"

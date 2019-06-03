@@ -76,14 +76,15 @@ class NavTop extends React.Component {
   };
 
   async componentDidMount() {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 992 && this.state.showMenu) {
-        this.setState({ showMenu: false });
-      }
-    });
+    // window.addEventListener("resize", () => {
+    //   if (window.innerWidth > 992 && this.state.showMenu) {
+    //     this.setState({ showMenu: false });
+    //   }
+    // });
 
 //查看是否登入
-    this.checkUserState();
+    this.checkUserState()
+    
   }
 
 
@@ -205,7 +206,7 @@ class NavTop extends React.Component {
                     </NavLink>
                   </li>
                 </Col>
-                <Col lg={2}>
+                {/* <Col lg={2}>
                   <li className="text-nowrap">
                     <NavLink
                       to="/group"
@@ -216,7 +217,7 @@ class NavTop extends React.Component {
                       <div style={location === "/group" ? style : null} />
                     </NavLink>
                   </li>
-                </Col>
+                </Col> */}
                 <Col lg={2}>
                   <li className="text-nowrap">
                     <NavLink
