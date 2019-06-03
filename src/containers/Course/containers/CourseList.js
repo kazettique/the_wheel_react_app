@@ -127,6 +127,8 @@ class CourseList extends React.Component {
             endDate={item.c_endDate}
             intro={item.c_intro}
             cover={item.c_cover}
+            level={item.c_level}
+            location={item.c_courseLocation}
           />
         )
       })
