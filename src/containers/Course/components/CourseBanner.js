@@ -4,8 +4,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Card from 'react-bootstrap/Card'
-// Images
-import coverImg from './../images/bicicleta-antigua-vintage-cadena-hojas-Fondos-de-Pantalla-HD-professor-falken.com_.jpg'
 // Button Components
 import { BackItButton, LikeItButton, SNSButtons } from './../components/Buttons'
 
@@ -19,7 +17,6 @@ class CourseBanner extends React.Component {
 
   render() {
     // Transfer Portal For Props
-    // let cover = this.state.course.c_cover
     let cover = this.state.course.c_cover
     let backers = this.state.course.c_backers
     let fundNow = this.state.course.c_fundNow
