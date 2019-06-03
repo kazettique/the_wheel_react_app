@@ -19,6 +19,7 @@ class CourseTab extends React.Component {
     super(props)
     this.state = {
       course: this.props.course[0],
+      c_sid: this.props.course[0].c_sid,
     }
   }
 
@@ -50,7 +51,7 @@ class CourseTab extends React.Component {
                   <CourseUpdate />
                 </TabPanel>
                 <TabPanel>
-                  <CourseComment />
+                  <CourseComment c_sid={this.state.c_sid} />
                 </TabPanel>
               </Tabs>
             </Container>

@@ -137,6 +137,7 @@ class CourseBackItForm extends React.Component {
           // () => alert('集資成功')
           () => {
             Swal.fire('集資成功', '感謝您的支持！', 'success')
+            // setTimeout(()=>window.history.back(),2000)
           }
         )
         // redirect to CourseMain.js page
@@ -280,7 +281,16 @@ class CourseBackItForm extends React.Component {
                     feedback="請點選同意接受服務條款 及隱私權保護政策"
                   />
                 </Form.Group>
-                <Button type="submit">送出</Button>
+                <Button
+                  className="buttons"
+                  variant="secondary"
+                  type="submit"
+                  style={{
+                    background: 'black',
+                  }}
+                >
+                  送出
+                </Button>
               </Form>
             </Col>
           </Row>

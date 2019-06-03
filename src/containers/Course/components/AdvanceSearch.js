@@ -93,6 +93,10 @@ class AdvanceSearch extends Component {
                       <option value="20190601-20190630">2019年6月</option>
                       <option value="20190701-20190731">2019年7月</option>
                       <option value="20190801-20190831">2019年8月</option>
+                      <option value="20190901-20190930">2019年9月</option>
+                      <option value="20191001-20191031">2019年10月</option>
+                      <option value="20191101-20191130">2019年11月</option>
+                      <option value="20191201-20191231">2019年12月</option>
                     </Form.Control>
                   </Col>
                 </Row>
