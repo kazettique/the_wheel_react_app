@@ -54,7 +54,7 @@ class road extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     window.twttr.widgets.load();
-    if (this.state.col_newsData.length > 0) {
+    if (this.state.col_routeData.length > 0) {
       var fbBtn = document.querySelectorAll(".facebook-share");
       console.log(fbBtn);
       var title = encodeURIComponent(
