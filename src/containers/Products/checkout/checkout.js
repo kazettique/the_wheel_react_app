@@ -18,6 +18,11 @@ import {
 } from 'react-bootstrap'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { join } from 'path';
+// import R Alert made by Ivy
+import RAlert from '../../Route/components/R_Alert/R_Alert'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { alertAppear } from '../../Route/actions'
 
 const startState = { autoAlpha: 0, y: -50 }
 
@@ -159,11 +164,12 @@ class checkout extends React.Component {
     }
     console.log(arr);
     if (!localStorage.getItem('meber')) {
-      Swal.fire({
-        type: 'error',
-        title: '請登入會員',
-    
-      })
+      // Swal.fire({
+      //   type: 'error',
+      //   title: '請登入會員',
+      //
+      // })
+      this.props.alertAppear(false, "請登入會員")
     } else {
       fetch('http://localhost:5000/checkout', {
         method: 'POST',
@@ -173,12 +179,14 @@ class checkout extends React.Component {
           'Content-Type': 'application/json',
         }),
       })
-      Swal.fire(
-        '下單成功',
-        '',
-        'success'
-      )
-        this.setState({
+      // Swal.fire(
+      //   '下單成功',
+      //   '',
+      //   'success'
+      // )
+      this.props.alertAppear(true, "下單成功")
+
+      this.setState({
           modal: !this.props.modal,
         })
       localStorage.removeItem("cart");
@@ -203,6 +211,7 @@ class checkout extends React.Component {
 
     return (
       <>
+        <RAlert />
         <Container className={classes.OderCard} style={{ marginTop: '10rem' }}>
           <Card className={classes.OderCardTop}>
             {/* <div className="row">
@@ -360,4 +369,19 @@ class checkout extends React.Component {
   }
 }
 
-export default withRouter(checkout);
+// For R Alert
+const mapStateToProps = state => ({
+  a: state.alertReducer
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { alertAppear },
+    dispatch
+  );
+
+// export default withRouter(checkout);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(checkout));
