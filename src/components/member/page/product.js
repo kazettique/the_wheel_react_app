@@ -366,7 +366,7 @@ class product extends React.Component {
                                 </p>
                               </div>
                               <Button
-                                className="cancel ml-auto flex-grow-1"
+                                className="cancel ml-auto "
                                 variant="danger"
                                 onClick={this.handleCancel(item.p_sid)}
                               >
@@ -410,7 +410,7 @@ class product extends React.Component {
                               </a> */}
                               <h5 className="price">價格:{item.p_price}</h5>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/products2/${item.p_sid}`}
                               >
                                 查看商品資訊
@@ -472,7 +472,7 @@ class product extends React.Component {
                             <div className="d-flex">
                               <h4 className="price">總價:{item.totalprice}</h4>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/products2/${item.p_sid}`}
                               >
                                 查看訂單資訊

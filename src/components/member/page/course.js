@@ -292,7 +292,7 @@ class course extends React.Component {
                                     </div>
                                     <Button className="cancel ml-auto" variant="danger" onClick={this.handleCancel(item.c_sid)}>取消追蹤</Button> 
                                     </div>
-                                    <p className="card-text ellipsis">{item.c_intro}</p>
+                                    <p className="card-text2 ellipsis">{item.c_intro}</p>
                                     
                                     
                                     <div className="d-flex">
@@ -321,7 +321,7 @@ class course extends React.Component {
                                 </div>
                                     
                                     
-                                      <Link class="btn btn-success ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
+                                      <Link class="btn btn-dark ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
                                     </div>
                                   </div>
                                 </div>

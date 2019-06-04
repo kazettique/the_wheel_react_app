@@ -262,7 +262,7 @@ class news extends React.Component {
                         style={{ maxWidth: "800px" }}
                         key={item.sid}
                       >
-                        <div className="row no-gutters">
+                        <div className="row no-gutters align-items-center">
                           <div className="col-md-6">
                             <img src={src} className="card-img" alt="..." />
                           </div>
@@ -271,7 +271,7 @@ class news extends React.Component {
                             <div className="card-body">
                               <div className="d-flex">
                                 <div className="titlearea">
-                                  <h5 className="card-title ellipsis">
+                                  <h5 className="card-title">
                                     {item.title}
                                   </h5>
                                 </div>
@@ -320,7 +320,7 @@ class news extends React.Component {
                                 </div>
                                 
                                 <Link
-                                  className="btn btn-success ml-auto"
+                                  className="btn btn-dark ml-auto"
                                   to={`/news/${item.sid}`}
                                 >
                                   查看新聞資訊
