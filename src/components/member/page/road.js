@@ -1,6 +1,6 @@
 import React from 'react';
 // import { data } from '../data/data';
-import { Link, Redirect,withRouter } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -17,7 +17,6 @@ import DetailNav from '../component/DetailNav';
 import './road.scss';
 import checkUserState from '../util/check';
 
-
 var getWindowOptions = function() {
   var width = 500;
   var height = 450;
@@ -25,11 +24,11 @@ var getWindowOptions = function() {
   var top = window.innerHeight / 2 - height / 2;
 
   return [
-    "resizable,scrollbars,status",
-    "height=" + height,
-    "width=" + width,
-    "left=" + left,
-    "top=" + top
+    'resizable,scrollbars,status',
+    'height=' + height,
+    'width=' + width,
+    'left=' + left,
+    'top=' + top,
   ].join();
 };
 
@@ -46,38 +45,36 @@ class road extends React.Component {
       loginUser: '',
       isLogined: '',
       user_id: '',
-      myCollect:[],
+      myCollect: [],
       col_routeData: [],
-      rise_routeData:[],
+      rise_routeData: [],
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
     window.twttr.widgets.load();
     if (this.state.col_routeData.length > 0) {
-      var fbBtn = document.querySelectorAll(".facebook-share");
+      var fbBtn = document.querySelectorAll('.facebook-share');
       console.log(fbBtn);
       var title = encodeURIComponent(
-        "Hey everyone, come & see how good I look!"
+        'Hey everyone, come & see how good I look!'
       );
       var shareUrl =
-        "https://www.facebook.com/sharer/sharer.php?u=" +
+        'https://www.facebook.com/sharer/sharer.php?u=' +
         window.location.href +
-        "&title=" +
+        '&title=' +
         title;
       fbBtn.href = shareUrl;
 
-      fbBtn.forEach(btn => btn.addEventListener("click", function(e) {
-        e.preventDefault();
-        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
-        win.opener = null;
-      }));
+      fbBtn.forEach(btn =>
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var win = window.open(shareUrl, 'ShareOnFb', getWindowOptions());
+          win.opener = null;
+        })
+      );
     }
   }
-
-
-
-
 
   async componentDidMount() {
     const jsonObject = await checkUserState();
@@ -90,14 +87,11 @@ class road extends React.Component {
       user_id: jsonObject.user_id,
     });
     await this.memberDataFetch();
-    await this.getRaise()
-
-    
+    await this.getRaise();
   }
 
-
   //載入會員資料
-  memberDataFetch=async()=>{
+  memberDataFetch = async () => {
     try {
       let id = this.props.match.params.id;
       let user_id = this.state.user_id;
@@ -119,47 +113,46 @@ class road extends React.Component {
 
       const jsonObject = await response.json();
 
-      console.log(jsonObject); 
-      console.log("hhhhhhhhh",jsonObject[0].r_collection);
+      console.log(jsonObject);
+      console.log('hhhhhhhhh', jsonObject[0].r_collection);
       console.log(JSON.parse(jsonObject[0].r_collection));
       await this.setState({
         myMemberData: jsonObject,
         m_photo: jsonObject[0].m_photo,
         m_name: jsonObject[0].m_name,
         old_password: jsonObject[0].m_password,
-        myCollect: JSON.parse(jsonObject[0].r_collection)
+        myCollect: JSON.parse(jsonObject[0].r_collection),
       });
       if (jsonObject[0].r_collection !== null) {
-          console.log(jsonObject[0].r_collection);
+        console.log(jsonObject[0].r_collection);
         if (JSON.parse(jsonObject[0].r_collection).length > 0) {
           //拿到收藏的產品資訊
           console.log(JSON.parse(jsonObject[0].r_collection).length);
           console.log(this.state.myCollect);
           this.getRoute();
-         }
-        }else {
-          this.setState({ myCollect: [] });
         }
+      } else {
+        this.setState({ myCollect: [] });
+      }
     } catch (e) {
       console.log(e);
     } finally {
     }
   };
 
-
   //拿到SQL收藏的產品
   getRoute = async () => {
     var sendObj = {
-      arr: this.state.myCollect
+      arr: this.state.myCollect,
     };
     const rescourse = await fetch(`http://localhost:5000/myrouter`, {
-      credentials: "include",
-      method: "POST",
+      credentials: 'include',
+      method: 'POST',
       body: JSON.stringify(sendObj),
       headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
     });
 
     const routeObj = await rescourse.json();
@@ -170,8 +163,6 @@ class road extends React.Component {
 
     console.log(routeObj);
   };
-
-
 
   handleTitleClick = e => {
     this.setState({ nowPage: true });
@@ -190,7 +181,6 @@ class road extends React.Component {
     // e.target.classList.add('show');
   };
 
-
   //刪除收藏還要更新SQL
   handleCancel = id => () => {
     console.log(this.state.myCollect);
@@ -203,19 +193,19 @@ class road extends React.Component {
 
     var sendObj = {
       sid: newData,
-      user_id: this.state.user_id
+      user_id: this.state.user_id,
     };
 
     console.log(sendObj);
 
     fetch(`http://localhost:5000/c_route`, {
-      credentials: "include",
-      method: "PUT", // or 'PUT'
+      credentials: 'include',
+      method: 'PUT', // or 'PUT'
       body: JSON.stringify(sendObj), // data can be `string` or {object}!
       headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(obj => {
@@ -224,50 +214,51 @@ class road extends React.Component {
       })
 
       // .then(this.setState({myCollect:newData}))
-      .catch(error => console.error("Error:", error));
+      .catch(error => console.error('Error:', error));
   };
 
-   //拿到SLQ發起的路線
-   getRaise = async () => {
+  //拿到SLQ發起的路線
+  getRaise = async () => {
     let id = this.props.match.params.id;
     let user_id = this.state.user_id;
     const response = await fetch(
       `http://localhost:5000/routeRaise/${user_id ? user_id : id}`,
       {
-        method: "GET",
+        method: 'GET',
         headers: new Headers({
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        })
-      });
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }
+    );
 
     // if (!response.ok) throw new Error(response.statusText);
 
     const jsonObject = await response.json();
     console.log(jsonObject);
 
-    await this.setState({rise_routeData:jsonObject})
+    await this.setState({ rise_routeData: jsonObject });
   };
 
   //刪除收藏的路線
-  riseCancel = id => () =>{
+  riseCancel = id => () => {
     console.log(id);
     for (let s in this.state.rise_routeData) {
       console.log(this.state.rise_routeData[s].r_sid);
 
       if (this.state.rise_routeData[s].r_sid == id) {
-        console.log("刪除");
+        console.log('刪除');
         var sendObj = {
-          id: id
+          id: id,
         };
         fetch(`http://localhost:5000/routeDelete`, {
-          credentials: "include",
-          method: "POST", // or 'PUT'
+          credentials: 'include',
+          method: 'POST', // or 'PUT'
           body: JSON.stringify(sendObj), // data can be `string` or {object}!
           headers: new Headers({
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          })
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }),
         })
           .then(res => res.json())
           .then(obj => {
@@ -276,21 +267,18 @@ class road extends React.Component {
           })
 
           // .then(this.setState({myCollect:newData}))
-          .catch(error => console.error("Error:", error));
+          .catch(error => console.error('Error:', error));
       }
     }
   };
 
-
-
   render() {
-
     let data = [];
     if (this.state.col_routeData) {
       data = this.state.col_routeData;
     }
 
-    let  r_data=[];
+    let r_data = [];
     if (this.state.rise_routeData) {
       r_data = this.state.rise_routeData;
     }
@@ -314,7 +302,7 @@ class road extends React.Component {
                 myId={this.state.id}
               />
 
-              <Col className="detailArea"  >
+              <Col className="detailArea">
                 <DetailNav
                   title1={this.state.NavTitle1}
                   title2={this.state.NavTitle2}
@@ -324,16 +312,16 @@ class road extends React.Component {
                 />
 
                 <div className="box1 Allbox show">
-                {data.map((item, index) => (
+                  {data.map((item, index) => (
                     <div
                       className="card mb-3"
-                      style={{ maxWidth: "850px" }}
+                      style={{ maxWidth: '850px' }}
                       key={item.c_sid}
                     >
                       <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           <img
-                            src={"http://localhost:5000/r_upload_img/" +item.r_img}
+                            src={item.r_img}
                             className="card-img"
                             alt="..."
                           />
@@ -346,7 +334,8 @@ class road extends React.Component {
                                 <p className="card-title">{item.r_name}</p>
                                 <p className="card-text">
                                   <small className="text-muted">
-                                    類型:{item.r_tag}  發布時間:{item.r_time_added}
+                                    類型:{item.r_tag} 發布時間:
+                                    {item.r_time_added}
                                   </small>
                                 </p>
                               </div>
@@ -363,7 +352,10 @@ class road extends React.Component {
                               <div> 地區:{item.r_area}</div>
                               <div> 出發地點:{item.r_depart}</div>
                               <div> 抵達地點:{item.r_arrive}</div>
-                              <div className="describe"> 路線描述:{item.r_intro}</div>
+                              <div className="describe">
+                                {' '}
+                                路線描述:{item.r_intro}
+                              </div>
                             </p>
 
                             {/* <div className="d-flex">
@@ -372,9 +364,9 @@ class road extends React.Component {
                             </div> */}
 
                             <div className="d-flex">
-                            <div>
+                              <div>
                                 <a
-                                  style={{ fontSize: "1rem", color: "black" }}
+                                  style={{ fontSize: '1rem', color: 'black' }}
                                   href={`https://twitter.com/intent/tweet?url=${
                                     window.location.href
                                   }&text="bike news!"`}
@@ -385,7 +377,7 @@ class road extends React.Component {
                               <div>
                                 <a
                                   href="/"
-                                  style={{ fontSize: "1rem", color: "black" }}
+                                  style={{ fontSize: '1rem', color: 'black' }}
                                   className="facebook-share"
                                 >
                                   <i className="fab fa-facebook-f" />
@@ -413,16 +405,16 @@ class road extends React.Component {
                 </div>
 
                 <div className="box2 Allbox">
-                {r_data.map((item, index) => (
+                  {r_data.map((item, index) => (
                     <div
                       className="card mb-3"
-                      style={{ maxWidth: "850px" }}
+                      style={{ maxWidth: '850px' }}
                       key={item.c_sid}
                     >
                       <div className="row no-gutters">
                         <div className="col-md-6">
                           <img
-                            src="https://loremflickr.com/320/240/brazil,rio"
+                            src={item.r_img}
                             className="card-img"
                             alt="..."
                           />
@@ -435,7 +427,8 @@ class road extends React.Component {
                                 <p className="card-title">{item.r_name}</p>
                                 <p className="card-text">
                                   <small className="text-muted">
-                                    類型:{item.r_tag}  發布時間:{item.r_time_added}
+                                    類型:{item.r_tag} 發布時間:
+                                    {item.r_time_added}
                                   </small>
                                 </p>
                               </div>
@@ -452,7 +445,10 @@ class road extends React.Component {
                               <div> 地區:{item.r_area}</div>
                               <div> 出發地點:{item.r_depart}</div>
                               <div> 抵達地點:{item.r_arrive}</div>
-                              <div className="describe"> 路線描述:{item.r_intro}</div>
+                              <div className="describe">
+                                {' '}
+                                路線描述:{item.r_intro}
+                              </div>
                             </p>
 
                             {/* <div className="d-flex">
@@ -461,9 +457,9 @@ class road extends React.Component {
                             </div> */}
 
                             <div className="d-flex">
-                            <div>
+                              <div>
                                 <a
-                                  style={{ fontSize: "1rem", color: "black" }}
+                                  style={{ fontSize: '1rem', color: 'black' }}
                                   href={`https://twitter.com/intent/tweet?url=${
                                     window.location.href
                                   }&text="bike news!"`}
@@ -474,7 +470,7 @@ class road extends React.Component {
                               <div>
                                 <a
                                   href="/"
-                                  style={{ fontSize: "1rem", color: "black" }}
+                                  style={{ fontSize: '1rem', color: 'black' }}
                                   className="facebook-share"
                                 >
                                   <i className="fab fa-facebook-f" />
@@ -502,8 +498,6 @@ class road extends React.Component {
                 </div>
 
                 <div className="box3 Allbox">目前尚無資料</div>
-
-                
               </Col>
             </Row>
           </Container>
