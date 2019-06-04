@@ -10,6 +10,8 @@ import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 // StyleSheet
 import './components.css'
+// Import Images
+import wheelIcon from '../images/wheel_icon.svg'
 
 class CourseListCard extends React.Component {
   constructor(props) {
@@ -55,10 +57,10 @@ class CourseListCard extends React.Component {
 
     return (
       <>
-        <Container fluid className="py-lg-2">
+        <Container fluid className="py-lg-3 mg-lg-0">
           <Row className="justify-content-center">
             <Col md={10}>
-              <Row className="py-lg-3 px-0 course-list-card">
+              <Row className="py-lg-0 px-0 course-list-card">
                 <Col
                   md={3}
                   className="course-list-card-cover m-0 p-0"
@@ -66,29 +68,40 @@ class CourseListCard extends React.Component {
                 >
                   <img
                     src={cover}
-                    // src={`https://loremflickr.com/320/320/bicycle/all?random=${sid}`}
                     alt="coverImg"
                     className="course-list-card-cover-img"
                   />
                 </Col>
                 <Col
                   md={3}
-                  style={{ background: '#ffffff' }}
-                  className="py-lg-3"
+                  style={{ background: '#ffffff', position: 'relative' }}
+                  className="py-lg-3 pl-lg-5"
                 >
                   <h5>{title}</h5>
                   <p className="truncate">{intro}</p>
-                  <Badge variant="secondary" className="rankBadge mr-lg-3">
+                  <Badge
+                    className="rankBadge mr-lg-3 my-lg-2 p-lg-2"
+                    style={{ background: '#000000', color: '#ffffff' }}
+                  >
                     {level}
                   </Badge>
-                  <span>上課地點：<b>{location}</b></span>
-                  <br/><br/>
+                  <p>
+                    上課地點：<b>{location}</b>
+                  </p>
+                  <br />
+                  <br />
                   <Link to={`/course/${sid}`}>
                     <Button
                       variant="link"
                       className="courseMoreInfo"
                       onClick={this.handleClick}
-                      style={{ color: '#f52a2a' }}
+                      style={{
+                        color: '#f52a2a',
+                        fontWeight: '700',
+                        padding: '0',
+                        position: 'absolute',
+                        bottom: '1rem',
+                      }}
                     >
                       查看課程資訊
                     </Button>
@@ -99,6 +112,9 @@ class CourseListCard extends React.Component {
                   style={{ background: '#ffffff' }}
                   className="py-lg-3"
                 >
+                  <p style={{ marginBottom: '0' }}>
+                    <b>教練</b>
+                  </p>
                   <img
                     src={coachAvatar}
                     alt={' '}
@@ -106,13 +122,17 @@ class CourseListCard extends React.Component {
                       height: '80px',
                       width: 'auto',
                       borderRadius: '50%',
-                      margin: '1rem',
+                      margin: '0.5rem',
                     }}
                   />
                   <p>
-                    <b>教練：{coachName}</b>
+                    <b>{coachName}</b>
                     <br />
-                    <b>國籍：{coachNationality}</b>
+                    <div className="mt-lg-3">
+                      國籍：
+                      <br />
+                      {coachNationality}
+                    </div>
                   </p>
                 </Col>
                 <Col
@@ -134,17 +154,43 @@ class CourseListCard extends React.Component {
                   </Row>
                   <div className="pt-lg-2 pb-lg-4 pr-lg-5">
                     <ProgressBar
-                      variant="danger"
+                      // variant="danger"
+                      className="progress progressbar"
                       now={percentage}
                       label={`${percentage}%`}
+                      style={{ fontWeight: '700'}}
                     />
                   </div>
                   <p>
-                    集資金額 NT$ <span className="fundNow">{fundNow}</span> /
+                    集資金額{' '}
+                    <span className="fundNow r_color_red">NT$ {fundNow}</span> /
                     NT$ {fundGoal}
                   </p>
-                  <p>集資結束時間：{endDate}</p>
+                  <p
+                    style={{
+                      fontSize: '0.75rem',
+                      position: 'absolute',
+                      bottom: '1rem',
+                      right: '4rem',
+                    }}
+                    // className="justify-content-end"
+                  >
+                    集資結束時間：{endDate}
+                  </p>
                 </Col>
+                <img
+                  src={wheelIcon}
+                  // style={{
+                  //   height: '200px',
+                  //   width: 'auto',
+                  //   position: 'absolute',
+                  //   right: '30px',
+                  //   bottom: '100px',
+                  //   zIndex: '-1',
+                  //   transition: '.5s',
+                  // }}
+                  className="wheelIcon wheelIconRotate"
+                />
               </Row>
             </Col>
           </Row>
