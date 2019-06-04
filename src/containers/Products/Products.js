@@ -1,14 +1,14 @@
-import React from 'react'
-import classes from './Products.module.css'
-import { TweenMax } from 'gsap/all'
-import { Transition } from 'react-transition-group'
+import React from 'react';
+import classes from './Products.module.css';
+import { TweenMax } from 'gsap/all';
+import { Transition } from 'react-transition-group';
 // import ContentPage from '../ContentPage/ContentPage'
-import { Container, Col, Row, Table } from 'react-bootstrap'
-import { IoIosCart } from 'react-icons/io'
-import ControlledCarousel from './ConteolledCarousel/ControlledCarousel'
-import ProductsSearch from '../Products/ProuductSearch/ProductsSearch'
-import ProductsCard from '../Products/ProductsCard'
-import ControlledCarousel2 from './ControlledCarousel2'
+import { Container, Col, Row, Table } from 'react-bootstrap';
+import { IoIosCart } from 'react-icons/io';
+import ControlledCarousel from './ConteolledCarousel/ControlledCarousel';
+import ProductsSearch from '../Products/ProuductSearch/ProductsSearch';
+import ProductsCard from '../Products/ProductsCard';
+import ControlledCarousel2 from './ControlledCarousel2';
 import {
   Button,
   Modal,
@@ -16,13 +16,13 @@ import {
   ModalBody,
   ModalFooter,
   Alert,
-} from 'reactstrap'
-import { Link } from 'react-router-dom'
-const startState = { autoAlpha: 0, y: -50 }
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
+const startState = { autoAlpha: 0, y: -50 };
 
 class products extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       product: [],
       type: null,
@@ -30,45 +30,41 @@ class products extends React.Component {
       filter: null,
       page: 0,
       modal: this.props.modal,
-    }
+    };
   }
 
   componentDidMount = page => {
-
-
-    fetch("http://localhost:5000/is_logined", {
-      method: "GET",
-      credentials: "include",
+    fetch('http://localhost:5000/is_logined', {
+      method: 'GET',
+      credentials: 'include',
       headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
-        if(data.user_id){
-          console.log(data)
+        if (data.user_id) {
+          console.log(data);
           // this.setState({ user: data });
-        }  
+        }
       });
 
-
-
-    page = this.state.page
-    this.setState({ page: page + 1 })
+    page = this.state.page;
+    this.setState({ page: page + 1 });
     fetch('http://localhost:5000/product?page=' + page)
       .then(res => res.json())
       .then(data => {
         // console.log(data)
-        let products = [...this.state.product]
+        let products = [...this.state.product];
         // console.log(products)
-        this.setState({ product: [...this.state.product, ...data] })
-        console.log(this.state.product)
+        this.setState({ product: [...this.state.product, ...data] });
+        console.log(this.state.product);
       })
       .catch(err => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   componentDidUpdate() {}
   //搜尋欄位 改變state裡面的值
@@ -80,8 +76,8 @@ class products extends React.Component {
         type: event.target.value,
       },
       () => console.log(this.state.type)
-    )
-  }
+    );
+  };
   //改變Search部件的值
   handleGenre = event => {
     this.setState(
@@ -89,8 +85,8 @@ class products extends React.Component {
         genre: event.target.value,
       },
       () => console.log(this.state.genre)
-    )
-  }
+    );
+  };
   //改變Search Input的值
   handleInput = event => {
     this.setState(
@@ -98,8 +94,8 @@ class products extends React.Component {
         filter: event.target.value,
       },
       () => console.log(this.state.filter)
-    )
-  }
+    );
+  };
   //點擊搜尋按鈕fetch get 的資料
   handleSearch = props => {
     //  console.log(this.state.type)
@@ -108,8 +104,8 @@ class products extends React.Component {
       type: this.state.type,
       genre: this.state.genre,
       filter: this.state.filter,
-    }
-    console.log(obj)
+    };
+    console.log(obj);
     fetch('http://localhost:5000/search', {
       method: 'POST',
       body: JSON.stringify(obj),
@@ -119,55 +115,55 @@ class products extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        console.log(data);
         this.setState({ product: data }, () => {
           this.setState({
             type: null,
             genre: null,
             filter: null,
-          })
-        })
+          });
+        });
       })
       .catch(err => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
   handleMore = page => {
-    page = this.state.page
-    this.setState({ page: page + 1 })
+    page = this.state.page;
+    this.setState({ page: page + 1 });
     fetch('http://localhost:5000/product?page=' + page)
       .then(res => res.json())
       .then(data => {
         // console.log(data)
-        let products = [...this.state.product]
+        let products = [...this.state.product];
         // console.log(products)
-        this.setState({ product: [...this.state.product, ...data] })
-        console.log(this.state.product)
+        this.setState({ product: [...this.state.product, ...data] });
+        console.log(this.state.product);
       })
       .catch(err => {
-        console.log(err)
-      })
-  }
-  
-  render() {
-    console.log(this.props)
-    let totalPrice = 0
-    let cart = []
-    if (localStorage.getItem('cart')) {
-      cart = JSON.parse(localStorage.getItem('cart'))
-      console.log(cart)
-      cart.forEach(item => {
-        console.log(item.p_price)
-        let sum = item.quantity * Number(item.p_price)
-        return (totalPrice += sum)
-      })
+        console.log(err);
+      });
+  };
 
-      localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
+  render() {
+    console.log(this.props);
+    let totalPrice = 0;
+    let cart = [];
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'));
+      console.log(cart);
+      cart.forEach(item => {
+        console.log(item.p_price);
+        let sum = item.quantity * Number(item.p_price);
+        return (totalPrice += sum);
+      });
+
+      localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
     } else {
-      console.log(123)
+      console.log(123);
     }
 
-    let list = null
+    let list = null;
 
     if (this.state.product) {
       list = this.state.product.map(item => {
@@ -184,12 +180,12 @@ class products extends React.Component {
             modal={this.props.modal}
             // handleCollect={()=>this.props.handleCollect(item.p_sid)}
           />
-        )
-      })
+        );
+      });
     }
 
     return (
-      <>
+      <div className={classes.bggray}>
         <Transition
           unmountOnExit
           in={this.props.show}
@@ -200,44 +196,82 @@ class products extends React.Component {
               autoAlpha: this.props.show ? 1 : 0,
               y: this.props.show ? 0 : 50,
               onComplete: done,
-            })
+            });
           }}
         >
-          <div>
-            <ControlledCarousel />
-            <div>
-              <Button className={classes.Button} onClick={this.props.onToggle}>
-                <IoIosCart size={25} />
-                {this.props.buttonLabel}
-                購物車
-              </Button>
-            </div>
-            <Container className={classes.SearchSideBar}>
-              <Row>
-                <Col lg={3}>
-                  <ProductsSearch
-                    handleType={this.handleType}
-                    handleGenre={this.handleGenre}
-                    handleInput={this.handleInput}
-                    handleSearch={this.handleSearch}
-                  />
-                </Col>
-                <Col lg={9} style={{ marginBottom: '5rem' }}>
-                  {/* <ProductsCard product={this.state.product} /> */}
-                  {list}
-                </Col>
-              </Row>
-            </Container>
+          <div
+            style={{ marginTop: '56px' }}
+            className="d-flex justify-content-center bggray flex-column"
+            //className={classes.bggray}
+          >
             <div
-              className={classes.MoreButton}
-              style={{ textAlign: 'center', marginBottom: '100px' }}
+              style={{
+                backgroundColor: 'white',
+                width: '100%',
+                paddingBottom: '3rem',
+              }}
             >
-              <Button className={classes.MoreButton2} onClick={this.handleMore}>
-                更多商品
-              </Button>
+              <ControlledCarousel />
+              <div className="d-flex justify-content-center">
+                {' '}
+                <Col xs={11} lg={10} className="p-0">
+                  <div className="w-100">
+                    <Button
+                      className={classes.Button}
+                      onClick={this.props.onToggle}
+                    >
+                      <IoIosCart size={25} />
+                      {this.props.buttonLabel}
+                      購物車
+                    </Button>
+                  </div>
+                </Col>
+              </div>
             </div>
+            <div className="w-100 d-flex justify-content-center">
+              <Col xs={10} className="d-flex justify-content-center w-100">
+                <Container
+                  className={
+                    (classes.SearchSideBar, classes.bggray, classes.pforcew100)
+                  }
+                  style={{ width: '100%' }}
+                >
+                  <Row className="d-flex  justify-content-between">
+                    <Col
+                      lg={2.5}
+                      style={{ marginTop: '3rem', maxWidth: '200px' }}
+                    >
+                      <ProductsSearch
+                        handleType={this.handleType}
+                        handleGenre={this.handleGenre}
+                        handleInput={this.handleInput}
+                        handleSearch={this.handleSearch}
+                      />
+                    </Col>
+                    <Col
+                      lg={9}
+                      style={{ marginBottom: '5rem', marginTop: '5rem' }}
+                    >
+                      {/* <ProductsCard product={this.state.product} /> */}
+                      {list}
+                      <div
+                        className={classes.MoreButton}
+                        style={{ textAlign: 'center', marginBottom: '100px' }}
+                      >
+                        <Button
+                          className={classes.MoreButton2}
+                          onClick={this.handleMore}
+                        >
+                          更多商品
+                        </Button>
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              </Col>
 
-            {/* {this.props.children} */}
+              {/* {this.props.children} */}
+            </div>
           </div>
         </Transition>
         <Modal
@@ -285,17 +319,18 @@ class products extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
-           
-              <Button color="primary" onClick={this.props.ModalReset}>結帳</Button>
-           
+            <Button color="primary" onClick={this.props.ModalReset}>
+              結帳
+            </Button>
+
             <Button color="secondary" onClick={this.props.onToggle}>
               取消
             </Button>
           </ModalFooter>
         </Modal>
-      </>
-    )
+      </div>
+    );
   }
 }
 
-export default products
+export default products;

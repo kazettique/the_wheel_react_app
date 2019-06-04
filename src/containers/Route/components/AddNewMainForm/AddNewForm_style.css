@@ -14,41 +14,62 @@
 }
 .addnewsubmitbtn {
   background-color: black;
-
   color: white;
   border-radius: 0;
   font-weight: 700;
   width: 100px;
   border: 0;
+  transition: 0.2s;
 }
 .location_btn {
-  /* background-color: black; */
-  border: 2px solid black;
+  background-color: black;
+  /* border: 2px solid black; */
   /* background-color: var(--main_red); */
-  /* color: white; */
-  color: black;
+  color: white;
+  /* color: black; */
   border-radius: 0;
   font-weight: 700;
-  /* border: 0; */
-  width: 100px;
+  border: 0;
+  /* width: 100px; */
   padding: 3px 20px;
+  transition: 0.2s;
 }
-.mappreview11 {
-  /* background-color: var(--main_red); */
-  border: 2px solid black;
-  /* color: white; */
-  color: black;
-  border-radius: 0;
-  font-weight: 700;
-  width: 100px;
-  padding: 3px 20px;
-  /* border: 0; */
-  margin-top: 15px;
-}
-.r_an_l_con {
-  background-color: var(--main_gray1);
+.location_btn:hover,
+.addnewsubmitbtn:hover,
+.mappreview11:hover {
+  color: white !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02, 1.02);
 }
 
+.mappreview11 {
+  background-color: var(--main_red);
+  /* border: 2px solid black; */
+  color: white;
+  /* color: black; */
+  border-radius: 0;
+  font-weight: 700;
+  /* width: 100px; */
+  padding: 3px 20px;
+  border: 0;
+  margin-top: 15px;
+  transition: 0.2s;
+}
+.ordercontrol button {
+  border: 0;
+  /* background-color: var(--main_gray1); */
+  /* color:white */
+  padding: 3px 20px;
+  color: var(--main_red);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.r_an_l_con {
+  /* background-color: var(--main_gray1); */
+  border-bottom: 2px dotted var(--main_gray2);
+  border-top: 2px dotted var(--main_gray2);
+  /* transform: translateY(-2px) !important; */
+}
 .r_border_red {
   border: 1px solid var(--main_red);
 }
@@ -63,6 +84,18 @@
   color: white;
   margin-right: 1.5rem;
   transition: 0.3s;
+  font-weight: 700;
+  border: 2px solid black;
+}
+.r_tag_style input {
+  display: none;
+}
+.r_tag_style:hover {
+  border: 2px solid black;
+  color: black;
+  font-weight: 600;
+  transition: 0.3s;
+  background-color: white;
 }
 
 .r_tag_selected {
