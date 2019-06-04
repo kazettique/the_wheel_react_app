@@ -20,6 +20,13 @@ const control = ({
   let style = { background: "rgb(207, 204, 204)" };
   return (
     <div className={classes.Control}>
+      <Container fluid className="d-flex justify-content-center p-0">
+        <Col lg={10} className="p-0 m-0">
+          <p className="r_fs_20 m-0 r_color_red r_fw_extra_bold">文章專區</p>
+          <p className="m-0 r_fw_medium mt-1">各種單車相關新聞以及教學</p>
+        </Col>
+        <div style={{ height: "88px" }} />
+      </Container>
       <Row>
         {showPopular ? null : (
           <>
