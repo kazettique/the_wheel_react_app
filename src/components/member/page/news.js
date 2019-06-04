@@ -48,23 +48,25 @@ class news extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     window.twttr.widgets.load();
-    if(this.state.col_newsData.length>0){
-    var fbBtn = document.querySelector(".facebook-share");
-    console.log(fbBtn);
-    var title = encodeURIComponent("Hey everyone, come & see how good I look!");
-    var shareUrl =
-      "https://www.facebook.com/sharer/sharer.php?u=" +
-      window.location.href +
-      "&title=" +
-      title;
-    fbBtn.href = shareUrl;
+    if (this.state.col_newsData.length > 0) {
+      var fbBtn = document.querySelectorAll(".facebook-share");
+      console.log(fbBtn);
+      var title = encodeURIComponent(
+        "Hey everyone, come & see how good I look!"
+      );
+      var shareUrl =
+        "https://www.facebook.com/sharer/sharer.php?u=" +
+        window.location.href +
+        "&title=" +
+        title;
+      fbBtn.href = shareUrl;
 
-    fbBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
-      win.opener = null;
-    });
-  }
+      fbBtn.forEach(btn => btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
+        win.opener = null;
+      }));
+    }
   }
 
   async componentDidMount() {

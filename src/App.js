@@ -90,9 +90,9 @@ class App extends Component {
     setTimeout(() => this.props.dispatch(isLoading()));
     // window.twttr.widgets.load();
   }
-  componentDidUpdate() {
-    window.twttr.widgets.load();
-  }
+  // componentDidUpdate() {
+  //   window.twttr.widgets.load();
+  // }
 
   toggle = () => {
     this.setState(
