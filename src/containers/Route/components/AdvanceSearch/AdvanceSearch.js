@@ -73,7 +73,7 @@ class AdvanceSearch extends Component {
                     <Row className="justify-content-end r_as_add_new_btn_con m-0">
                         <button
                             type="button"
-                            className="r_as_add_new_btn r_fw_medium mb-4 m-md-0"
+                            className="r_as_add_new_btn r_fw_medium mb-4 m-md-0 btnhover"
                             onClick={this.handleaddnewclick}
                         >
                             新增路線
@@ -216,7 +216,7 @@ class AdvanceSearch extends Component {
                                         id="searchtxt"
                                     />
                                     <button
-                                        className="r_as_search_btn r_color_white px-3 r_fw_bold"
+                                        className="r_as_search_btn r_color_white px-3 r_fw_bold btnhover"
                                         type="button"
                                         onClick={this.handleSearch}
                                     >

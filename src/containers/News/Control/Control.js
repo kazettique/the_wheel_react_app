@@ -61,6 +61,7 @@ const control = ({
                     <div className={classes.Toggle}>
                         <ul>
                             <li
+                                 className="btnhover"
                                 onClick={e => {
                                     toggle(e);
                                     if (filter || search) {
@@ -71,7 +72,8 @@ const control = ({
                             >
                                 所有文章
                             </li>
-                            <li
+                            <li 
+                                className="btnhover"
                                 onClick={e => {
                                     toggle(e);
                                     clearAllHandler();
@@ -105,7 +107,7 @@ const control = ({
                                 <span className={classes.Icon}>
                                     <FontAwesomeIcon icon={faSearch} />
                                 </span>
-                                <button onClick={searchHandler}>搜尋</button>
+                                <button onClick={searchHandler} className="btnhover">搜尋</button>
                             </div>
                         </div>
                     </div>
