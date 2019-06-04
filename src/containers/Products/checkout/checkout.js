@@ -265,8 +265,11 @@ class checkout extends React.Component {
                       </Card.Text>
                       <Card.Text>
                         <Button
-                          color="danger"
+                          // color="danger"
+                          // variant="danger"
                           onClick={() => this.deleteCartItem(index)}
+                          className='btnhover'
+                          style={{backgroundColor:'#f52a2a' , border:'none' , borderRadius:'0'}}
                         >
                           刪除此商品
                         </Button>
@@ -354,7 +357,7 @@ class checkout extends React.Component {
                 <Button
                   className={classes.checkButton2}
                   onClick={this.handleSend}
-  
+                  style={{borderRadius:'0'}}
                 >
                   下訂單
                 </Button>

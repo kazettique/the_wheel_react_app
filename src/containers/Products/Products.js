@@ -206,7 +206,7 @@ class products extends React.Component {
           <div>
             <ControlledCarousel />
             <div>
-              <Button className={classes.Button} onClick={this.props.onToggle}>
+              <Button className={classes.Button} onClick={this.props.onToggle} style={{borderRadius:'0'}}>
                 <IoIosCart size={25} />
                 {this.props.buttonLabel}
                 購物車
@@ -232,7 +232,7 @@ class products extends React.Component {
               className={classes.MoreButton}
               style={{ textAlign: 'center', marginBottom: '100px' }}
             >
-              <Button className={classes.MoreButton2} onClick={this.handleMore}>
+              <Button className={classes.MoreButton2} onClick={this.handleMore} style={{color:'white', borderRadius:'0' }}>
                 更多商品
               </Button>
             </div>
@@ -267,8 +267,9 @@ class products extends React.Component {
                     <td>{item.quantity}</td>
                     <td>
                       <Button
-                        color="danger"
+                        className="btnhover_red"
                         onClick={() => this.props.deleteCartItem(index)}
+                        style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none'}}
                       >
                         X
                       </Button>
@@ -286,9 +287,9 @@ class products extends React.Component {
           </ModalBody>
           <ModalFooter>
            
-              <Button color="primary" onClick={this.props.ModalReset}>結帳</Button>
+              <Button  className="btnhover_red" onClick={this.props.ModalReset}   style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none'}}>結帳</Button>
            
-            <Button color="secondary" onClick={this.props.onToggle}>
+            <Button  className="btnhover_red" onClick={this.props.onToggle}   style={{borderRadius:'0',backgroundColor:'black' , border:'none'}}>
               取消
             </Button>
           </ModalFooter>

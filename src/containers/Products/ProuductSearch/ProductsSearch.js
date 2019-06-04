@@ -70,7 +70,7 @@ class ProductsSearch extends React.Component {
             </Form.Control>
           </Form.Group>
           <Button
-            variant="primary"
+            style={{borderRadius:'0', border:'none'}}
             type="button"
             className={classes.SearchButton}
             onClick={this.clearAndSearch}
