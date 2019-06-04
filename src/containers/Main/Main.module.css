@@ -8,6 +8,7 @@
   background: var(--main_red);
   position: relative;
   z-index: -1000;
+  overflow-x: hidden;
 }
 .HeaderBtm11 {
   background-color: white;

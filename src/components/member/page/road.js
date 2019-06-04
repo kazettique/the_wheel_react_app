@@ -399,7 +399,7 @@ class road extends React.Component {
                               </a> */}
                               <h5 className="price">騎乘時間:{item.r_time}</h5>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/route/${item.r_sid}`}
                               >
                                 查看路線資訊
@@ -444,7 +444,7 @@ class road extends React.Component {
                                 variant="danger"
                                 onClick={this.riseCancel(item.r_sid)}
                               >
-                                取消追蹤
+                                刪除發起
                               </Button>
                             </div>
                             <p className="card-text2 ">
@@ -488,7 +488,7 @@ class road extends React.Component {
                               </a> */}
                               <h5 className="price">騎乘時間:{item.r_time}</h5>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/route/${item.r_sid}`}
                               >
                                 查看路線資訊

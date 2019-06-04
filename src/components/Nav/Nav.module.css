@@ -103,6 +103,8 @@
 }
 .nav_m_w_80 {
   min-width: 80px;
+  font-size: 1rem;
+  margin-bottom: 10px;
 }
 .Nav a {
   display: flex;
@@ -138,8 +140,8 @@
 }
 
 .NavItems {
-  color: 'white';
-  font-size: '1.2rem';
+  color: "white";
+  font-size: "1.2rem";
 }
 
 .Nav a:hover :last-child {
@@ -158,14 +160,12 @@
     margin: 0 auto;
     overflow: hidden;
     /* display: none; */
-    transform: translateY(10vh);
     width: 100vw;
     /* background: rgba(0, 0, 0, 0.5); */
     background: black;
     position: absolute;
+    top: 49px;
     left: 0;
-    right: 0;
-    bottom: 0;
   }
 
   .Menu {
@@ -185,9 +185,7 @@
 
   .Open {
     transition: 0.5s;
-    height: 92vh;
-
-    /* display: block; */
+    height: calc(100vh - 49px);
   }
 
   .Nav li {
@@ -196,6 +194,10 @@
 
   .Nav li a {
     font-size: 2rem;
+  }
+
+  .Nav > div > div > div {
+    margin-bottom: 15%;
   }
 
   .Background {

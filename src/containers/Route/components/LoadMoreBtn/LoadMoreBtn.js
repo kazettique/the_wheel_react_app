@@ -6,7 +6,7 @@ class LoadMoreBtn extends Component {
   render() {
     return (
       <button
-        className={"r_load_more_btn r_color_white btnhover " + this.props.none}
+        className={"r_load_more_btn r_color_white " + this.props.none}
         onClick={this.props.onClick}
       >
         更多路線

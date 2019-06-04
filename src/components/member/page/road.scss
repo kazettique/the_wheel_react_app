@@ -42,6 +42,10 @@
       margin-bottom: 0;
     }
 
+    .cancel{
+      max-height: 30px;
+    }
+
     .card-body {
       .card-text2 {
         margin-bottom: 30px;
@@ -79,6 +83,11 @@
 
     .btn {
       border-radius: 0;
+    }
+
+    .btn-dark{
+      background-color: #000000;
+      border-color: #000000;
     }
 
     .textcontent {
