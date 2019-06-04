@@ -238,6 +238,7 @@ class SingleSiderBar extends React.Component {
                 <Button
                   className={classes.productSideBarButton}
                   onClick={this.handleBuy}
+                  style={{borderRadius:'0'}}
                 >
                   直接購買
                   </Button>
@@ -249,6 +250,7 @@ class SingleSiderBar extends React.Component {
                   // disabled={cart.find(item => item.p_id === product.p_id)}
                   color="secondary"
                   onClick={() => this.addToCart(product)}
+                  style={{borderRadius:'0'}}
                 >
                   加入購物車
                 </Button>
@@ -304,9 +306,9 @@ class SingleSiderBar extends React.Component {
           </ModalBody>
           <ModalFooter>
 
-            <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
+            <Button color="danger" onClick={this.props.ModalReset} >結帳</Button>
 
-            <Button color="secondary" onClick={this.props.onToggle}>
+            <Button color="dark" onClick={this.props.onToggle}>
               取消
             </Button>
           </ModalFooter>

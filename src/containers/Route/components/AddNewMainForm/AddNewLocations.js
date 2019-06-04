@@ -1,16 +1,20 @@
-import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTimes,
+  faCaretUp,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   handleAddNewLocationCountryChange,
   handleAddNewLocationDelete,
   handleAddNewLocationUp,
-  handleAddNewLocationDown
-} from "../../actions";
+  handleAddNewLocationDown,
+} from '../../actions';
 
 class AddNewLocations extends Component {
   state = {};
@@ -39,7 +43,7 @@ class AddNewLocations extends Component {
 
     return (
       <>
-        <datalist id={"areaData" + this.props.num}>
+        <datalist id={'areaData' + this.props.num}>
           {this.props.l.locationList
             .filter(i => i.num === this.props.num)[0]
             .areas.map(i => (
@@ -55,63 +59,72 @@ class AddNewLocations extends Component {
                 <div className="r_d_stick position-absolute" />
               </div>
             </div>
-            <div className="w-100 position-relative r_an_l_con p-4">
+            <div className="w-100 position-relative r_an_l_con p-5">
               <input type="text" name="r_sid[]" className="d-none rr_sid" />
               <button
                 type="button"
-                className="r_an_del_btn position-absolute"
+                className="r_an_del_btn position-absolute m-3 p-3"
                 onClick={this.addNewLocationDelete}
               >
                 <FontAwesomeIcon icon={faTimes} />
               </button>
               <div>
-                <div>
+                <div className="ordercontrol pb-4">
                   <button type="button" onClick={this.orderUp}>
-                    Up
+                    <FontAwesomeIcon icon={faCaretUp} />
                   </button>
-                  <button type="button" onClick={this.orderDown}>
-                    Down
+                  <button
+                    type="button"
+                    onClick={this.orderDown}
+                    className="ml-4"
+                  >
+                    <FontAwesomeIcon icon={faCaretDown} />
                   </button>
                 </div>
-                <label htmlFor={"l_name" + this.props.l_num}>
-                  地點{"" + (this.props.l_num + 1)}
+                <label htmlFor={'l_name' + this.props.l_num}>
+                  地點{'' + (this.props.l_num + 1)}
                 </label>
                 <input
-                  id={"l_name" + this.props.l_num}
+                  id={'l_name' + this.props.l_num}
                   type="text"
                   className="form-control r_form_group geol_name"
                   name="l_name[]"
                   placeholder="地點名稱"
                 />
+                <small>必填</small>
               </div>
-              <Row className="m-0">
+              <Row className="m-0 mt-4">
                 <Col className="d-flex flex-column p-0">
-                  <label htmlFor={"l_country" + this.props.l_num}>國家</label>
+                  <label htmlFor={'l_country' + this.props.l_num}>國家</label>
                   <input
                     name="l_country[]"
                     list="countryData"
-                    id={"l_country" + this.props.l_num}
+                    id={'l_country' + this.props.l_num}
                     onChange={this.countryChange}
-                    className="geol_country"
+                    className="geol_country r_form_group form-control"
+                    placeholder="國家"
                   />
                 </Col>
-                <Col className="d-flex flex-column p-0">
-                  <label htmlFor={"l_area[]" + this.props.l_num}>地區</label>
+                <Col className="d-flex flex-column p-0 ml-5">
+                  <label htmlFor={'l_area[]' + this.props.l_num}>地區</label>
                   <input
-                    className="geol_area"
+                    className="geol_area r_form_group form-control"
                     name="l_area[]"
-                    list={"areaData" + this.props.num}
-                    id={"l_area[]" + this.props.l_num}
+                    list={'areaData' + this.props.num}
+                    id={'l_area[]' + this.props.l_num}
+                    placeholder="地區"
                   />
                 </Col>
               </Row>
-              <div className="d-flex flex-column">
-                <label htmlFor={"l_intro[]" + this.props.l_num}>描述</label>
+              <div className="d-flex flex-column mt-4">
+                <label htmlFor={'l_intro[]' + this.props.l_num}>描述</label>
                 <textarea
                   type="text"
                   name="l_intro[]"
                   placeholder="描述"
-                  id={"l_intro[]" + this.props.l_num}
+                  style={{ border: '1px solid #ccc' }}
+                  id={'l_intro[]' + this.props.l_num}
+                  className="r_form_group form-control"
                 />
               </div>
               <input
@@ -129,7 +142,7 @@ class AddNewLocations extends Component {
 }
 
 const mapStateToProps = state => ({
-  l: state.routeAddNewLocation
+  l: state.routeAddNewLocation,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -138,7 +151,7 @@ const mapDispatchToProps = dispatch =>
       handleAddNewLocationCountryChange,
       handleAddNewLocationDelete,
       handleAddNewLocationUp,
-      handleAddNewLocationDown
+      handleAddNewLocationDown,
     },
     dispatch
   );

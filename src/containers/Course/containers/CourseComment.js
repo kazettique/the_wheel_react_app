@@ -103,7 +103,7 @@ class CourseComment extends React.Component {
 
     return (
       <>
-        <Container fluid style={{ fontSize: '1.2rem' }}>
+        <Container fluid>
           {list}
           <Container className="my-lg-5">
             <Row className="d-flex justify-content-center">
@@ -126,9 +126,8 @@ class CourseComment extends React.Component {
                   </Form.Group>
                   <div className="text-right">
                     <Button
-                      style={{border:'none'}}
+                      variant="secondary"
                       type="button"
-                      className="btn_bgc_red btnhover_red"
                       onClick={this.handleSubmitComment}
                     >
                       送出

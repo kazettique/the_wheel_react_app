@@ -7,6 +7,12 @@ import Container from 'react-bootstrap/Container';
 import InstallModal from './InstallModal';
 import { Row, Dropdown, Col, Navbar, Nav, Form, Button } from 'react-bootstrap';
 import './myMember-App.scss';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  clearPostsBefore,
+  handleclearlikestate,
+} from '../../containers/Route/actions';
 
 class NavTop extends React.Component {
   constructor(props) {
@@ -134,6 +140,8 @@ class NavTop extends React.Component {
         isLogined: jsonObject.isLogined,
         user_id: jsonObject.user_id,
       });
+      await this.props.handleclearlikestate();
+      await this.props.clearPostsBefore();
       // document.location.href = '/';
       this.props.history.push('/');
     } catch (e) {
@@ -162,7 +170,7 @@ class NavTop extends React.Component {
     let menuClass = [classes.Nav];
     let activeStyle = {
       color: 'white',
-      fontSize: '1.4rem',
+      fontSize: '1.2rem',
       textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
       display: 'flex',
       justifyContent: 'center',
@@ -184,9 +192,9 @@ class NavTop extends React.Component {
             <div />
           </div>
           <ul className={menuClass.join(' ')}>
-            <Container fluid={true} className="text-nowrap h-100">
-              <Row className="h-100 justify-content-end">
-                <Col lg={2} className="h-100 nav_m_w_80">
+            <Container fluid={true} className="text-nowrap">
+              <Row className="justify-content-end" style={{ margin: 0 }}>
+                <Col lg={2} className="nav_m_w_80">
                   <li className="m-0">
                     <NavLink
                       to="/route"
@@ -194,22 +202,10 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       騎車路線
-                      <div style={location === '/route' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
-                {/* <Col lg={2}>
-                  <li className="text-nowrap">
-                    <NavLink
-                      to="/group"
-                      activeStyle={activeStyle}
-                      onClick={this.menuHandler}
-                    >
-                      揪團騎車
-                      <div style={location === "/group" ? style : null} />
-                    </NavLink>
-                  </li>
-                </Col> */}
+
                 <Col lg={2} className="nav_m_w_80">
                   <li className="text-nowrap m-0">
                     <NavLink
@@ -218,7 +214,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       課程專區
-                      <div style={location === '/course' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -230,7 +225,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       文章專區
-                      <div style={location === '/news' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -242,7 +236,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       商品頁面
-                      <div style={location === '/products' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -291,7 +284,7 @@ class NavTop extends React.Component {
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
-                    className="d-flex personal-btn h-100"
+                    className="d-flex personal-btn h-100 align-items-center"
                   >
                     <div className="flex-grow-1">
                       <div className="littlePhoto mx-auto">
@@ -360,4 +353,10 @@ class NavTop extends React.Component {
   }
 }
 
-export default withRouter(NavTop);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ clearPostsBefore, handleclearlikestate }, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavTop);

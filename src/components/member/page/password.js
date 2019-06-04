@@ -204,7 +204,7 @@ class password extends React.Component {
               <Col>
                 <div className="myProfile">
                   <div className="member-title mx-auto">
-                    <h4 className="p-1 ">更改密碼</h4>
+                    <h4 className="p-2 passTitle">更改密碼</h4>
                   </div>
 
                   <div
@@ -224,7 +224,7 @@ class password extends React.Component {
                         <input
                           type="text"
                           value={this.state.checkOld_password}
-                          className="form-control"
+                          className="form-control mt-2"
                           name="checkOld_password"
                           onChange={this.handleFormInputChange}
                         />
@@ -234,7 +234,7 @@ class password extends React.Component {
                         <input
                           type="text"
                           value={this.state.new_password}
-                          className="form-control"
+                          className="form-control mt-2"
                           name="new_password"
                           onChange={this.handleFormInputChange}
                         />
@@ -245,7 +245,7 @@ class password extends React.Component {
                         <input
                           type="text"
                           value={this.state.new_password2}
-                          className="form-control"
+                          className="form-control mt-2"
                           name="new_password2"
                           onChange={this.handleFormInputChange}
                         />

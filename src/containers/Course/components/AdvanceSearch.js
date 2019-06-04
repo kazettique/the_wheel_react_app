@@ -117,7 +117,7 @@ class AdvanceSearch extends Component {
                       onChange={this.props.handleInput}
                     />
                     <button
-                      className="r_as_search_btn r_color_white px-3 r_fw_bold btnhover"
+                      className="r_as_search_btn r_color_white px-3 r_fw_bold"
                       type="button"
                       onClick={this.clearAndSearch}
                     >

@@ -92,7 +92,7 @@ class AddNewMainForm extends Component {
                 label="預計時間"
                 name="r_time"
                 type="text"
-                small="請按照格式 *天 *時 *分 可省略任意部分"
+                small="請按照格式 *天 *時 *分 可省略任意部分 *須為半形數字"
                 passed="true"
               />
             ) : (
@@ -101,7 +101,7 @@ class AddNewMainForm extends Component {
                 label="預計時間"
                 name="r_time"
                 type="text"
-                small="請按照格式 *天 *時 *分 可省略任意部分"
+                small="請按照格式 *天 *時 *分 可省略任意部分 *須為半形數字"
                 passed="false"
               />
             )}

@@ -33,9 +33,9 @@ import FullArticle from "./containers/FullArticle/FullArticle";
 // import Loading from "./components/LoadingAnimation/Loading";
 //------------------------//
 //import 商品頁面
-import SingleProduct from './containers/Products/ProductSingle/ProductSinglePage'
-import Orders from './containers/Products/oder/orders'
-import checkout from './containers/Products/checkout/checkout'
+import SingleProduct from "./containers/Products/ProductSingle/ProductSinglePage";
+import Orders from "./containers/Products/oder/orders";
+import checkout from "./containers/Products/checkout/checkout";
 //----------------------//
 const routes = [
   // { path: '/', name: 'Home', Component: Main },
@@ -88,10 +88,12 @@ class App extends Component {
   }
   componentDidMount() {
     setTimeout(() => this.props.dispatch(isLoading()));
-   
+    // window.twttr.widgets.load();
   }
+  // componentDidUpdate() {
+  //   window.twttr.widgets.load();
+  // }
 
- 
   toggle = () => {
     this.setState(
       {
@@ -111,23 +113,19 @@ class App extends Component {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
   ModalReset = () => {
-    if(localStorage.getItem("cart")){
+    if (localStorage.getItem("cart")) {
       this.setState({
         modal: !this.state.modal
       });
       this.props.history.push("/checkout");
-    }else{
+    } else {
       this.setState({
         modal: !this.state.modal
       });
-     
-      alert("請先選擇商品")
-      
-   
+
+      alert("請先選擇商品");
     }
   };
-
-
 
   render() {
     const { isLoading, isAnimated } = this.props;
@@ -137,28 +135,28 @@ class App extends Component {
     // ) :
     return (
       // <Router>
-        <div>
-          <Nav {...this.props} />
-          <Switch>
-            <Route path="/" exact component={Main} />
-            {routes.map(({ path, Component }) => (
-              <Route key={path} path={path} exact>
-                {({ match }) => (
-                  <Component
-                    {...this.props}
-                    show={match !== null}
-                    onToggle={this.toggle}
-                    deleteCartItem={this.deleteCartItem}
-                    modal={this.state.modal}
-                    handleCollect={this.handleCollect}
-                    ModalReset={this.ModalReset}
-                  />
-                )}
-              </Route>
-            ))}
-          </Switch>
-          <Footer />
-        </div>
+      <div>
+        <Nav {...this.props} />
+        <Switch>
+          <Route path="/" exact component={Main} />
+          {routes.map(({ path, Component }) => (
+            <Route key={path} path={path} exact>
+              {({ match }) => (
+                <Component
+                  {...this.props}
+                  show={match !== null}
+                  onToggle={this.toggle}
+                  deleteCartItem={this.deleteCartItem}
+                  modal={this.state.modal}
+                  handleCollect={this.handleCollect}
+                  ModalReset={this.ModalReset}
+                />
+              )}
+            </Route>
+          ))}
+        </Switch>
+        <Footer />
+      </div>
       // </Router>
     );
   }
