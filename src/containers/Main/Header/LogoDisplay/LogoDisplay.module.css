@@ -86,4 +86,8 @@
     right: 0;
     top: 42vh;
   }
+  .DisplayLogoText {
+    left: 10%;
+    font-size: 5rem;
+  }
 }

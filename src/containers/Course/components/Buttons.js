@@ -25,12 +25,11 @@ class BackItButton extends React.Component {
     return (
       <>
         <Button
-          className="buttons btnhover"
-          // variant="secondary"
+          className="buttons"
+          variant="secondary"
           style={{
             background: 'black',
             display: `${this.props.buttonDisplay}`,
-            border:'none',
           }}
         >
           <Link
@@ -85,7 +84,7 @@ class LikeItButton extends React.Component {
     return (
       <>
         <Button
-          className="buttons btnhover"
+          className="buttons"
           variant={this.props.isLiked ? 'light' : 'danger'}
           // onClick={this.handleClickOnLikeButton.bind(this)}
           // onClick={this.handleBtnColorChangeAndCollect}
@@ -148,7 +147,7 @@ function ReturnButton() {
   return (
     <>
       <Link to="/course">
-        <Button  className="buttons btnhover" style={{backgroundColor:'black' , border:'none'}} >返回</Button>
+        <Button variant="secondary" className="buttons">返回</Button>
       </Link>
     </>
   )

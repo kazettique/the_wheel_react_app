@@ -16,21 +16,6 @@ import './course.scss';
 import DetailNav from '../component/DetailNav';
 import checkUserState from './../util/check';
 
-var getWindowOptions = function() {
-  var width = 500;
-  var height = 450;
-  var left = window.innerWidth / 2 - width / 2;
-  var top = window.innerHeight / 2 - height / 2;
-
-  return [
-    "resizable,scrollbars,status",
-    "height=" + height,
-    "width=" + width,
-    "left=" + left,
-    "top=" + top
-  ].join();
-};
-
 class course extends React.Component {
   constructor(props) {
     super(props);
@@ -44,29 +29,6 @@ class course extends React.Component {
       myCollect:[],
       col_newsData:[],
     };
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    window.twttr.widgets.load();
-    if (this.state.col_newsData.length > 0) {
-      var fbBtn = document.querySelectorAll(".facebook-share");
-      console.log(fbBtn);
-      var title = encodeURIComponent(
-        "Hey everyone, come & see how good I look!"
-      );
-      var shareUrl =
-        "https://www.facebook.com/sharer/sharer.php?u=" +
-        window.location.href +
-        "&title=" +
-        title;
-      fbBtn.href = shareUrl;
-
-      fbBtn.forEach(btn => btn.addEventListener("click", function(e) {
-        e.preventDefault();
-        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
-        win.opener = null;
-      }));
-    }
   }
 
   async componentDidMount() {
@@ -300,25 +262,8 @@ class course extends React.Component {
                                     <h5 className="ml-auto">{item.c_level}</h5>
                                     </div>
                                     <div className="d-flex">
-                                    <div>
-                                  <a
-                                    style={{ fontSize: "1rem", color: "black" }}
-                                    href={`https://twitter.com/intent/tweet?url=${
-                                      window.location.href
-                                    }&text="bike news!"`}
-                                  >
-                                    <i className="fab fa-twitter" />
-                                  </a>
-                                </div>
-                                <div>
-                                  <a
-                                    href="/"
-                                    style={{ fontSize: "1rem", color: "black" }}
-                                    className="facebook-share"
-                                  >
-                                    <i className="fab fa-facebook-f" />
-                                  </a>
-                                </div>
+                                    <a href="javascript:;" ><i className="fab fa-facebook"></i></a>
+                                    <a href="javascript:;" ><i className="fab fa-instagram"></i></a>
                                     
                                     
                                       <Link class="btn btn-dark ml-auto" to={`/course/${item.c_sid}`}>查看課程資訊</Link>
