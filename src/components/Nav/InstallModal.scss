@@ -36,6 +36,20 @@
             padding-bottom: 40px;
         }
 
+        .alert-danger{
+            background-color: #f52a2a;
+            color: #ffffff;
+            font-weight: 700;
+            border: none;
+        }
+
+        .alert-success{
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: 700;
+            border: none;
+        }
+
         .modal-header {
             border-bottom: none;
         }
