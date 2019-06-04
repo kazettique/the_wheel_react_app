@@ -2,7 +2,7 @@ import React from 'react'
 import classes from '../Products.module.css'
 import { Container, Col, Row, Form } from 'react-bootstrap'
 import { IoIosCart } from 'react-icons/io'
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom'
 import {
   Jumbotron,
   Card,
@@ -31,8 +31,8 @@ import {
 // import { IoIosHand } from 'react-icons/io'
 // import R Alert made by Ivy
 import RAlert from '../../Route/components/R_Alert/R_Alert'
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { alertAppear } from '../../Route/actions'
 
 class SingleSiderBar extends React.Component {
@@ -62,11 +62,10 @@ class SingleSiderBar extends React.Component {
   //   }))
   // }
   addToCart = product => {
-
     let quantity = this.state.quantity
     if (quantity === 0) {
       // alert('請選擇數量')
-      this.props.alertAppear(false, "請選擇數量")
+      this.props.alertAppear(false, '請選擇數量')
     } else {
       if (!localStorage.getItem('cart')) {
         const cart = []
@@ -77,7 +76,6 @@ class SingleSiderBar extends React.Component {
         })
 
         localStorage.setItem('cart', JSON.stringify(cart))
-
       } else {
         const cart = JSON.parse(localStorage.getItem('cart'))
         const item = Object.assign({}, product, { quantity })
@@ -120,9 +118,9 @@ class SingleSiderBar extends React.Component {
     let quantity = this.state.quantity
     if (quantity === 0) {
       // alert('請選擇數量')
-      this.props.alertAppear(false, "請選擇數量")
+      this.props.alertAppear(false, '請選擇數量')
     } else {
-      this.props.history.push("/checkout");
+      this.props.history.push('/checkout')
       let product = this.state.product
       // const cart = JSON.parse(localStorage.getItem('cart'))
       const item = Object.assign({}, product, { quantity })
@@ -131,9 +129,7 @@ class SingleSiderBar extends React.Component {
         cart,
       })
 
-
       cart.forEach(item => {
-
         let sum = item.quantity * Number(item.p_price)
         return (totalPrice += sum)
       })
@@ -141,7 +137,6 @@ class SingleSiderBar extends React.Component {
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
     localStorage.setItem('cart', JSON.stringify(cart))
   }
-
 
   render() {
     let meber = localStorage.getItem('meber')
@@ -169,6 +164,7 @@ class SingleSiderBar extends React.Component {
           fluid
           // style={{ width: '90%' }}
           className={classes.SingleSiderBarHight}
+          style={{ background: '#f3f3f3' }}
         >
           <Row noGutters>
             <Col sm={2} md={2}>
@@ -183,7 +179,6 @@ class SingleSiderBar extends React.Component {
                 </h5>
               </div>
               <div className={classes.productSideBarGenre}>
-
                 <p className={classes.productSideBarGenre2}>
                   車種類別:
                   {this.props.product.p_genre}/{this.props.product.p_genre2}
@@ -197,11 +192,11 @@ class SingleSiderBar extends React.Component {
               </div>
             </Col>
             <Col sm={5} md={6}>
-              <div className={classes.productSideBarPrice}>
+              <div className={classes.productSideBarPrice} style={{ background: '#f3f3f3' }}>
                 <Col className={classes.productSideBarPrice2} md={10}>
                   <h1>NT:{this.props.product.p_price}</h1>
-                  <p>
-                  名稱:{this.props.product.p_name}
+                  <p className="r_fs_20">
+                    {this.props.product.p_name}
                     {/* <img src= {this.props.product.photos[0]}></img> */}
                   </p>
                 </Col>
@@ -228,8 +223,8 @@ class SingleSiderBar extends React.Component {
                 </Col>
               </div>
             </Col>
-            <Col className={classes.productSideBarButtonControl} md={4}>
-              <div>
+            <Col className={classes.productSideBarButtonControl} md={4} style={{ background: '#f3f3f3' }}>
+              <div style={{ background: '#f3f3f3' }}>
                 {/* <Link
                   to={{
                     pathname: `/checkout`,
@@ -238,19 +233,19 @@ class SingleSiderBar extends React.Component {
                 <Button
                   className={classes.productSideBarButton}
                   onClick={this.handleBuy}
-                  style={{borderRadius:'0'}}
+                  style={{ borderRadius: '0' }}
                 >
                   直接購買
-                  </Button>
+                </Button>
                 {/* </Link> */}
               </div>
-              <div>
+              <div style={{ background: '#f3f3f3' }}>
                 <Button
                   className={classes.productSideBarButton2}
                   // disabled={cart.find(item => item.p_id === product.p_id)}
                   color="secondary"
                   onClick={() => this.addToCart(product)}
-                  style={{borderRadius:'0'}}
+                  style={{ borderRadius: '0' }}
                 >
                   加入購物車
                 </Button>
@@ -259,7 +254,6 @@ class SingleSiderBar extends React.Component {
           </Row>
         </Container>
 
-        
         <Modal
           isOpen={this.props.modal}
           toggle={this.props.onToggle}
@@ -305,8 +299,9 @@ class SingleSiderBar extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
-
-            <Button color="danger" onClick={this.props.ModalReset} >結帳</Button>
+            <Button color="danger" onClick={this.props.ModalReset}>
+              結帳
+            </Button>
 
             <Button color="dark" onClick={this.props.onToggle}>
               取消
@@ -320,17 +315,14 @@ class SingleSiderBar extends React.Component {
 
 // For R Alert
 const mapStateToProps = state => ({
-  a: state.alertReducer
-});
+  a: state.alertReducer,
+})
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    { alertAppear },
-    dispatch
-  );
+  bindActionCreators({ alertAppear }, dispatch)
 
 // export default withRouter(SingleSiderBar)
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(SingleSiderBar));
+)(withRouter(SingleSiderBar))

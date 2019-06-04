@@ -25,11 +25,12 @@ class BackItButton extends React.Component {
     return (
       <>
         <Button
-          className="buttons"
+          className="buttons btnhover"
           variant="secondary"
           style={{
             background: 'black',
             display: `${this.props.buttonDisplay}`,
+            fontWeight: '700',
           }}
         >
           <Link
@@ -70,26 +71,21 @@ class LikeItButton extends React.Component {
       isLiked: !this.state.isLiked,
     })
   }
-/*
-  handleBtnColorChangeAndCollect = () => {
-    this.handleClickOnLikeButton.bind(this)
-    this.props.collectHandler
-  }*/
-  // componentDidMount() {
-  //   this.setState({isLiked: this.state.isLiked })
-  // }
-
 
   render() {
     return (
       <>
         <Button
           className="buttons btnhover"
-          variant={this.props.isLiked ? 'light' : 'danger'}
-          // onClick={this.handleClickOnLikeButton.bind(this)}
-          // onClick={this.handleBtnColorChangeAndCollect}
+          // variant={this.props.isLiked ? 'light' : 'danger'}
           onClick={this.props.collectHandler}
-          style={{ display: `${this.props.buttonDisplay}` }}
+          style={{
+            display: `${this.props.buttonDisplay}`,
+            background: `${this.props.isLiked ? '#f3f3f3' : '#f52a2a'}`,
+            color: `${this.props.isLiked ? '#000000' : '#ffffff'}`,
+            border: 'none',
+            fontWeight: '700',
+          }}
         >
           {this.props.isLiked ? '取消收藏' : '收藏課程'}
           <FontAwesomeIcon
@@ -116,24 +112,24 @@ class SNSButtons extends React.Component {
             className="m-2"
             style={{ display: `${this.props.buttonDisplay}` }}
           >
-            <a href="http://www.google.com">
-              <FontAwesomeIcon icon={faInstagram} />
+            <a href="http://www.google.com" style={{ color: '#000000' }}>
+              <FontAwesomeIcon icon={faInstagram} size="2x" />
             </a>
           </div>
           <div
             className="m-2"
             style={{ display: `${this.props.buttonDisplay}` }}
           >
-            <a href="https://tw.yahoo.com">
-              <FontAwesomeIcon icon={faTwitter} />
+            <a href="https://tw.yahoo.com" style={{ color: '#000000' }}>
+              <FontAwesomeIcon icon={faTwitter} size="2x" />
             </a>
           </div>
           <div
             className="m-2"
             style={{ display: `${this.props.buttonDisplay}` }}
           >
-            <a href="https://www.facebook.com">
-              <FontAwesomeIcon icon={faFacebookF} />
+            <a href="https://www.facebook.com" style={{ color: '#000000' }}>
+              <FontAwesomeIcon icon={faFacebookF} size="2x" />
             </a>
           </div>
         </div>
@@ -147,7 +143,13 @@ function ReturnButton() {
   return (
     <>
       <Link to="/course">
-        <Button variant="secondary" className="buttons">返回</Button>
+        <Button
+          variant="light"
+          className="buttons"
+          style={{ fontWeight: '700' }}
+        >
+          返回
+        </Button>
       </Link>
     </>
   )

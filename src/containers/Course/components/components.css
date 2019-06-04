@@ -116,14 +116,14 @@
     opacity: 1;
 }
 
-.course-list-card:hover .popUp {
-    /*opacity: 1;*/
-}
-
 .progress {
     background-color: #f3f3f3 !important;
 }
 
 .progress-bar {
     background-color: #f52a2a !important;
+}
+
+.tabFontSize {
+    font-size: 1.2rem;
 }

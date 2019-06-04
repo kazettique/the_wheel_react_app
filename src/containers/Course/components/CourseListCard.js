@@ -80,12 +80,12 @@ class CourseListCard extends React.Component {
                   <h5>{title}</h5>
                   <p className="truncate">{intro}</p>
                   <Badge
-                    className="rankBadge mr-lg-3 my-lg-2 p-lg-2"
+                    className="rankBadge mr-lg-3 my-lg-2 p-lg-2 mb-lg-4"
                     style={{ background: '#000000', color: '#ffffff' }}
                   >
                     {level}
                   </Badge>
-                  <p>
+                  <p className="mt-lg-3">
                     上課地點：<b>{location}</b>
                   </p>
                   <br />
@@ -131,7 +131,7 @@ class CourseListCard extends React.Component {
                     <div className="mt-lg-3">
                       國籍：
                       <br />
-                      {coachNationality}
+                      <b>{coachNationality}</b>
                     </div>
                   </p>
                 </Col>
@@ -158,7 +158,7 @@ class CourseListCard extends React.Component {
                       className="progress progressbar"
                       now={percentage}
                       label={`${percentage}%`}
-                      style={{ fontWeight: '700'}}
+                      style={{ fontWeight: '700' }}
                     />
                   </div>
                   <p>
@@ -173,24 +173,11 @@ class CourseListCard extends React.Component {
                       bottom: '1rem',
                       right: '4rem',
                     }}
-                    // className="justify-content-end"
                   >
                     集資結束時間：{endDate}
                   </p>
                 </Col>
-                <img
-                  src={wheelIcon}
-                  // style={{
-                  //   height: '200px',
-                  //   width: 'auto',
-                  //   position: 'absolute',
-                  //   right: '30px',
-                  //   bottom: '100px',
-                  //   zIndex: '-1',
-                  //   transition: '.5s',
-                  // }}
-                  className="wheelIcon wheelIconRotate"
-                />
+                <img src={wheelIcon} className="wheelIcon wheelIconRotate" />
               </Row>
             </Col>
           </Row>

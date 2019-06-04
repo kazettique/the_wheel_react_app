@@ -155,7 +155,7 @@ class CourseList extends React.Component {
             handleSearch={this.handleSearch}
           />
         </Container>
-        <Container fluid className="pl-0 pr-0 pb-5 pt-3" style={{background: '#fafafa'}}>
+        <Container fluid className="pl-0 pr-0 pb-5 pt-5 mt-3" style={{background: '#fafafa'}}>
           {list}
         </Container>
       </>

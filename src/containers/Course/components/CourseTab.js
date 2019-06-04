@@ -13,6 +13,7 @@ import Container from 'react-bootstrap/Container'
 // React Tabs
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import Col from 'reactstrap/es/Col'
 
 class CourseTab extends React.Component {
   constructor(props) {
@@ -26,36 +27,33 @@ class CourseTab extends React.Component {
   render() {
     return (
       <>
-        {/*<Router>*/}
-        <Container>
-          <div className="d-flex justify-content-end mr-lg-5">
-            <Container fluid>
-              <Tabs>
-                <TabList>
-                  <Tab>課程介紹</Tab>
-                  <Tab>教練介紹</Tab>
-                  <Tab>問與答</Tab>
-                  <Tab>專案更新</Tab>
-                  <Tab>留言</Tab>
-                </TabList>
-                <TabPanel>
-                  <CourseInfo courseInfo={this.state.course.c_intro} />
-                </TabPanel>
-                <TabPanel>
-                  <CoachInfo />
-                </TabPanel>
-                <TabPanel>
-                  <CourseQandA />
-                </TabPanel>
-                <TabPanel>
-                  <CourseUpdate />
-                </TabPanel>
-                <TabPanel>
-                  <CourseComment c_sid={this.state.c_sid} />
-                </TabPanel>
-              </Tabs>
-            </Container>
-          </div>
+        <Container fluid className="mt-lg-5 d-flex justify-content-center" style={{ minHeight: '80vh' }}>
+          <Col lg={9}>
+            <Tabs>
+              <TabList>
+                <Tab>課程介紹</Tab>
+                <Tab>教練介紹</Tab>
+                <Tab>問與答</Tab>
+                <Tab>專案更新</Tab>
+                <Tab>留言</Tab>
+              </TabList>
+              <TabPanel>
+                <CourseInfo courseInfo={this.state.course.c_intro} />
+              </TabPanel>
+              <TabPanel>
+                <CoachInfo />
+              </TabPanel>
+              <TabPanel>
+                <CourseQandA />
+              </TabPanel>
+              <TabPanel>
+                <CourseUpdate />
+              </TabPanel>
+              <TabPanel>
+                <CourseComment c_sid={this.state.c_sid} />
+              </TabPanel>
+            </Tabs>
+          </Col>
         </Container>
       </>
     )

@@ -103,8 +103,12 @@ class CourseComment extends React.Component {
 
     return (
       <>
-        <Container fluid>
-          {list}
+        <Container fluid style={{ fontSize: '1.2rem' }}>
+          <Row className="d-flex justify-content-center">
+            <Col lg={10}>
+              {list}
+            </Col>
+          </Row>
           <Container className="my-lg-5">
             <Row className="d-flex justify-content-center">
               <Col lg={8}>
@@ -120,8 +124,10 @@ class CourseComment extends React.Component {
                       id="text"
                       onChange={this.handleInput}
                     />
-                    <Form.Text className="text-muted text-right">
-                      留言區為討論課程內容用。請勿張貼私下交易（含揪團）、廣告、個資、或其他違反使用條款的內容。
+                    <Form.Text className="text-muted text-left">
+                      留言區為討論課程內容用。
+                      <br />
+                      請勿張貼私下交易（含揪團）、廣告、個資、或其他違反使用條款的內容。
                     </Form.Text>
                   </Form.Group>
                   <div className="text-right">

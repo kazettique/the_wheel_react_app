@@ -1,6 +1,7 @@
 .r_card_con {
   background-color: white;
   /* height: 15rem; */
+  transition: 0.5s;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.15);
 }
 .r_card_con:hover {

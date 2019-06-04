@@ -26,7 +26,7 @@ class CourseMainTitle extends React.Component {
             </Badge>
             </h3>
           </Row>
-          <Row>
+          <Row className="my-lg-2">
             <p>{this.state.course.c_subtitle}</p>
           </Row>
         </Container>

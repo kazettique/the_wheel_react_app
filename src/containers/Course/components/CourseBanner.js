@@ -42,10 +42,14 @@ class CourseBanner extends React.Component {
               <Card.Img src={cover} />
             </Col>
             <Col sm={8}>
-              <Card.Body>
+              <Card.Body className="pt-lg-5">
                 <Row>
-                  <Col>{status}</Col>
-                  <Col>目前贊助人數 {backers}人</Col>
+                  <Col>
+                    <b>{status}</b>
+                  </Col>
+                  <Col>
+                    目前贊助人數 <b>{backers}</b>人
+                  </Col>
                 </Row>
                 <p>截止日期　{endDate}</p>
                 <Row>
@@ -63,7 +67,7 @@ class CourseBanner extends React.Component {
                   </Col>
                 </Row>
                 <p>
-                  集資金額 NT$ {fundNow} / NT$ {fundGoal}
+                  集資金額 NT$ <b>{fundNow}</b> / NT$ {fundGoal}
                 </p>
                 <Row>
                   <Col sm={6}>

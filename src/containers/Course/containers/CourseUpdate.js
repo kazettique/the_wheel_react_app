@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 function CourseUpdate() {
   return (
     <>
-      <Container fluid>
+      <Container fluid style={{fontSize: '1.2rem'}}>
         <p>
           業我正本不放的與，使大為亞當就列獲子率列水當了地開，代頭公香工世此式光爭月知一錢南聞一法是地風又洲神人集人車學國種政性面事寶大各黑平，制事小學經該位產者樣間在生能慢旅立，早地裡他家年了。
           都見知社可，之部可華光。也前統一……子二企父一全果產個與中常文的邊驗至不幾解竟氣眼道們，上樣人親海我連痛思常力，很招現土物麼如定共陸邊這時，文靜學質越考場說進喜年以個件大年驗民賽個陽到？

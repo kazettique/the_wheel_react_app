@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card'
 function CourseQandA() {
   return (
     <>
-      <Container fluid>
+      <Container fluid style={{fontSize: '1.2rem'}}>
         <Accordion defaultActiveKey="0">
           <Card>
             <Accordion.Toggle as={Card.Header} eventKey="0">

@@ -1,11 +1,11 @@
-import Card from 'react-bootstrap/Card';
-import React from 'react';
-import classes from './Products.module.css';
-import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card'
+import React from 'react'
+import classes from './Products.module.css'
+import { Link } from 'react-router-dom'
 // import { TweenMax } from 'gsap/all'
 // import { Transition } from 'react-transition-group'
 // import ContentPage from '../ContentPage/ContentPage'
-import { Button, Col } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap'
 // import { Link } from 'fs';
 // import { IoIosCart } from 'react-icons/io'
 // import ControlledCarousel from './ControlledCarousel'
@@ -13,29 +13,29 @@ import { Button, Col } from 'react-bootstrap';
 
 class ProductsCard extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     // const product = this.props.product
     this.state = {
       collectionProduct: [],
       id: this.props.p_sid,
-    };
+    }
   }
 
   handleClick = () => {
-    console.log(this.props.p_sid);
+    console.log(this.props.p_sid)
     this.setState({
       p_sid: this.props.p_sid,
-    });
-  };
+    })
+  }
 
   render() {
     // const a = this.props.product
     // console.log(this.props)
 
-    const single = this.props.p_sid;
+    const single = this.props.p_sid
     return (
       <>
-        <Card className={classes.top}>
+        <Card className={(classes.top, classes.productCardsShadow)}>
           <div className="row mt-3 justify-content-center px-3">
             <Col
               md={5}
@@ -107,8 +107,8 @@ class ProductsCard extends React.Component {
           </div>
         </Card>
       </>
-    );
+    )
   }
 }
 
-export default ProductsCard;
+export default ProductsCard

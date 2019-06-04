@@ -27,8 +27,8 @@ class SingleProductList extends React.Component {
     return (
       <>
         <Container>
-          <Row>
-            <Col style={{ textAlign: 'center' }}>
+          <Row className="flex-column align-items-center">
+              <Col lg={8} style={{ textAlign: 'center' }}>
               <img
                 className={classes.imgSmallGroups}
                 style={{ width: '80%' }}
@@ -36,7 +36,7 @@ class SingleProductList extends React.Component {
                 alt=""
               />
             </Col>
-            <Col style={{ textAlign: 'center' }}>
+            <Col lg={8} style={{ textAlign: 'center' }}>
               <img
                 className={classes.imgSmallGroups}
                 style={{ width: '80%' }}
@@ -47,11 +47,19 @@ class SingleProductList extends React.Component {
           </Row>
         </Container>
         <Container>
-          <Row className={classes.productDescription}>
-            <Col>
+          <Row
+            className={classes.productDescription}
+            style={{
+              background: '#f3f3f3',
+              padding: '5rem',
+              justifyContent: 'space-between',
+              marginTop: '4rem',
+            }}
+          >
+            <Col lg={5}>
               <p>{this.props.product.p_description}</p>
             </Col>
-            <Col>
+            <Col lg={5}>
               <p>{this.props.product.p_description2}</p>
             </Col>
           </Row>
@@ -78,6 +86,7 @@ class SingleProductList extends React.Component {
             </Col> */}
           </Row>
         </Container>
+
       </>
     )
   }

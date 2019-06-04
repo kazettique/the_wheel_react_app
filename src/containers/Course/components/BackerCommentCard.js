@@ -20,15 +20,15 @@ class BackerCommentCard extends React.Component {
   render() {
     return (
       <>
-        <Container fluid className="p-lg-2">
+        <Container className="p-lg-2">
           <Row className="justify-content-md-center">
             <Container style={{ background: '#FAFAFA' }} className="p-lg-3">
-              <Row className="justify-content-md-center">
-                <Col lg={2}>
+              <Row className="justify-content-md-center align-items-center d-flex justify-content-center">
+                <Col lg={2} className="align-items-center">
                   <Image
                     src={this.props.m_photo}
                     roundedCircle
-                    style={{ height: '100px' }}
+                    style={{ height: '50px' }}
                   />
                   <p>
                     {this.props.m_name}
