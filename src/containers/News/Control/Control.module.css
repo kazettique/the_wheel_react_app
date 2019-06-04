@@ -24,10 +24,10 @@
 
 .Filter li {
   /* flex-grow: 1; */
-  padding: 0 1.2rem;
+  padding: 2px 1.2rem;
   text-align: center;
   border: 2px black solid;
-  border-radius: 10px;
+  border-radius: 500px;
   margin: 5px;
   font-weight: bold;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../../components/Button/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 import NewsList from "../../../components/NewsList/NewsList";
 import FullArticle from "../../FullArticle/FullArticle";
 import { TweenMax, Power4, TimelineLite } from "gsap/all";
@@ -121,13 +122,16 @@ class NewsLists extends React.Component {
       <React.Fragment>
         <div className={classes.NewsLists}>
           <Row>
-            <Col xs={12} className="d-flex justify-content-center">
-              {/* <h2 style={{}} className={classes.Font}>
-                文章列表
-              </h2> */}
+            <Col
+              xs={11}
+              lg={10}
+              style={{
+                width: "100%",
+                margin: "0 auto"
+              }}
+            >
+              <Row>{lists}</Row>
             </Col>
-
-            {lists}
           </Row>
         </div>
 
