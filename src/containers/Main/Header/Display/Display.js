@@ -2,7 +2,7 @@ import React from "react";
 import image from "../../../../image/display.png";
 import logo from "../../../../image/wheel-logo.png";
 import classes from "./Display.module.css";
-import { TweenMax, Bounce, Elastic } from "gsap/all";
+import { TweenMax, Power1 } from "gsap/all";
 
 class display extends React.Component {
   constructor(props) {
@@ -11,12 +11,11 @@ class display extends React.Component {
   }
 
   componentDidMount() {
-    TweenMax.from(this.display, 6, {
-      //   y: 300,
-      x: -500,
+    TweenMax.from(this.display, 2, {
+      x: -1000,
       opacity: 0,
       scale: 0.1,
-      ease: Elastic.easeOut
+      ease: Power1.easeOut
     });
   }
 

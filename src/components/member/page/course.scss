@@ -39,9 +39,17 @@
 
     .ellipsis {
       overflow: hidden;
-      height: 90px;
+      height: 70px;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    .cancel{
+      max-height: 30px;
+    }
+
+    .card-text2{
+      margin-top: 15px;
     }
 
     h5 {
@@ -55,6 +63,11 @@
 
     .btn {
       border-radius: 0;
+    }
+
+    .btn-dark{
+      background-color: #000000;
+      border-color: #000000;
     }
 
     .fab{

@@ -48,23 +48,25 @@ class news extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     window.twttr.widgets.load();
-    if(this.state.col_newsData.length>0){
-    var fbBtn = document.querySelector(".facebook-share");
-    console.log(fbBtn);
-    var title = encodeURIComponent("Hey everyone, come & see how good I look!");
-    var shareUrl =
-      "https://www.facebook.com/sharer/sharer.php?u=" +
-      window.location.href +
-      "&title=" +
-      title;
-    fbBtn.href = shareUrl;
+    if (this.state.col_newsData.length > 0) {
+      var fbBtn = document.querySelectorAll(".facebook-share");
+      console.log(fbBtn);
+      var title = encodeURIComponent(
+        "Hey everyone, come & see how good I look!"
+      );
+      var shareUrl =
+        "https://www.facebook.com/sharer/sharer.php?u=" +
+        window.location.href +
+        "&title=" +
+        title;
+      fbBtn.href = shareUrl;
 
-    fbBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
-      win.opener = null;
-    });
-  }
+      fbBtn.forEach(btn => btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
+        win.opener = null;
+      }));
+    }
   }
 
   async componentDidMount() {
@@ -260,7 +262,7 @@ class news extends React.Component {
                         style={{ maxWidth: "800px" }}
                         key={item.sid}
                       >
-                        <div className="row no-gutters">
+                        <div className="row no-gutters align-items-center">
                           <div className="col-md-6">
                             <img src={src} className="card-img" alt="..." />
                           </div>
@@ -269,7 +271,7 @@ class news extends React.Component {
                             <div className="card-body">
                               <div className="d-flex">
                                 <div className="titlearea">
-                                  <h5 className="card-title ellipsis">
+                                  <h5 className="card-title">
                                     {item.title}
                                   </h5>
                                 </div>
@@ -318,7 +320,7 @@ class news extends React.Component {
                                 </div>
                                 
                                 <Link
-                                  className="btn btn-success ml-auto"
+                                  className="btn btn-dark ml-auto"
                                   to={`/news/${item.sid}`}
                                 >
                                   查看新聞資訊

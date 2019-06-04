@@ -204,6 +204,31 @@ class products extends React.Component {
             className="d-flex justify-content-center bggray flex-column"
             //className={classes.bggray}
           >
+          <div>
+            <ControlledCarousel />
+            <div>
+              <Button className={classes.Button} onClick={this.props.onToggle} style={{borderRadius:'0'}}>
+                <IoIosCart size={25} />
+                {this.props.buttonLabel}
+                購物車
+              </Button>
+            </div>
+            <Container className={classes.SearchSideBar}>
+              <Row>
+                <Col lg={3}>
+                  <ProductsSearch
+                    handleType={this.handleType}
+                    handleGenre={this.handleGenre}
+                    handleInput={this.handleInput}
+                    handleSearch={this.handleSearch}
+                  />
+                </Col>
+                <Col lg={9} style={{ marginBottom: '5rem' }}>
+                  {/* <ProductsCard product={this.state.product} /> */}
+                  {list}
+                </Col>
+              </Row>
+            </Container>
             <div
               style={{
                 backgroundColor: 'white',
@@ -227,6 +252,9 @@ class products extends React.Component {
                   </div>
                 </Col>
               </div>
+              <Button className={classes.MoreButton2} onClick={this.handleMore} style={{color:'white', borderRadius:'0' }}>
+                更多商品
+              </Button>
             </div>
             <div className="w-100 d-flex justify-content-center">
               <Col xs={10} className="d-flex justify-content-center w-100">
@@ -301,8 +329,9 @@ class products extends React.Component {
                     <td>{item.quantity}</td>
                     <td>
                       <Button
-                        color="danger"
+                        className="btnhover_red"
                         onClick={() => this.props.deleteCartItem(index)}
+                        style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none'}}
                       >
                         X
                       </Button>
@@ -319,11 +348,18 @@ class products extends React.Component {
             </Table>
           </ModalBody>
           <ModalFooter>
+<<<<<<< HEAD
             <Button color="primary" onClick={this.props.ModalReset}>
               結帳
             </Button>
 
             <Button color="secondary" onClick={this.props.onToggle}>
+=======
+           
+              <Button  className="btnhover_red" onClick={this.props.ModalReset}   style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none'}}>結帳</Button>
+           
+            <Button  className="btnhover_red" onClick={this.props.onToggle}   style={{borderRadius:'0',backgroundColor:'black' , border:'none'}}>
+>>>>>>> 1b73d18a226ec2e8e1ae29024c56b50e0a9c8d85
               取消
             </Button>
           </ModalFooter>

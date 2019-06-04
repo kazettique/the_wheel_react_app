@@ -92,6 +92,7 @@ class ProductsCard extends React.Component {
                 >
                   <Button
                     variant="primary"
+                    style={{ borderRadius: '0', border: 'none' }}
                     className={classes.ButtonSpace2}
                     onClick={this.handleClick}
                     deleteCartItem={this.props.deleteCartItem}

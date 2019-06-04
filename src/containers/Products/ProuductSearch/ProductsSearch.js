@@ -90,6 +90,14 @@ class ProductsSearch extends React.Component {
               搜尋
             </Button>
           </Form.Group>
+          <Button
+            style={{ borderRadius: '0', border: 'none' }}
+            type="button"
+            className={classes.SearchButton}
+            onClick={this.clearAndSearch}
+          >
+            搜尋
+          </Button>
         </Form>
       </>
     );
