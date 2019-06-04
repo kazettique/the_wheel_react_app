@@ -14,7 +14,7 @@
   }
 
   .modal-dialog {
-    max-width: 70%;
+    max-width: 60%;
     margin: 4.75rem auto;
   }
 
@@ -34,6 +34,19 @@
 
     @include md {
       padding-bottom: 40px;
+    }
+
+    .alert-danger{
+      background-color: #f52a2a;
+      color: #ffffff;
+      font-weight: 700;
+      
+    }
+
+    .alert-success{
+      background-color: #000000;
+      color: #ffffff;
+      font-weight: 700;
     }
 
     .modal-header {

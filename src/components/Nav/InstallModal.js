@@ -220,6 +220,7 @@ class InstallModal extends React.Component {
                     value={this.state.phone}
                     onChange={this.handleModalFormInputChange}
                   />
+                  
                 </InputGroup>
 
                 <InputGroup className="mb-md-3">

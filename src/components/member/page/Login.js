@@ -147,7 +147,7 @@ class Login extends React.Component {
         <Container>
           <Row>
             <Col>
-              <Form>
+              <Form className="myForm">
                 <h2 className="text-center">登入</h2>
                 <div
                   id="info_bar"

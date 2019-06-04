@@ -221,29 +221,38 @@ class edit extends React.Component {
                         // alert('資料已成功新增!');
                         // this.handleModalClose();
                         if (!jsonObject.success) {
-                            this.setState({ installdb: 'block' });
-                            this.setState({
-                                installstate: 'alert alert-warning',
-                            });
-                            this.setState({
-                                installtext: jsonObject.message.text,
-                            });
-                            alert('E-mail重複使用');
 
-                            return;
-                        }
+                            if (jsonObject.message.info == '檔案格式不符') {
+                                // this.setState({ installdb: 'block' });
+                                // this.setState({
+                                //     installstate: 'alert alert-warning',
+                                // });
+                                // this.setState({
+                                //     installtext: jsonObject.message.text,
+                                // });
+                                Swal.fire({
+                                    type: 'error',
+                                    title: '檔案格式不符',
+                                    text: '資料沒有修改',
+                                    // footer: '<a href>Why do I have this issue?</a>'
+                                  })
+    
+                                return;
+                            }
 
-                        if (jsonObject.message.info == '檔案格式不符') {
-                            this.setState({ installdb: 'block' });
-                            this.setState({
-                                installstate: 'alert alert-warning',
-                            });
-                            this.setState({
-                                installtext: jsonObject.message.text,
-                            });
+
+
+
+                            // this.setState({ installdb: 'block' });
+                            // this.setState({
+                            //     installstate: 'alert alert-warning',
+                            // });
+                            // this.setState({
+                            //     installtext: jsonObject.message.text,
+                            // });
                             Swal.fire({
                                 type: 'error',
-                                title: '檔案格式不符',
+                                title: 'E-mail重複使用',
                                 text: '資料沒有修改',
                                 // footer: '<a href>Why do I have this issue?</a>'
                               })
@@ -251,21 +260,9 @@ class edit extends React.Component {
                             return;
                         }
 
-                        if (jsonObject.message.text == '資料沒有修改') {
-                            this.setState({ installdb: 'block' });
-                            this.setState({
-                                installstate: 'alert alert-warning',
-                            });
-                            this.setState({ installtext: '資料沒有修改' });
-                            Swal.fire({
-                                type: 'error',
-                                title: '資料沒有修改',
-                                text: '',
-                                // footer: '<a href>Why do I have this issue?</a>'
-                              })
+                       
 
-                            return;
-                        }
+                        
 
                         if (jsonObject.success) {
                             const sessionObj = await checkUserState();
@@ -289,13 +286,13 @@ class edit extends React.Component {
                             )
                             setTimeout(()=>this.props.history.push(`/member/edit/${id}`),2000)
                             // window.location.reload();
-                            this.setState({ installdb: 'block' });
-                            this.setState({
-                                installtext: jsonObject.message.text,
-                            });
-                            this.setState({
-                                installstate: `alert alert-success`,
-                            });
+                            // this.setState({ installdb: 'block' });
+                            // this.setState({
+                            //     installtext: jsonObject.message.text,
+                            // });
+                            // this.setState({
+                            //     installstate: `alert alert-success`,
+                            // });
                             this.setState({
                                 m_oldname: jsonObject.body.m_name,
                             });
