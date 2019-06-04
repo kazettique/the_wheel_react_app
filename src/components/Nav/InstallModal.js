@@ -280,7 +280,7 @@ class InstallModal extends React.Component {
                   <div className="imgarea mx-auto">
                     <img className="thumb" src="" />
                   </div>
-                  <Button variant="secondary mt-3" onClick={this.upload}>
+                  <Button variant="secondary mt-3" onClick={this.upload} className="btnhover">
                     上傳圖片
                   </Button>
                   <div>
@@ -314,6 +314,7 @@ class InstallModal extends React.Component {
             <Button
               variant="secondary m-auto"
               onClick={this.handleModalFormInputSave}
+              className="btnhover"
             >
               立即註冊
             </Button>

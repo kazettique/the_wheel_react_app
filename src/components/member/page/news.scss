@@ -37,6 +37,19 @@
       height: 50px;
     }
 
+    .cancel{
+      max-height: 30px;
+    }
+
+    .card-title{
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-height: 24px;
+      max-height: 50px;
+    }
+
     .ellipsis {
       overflow: hidden;
       display: -webkit-box;
@@ -73,13 +86,18 @@
       border-radius: 0;
     }
 
+    .btn-dark{
+      background-color: #000000;
+      border-color: #000000;
+    }
+
     .textcontent {
       height: 110px;
     }
 
     .fab {
-      color: #2699fb;
-      font-size: 28px;
+      color: #f52a2a;
+      font-size: 1.6rem;
       margin-right: 20px;
     }
   }

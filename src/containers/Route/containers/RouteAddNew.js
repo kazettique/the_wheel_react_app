@@ -237,7 +237,7 @@ class RouteAddNew extends Component {
                   <FormHead text="為路線新增地點" />
                 </Col>
               </Row>
-              <Row className="m-0 mt-3">
+              <Row className="m-0 mt-3 mb-5">
                 <Col
                   sm={2}
                   className="d-flex align-items-start flex-column justify-content-center"
@@ -248,19 +248,24 @@ class RouteAddNew extends Component {
                   <AddNewLocationsContainer num={this.props.l.locationList} />
                 </Col>
               </Row>
-              <Row className="m-0 justify-content-end">
-                <button
-                  className="btn location_btn m-0 mt-5  "
-                  onClick={this.addNewLocation}
-                >
-                  新增地點
-                </button>
-                <button
-                  className="m-0 mappreview11 "
-                  onClick={this.handleMapPreview}
-                >
-                  預覽地圖
-                </button>
+              <Row className="m-0 justify-content-end my-4 my-md-5">
+                <Col sm={2} className="d-flex justify-content-end p-0">
+                  <label> </label>
+                </Col>
+                <Col className="d-flex">
+                  <button
+                    className="btn location_btn m-0 w-50"
+                    onClick={this.addNewLocation}
+                  >
+                    新增地點
+                  </button>
+                  <button
+                    className="m-0 mappreview11 w-50 ml-5"
+                    onClick={this.handleMapPreview}
+                  >
+                    預覽地圖
+                  </button>
+                </Col>
               </Row>
               <Row className="m-0 mt-xl-5 ">
                 <small
@@ -297,6 +302,9 @@ class RouteAddNew extends Component {
               </Row>
 
               <Row className="m-0 justify-content-center ">
+                <Col sm={2} className="d-flex justify-content-end p-0">
+                  <label> </label>
+                </Col>
                 <button
                   className="m-3 py-1 addnewsubmitbtn "
                   onClick={this.addNewSubmit}

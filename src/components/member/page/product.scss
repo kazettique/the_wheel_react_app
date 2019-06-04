@@ -42,6 +42,10 @@
       height: 20px;
     }
 
+    .cancel{
+      max-height: 30px;
+    }
+
     .ellipsis {
       margin-bottom: 120px;
       line-height: 24px;
@@ -65,14 +69,19 @@
       border-radius: 0;
     }
 
+    .btn-dark{
+      background-color: #000000;
+      border-color: #000000;
+    }
+
     .textcontent {
       height: 110px;
     }
 
 
     .fab {
-      color: #2699fb;
-      font-size: 28px;
+      color: #f52a2a;
+      font-size: 1.6rem;
       margin-right: 20px;
     }
 
@@ -82,7 +91,7 @@
     }
 
     .titlename{
-      // width: 70%;
+      max-width: 70%;
     }
 
     a{

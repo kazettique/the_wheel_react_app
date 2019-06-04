@@ -55,7 +55,7 @@ class road extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     window.twttr.widgets.load();
     if (this.state.col_routeData.length > 0) {
-      var fbBtn = document.querySelector(".facebook-share");
+      var fbBtn = document.querySelectorAll(".facebook-share");
       console.log(fbBtn);
       var title = encodeURIComponent(
         "Hey everyone, come & see how good I look!"
@@ -67,11 +67,11 @@ class road extends React.Component {
         title;
       fbBtn.href = shareUrl;
 
-      fbBtn.addEventListener("click", function(e) {
+      fbBtn.forEach(btn => btn.addEventListener("click", function(e) {
         e.preventDefault();
         var win = window.open(shareUrl, "ShareOnFb", getWindowOptions());
         win.opener = null;
-      });
+      }));
     }
   }
 
@@ -330,7 +330,7 @@ class road extends React.Component {
                       style={{ maxWidth: "850px" }}
                       key={item.c_sid}
                     >
-                      <div className="row no-gutters">
+                      <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           <img
                             src={"http://localhost:5000/r_upload_img/" +item.r_img}
@@ -399,7 +399,7 @@ class road extends React.Component {
                               </a> */}
                               <h5 className="price">騎乘時間:{item.r_time}</h5>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/route/${item.r_sid}`}
                               >
                                 查看路線資訊
@@ -444,7 +444,7 @@ class road extends React.Component {
                                 variant="danger"
                                 onClick={this.riseCancel(item.r_sid)}
                               >
-                                取消追蹤
+                                刪除發起
                               </Button>
                             </div>
                             <p className="card-text2 ">
@@ -488,7 +488,7 @@ class road extends React.Component {
                               </a> */}
                               <h5 className="price">騎乘時間:{item.r_time}</h5>
                               <Link
-                                class="btn btn-success ml-auto"
+                                class="btn btn-dark ml-auto"
                                 to={`/route/${item.r_sid}`}
                               >
                                 查看路線資訊

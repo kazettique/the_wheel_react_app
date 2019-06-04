@@ -276,7 +276,7 @@ class NavTop extends React.Component {
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
-                    className="d-flex personal-btn h-100"
+                    className="d-flex personal-btn h-100 align-items-center"
                   >
                     <div className="flex-grow-1">
                       <div className="littlePhoto mx-auto">
