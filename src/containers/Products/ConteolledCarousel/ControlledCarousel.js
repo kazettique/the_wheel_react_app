@@ -1,53 +1,60 @@
-import React from 'react'
-import classes from '../Products.module.css'
-import { Carousel } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import classes from '../Products.module.css';
+import { Carousel, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class ControlledCarousel extends React.Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
 
-    this.handleSelect = this.handleSelect.bind(this)
+    this.handleSelect = this.handleSelect.bind(this);
 
     this.state = {
       index: 0,
       direction: null,
       product: [],
-    }
+    };
   }
 
   componentDidMount() {
     fetch('http://localhost:5000/prouductcarousel')
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        this.setState({ product: data })
+        console.log(data);
+        this.setState({ product: data });
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }
   handleSelect(selectedIndex, e) {
     this.setState({
       index: selectedIndex,
       direction: e.direction,
-    })
+    });
   }
 
   render() {
-    const { index, direction } = this.state
-    const single = this.props.p_sid
+    const { index, direction } = this.state;
+    const single = this.props.p_sid;
     return (
       <>
-        <div>
-          <h1 className={classes.CarouselTitle}>本月推薦商品</h1>
+        <div className="w-100 d-flex justify-content-center">
+          {' '}
+          <Col xs={11} lg={10} className="my-4 flex-column m-0 ">
+            <h1 className="r_fs_20 m-0 r_color_red r_fw_extra_bold">
+              THE WHEEL 商城
+            </h1>
+            <h1 className="m-0  mt-1 r_fw_bold r_fs_20">本月推薦商品</h1>
+          </Col>
         </div>
+
         <Carousel
           activeIndex={index}
           direction={direction}
           onSelect={this.handleSelect}
-          className={classes.Carousel}
-          style={{ height: '500px' }}
+          className={(classes.Carousel, classes.Carouselol)}
+          style={{ height: '700px' }}
         >
           {this.state.product.map((item, index) => (
             <Carousel.Item key={index} style={{ textAlign: 'center' }}>
@@ -67,7 +74,7 @@ class ControlledCarousel extends React.Component {
                 alt="First slide"
                 style={{ 'object-fit': 'contain' }}
               /> */}
-              <p>{item.p_name}</p>
+              <p className={classes.itemtext}>{item.p_name}</p>
             </Carousel.Item>
           ))}
 
@@ -83,8 +90,8 @@ class ControlledCarousel extends React.Component {
           </Carousel.Item> */}
         </Carousel>
       </>
-    )
+    );
   }
 }
 
-export default ControlledCarousel
+export default ControlledCarousel;
