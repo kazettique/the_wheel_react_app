@@ -23,7 +23,7 @@ class BackItButton extends React.Component {
         return (
             <>
                 <button
-                    className="r_d_buttons succeed_btn r_fw_bold"
+                    className="r_d_buttons succeed_btn r_fw_bold btnhover"
                     variant="secondary"
                     onClick={this.props.onClick}
                 >
@@ -97,7 +97,7 @@ class LikeItButton extends React.Component {
         return (
             <>
                 <button
-                    className="r_d_buttons r_like_button r_fw_bold ml-3 ml-sm-5"
+                    className="r_d_buttons r_like_button r_fw_bold ml-3 ml-sm-5 btnhover"
                     variant={this.state.isLiked ? 'light' : 'danger'}
                     onClick={this.props.onClick}
                 >

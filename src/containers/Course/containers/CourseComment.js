@@ -126,8 +126,9 @@ class CourseComment extends React.Component {
                   </Form.Group>
                   <div className="text-right">
                     <Button
-                      variant="secondary"
+                      style={{border:'none'}}
                       type="button"
+                      className="btn_bgc_red btnhover_red"
                       onClick={this.handleSubmitComment}
                     >
                       送出

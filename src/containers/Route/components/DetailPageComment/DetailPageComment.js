@@ -152,7 +152,7 @@ class DetailPageComment extends Component {
                                         />
                                     </div>
                                     <button
-                                        className="r_comment_btn py-1 px-4 my-2 r_fw_bold"
+                                        className="r_comment_btn py-1 px-4 my-2 r_fw_bold btnhover"
                                         type="button"
                                         onClick={this.handleSubmitComment}
                                     >
