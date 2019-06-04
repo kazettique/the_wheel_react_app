@@ -20,7 +20,7 @@
   /* position: static; */
   width: 80%;
   background-color: white;
-  padding: 20px 40px;
+  padding: 20px 50px;
   margin: 0 auto;
   /* min-height: 200vh; */
   /* z-index: 2000; */
@@ -31,10 +31,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 50px 0;
 }
 
 .Article figure img {
-  max-width: 100%;
+  min-width: 100%;
   min-height: 100%;
   object-fit: cover;
 }
@@ -43,6 +44,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.Article a,
+.Article a:visited,
+.Article a:hover {
+  color: black;
 }
 
 .Collect {
@@ -72,6 +79,10 @@
   margin-left: 20px;
 }
 
+.SocialMedia > div > span {
+  margin-left: 50px;
+}
+
 .Panel {
   width: 100%;
   display: flex;
@@ -91,6 +102,7 @@
   background-color: #f7f7f8;
   padding: 20px;
   margin: 10px 0;
+  margin-top: 30px;
   color: black;
 }
 

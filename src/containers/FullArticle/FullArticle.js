@@ -12,6 +12,7 @@ import { Button } from "react-bootstrap";
 import Verify from "../../components/Verification/Verification";
 import { newCommentCode } from "../../store/verifyActions";
 import image from "../../image/icon.png";
+import { Container, Row, Col } from "react-bootstrap";
 
 var getWindowOptions = function() {
   var width = 500;
@@ -556,76 +557,93 @@ class Fullarticle extends React.Component {
           style={{ width: "100%" }}
         >
           <div className={classes.Article} ref={this.article}>
-            <div className={classes.Panel}>
-              <div>觀看人數： {views ? views : 0} </div>
-              {this.state.user ? (
-                <div className={classes.Collect}>
-                  <span onClick={this.collectHandler}>
-                    {collected ? "已收藏" : "收藏此文章"}
-                  </span>
-                </div>
-              ) : null}
-            </div>
-            <div>
-              <h1>{title}</h1>
-              <div className={classes.SocialMedia}>
-                分享此篇文章:
-                <div>
-                  <a
-                    style={{ fontSize: "2rem", color: "black" }}
-                    href={`https://twitter.com/intent/tweet?url=${
-                      window.location.href
-                    }&text="bike news!"`}
+            <Container>
+              <Row>
+                <Col lg={3}>
+                  <h1
+                    style={{
+                      fontSize: "2.5rem",
+                      paddingTop: "80px",
+                      marginRight: "20px"
+                    }}
                   >
-                    <i className="fab fa-twitter" />
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="/"
-                    style={{ fontSize: "2rem", color: "black" }}
-                    className="facebook-share"
-                  >
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: figure }} />
-            <div dangerouslySetInnerHTML={{ __html: text }} />
-            {commentList}
-            <div className={classes.CommentArea}>
-              <textarea
-                ref={this.textarea}
-                onChange={() =>
-                  this.props.dispatch({
-                    type: "COMMENT_INPUT",
-                    input: this.textarea.current.value
-                  })
-                }
-                placeholder="留言內容請輸入10個字以上~"
-              />
-            </div>
-            <div className={classes.CommentButton}>
-              <div>
-                <span>請輸入下方驗證碼</span>
-                <input ref={el => (this.verify = el)} />{" "}
-              </div>
-              <div>
-                <span>若未登入將以匿名送出留言</span>
-                <Button
-                  variant="dark"
-                  onClick={this.commentHandler}
-                  disabled={disable}
-                  style={{ borderRadius: 0 }}
-                >
-                  送出留言
-                </Button>
-              </div>
-            </div>
-            <div className={classes.Verify}>
-              <Verify code={this.props.code} />
-            </div>
+                    {title}
+                  </h1>
+                </Col>
+                <Col lg={9}>
+                  <div className={classes.Panel}>
+                    {this.state.user ? (
+                      <div className={classes.Collect}>
+                        <span onClick={this.collectHandler}>
+                          {collected ? "已收藏" : "收藏此文章"}
+                        </span>
+                      </div>
+                    ) : null}
+                  </div>
+                  <div>
+                    <div className={classes.SocialMedia}>
+                      分享此篇文章:
+                      <div>
+                        <a
+                          style={{ fontSize: "1.2rem", color: "red" }}
+                          href={`https://twitter.com/intent/tweet?url=${
+                            window.location.href
+                          }&text="bike news!"`}
+                        >
+                          <i className="fab fa-twitter" />
+                        </a>
+                      </div>
+                      <div>
+                        <a
+                          href="/"
+                          style={{ fontSize: "1.2rem", color: "red" }}
+                          className="facebook-share"
+                        >
+                          <i className="fab fa-facebook-f" />
+                        </a>
+                        <span> 觀看人數： {views ? views : 0} </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div dangerouslySetInnerHTML={{ __html: figure }} />
+                  <div dangerouslySetInnerHTML={{ __html: text }} />
+
+                  {commentList}
+                  <div className={classes.CommentArea}>
+                    <textarea
+                      ref={this.textarea}
+                      onChange={() =>
+                        this.props.dispatch({
+                          type: "COMMENT_INPUT",
+                          input: this.textarea.current.value
+                        })
+                      }
+                      placeholder="留言內容請輸入10個字以上~"
+                    />
+                  </div>
+                  <div className={classes.CommentButton}>
+                    <div>
+                      <span>請輸入下方驗證碼</span>
+                      <input ref={el => (this.verify = el)} />{" "}
+                    </div>
+                    <div>
+                      <span>若未登入將以匿名送出留言</span>
+                      <Button
+                        variant="dark"
+                        onClick={this.commentHandler}
+                        disabled={disable}
+                        style={{ borderRadius: 0 }}
+                      >
+                        送出留言
+                      </Button>
+                    </div>
+                  </div>
+                  <div className={classes.Verify}>
+                    <Verify code={this.props.code} />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
           </div>
         </div>
       </React.Fragment>
