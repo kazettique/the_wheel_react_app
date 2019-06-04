@@ -44,7 +44,7 @@ class Fullarticle extends React.Component {
   }
 
   componentDidMount() {
-    window.twttr.widgets.load();
+    // window.twttr.widgets.load();
     let sid = this.props.selectedSid;
     if (!this.props.selectedSid) {
       sid = this.props.match.params.id;
@@ -613,7 +613,12 @@ class Fullarticle extends React.Component {
               </div>
               <div>
                 <span>若未登入將以匿名送出留言</span>
-                <Button onClick={this.commentHandler} disabled={disable}>
+                <Button
+                  variant="dark"
+                  onClick={this.commentHandler}
+                  disabled={disable}
+                  style={{ borderRadius: 0 }}
+                >
                   送出留言
                 </Button>
               </div>

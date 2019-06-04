@@ -29,6 +29,11 @@ import {
 // import { IoIosCart } from 'react-icons/io'
 // import ControlledCarousel from './ControlledCarousel'
 // import { IoIosHand } from 'react-icons/io'
+// import R Alert made by Ivy
+import RAlert from '../../Route/components/R_Alert/R_Alert'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { alertAppear } from '../../Route/actions'
 
 class SingleSiderBar extends React.Component {
   constructor(props) {
@@ -60,7 +65,8 @@ class SingleSiderBar extends React.Component {
 
     let quantity = this.state.quantity
     if (quantity === 0) {
-      alert('請選擇數量')
+      // alert('請選擇數量')
+      this.props.alertAppear(false, "請選擇數量")
     } else {
       if (!localStorage.getItem('cart')) {
         const cart = []
@@ -113,7 +119,8 @@ class SingleSiderBar extends React.Component {
     // localStorage.setItem('cart', JSON.stringify(cart))
     let quantity = this.state.quantity
     if (quantity === 0) {
-      alert('請選擇數量')
+      // alert('請選擇數量')
+      this.props.alertAppear(false, "請選擇數量")
     } else {
       this.props.history.push("/checkout");
       let product = this.state.product
@@ -157,6 +164,7 @@ class SingleSiderBar extends React.Component {
     let cartlength = cart.length
     return (
       <>
+        <RAlert />
         <Container
           fluid
           // style={{ width: '90%' }}
@@ -230,6 +238,7 @@ class SingleSiderBar extends React.Component {
                 <Button
                   className={classes.productSideBarButton}
                   onClick={this.handleBuy}
+                  style={{borderRadius:'0'}}
                 >
                   直接購買
                   </Button>
@@ -241,6 +250,7 @@ class SingleSiderBar extends React.Component {
                   // disabled={cart.find(item => item.p_id === product.p_id)}
                   color="secondary"
                   onClick={() => this.addToCart(product)}
+                  style={{borderRadius:'0'}}
                 >
                   加入購物車
                 </Button>
@@ -296,9 +306,9 @@ class SingleSiderBar extends React.Component {
           </ModalBody>
           <ModalFooter>
 
-            <Button color="primary" onClick={this.props.ModalReset} >結帳</Button>
+            <Button color="danger" onClick={this.props.ModalReset} >結帳</Button>
 
-            <Button color="secondary" onClick={this.props.onToggle}>
+            <Button color="dark" onClick={this.props.onToggle}>
               取消
             </Button>
           </ModalFooter>
@@ -308,4 +318,19 @@ class SingleSiderBar extends React.Component {
   }
 }
 
-export default withRouter(SingleSiderBar)
+// For R Alert
+const mapStateToProps = state => ({
+  a: state.alertReducer
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { alertAppear },
+    dispatch
+  );
+
+// export default withRouter(SingleSiderBar)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SingleSiderBar));

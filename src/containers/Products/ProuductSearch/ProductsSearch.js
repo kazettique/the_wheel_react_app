@@ -81,15 +81,23 @@ class ProductsSearch extends React.Component {
               <option value="輪胎">輪胎</option>
               <option value="踏板">踏板</option>
             </Form.Control>
-            <Button
+            {/* <Button
               variant="primary"
               type="button"
               className={classes.SearchButton}
               onClick={this.clearAndSearch}
             >
               搜尋
-            </Button>
+            </Button> */}
           </Form.Group>
+          <Button
+            style={{ borderRadius: '0', border: 'none' }}
+            type="button"
+            className={classes.SearchButton}
+            onClick={this.clearAndSearch}
+          >
+            搜尋
+          </Button>
         </Form>
       </>
     );

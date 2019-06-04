@@ -185,62 +185,42 @@ class products extends React.Component {
     }
 
     return (
-      <div className={classes.bggray}>
-        <Transition
-          unmountOnExit
-          in={this.props.show}
-          timeout={1000}
-          onEnter={node => TweenMax.set(node, startState)}
-          addEndListener={(node, done) => {
-            TweenMax.to(node, 0.5, {
-              autoAlpha: this.props.show ? 1 : 0,
-              y: this.props.show ? 0 : 50,
-              onComplete: done,
-            });
-          }}
-        >
-          <div
-            style={{ marginTop: '56px' }}
-            className="d-flex justify-content-center bggray flex-column"
-            //className={classes.bggray}
+      <>
+        <div className={classes.bggray}>
+          <Transition
+            unmountOnExit
+            in={this.props.show}
+            timeout={1000}
+            onEnter={node => TweenMax.set(node, startState)}
+            addEndListener={(node, done) => {
+              TweenMax.to(node, 0.5, {
+                autoAlpha: this.props.show ? 1 : 0,
+                y: this.props.show ? 0 : 50,
+                onComplete: done,
+              });
+            }}
           >
             <div
-              style={{
-                backgroundColor: 'white',
-                width: '100%',
-                paddingBottom: '3rem',
-              }}
+              style={{ marginTop: '56px' }}
+              className="d-flex justify-content-center bggray flex-column"
+              //className={classes.bggray}
             >
-              <ControlledCarousel />
-              <div className="d-flex justify-content-center">
-                {' '}
-                <Col xs={11} lg={10} className="p-0">
-                  <div className="w-100">
-                    <Button
-                      className={classes.Button}
-                      onClick={this.props.onToggle}
-                    >
-                      <IoIosCart size={25} />
-                      {this.props.buttonLabel}
-                      購物車
-                    </Button>
-                  </div>
-                </Col>
-              </div>
-            </div>
-            <div className="w-100 d-flex justify-content-center">
-              <Col xs={10} className="d-flex justify-content-center w-100">
-                <Container
-                  className={
-                    (classes.SearchSideBar, classes.bggray, classes.pforcew100)
-                  }
-                  style={{ width: '100%' }}
-                >
-                  <Row className="d-flex  justify-content-between">
-                    <Col
-                      lg={2.5}
-                      style={{ marginTop: '3rem', maxWidth: '200px' }}
-                    >
+              <div>
+                <ControlledCarousel />
+                <div>
+                  <Button
+                    className={classes.Button}
+                    onClick={this.props.onToggle}
+                    style={{ borderRadius: '0' }}
+                  >
+                    <IoIosCart size={25} />
+                    {this.props.buttonLabel}
+                    購物車
+                  </Button>
+                </div>
+                <Container className={classes.SearchSideBar}>
+                  <Row>
+                    <Col lg={3}>
                       <ProductsSearch
                         handleType={this.handleType}
                         handleGenre={this.handleGenre}
@@ -248,87 +228,172 @@ class products extends React.Component {
                         handleSearch={this.handleSearch}
                       />
                     </Col>
-                    <Col
-                      lg={9}
-                      style={{ marginBottom: '5rem', marginTop: '5rem' }}
-                    >
+                    <Col lg={9} style={{ marginBottom: '5rem' }}>
                       {/* <ProductsCard product={this.state.product} /> */}
                       {list}
-                      <div
-                        className={classes.MoreButton}
-                        style={{ textAlign: 'center', marginBottom: '100px' }}
-                      >
-                        <Button
-                          className={classes.MoreButton2}
-                          onClick={this.handleMore}
-                        >
-                          更多商品
-                        </Button>
-                      </div>
                     </Col>
                   </Row>
                 </Container>
-              </Col>
-
-              {/* {this.props.children} */}
-            </div>
-          </div>
-        </Transition>
-        <Modal
-          isOpen={this.props.modal}
-          toggle={this.props.onToggle}
-          className={this.props.className}
-          size="lg"
-        >
-          <ModalHeader toggle={this.props.onToggle}>購物車</ModalHeader>
-          <ModalBody>
-            <Table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>商品名</th>
-                  <th>價格</th>
-                  <th>數量</th>
-                  <th>刪除</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cart.map((item, index) => (
-                  <tr>
-                    <th scope="row">{index + 1}</th>
-                    <td>{item.p_name}</td>
-                    <td>{item.p_price}</td>
-                    <td>{item.quantity}</td>
-                    <td>
-                      <Button
-                        color="danger"
-                        onClick={() => this.props.deleteCartItem(index)}
+                {/* <div
+                  style={{
+                    backgroundColor: 'white',
+                    width: '100%',
+                    paddingBottom: '3rem',
+                  }}
+                > */}
+                {/*                  
+                  <div className="d-flex justify-content-center">
+                    {' '}
+                    <Col xs={11} lg={10} className="p-0">
+                      <div className="w-100">
+                        <Button
+                          className={classes.Button}
+                          onClick={this.props.onToggle}
+                        >
+                          <IoIosCart size={25} />
+                          {this.props.buttonLabel}
+                          購物車
+                        </Button>
+                      </div>
+                    </Col>
+                  </div> */}
+                {/* <Button
+                    className={classes.MoreButton2}
+                    onClick={this.handleMore}
+                    style={{ color: 'white', borderRadius: '0' }}
+                  >
+                    更多商品
+                  </Button> */}
+                {/* </div> */}
+                <div className="w-100 d-flex justify-content-center">
+                  <Col xs={10} className="d-flex justify-content-center w-100">
+                    {/* <Container
+                      className={
+                        (classes.SearchSideBar,
+                        classes.bggray,
+                        classes.pforcew100)
+                      }
+                      style={{ width: '100%' }}
+                    > */}
+                    <Row className="d-flex  justify-content-between">
+                      <Col
+                        lg={2.5}
+                        style={{ marginTop: '3rem', maxWidth: '200px' }}
                       >
-                        X
-                      </Button>
-                    </td>
+                        {/* <ProductsSearch
+                            handleType={this.handleType}
+                            handleGenre={this.handleGenre}
+                            handleInput={this.handleInput}
+                            handleSearch={this.handleSearch}
+                          /> */}
+                      </Col>
+                      <Col
+                        lg={9}
+                        style={{ marginBottom: '5rem', marginTop: '5rem' }}
+                      >
+                        {/* <ProductsCard product={this.state.product} /> */}
+                        {/* {list} */}
+                        <div
+                          className={classes.MoreButton}
+                          style={{
+                            textAlign: 'center',
+                            marginBottom: '100px',
+                          }}
+                        >
+                          <Button
+                            className={classes.MoreButton2}
+                            onClick={this.handleMore}
+                          >
+                            更多商品
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+                    {/* </Container> */}
+                  </Col>
+
+                  {/* {this.props.children} */}
+                </div>
+              </div>
+            </div>
+          </Transition>
+          <Modal
+            isOpen={this.props.modal}
+            toggle={this.props.onToggle}
+            className={this.props.className}
+            size="lg"
+          >
+            <ModalHeader toggle={this.props.onToggle}>購物車</ModalHeader>
+            <ModalBody>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>商品名</th>
+                    <th>價格</th>
+                    <th>數量</th>
+                    <th>刪除</th>
                   </tr>
-                ))}
-              </tbody>
+                </thead>
+                <tbody>
+                  {cart.map((item, index) => (
+                    <tr>
+                      <th scope="row">{index + 1}</th>
+                      <td>{item.p_name}</td>
+                      <td>{item.p_price}</td>
+                      <td>{item.quantity}</td>
+                      <td>
+                        <Button
+                          className="btnhover_red"
+                          onClick={() => this.props.deleteCartItem(index)}
+                          style={{
+                            borderRadius: '0',
+                            backgroundColor: '#f52a2a',
+                            border: 'none',
+                          }}
+                        >
+                          X
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
 
-              <tr>
-                <td>總價</td>
-                <td />
-                <td>NT:{totalPrice}</td>
-              </tr>
-            </Table>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.props.ModalReset}>
-              結帳
-            </Button>
+                <tr>
+                  <td>總價</td>
+                  <td />
+                  <td>NT:{totalPrice}</td>
+                </tr>
+              </Table>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                className="btnhover_red"
+                onClick={this.props.ModalReset}
+                style={{
+                  borderRadius: '0',
+                  backgroundColor: '#f52a2a',
+                  border: 'none',
+                }}
+              >
+                結帳
+              </Button>
 
-            <Button color="secondary" onClick={this.props.onToggle}>
-              取消
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
+              <Button
+                className="btnhover_red"
+                onClick={this.props.onToggle}
+                style={{
+                  borderRadius: '0',
+                  backgroundColor: 'black',
+                  border: 'none',
+                }}
+              >
+                取消
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
+      </>
     );
   }
 }

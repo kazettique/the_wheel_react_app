@@ -312,6 +312,7 @@ class InstallModal extends React.Component {
             <Button
               variant="secondary m-auto"
               onClick={this.handleModalFormInputSave}
+              className="btnhover"
             >
               立即註冊
             </Button>

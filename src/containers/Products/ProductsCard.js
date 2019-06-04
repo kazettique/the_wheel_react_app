@@ -46,8 +46,8 @@ class ProductsCard extends React.Component {
                 // variant="top"
                 src={this.props.pic}
                 alt=""
-                style={{ objectFit: 'cover', transform: 'translateY(-20px)' }}
-                className="w-100 h-90"
+                style={{ objectFit: 'contain' }}
+                className="w-100 h-100"
               />
             </Col>
             <Col>
@@ -92,6 +92,7 @@ class ProductsCard extends React.Component {
                 >
                   <Button
                     variant="primary"
+                    style={{ borderRadius: '0', border: 'none' }}
                     className={classes.ButtonSpace2}
                     onClick={this.handleClick}
                     deleteCartItem={this.props.deleteCartItem}
