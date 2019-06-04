@@ -1,12 +1,12 @@
-import React from 'react';
-import Logo from '../Logo/Logo';
-import classes from './Nav.module.css';
-import './Nav.module.css';
-import { NavLink, withRouter, Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import InstallModal from './InstallModal';
-import { Row, Dropdown, Col, Navbar, Nav, Form, Button } from 'react-bootstrap';
-import './myMember-App.scss';
+import React from "react";
+import Logo from "../Logo/Logo";
+import classes from "./Nav.module.css";
+import "./Nav.module.css";
+import { NavLink, withRouter, Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import InstallModal from "./InstallModal";
+import { Row, Dropdown, Col, Navbar, Nav, Form, Button } from "react-bootstrap";
+import "./myMember-App.scss";
 
 class NavTop extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ class NavTop extends React.Component {
     this.state = {
       showMenu: false,
       showNav: true,
-      loginUser: '',
-      isLogined: '',
-      user_id: '',
-      session_name: '',
-      session_photo: '',
-      showModalIns: false,
+      loginUser: "",
+      isLogined: "",
+      user_id: "",
+      session_name: "",
+      session_photo: "",
+      showModalIns: false
     };
 
     this.observer = null;
@@ -32,14 +32,14 @@ class NavTop extends React.Component {
   }
 
   onRouteChanged() {
-    console.log('ROUTE CHANGED');
+    console.log("ROUTE CHANGED");
     this.checkUserState();
   }
 
   menuHandler = () => {
     if (window.innerWidth <= 992) {
       this.setState((prevState, prevProp) => ({
-        showMenu: !prevState.showMenu,
+        showMenu: !prevState.showMenu
       }));
     }
   };
@@ -50,7 +50,7 @@ class NavTop extends React.Component {
   // 開啟登入視窗
   handleAddModalShowLog = () => {
     this.setState({
-      showModalLogin: true,
+      showModalLogin: true
     });
   };
 
@@ -62,7 +62,7 @@ class NavTop extends React.Component {
   // 開啟註冊視窗
   handleAddModalShowIns = () => {
     this.setState({
-      showModalIns: true,
+      showModalIns: true
     });
   };
 
@@ -89,26 +89,26 @@ class NavTop extends React.Component {
 
   checkUserState = async () => {
     try {
-      const response = await fetch('http://localhost:5000/is_logined', {
-        method: 'GET',
-        credentials: 'include',
+      const response = await fetch("http://localhost:5000/is_logined", {
+        method: "GET",
+        credentials: "include",
         headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        })
       });
 
       // if (!response.ok) throw new Error(response.statusText);
 
       const jsonObject = await response.json();
 
-      console.log('Nav', jsonObject);
+      console.log("Nav", jsonObject);
       await this.setState({
         loginUser: jsonObject.loginUser,
         isLogined: jsonObject.isLogined,
         user_id: jsonObject.user_id,
         session_name: jsonObject.session_name,
-        session_photo: jsonObject.session_photo,
+        session_photo: jsonObject.session_photo
       });
     } catch (e) {
       console.log(e);
@@ -119,23 +119,23 @@ class NavTop extends React.Component {
   //登出
   logOut = async () => {
     try {
-      const response = await fetch('http://localhost:5000/logout', {
-        method: 'GET',
-        credentials: 'include',
+      const response = await fetch("http://localhost:5000/logout", {
+        method: "GET",
+        credentials: "include",
         headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      }).then(localStorage.removeItem('meber'));
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        })
+      }).then(localStorage.removeItem("meber"));
       const jsonObject = await response.json();
       console.log(jsonObject);
       await this.setState({
         loginUser: jsonObject.loginUser,
         isLogined: jsonObject.isLogined,
-        user_id: jsonObject.user_id,
+        user_id: jsonObject.user_id
       });
       // document.location.href = '/';
-      this.props.history.push('/');
+      this.props.history.push("/");
     } catch (e) {
       console.log(e);
     }
@@ -151,8 +151,8 @@ class NavTop extends React.Component {
       rgb(255, 6, 0, 0.9),
       rgb(255, 255, 255, 0.2)
     )`,
-      opacity: '0.7',
-      width: '100%',
+      opacity: "0.7",
+      width: "100%"
     };
     let navClass = [classes.Background];
     if (!this.state.showNav) {
@@ -161,21 +161,21 @@ class NavTop extends React.Component {
 
     let menuClass = [classes.Nav];
     let activeStyle = {
-      color: 'white',
-      fontSize: '1.4rem',
-      textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column',
+      color: "white",
+      fontSize: "1.2rem",
+      textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column"
     };
     if (this.state.showMenu) {
       menuClass = [classes.Nav, classes.Open];
-      activeStyle = { color: 'white', fontSize: '2.5rem' };
+      activeStyle = { color: "white", fontSize: "2.5rem" };
     }
     return (
       <nav className={classes.Navbar}>
-        <div className={navClass.join(' ')} ref={el => (this.nav = el)}>
+        <div className={navClass.join(" ")} ref={el => (this.nav = el)}>
           <Logo />
 
           <div className={classes.Menu} onClick={this.menuHandler}>
@@ -183,10 +183,10 @@ class NavTop extends React.Component {
             <div />
             <div />
           </div>
-          <ul className={menuClass.join(' ')}>
-            <Container fluid={true} className="text-nowrap h-100">
-              <Row className="h-100 justify-content-end">
-                <Col lg={2} className="h-100 nav_m_w_80">
+          <ul className={menuClass.join(" ")}>
+            <Container fluid={true} className="text-nowrap">
+              <Row className="justify-content-end" style={{ margin: 0 }}>
+                <Col lg={2} className="nav_m_w_80">
                   <li className="m-0">
                     <NavLink
                       to="/route"
@@ -194,22 +194,10 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       騎車路線
-                      <div style={location === '/route' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
-                {/* <Col lg={2}>
-                  <li className="text-nowrap">
-                    <NavLink
-                      to="/group"
-                      activeStyle={activeStyle}
-                      onClick={this.menuHandler}
-                    >
-                      揪團騎車
-                      <div style={location === "/group" ? style : null} />
-                    </NavLink>
-                  </li>
-                </Col> */}
+
                 <Col lg={2} className="nav_m_w_80">
                   <li className="text-nowrap m-0">
                     <NavLink
@@ -218,7 +206,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       課程專區
-                      <div style={location === '/course' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -230,7 +217,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       文章專區
-                      <div style={location === '/news' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -242,7 +228,6 @@ class NavTop extends React.Component {
                       onClick={this.menuHandler}
                     >
                       商品頁面
-                      <div style={location === '/products' ? style : null} />
                     </NavLink>
                   </li>
                 </Col>
@@ -262,9 +247,9 @@ class NavTop extends React.Component {
                 <NavLink
                   to="/Login"
                   className={
-                    this.state.user_id == '' || this.state.user_id == undefined
-                      ? 'd-block'
-                      : 'd-none'
+                    this.state.user_id == "" || this.state.user_id == undefined
+                      ? "d-block"
+                      : "d-none"
                   }
                 >
                   登入
@@ -273,9 +258,9 @@ class NavTop extends React.Component {
                   variant=" ml-auto"
                   onClick={this.handleAddModalShowIns}
                   className={
-                    this.state.user_id == '' || this.state.user_id == undefined
-                      ? 'd-block'
-                      : 'd-none'
+                    this.state.user_id == "" || this.state.user_id == undefined
+                      ? "d-block"
+                      : "d-none"
                   }
                 >
                   註冊
@@ -283,9 +268,9 @@ class NavTop extends React.Component {
 
                 <Dropdown
                   className={
-                    this.state.user_id == '' || this.state.user_id == undefined
-                      ? 'd-none'
-                      : 'd-block'
+                    this.state.user_id == "" || this.state.user_id == undefined
+                      ? "d-none"
+                      : "d-block"
                   }
                 >
                   <Dropdown.Toggle

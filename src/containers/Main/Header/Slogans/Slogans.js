@@ -1,6 +1,6 @@
-import React from 'react';
-import classes from './Slogans.module.css';
-import { TimelineMax, Power4 } from 'gsap/all';
+import React from "react";
+import classes from "./Slogans.module.css";
+import { TimelineMax, Power4 } from "gsap/all";
 
 class Slogans extends React.Component {
   constructor(props) {
@@ -13,30 +13,30 @@ class Slogans extends React.Component {
   componentDidMount() {
     let tl = new TimelineMax();
 
-    tl.from(this.slogan1, 2, {
+    tl.from(this.slogan1, 1.5, {
       x: -300,
       opacity: 0,
-      ease: Power4.easeOut,
+      ease: Power4.easeOut
     })
       .from(
         this.slogan2,
-        2,
+        1,
         {
           x: -300,
           opacity: 0,
-          ease: Power4.easeOut,
+          ease: Power4.easeOut
         },
-        '-=1'
+        "-=0.7"
       )
       .from(
         this.slogan3,
-        2,
+        1,
         {
           x: -300,
           opacity: 0,
-          ease: Power4.easeOut,
+          ease: Power4.easeOut
         },
-        '-=1'
+        "-=0.7"
       );
   }
 
