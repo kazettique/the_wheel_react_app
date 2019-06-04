@@ -200,73 +200,77 @@ class products extends React.Component {
               });
             }}
           >
-          <div>
-            <ControlledCarousel />
             <div>
-              <Button className={classes.Button} onClick={this.props.onToggle} style={{borderRadius:'0'}}>
-                <IoIosCart size={25} />
-                {this.props.buttonLabel}
-                購物車
-              </Button>
-            </div>
-            <Container className={classes.SearchSideBar}>
-              <Row>
-                <Col lg={3}>
-                  <ProductsSearch
-                    handleType={this.handleType}
-                    handleGenre={this.handleGenre}
-                    handleInput={this.handleInput}
-                    handleSearch={this.handleSearch}
-                  />
-                </Col>
-                <Col lg={9} style={{ marginBottom: '5rem' }}>
-                  {/* <ProductsCard product={this.state.product} /> */}
-                  {list}
-                </Col>
-              </Row>
-            </Container>
-            <div
-              style={{ marginTop: '56px' }}
-              className="d-flex justify-content-center bggray flex-column"
-              //className={classes.bggray}
-            >
+              <ControlledCarousel />
               <div>
-                <ControlledCarousel />
+                <Button
+                  className={classes.Button}
+                  onClick={this.props.onToggle}
+                  style={{ borderRadius: '0' }}
+                >
+                  <IoIosCart size={25} />
+                  {this.props.buttonLabel}
+                  購物車
+                </Button>
+              </div>
+              <Container className={classes.SearchSideBar}>
+                <Row>
+                  <Col lg={3}>
+                    <ProductsSearch
+                      handleType={this.handleType}
+                      handleGenre={this.handleGenre}
+                      handleInput={this.handleInput}
+                      handleSearch={this.handleSearch}
+                    />
+                  </Col>
+                  <Col lg={9} style={{ marginBottom: '5rem' }}>
+                    {/* <ProductsCard product={this.state.product} /> */}
+                    {list}
+                  </Col>
+                </Row>
+              </Container>
+              <div
+                style={{ marginTop: '56px' }}
+                className="d-flex justify-content-center bggray flex-column"
+                //className={classes.bggray}
+              >
                 <div>
-                  <Button
-                    className={classes.Button}
-                    onClick={this.props.onToggle}
-                    style={{ borderRadius: '0' }}
-                  >
-                    <IoIosCart size={25} />
-                    {this.props.buttonLabel}
-                    購物車
-                  </Button>
-                </div>
-                <Container className={classes.SearchSideBar}>
-                  <Row>
-                    <Col lg={3}>
-                      <ProductsSearch
-                        handleType={this.handleType}
-                        handleGenre={this.handleGenre}
-                        handleInput={this.handleInput}
-                        handleSearch={this.handleSearch}
-                      />
-                    </Col>
-                    <Col lg={9} style={{ marginBottom: '5rem' }}>
-                      {/* <ProductsCard product={this.state.product} /> */}
-                      {list}
-                    </Col>
-                  </Row>
-                </Container>
-                {/* <div
+                  <ControlledCarousel />
+                  <div>
+                    <Button
+                      className={classes.Button}
+                      onClick={this.props.onToggle}
+                      style={{ borderRadius: '0' }}
+                    >
+                      <IoIosCart size={25} />
+                      {this.props.buttonLabel}
+                      購物車
+                    </Button>
+                  </div>
+                  <Container className={classes.SearchSideBar}>
+                    <Row>
+                      <Col lg={3}>
+                        <ProductsSearch
+                          handleType={this.handleType}
+                          handleGenre={this.handleGenre}
+                          handleInput={this.handleInput}
+                          handleSearch={this.handleSearch}
+                        />
+                      </Col>
+                      <Col lg={9} style={{ marginBottom: '5rem' }}>
+                        {/* <ProductsCard product={this.state.product} /> */}
+                        {list}
+                      </Col>
+                    </Row>
+                  </Container>
+                  {/* <div
                   style={{
                     backgroundColor: 'white',
                     width: '100%',
                     paddingBottom: '3rem',
                   }}
                 > */}
-                {/*                  
+                  {/*                  
                   <div className="d-flex justify-content-center">
                     {' '}
                     <Col xs={11} lg={10} className="p-0">
@@ -282,17 +286,20 @@ class products extends React.Component {
                       </div>
                     </Col>
                   </div> */}
-                {/* <Button
+                  {/* <Button
                     className={classes.MoreButton2}
                     onClick={this.handleMore}
                     style={{ color: 'white', borderRadius: '0' }}
                   >
                     更多商品
                   </Button> */}
-                {/* </div> */}
-                <div className="w-100 d-flex justify-content-center">
-                  <Col xs={10} className="d-flex justify-content-center w-100">
-                    {/* <Container
+                  {/* </div> */}
+                  <div className="w-100 d-flex justify-content-center">
+                    <Col
+                      xs={10}
+                      className="d-flex justify-content-center w-100"
+                    >
+                      {/* <Container
                       className={
                         (classes.SearchSideBar,
                         classes.bggray,
@@ -300,44 +307,45 @@ class products extends React.Component {
                       }
                       style={{ width: '100%' }}
                     > */}
-                    <Row className="d-flex  justify-content-between">
-                      <Col
-                        lg={2.5}
-                        style={{ marginTop: '3rem', maxWidth: '200px' }}
-                      >
-                        {/* <ProductsSearch
+                      <Row className="d-flex  justify-content-between">
+                        <Col
+                          lg={2.5}
+                          style={{ marginTop: '3rem', maxWidth: '200px' }}
+                        >
+                          {/* <ProductsSearch
                             handleType={this.handleType}
                             handleGenre={this.handleGenre}
                             handleInput={this.handleInput}
                             handleSearch={this.handleSearch}
                           /> */}
-                      </Col>
-                      <Col
-                        lg={9}
-                        style={{ marginBottom: '5rem', marginTop: '5rem' }}
-                      >
-                        {/* <ProductsCard product={this.state.product} /> */}
-                        {/* {list} */}
-                        <div
-                          className={classes.MoreButton}
-                          style={{
-                            textAlign: 'center',
-                            marginBottom: '100px',
-                          }}
+                        </Col>
+                        <Col
+                          lg={9}
+                          style={{ marginBottom: '5rem', marginTop: '5rem' }}
                         >
-                          <Button
-                            className={classes.MoreButton2}
-                            onClick={this.handleMore}
+                          {/* <ProductsCard product={this.state.product} /> */}
+                          {/* {list} */}
+                          <div
+                            className={classes.MoreButton}
+                            style={{
+                              textAlign: 'center',
+                              marginBottom: '100px',
+                            }}
                           >
-                            更多商品
-                          </Button>
-                        </div>
-                      </Col>
-                    </Row>
-                    {/* </Container> */}
-                  </Col>
+                            <Button
+                              className={classes.MoreButton2}
+                              onClick={this.handleMore}
+                            >
+                              更多商品
+                            </Button>
+                          </div>
+                        </Col>
+                      </Row>
+                      {/* </Container> */}
+                    </Col>
 
-                  {/* {this.props.children} */}
+                    {/* {this.props.children} */}
+                  </div>
                 </div>
               </div>
             </div>
