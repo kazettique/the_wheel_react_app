@@ -84,7 +84,7 @@ class LikeItButton extends React.Component {
     return (
       <>
         <Button
-          className="buttons"
+          className="buttons btnhover"
           variant={this.props.isLiked ? 'light' : 'danger'}
           // onClick={this.handleClickOnLikeButton.bind(this)}
           // onClick={this.handleBtnColorChangeAndCollect}
