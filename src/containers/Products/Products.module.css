@@ -4,7 +4,9 @@
   /* background: url(../../image/back2.jpg) no-repeat top center; */
   /* background-size: 1920px 1080px; */
 }
-
+.bgwhite {
+  background-color: white;
+}
 /* 購物車按鈕 */
 .Button {
   width: 300px;
@@ -13,7 +15,9 @@
   border: none;
   opacity: 1;
   margin-top: 100px;
+  font-weight: 700;
 }
+
 .Button:hover {
   transform: scale(1.02 1.02);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -35,18 +39,36 @@
   /* height: 800px; */
 }
 .CarouselTitle {
-  margin-top: 6.5rem;
-  text-align: center;
+  margin-top: 1.3rem;
+  font-size: 1rem !important;
+  text-align: left;
+  color: var(--main_red);
+}
+.carousel-inner {
+  height: 100% !important;
 }
 .imgHeight {
-  height: 400px;
-  width: 800px;
+  height: 600px;
+  width: auto;
 }
-
+.itemtext {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.bggray {
+  background-color: var(--main_gray1);
+  z-index: -1000;
+}
+.pforcew100 {
+  width: 100%;
+  margin: 0;
+}
 /* 搜尋列表 */
-
+.Carouselol ol li {
+  color: red;
+}
 .SearchButton {
-  width: 200px;
+  width: 100%;
   color: #ffff;
   background-color: #f52a2a;
   border: none;
@@ -65,7 +87,11 @@
 .top {
   margin-top: 15px;
   max-width: 825px;
+  border: 0;
+  padding: 1.3rem;
+  border-radius: 0;
 }
+
 .Space {
   margin-left: 0.4rem;
   font-size: 20px;
@@ -84,6 +110,7 @@
   background-color: black;
   color: #fff;
   border: none;
+  font-weight: 700;
 }
 .ButtonSpace2:hover {
   transform: scale(1.02 1.02);
@@ -97,11 +124,13 @@
   /* width: 3rem; */
 }
 .MoreButton2 {
-  background-color: #f52a2a;
-  color: black;
+  background-color: black;
+  color: white;
   border: none;
   width: 10rem;
-  height: 3rem;
+  height: 2.4rem;
+  font-weight: 700;
+  margin-top: 5rem;
 }
 .MoreButton2:hover {
   transform: scale(1.02 1.02);
@@ -138,6 +167,17 @@
   margin: 0.5rem;
   border-radius: 0;
   margin-left: 5rem;
+}
+.pcapsule {
+  background-color: white;
+  height: 24px;
+  width: auto;
+  border-radius: 500px;
+  padding: 3px 10px;
+  color: black;
+  border: 2px solid black;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 .productButton:hover {
   transform: scale(1.02 1.02);

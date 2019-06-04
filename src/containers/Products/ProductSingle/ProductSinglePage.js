@@ -1,16 +1,16 @@
-import React from 'react'
-import classes from '../Products'
-import { TweenMax } from 'gsap/all'
-import { Transition } from 'react-transition-group'
-import { Button } from 'react-bootstrap'
-import { IoIosHeart } from 'react-icons/io'
-import ProductControlledCarousel from '../ProductControlledCarousel'
-import SingleImg from './SingleImg'
-import SingleSiderBar from './SingleSiderBar'
-import SingleProductList from './SingleProductList'
-import SingleComment from './SingleComment'
-import { withRouter } from 'react-router-dom'
-import axios from "axios";
+import React from 'react';
+import classes from '../Products';
+import { TweenMax } from 'gsap/all';
+import { Transition } from 'react-transition-group';
+import { Button } from 'react-bootstrap';
+import { IoIosHeart } from 'react-icons/io';
+import ProductControlledCarousel from '../ProductControlledCarousel';
+import SingleImg from './SingleImg';
+import SingleSiderBar from './SingleSiderBar';
+import SingleProductList from './SingleProductList';
+import SingleComment from './SingleComment';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 const startState = { autoAlpha: 0, y: -50 };
 
 class ProductSinglePage extends React.Component {
@@ -23,15 +23,13 @@ class ProductSinglePage extends React.Component {
       collectionProduct: [],
       user: null,
       isLike: false,
-    }
+    };
   }
 
   componentDidUpdate(prevporps, prevState) {
-
     if (!this.state.product) {
       let p_sid = this.state.p_sid;
 
-    
       fetch(`http://localhost:5000/product/${p_sid}`)
         .then(res => res.json())
         .then(data => {
@@ -41,113 +39,97 @@ class ProductSinglePage extends React.Component {
           console.log(err);
         });
     }
-
-
   }
 
   componentDidMount() {
-    let p_sid = +this.props.history.location.pathname.slice(11)
+    let p_sid = +this.props.history.location.pathname.slice(11);
     this.setState({
-      p_sid: p_sid
+      p_sid: p_sid,
     });
-    fetch("http://localhost:5000/is_logined", {
-      method: "GET",
-      credentials: "include",
+    fetch('http://localhost:5000/is_logined', {
+      method: 'GET',
+      credentials: 'include',
       headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      })
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
-
-
-
         if (data.user_id) {
           this.setState({ user: data });
 
           axios
-            .get("http://localhost:5000/collection", {
+            .get('http://localhost:5000/collection', {
               params: {
-                sid: data.user_id
-              }
+                sid: data.user_id,
+              },
             })
             .then(res => {
-              console.log(res.data[0].c_product)
-              this.setState({ collectionProduct: JSON.parse(res.data[0].c_product) });
+              console.log(res.data[0].c_product);
+              this.setState({
+                collectionProduct: JSON.parse(res.data[0].c_product),
+              });
             })
-            .then(()=>{
+            .then(() => {
               if (this.state.collectionProduct) {
+                let Like = this.state.collectionProduct;
 
-                let Like = this.state.collectionProduct
-          
-          
                 for (let num of Like) {
                   if (+this.state.p_sid === +num) {
-                    console.log('true')
-                    this.setState({ isLike: true })
-                    break
-          
+                    console.log('true');
+                    this.setState({ isLike: true });
+                    break;
                   } else {
                     this.setState({
-                      isLike: false
-                    })
-          
+                      isLike: false,
+                    });
                   }
-          
                 }
-          
               }
-            })
-
+            });
         }
-      })
-
+      });
   }
   //收藏按鈕
   handleCollect = () => {
-
-    let collectionProduct = []
-    console.log(collectionProduct)
-    let sid = +this.props.history.location.pathname.slice(11)
+    let collectionProduct = [];
+    console.log(collectionProduct);
+    let sid = +this.props.history.location.pathname.slice(11);
     if (this.state.collectionProduct) {
-
-      collectionProduct = this.state.collectionProduct
+      collectionProduct = this.state.collectionProduct;
     }
     let include = false;
 
     if (collectionProduct.length > 0) {
-
       for (let id of collectionProduct) {
         if (id === sid) {
           collectionProduct = collectionProduct.filter(item => item !== sid);
-          this.setState({ collectionProduct: collectionProduct })
-          include = true
+          this.setState({ collectionProduct: collectionProduct });
+          include = true;
           break;
         }
       }
     }
     if (!include) {
-      collectionProduct.push(sid)
+      collectionProduct.push(sid);
 
-      this.setState({ collectionProduct: collectionProduct })
-
+      this.setState({ collectionProduct: collectionProduct });
     }
-    axios.post("http://localhost:5000/collectionProduct", {
-      collectionProduct: JSON.stringify(collectionProduct),
-      sid: localStorage.meber
-    })
-    .then(res => this.setState({isLike: !this.state.isLike}))
-  }
-
-
+    axios
+      .post('http://localhost:5000/collectionProduct', {
+        collectionProduct: JSON.stringify(collectionProduct),
+        sid: localStorage.meber,
+      })
+      .then(res => this.setState({ isLike: !this.state.isLike }));
+  };
 
   render() {
     let list2 = null;
     let list3 = null;
     let list4 = null;
     let list5 = null;
-    console.log(this.state.p_sid)
+    console.log(this.state.p_sid);
     if (this.state.product) {
       list2 = (
         <SingleSiderBar
@@ -160,9 +142,9 @@ class ProductSinglePage extends React.Component {
       );
       list3 = <SingleProductList product={this.state.product} />;
       list4 = <SingleImg product={this.state.product} />;
-      list5 =  <SingleComment  p_sid={this.state.p_sid}/>
+      list5 = <SingleComment p_sid={this.state.p_sid} />;
     }
-  
+
     return (
       <>
         <Transition
@@ -174,21 +156,26 @@ class ProductSinglePage extends React.Component {
             TweenMax.to(node, 0.5, {
               autoAlpha: this.props.show ? 1 : 0,
               y: this.props.show ? 0 : 50,
-              onComplete: done
+              onComplete: done,
             });
           }}
         >
           <div>
             {/* <div style={{ height: '100vh' }}> */}
-            <div style={{ marginTop: "200px", textAlign: "-webkit-center" }}>
+            <div style={{ marginTop: '200px', textAlign: '-webkit-center' }}>
               {list4}
             </div>
             <Button
               // variant="danger"
               className={classes.productSideBarButton}
-              style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none',width:'200px'}}
+              style={{
+                borderRadius: '0',
+                backgroundColor: '#f52a2a',
+                border: 'none',
+                width: '200px',
+              }}
               // style={{borderRadius:'0'}}
-             
+
               onClick={this.handleCollect}
             >
               <IoIosHeart size={25} />
@@ -201,7 +188,7 @@ class ProductSinglePage extends React.Component {
             {list3}
             {list5}
 
-            <ProductControlledCarousel/>
+            {/* <ProductControlledCarousel/> */}
 
             {this.props.children}
           </div>
