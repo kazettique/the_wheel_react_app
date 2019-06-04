@@ -200,6 +200,31 @@ class products extends React.Component {
               });
             }}
           >
+          <div>
+            <ControlledCarousel />
+            <div>
+              <Button className={classes.Button} onClick={this.props.onToggle} style={{borderRadius:'0'}}>
+                <IoIosCart size={25} />
+                {this.props.buttonLabel}
+                購物車
+              </Button>
+            </div>
+            <Container className={classes.SearchSideBar}>
+              <Row>
+                <Col lg={3}>
+                  <ProductsSearch
+                    handleType={this.handleType}
+                    handleGenre={this.handleGenre}
+                    handleInput={this.handleInput}
+                    handleSearch={this.handleSearch}
+                  />
+                </Col>
+                <Col lg={9} style={{ marginBottom: '5rem' }}>
+                  {/* <ProductsCard product={this.state.product} /> */}
+                  {list}
+                </Col>
+              </Row>
+            </Container>
             <div
               style={{ marginTop: '56px' }}
               className="d-flex justify-content-center bggray flex-column"
