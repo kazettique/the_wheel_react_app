@@ -345,7 +345,7 @@ class edit extends React.Component {
               <Col>
                 <div className="myProfile">
                   <div className="member-title">
-                    <h4 className="p-1">我的個人檔案</h4>
+                    <h4 className="p-2 profileTitle">我的個人檔案</h4>
                   </div>
 
                   <div

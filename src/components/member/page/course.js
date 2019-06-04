@@ -265,7 +265,7 @@ class course extends React.Component {
                       style={{ maxWidth: "540px" }}
                       key={item.c_sid}
                     >
-                      <div className="row no-gutters">
+                      <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           <img
                             src={item.c_cover}

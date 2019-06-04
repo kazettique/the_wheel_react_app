@@ -330,7 +330,7 @@ class road extends React.Component {
                       style={{ maxWidth: "850px" }}
                       key={item.c_sid}
                     >
-                      <div className="row no-gutters">
+                      <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           <img
                             src={"http://localhost:5000/r_upload_img/" +item.r_img}

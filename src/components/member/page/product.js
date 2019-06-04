@@ -345,7 +345,7 @@ class product extends React.Component {
                       style={{ maxWidth: "850px" }}
                       key={item.c_sid}
                     >
-                      <div className="row no-gutters">
+                      <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           <img
                             src={item.p_photo}
@@ -430,7 +430,7 @@ class product extends React.Component {
                       style={{ maxWidth: "850px" }}
                       key={item.sid}
                     >
-                      <div className="row no-gutters">
+                      <div className="row no-gutters align-items-center">
                         <div className="col-md-6">
                           {item.cart2.map(item => (
                             <img

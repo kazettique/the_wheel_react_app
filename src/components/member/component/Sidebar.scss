@@ -61,7 +61,8 @@
       margin-bottom: 63px;
 
       a {
-        color: #a8a8a8;
+        color: #000000;
+        font-weight: 600;
         @include md {
           text-align: center;
           display: block;
@@ -71,7 +72,9 @@
 
       a:hover {
         color: black;
-        border-bottom: 2px solid #f52a2a;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        padding-bottom: 2px;
+        border-bottom: 4px solid #f52a2a;
         transition: 0.5s;
 
         @include md {
@@ -87,7 +90,7 @@
 
           a {
             font-weight: normal;
-            color: #a8a8a8;
+            color: black;
           }
         }
       }
