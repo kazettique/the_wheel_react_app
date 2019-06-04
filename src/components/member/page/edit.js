@@ -219,51 +219,23 @@ class edit extends React.Component {
             memberData: [jsonObject.body],
           },
           async () => {
-            // alert('資料已成功新增!');
-            // this.handleModalClose();
+           
             if (!jsonObject.success) {
-              // this.setState({ installdb: 'block' })
-              // this.setState({
-              //   installstate: 'alert alert-warning',
-              // })
-              // this.setState({
-              //   installtext: jsonObject.message.text,
-              // })
-              // alert('E-mail重複使用')
+
+              if (jsonObject.message.info == '檔案格式不符') {
+             
+                this.props.alertAppear(false, '檔案格式不符，資料沒有修改')
+                return
+              }
+             
               this.props.alertAppear(false, 'E-mail重複使用')
               return
             }
 
-            if (jsonObject.message.info == '檔案格式不符') {
-              // this.setState({ installdb: 'block' })
-              // this.setState({
-              //   installstate: 'alert alert-warning',
-              // })
-              // this.setState({
-              //   installtext: jsonObject.message.text,
-              // })
-              // Swal.fire({
-              //   type: 'error',
-              //   title: '檔案格式不符',
-              //   text: '資料沒有修改',
-              //   // footer: '<a href>Why do I have this issue?</a>'
-              // })
-              this.props.alertAppear(false, '檔案格式不符，資料沒有修改')
-              return
-            }
+          
 
             if (jsonObject.message.text == '資料沒有修改') {
-              // this.setState({ installdb: 'block' })
-              // this.setState({
-              //   installstate: 'alert alert-warning',
-              // })
-              // this.setState({ installtext: '資料沒有修改' })
-              // Swal.fire({
-              //   type: 'error',
-              //   title: '資料沒有修改',
-              //   text: '',
-              //   // footer: '<a href>Why do I have this issue?</a>'
-              // })
+             
               this.props.alertAppear(false, '資料沒有修改')
               return
             }
@@ -271,32 +243,12 @@ class edit extends React.Component {
             if (jsonObject.success) {
               const sessionObj = await checkUserState()
               console.log('點擊後改變session', sessionObj)
-              //  fetch('http://localhost:5000/is_logined', {
-              //   credentials: 'include',
-              //   headers: new Headers({
-              //     Accept: 'application/json',
-              //   'Content-Type': 'application/json',
-              //   }),
-              // }).then(res => res.json())
-              // .then(obj => {
-              //   console.log(obj);})
-              // .catch(error => console.error('Error:', error))
-              // .then(response => console.log('Success:', response));
-
-              // Swal.fire('修改成功!', '', 'success')
               this.props.alertAppear(true, '修改成功!')
               setTimeout(
                 () => this.props.history.push(`/member/edit/${id}`),
                 2000
               )
-              // window.location.reload();
-              // this.setState({ installdb: 'block' })
-              // this.setState({
-              //   installtext: jsonObject.message.text,
-              // })
-              // this.setState({
-              //   installstate: `alert alert-success`,
-              // })
+             
               this.setState({
                 m_oldname: jsonObject.body.m_name,
               })
