@@ -15,8 +15,11 @@
   margin-top: 100px;
 }
 .Button:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
   background-color: #f52a2a;
-  opacity: 0.7;
+  border: none;
 }
 /* .SearchSideBar {
   margin-top: 100px;
@@ -50,6 +53,13 @@
   opacity: 1;
   margin-top: 50px;
 }
+.SearchButton:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  background-color: #f52a2a;
+  border: none;
+}
 
 /* 商品列表 */
 .top {
@@ -75,6 +85,12 @@
   color: #fff;
   border: none;
 }
+.ButtonSpace2:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  background-color: black;
+  font-weight: 700;
+}
 .MoreButton {
   text-align: center;
   margin-bottom: 3rem;
@@ -86,6 +102,13 @@
   border: none;
   width: 10rem;
   height: 3rem;
+}
+.MoreButton2:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  background-color: #f52a2a;
+  border: none;
 }
 /* 商品細項 */
 .ProductsHight {
@@ -113,7 +136,15 @@
   border: none;
   opacity: 1;
   margin: 0.5rem;
+  border-radius: 0;
   margin-left: 5rem;
+}
+.productButton:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  background-color: #f52a2a;
+  border: none;
 }
 
 .productSideBarCart {
@@ -124,13 +155,12 @@
   display: flex;
 }
 .productSideBarCart2 {
-  cursor: pointer; 
+  cursor: pointer;
   margin: auto;
 }
 
-.productSideBarCart:hover{
-  color: #FFF;
-  
+.productSideBarCart:hover {
+  color: #fff;
 }
 
 .productSideBarGenre {
@@ -192,12 +222,26 @@
   margin: 10px;
   margin-top: 3rem;
 }
+.productSideBarButton:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  background-color: #f52a2a;
+  border: none;
+}
 .productSideBarButton2 {
   color: white;
   background-color: black;
   border: none;
   width: 15rem;
   margin: 10px;
+}
+.productSideBarButton2:hover {
+  transform: scale(1.02 1.02);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+  background-color: black;
+  border: none;
 }
 .productDescription {
   height: 30rem;

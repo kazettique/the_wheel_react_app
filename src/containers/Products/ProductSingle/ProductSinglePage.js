@@ -184,7 +184,11 @@ class ProductSinglePage extends React.Component {
               {list4}
             </div>
             <Button
-              className={classes.productButton}
+              // variant="danger"
+              className={classes.productSideBarButton}
+              style={{borderRadius:'0',backgroundColor:'#f52a2a' , border:'none',width:'200px'}}
+              // style={{borderRadius:'0'}}
+             
               onClick={this.handleCollect}
             >
               <IoIosHeart size={25} />
