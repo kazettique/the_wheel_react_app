@@ -31,7 +31,11 @@ class AdvanceSearch extends Component {
       <>
         {
           <Container fluid className="d-flex justify-content-center">
-            <Col lg={10} className="pl-0 pr-0" style={{paddingTop: '1.5rem', paddingBottom: '1.5rem'}}>
+            <Col
+              lg={10}
+              className="pl-0 pr-0"
+              style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
+            >
               <Form ref={form => (this.form = form)}>
                 <Row className="d-flex">
                   <Col className="p-0" lg={4}>
@@ -100,15 +104,12 @@ class AdvanceSearch extends Component {
                     </Form.Control>
                   </Col>
                 </Row>
-                <Row className="justify-content-end">
-                  <Col className="my-0 my-lg-4 d-flex " lg={6}>
-                    {/*<Form.Control*/}
-                    {/*  placeholder="搜尋"*/}
-                    {/*  onChange={this.props.handleInput}*/}
-                    {/*  id="input"*/}
-                    {/*  name="input"*/}
-                    {/*  // value="null"*/}
-                    {/*/>*/}
+                <Container fluid className="d-flex">
+                  <Col
+                    className="my-0 my-lg-4"
+                    lg={12}
+                    style={{ textAlign: 'right' }}
+                  >
                     <input
                       type="text"
                       className="r_as_search mx-2"
@@ -123,141 +124,11 @@ class AdvanceSearch extends Component {
                       搜尋
                     </button>
                   </Col>
-                  {/*<Col lg={5}>*/}
-                  {/*  <Button*/}
-                  {/*    variant="primary"*/}
-                  {/*    type="button"*/}
-                  {/*    onClick={this.clearAndSearch}*/}
-                  {/*  >*/}
-                  {/*    搜尋*/}
-                  {/*  </Button>*/}
-                  {/*</Col>*/}
-                </Row>
+                </Container>
               </Form>
             </Col>
           </Container>
         }
-        {/* for test use below*/}
-        {/*
-        <Container fluid>
-          <Row className="justify-content-end r_as_add_new_btn_con">
-            <Link to={`/route/addnew`}>
-              <button className="r_as_add_new_btn r_fw_medium mb-4 m-md-0">
-                新增路線
-              </button>
-            </Link>
-          </Row>
-          <form name="searchform">
-            <Row>
-              <label
-                className={
-                  "r_capsule r_as_tag r_fw_bold ml-0" +
-                  (this.state.btn1 ? " r_as_tag_selected" : "")
-                }
-                // onClick={this.handletagchange("btn1")}
-                name="r_tag"
-              >
-                短途
-                <input
-                  type="radio"
-                  className=""
-                  name="r_tag"
-                  value="短途"
-                  //checked={this.state.btn2 ? true : false}
-                />
-              </label>
-              <label
-                className={
-                  "r_capsule r_as_tag r_fw_bold ml-0" +
-                  (this.state.btn2 ? " r_as_tag_selected" : "")
-                }
-                // onClick={this.handletagchange("btn2")}
-                name="r_tag"
-              >
-                長途
-                <input
-                  type="radio"
-                  className=""
-                  name="r_tag"
-                  value="長途"
-                  //checked={this.state.btn2 ? true : false}
-                />
-              </label>
-              <label
-                className={
-                  "r_capsule r_as_tag r_fw_bold ml-0" +
-                  (this.state.btn3 ? " r_as_tag_selected" : "")
-                }
-                // onClick={this.handletagchange("btn3")}
-                name="r_tag"
-              >
-                環島
-                <input
-                  type="radio"
-                  className=""
-                  name="r_tag"
-                  value="環島"
-                  style={{visibility: 'hidden'}}
-                  //checked={this.state.btn2 ? true : false}
-                />
-              </label>
-            </Row>
-            <Row>
-              <Col className="d-flex align-items-end p-0 my-4 my-md-5" lg={6}>
-                <Col className="p-0">
-                  <Form.Label className="r_fw_bold">國家</Form.Label>
-                  <Form.Control
-                    as="select"
-                    className="rr_as_select"
-                    placeholder="國家"
-                    onChange={this.countryChange}
-                    name="r_country"
-                  >
-                    <option value="" disabled defaultValue hidden>
-                      國家
-                    </option>
-                    {Object.keys(CountryData).map(i => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Col>
-                <Col className="p-0 position-relative ml-4">
-                  <Form.Label className="r_fw_bold">地區</Form.Label>
-                  <Form.Control
-                    as="select"
-                    className="rr_as_select"
-                    placeholder="地區"
-                    name="r_area"
-                  >
-                    <option value="" disabled defaultValue hidden>
-                      地區
-                    </option>
-                    ))}
-                  </Form.Control>
-                </Col>
-              </Col>
-              <Col className="my-0 my-lg-5 d-flex align-items-end  px-0" lg={6}>
-                <div className="w-100 d-flex justify-content-end">
-                  <input
-                    type="text"
-                    className="r_as_search mx-2"
-                    name="r_search"
-                  />
-                  <button
-                    className="r_as_search_btn r_color_white px-3 r_fw_bold"
-                    type="button"
-                    // onClick={this.handleSearch}
-                  >
-                    搜尋
-                  </button>
-                </div>
-              </Col>
-            </Row>
-          </form>
-        </Container>
-    */}
       </>
     )
   }

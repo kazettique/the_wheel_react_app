@@ -135,8 +135,8 @@ class CourseList extends React.Component {
     }
     return (
       <>
-        <div style={{ height: '35px' }} />
-        <div style={{ height: '48px' }} />
+        <div style={{ height: '35px'}} />
+        <div style={{ height: '48px'}} />
         <Container fluid className="d-flex justify-content-center p-0">
           <Col lg={10} className="p-0 m-0">
             <p className="r_fs_20 m-0 r_color_red r_fw_extra_bold">集資課程</p>
@@ -146,7 +146,7 @@ class CourseList extends React.Component {
           </Col>
           <div style={{ height: '88px' }} />
         </Container>
-        <Container fluid className="course-list ">
+        <Container fluid className="course-list" style={{background: '#ffffff'}}>
           <AdvanceSearch
             handleLevel={this.handleLevel}
             handleRegion={this.handleRegion}
@@ -155,7 +155,7 @@ class CourseList extends React.Component {
             handleSearch={this.handleSearch}
           />
         </Container>
-        <Container fluid className="pl-0 pr-0 pb-5 pt-3">
+        <Container fluid className="pl-0 pr-0 pb-5 pt-3" style={{background: '#fafafa'}}>
           {list}
         </Container>
       </>
