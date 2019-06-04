@@ -119,7 +119,8 @@ class road extends React.Component {
 
       const jsonObject = await response.json();
 
-      console.log(jsonObject);
+      console.log(jsonObject); 
+      console.log("hhhhhhhhh",jsonObject[0].r_collection);
       console.log(JSON.parse(jsonObject[0].r_collection));
       await this.setState({
         myMemberData: jsonObject,
@@ -129,6 +130,7 @@ class road extends React.Component {
         myCollect: JSON.parse(jsonObject[0].r_collection)
       });
       if (jsonObject[0].r_collection !== null) {
+          console.log(jsonObject[0].r_collection);
         if (JSON.parse(jsonObject[0].r_collection).length > 0) {
           //拿到收藏的產品資訊
           console.log(JSON.parse(jsonObject[0].r_collection).length);
@@ -331,7 +333,7 @@ class road extends React.Component {
                       <div className="row no-gutters">
                         <div className="col-md-6">
                           <img
-                            src="https://loremflickr.com/320/240/brazil,rio"
+                            src={"http://localhost:5000/r_upload_img/" +item.r_img}
                             className="card-img"
                             alt="..."
                           />
@@ -361,7 +363,7 @@ class road extends React.Component {
                               <div> 地區:{item.r_area}</div>
                               <div> 出發地點:{item.r_depart}</div>
                               <div> 抵達地點:{item.r_arrive}</div>
-                              <div> 路線描述:{item.r_intro}</div>
+                              <div className="describe"> 路線描述:{item.r_intro}</div>
                             </p>
 
                             {/* <div className="d-flex">
@@ -450,7 +452,7 @@ class road extends React.Component {
                               <div> 地區:{item.r_area}</div>
                               <div> 出發地點:{item.r_depart}</div>
                               <div> 抵達地點:{item.r_arrive}</div>
-                              <div> 路線描述:{item.r_intro}</div>
+                              <div className="describe"> 路線描述:{item.r_intro}</div>
                             </p>
 
                             {/* <div className="d-flex">

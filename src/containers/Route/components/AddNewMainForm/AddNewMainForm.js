@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import FormControl from "../FormControl/FormControl";
-import "./AddNewForm_style.css";
-import CountryData from "../../data/countryData.json";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { handleCountryChange, handleChangeDepartArrive } from "../../actions";
+import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import FormControl from '../FormControl/FormControl';
+import './AddNewForm_style.css';
+import CountryData from '../../data/countryData.json';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleCountryChange, handleChangeDepartArrive } from '../../actions';
 
 class AddNewMainForm extends Component {
   state = {};
@@ -21,7 +21,7 @@ class AddNewMainForm extends Component {
     );
   };
   upload = () => {
-    document.getElementById("selectImage").click();
+    document.getElementById('selectImage').click();
   };
 
   handlepicChange = e => {
@@ -30,16 +30,17 @@ class AddNewMainForm extends Component {
     this.fileInfo(e.target.files[0]);
     this.setState({ m_photo: e.target.files[0] });
     console.log(this.state.m_photo);
+    document.querySelector('.thumb1').style.display = 'block';
   };
 
   fileInfo(theFile) {
     var reader = new FileReader();
     reader.readAsDataURL(theFile);
-    reader.addEventListener("loadend", function(event) {
+    reader.addEventListener('loadend', function(event) {
       //console.log(event.target.result);
 
-      var photo = document.querySelector(".thumb1");
-      photo.setAttribute("src", event.target.result);
+      var photo = document.querySelector('.thumb1');
+      photo.setAttribute('src', event.target.result);
       // console.log(event.target.result);
     });
   }
@@ -198,6 +199,7 @@ class AddNewMainForm extends Component {
                     ref={el => (this.input = el)}
                   />
                   <button
+                    className="location_btn px-2 py-1"
                     variant="secondary mt-3"
                     onClick={this.upload}
                     type="button"
@@ -208,12 +210,16 @@ class AddNewMainForm extends Component {
                 <Col sm={9} className="p-0">
                   <div
                     className="imgarea w-100 h-100 overflow-hidden"
-                    style={{ maxHeight: "280px" }}
+                    style={{ maxHeight: '280px' }}
                   >
                     <img
                       className="thumb1"
                       src=""
-                      style={{ width: "500px", objectFit: "cover" }}
+                      style={{
+                        width: '500px',
+                        objectFit: 'cover',
+                        display: 'none',
+                      }}
                       alt="your pic"
                     />
                   </div>
@@ -246,7 +252,7 @@ class AddNewMainForm extends Component {
 const mapStateToProps = state => ({
   r: state.routeCountryChange,
   l: state.routeAddNewLocation,
-  f: state.routeFormCheck
+  f: state.routeFormCheck,
 });
 
 const mapDispatchToProps = dispatch =>

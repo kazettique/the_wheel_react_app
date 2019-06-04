@@ -1,44 +1,52 @@
-import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import ReturnBtn from "../ReturnBtn/ReturnBtn";
-import "./RoutePageHead_style.css";
-import { withRouter } from "react-router";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ReturnBtn from '../ReturnBtn/ReturnBtn';
+import './RoutePageHead_style.css';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   fetchPostsAsync,
   handlecurrentPage,
-  fetchPopularPostsAsync
-} from "../../actions";
+  fetchPopularPostsAsync,
+} from '../../actions';
 
 class RoutePageHead extends Component {
   state = {};
   handlePageChange = page => async () => {
     await this.props.handlecurrentPage(page);
     switch (this.props.r.currentState) {
-      case "popular":
+      case 'popular':
         this.props.fetchPopularPostsAsync(0);
-        this.props.history.push("/route");
+        this.props.history.push('/route');
         break;
       default:
         this.props.fetchPostsAsync(0);
-        return this.props.history.push("/route");
+        return this.props.history.push('/route');
     }
   };
   render() {
     switch (this.props.function) {
-      case "Details":
+      case 'Details':
         // console.log('Details');
         return (
           <Col xs={9}>
             <Row className="d-flex justify-content-between mb-2 mb-xl-5">
               <ReturnBtn />
               <div>
-              <span className=" mx-3 r_infocard_list" onClick={this.handlePageChange("newest")}>最新路線</span>
-            <span className="ml-3 r_infocard_list"  onClick={this.handlePageChange("popular")}>熱門路線</span>
-             
-             
+                <span
+                  className=" mx-3 r_infocard_list"
+                  onClick={this.handlePageChange('newest')}
+                >
+                  最新路線
+                </span>
+                <span
+                  className="ml-3 r_infocard_list"
+                  onClick={this.handlePageChange('popular')}
+                >
+                  熱門路線
+                </span>
               </div>
             </Row>
             <Row>
@@ -70,12 +78,18 @@ class RoutePageHead extends Component {
             <Row className="d-flex justify-content-between mb-2 mb-xl-5">
               <ReturnBtn />
               <div>
-                <a href="localhost:3000" className="mx-3 r_infocard_list">
-                  熱門路線
-                </a>
-                <a href="localhost:3000" className="r_infocard_list">
+                <span
+                  className=" mx-3 r_infocard_list"
+                  onClick={this.handlePageChange('newest')}
+                >
                   最新路線
-                </a>
+                </span>
+                <span
+                  className="ml-3 r_infocard_list"
+                  onClick={this.handlePageChange('popular')}
+                >
+                  熱門路線
+                </span>
               </div>
             </Row>
           </Col>
@@ -91,12 +105,12 @@ const mapDispatchToProps = dispatch =>
     {
       fetchPostsAsync,
       handlecurrentPage,
-      fetchPopularPostsAsync
+      fetchPopularPostsAsync,
     },
     dispatch
   );
 
 export default connect(
-    mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(withRouter(RoutePageHead));

@@ -155,7 +155,7 @@ class InfoCardList extends Component {
                         <LoadMoreBtn
                             onClick={this.handleLoadMore}
                             none={
-                                this.props.r.postsList.posts.length < 15
+                                this.props.r.postsList.posts.length < 7
                                     ? 'd-none'
                                     : ''
                             }

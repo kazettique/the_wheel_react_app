@@ -8,25 +8,25 @@ import Col from 'react-bootstrap/Col';
 import classes from './Header.module.css';
 
 class Header extends React.Component {
-    render() {
-        return (
-            <header className={classes.Header}>
-                <div className={classes.HeaderTop}>
-                    <Container fluid>
-                        <Row>
-                            <Col lg={3}>
-                                <Slogans />
-                            </Col>
-                            <Col lg={9} />
-                        </Row>
-                        <Display />
-                    </Container>
-                    <LogoDisplay />
-                </div>
-                <div className={classes.HeaderBtm} />
-            </header>
-        );
-    }
+  render() {
+    return (
+      <header className={classes.Header}>
+        <div className={classes.HeaderTop}>
+          <Container fluid>
+            <Row>
+              <Col lg={3}>
+                <Slogans />
+              </Col>
+              <Col lg={9} />
+            </Row>
+            <Display />
+          </Container>
+          <LogoDisplay />
+        </div>
+        <div className={classes.HeaderBtm} />
+      </header>
+    );
+  }
 }
 
 export default Header;

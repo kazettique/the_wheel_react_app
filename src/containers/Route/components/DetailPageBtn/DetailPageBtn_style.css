@@ -21,6 +21,9 @@
 .r_SNSButtons div {
     margin: 0.5rem 2rem;
 }
+.ffbs path {
+    fill: var(--main_red);
+}
 
 @media (max-width: 1200px) {
     .r_SNSButtons a {

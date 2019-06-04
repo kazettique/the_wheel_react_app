@@ -3,26 +3,29 @@
   height: 100vh;
   /* background: lightblue; */
   padding-top: 10vh;
-  background-color: #E14040;
+  /* background-color: var(--main_red); */
+  /* background-color: white; */
   position: relative;
- 
 }
 
-.HeaderTop{
-  background-color: #E14040;
+.HeaderTop {
+  background-color: var(--main_red);
   height: 80vh;
+  max-height: 600px;
   padding-top: 5vh;
 }
 
-.HeaderBtm{
+/* .HeaderBtm {
+  position: absolute;
   background: white;
-  height: 10vh;
-}
+  height: 20vh;
+  width: 100%;
+  bottom: 0;
+  z-index: -999;
+} */
 
-@media (max-width: 992px){
-  .Header{
+@media (max-width: 992px) {
+  .Header {
     padding-top: 5vh;
   }
 }
-
-

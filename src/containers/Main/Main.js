@@ -5,13 +5,14 @@ import FastLink from './FastLink/FastLink';
 import Popular from './PopurlarLink/Popular';
 
 const main = props => {
-    return (
-        <div className={classes.Main}>
-            <Header />
-            {/* <FastLink />
+  return (
+    <div className={classes.Main}>
+      <Header />
+      <div className={classes.HeaderBtm11} />
+      {/* <FastLink />
       <Popular /> */}
-        </div>
-    );
+    </div>
+  );
 };
 
 export default main;

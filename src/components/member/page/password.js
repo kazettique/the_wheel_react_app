@@ -120,12 +120,13 @@ class password extends React.Component {
     }
 
     if (
-      this.state.new_password.replace(/(^s*)|(s*$)/g, '').length == 0 ||
-      this.state.new_password2.replace(/(^s*)|(s*$)/g, '').length == 0
+      this.state.new_password.trim() == "" ||
+      this.state.new_password2.trim() == ""
     ) {
       this.setState({ installdb: 'block' });
       this.setState({ installstate: 'alert alert-danger' });
       this.setState({ installtext: '密碼不可為空值' });
+      return;
     }
 
     var formData = new FormData();

@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import RoutePageHead from "../components/RoutePageHead/RoutePageHead";
-import AddNewMainForm from "../components/AddNewMainForm/AddNewMainForm";
-import FormHead from "../components/FormHead/FormHead";
-import AddNewLocationsContainer from "../components/AddNewMainForm/AddNewLocationsContainer";
-import RAlert from "../components/R_Alert/R_Alert";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import RoutePageHead from '../components/RoutePageHead/RoutePageHead';
+import AddNewMainForm from '../components/AddNewMainForm/AddNewMainForm';
+import FormHead from '../components/FormHead/FormHead';
+import AddNewLocationsContainer from '../components/AddNewMainForm/AddNewLocationsContainer';
+import RAlert from '../components/R_Alert/R_Alert';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   handleAddNewLocation,
   handleAddNewSubmit,
   addNewReset,
   alertDisappear,
-  alertAppear
-} from "../actions";
-import { withRouter } from "react-router";
-import map_style from "../data/google_map_style.json";
+  alertAppear,
+} from '../actions';
+import { withRouter } from 'react-router';
+import map_style from '../data/google_map_style.json';
 const google = window.google;
 var directionsService = new google.maps.DirectionsService();
 var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -27,17 +27,17 @@ class RouteAddNew extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch("http://localhost:5000/is_logined", {
-        method: "GET",
-        credentials: "include",
+      const response = await fetch('http://localhost:5000/is_logined', {
+        method: 'GET',
+        credentials: 'include',
         headers: new Headers({
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        })
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
       });
       const jsonObject = await response.json();
       if (!jsonObject.isLogined) {
-        return this.props.history.push("/route/addnew");
+        return this.props.history.push('/route');
       }
     } catch (e) {
       console.log(e);
@@ -46,7 +46,7 @@ class RouteAddNew extends Component {
   componentDidUpdate() {
     if (this.props.l.success === true) {
       setTimeout(() => {
-        return this.props.history.push("/route");
+        return this.props.history.push('/route');
       }, 1300);
     }
     //console.log(this.props)
@@ -60,24 +60,24 @@ class RouteAddNew extends Component {
 
   addNewSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/is_logined", {
-        method: "GET",
-        credentials: "include",
+      const response = await fetch('http://localhost:5000/is_logined', {
+        method: 'GET',
+        credentials: 'include',
         headers: new Headers({
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        })
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
       });
 
       const jsonObject = await response.json();
       if (!jsonObject.isLogined) {
         //return alert("新增路線前請先登入");
-        this.props.alertAppear(false, "新增路線前請先登入")
-        return
+        this.props.alertAppear(false, '新增路線前請先登入');
+        return;
       }
 
       await this.setState({
-        user_id: jsonObject.user_id
+        user_id: jsonObject.user_id,
       });
 
       await this.props.handleAddNewSubmit(this.state.user_id);
@@ -109,61 +109,62 @@ class RouteAddNew extends Component {
   //   };
 
   handleMapPreview = () => {
-    console.log("xxx");
+    console.log('xxx');
+    document.querySelector('#mapdisplaycon').style.display = 'flex';
     // if (this.markerD) {
     //   this.markerD.setMap(null);
     // }
     // this.getcoordinates(event.target.value, "depart_info");
-    let country = document.querySelector("#r_country").value;
-    let area = document.querySelector("#r_area").value;
-    let rdepart = document.querySelector("#r_depart").value;
-    let rarrive = document.querySelector("#r_arrive").value;
+    let country = document.querySelector('#r_country').value;
+    let area = document.querySelector('#r_area').value;
+    let rdepart = document.querySelector('#r_depart').value;
+    let rarrive = document.querySelector('#r_arrive').value;
     console.log(country);
     console.log(area);
     if (!rdepart || !rarrive) {
       //alert("no information");
       //return console.log("no information");
-      return this.props.alertAppear(false, "請輸入出發地及目的地");
+      return this.props.alertAppear(false, '請輸入出發地及目的地');
     }
-    let lnum = document.querySelectorAll(".rr_sid").length;
-    let geolname = document.querySelectorAll(".geol_name");
-    let geolcountry = document.querySelectorAll(".geol_country");
-    let geolarea = document.querySelectorAll(".geol_area");
+    let lnum = document.querySelectorAll('.rr_sid').length;
+    let geolname = document.querySelectorAll('.geol_name');
+    let geolcountry = document.querySelectorAll('.geol_country');
+    let geolarea = document.querySelectorAll('.geol_area');
     let arr = [];
     if (lnum > 0) {
       for (let i = 0; i < lnum; i++) {
         arr.push({
           location:
-            (geolcountry[i].value ? geolcountry[i].value + " " : "") +
-            (geolarea[i].value ? geolarea[i].value + " " : "") +
-            geolname[i].value
+            (geolcountry[i].value ? geolcountry[i].value + ' ' : '') +
+            (geolarea[i].value ? geolarea[i].value + ' ' : '') +
+            geolname[i].value,
         });
       }
     }
-    this.map22 = new google.maps.Map(document.getElementById("map22"), {
+    this.map22 = new google.maps.Map(document.getElementById('map22'), {
       zoom: 4,
       center: { lat: 25.04776, lng: 121.53185 },
-      styles: map_style
+      styles: map_style,
     });
     let map22 = this.map22;
 
     directionsDisplay.setMap(this.map22);
     var request = {
       origin:
-        (country ? country + " " : "") + (area ? area + " " : "") + rdepart,
+        (country ? country + ' ' : '') + (area ? area + ' ' : '') + rdepart,
       destination:
-        (country ? country + " " : "") + (area ? area + " " : "") + rarrive,
+        (country ? country + ' ' : '') + (area ? area + ' ' : '') + rarrive,
       waypoints: arr ? arr : null,
-      travelMode: "DRIVING",
-      optimizeWaypoints: true
+      travelMode: 'DRIVING',
+      optimizeWaypoints: true,
     };
     console.log(arr);
     console.log(request);
     directionsService.route(request, function(result, status) {
-      if (status === "OK") {
+      if (status === 'OK') {
         // 回傳路線上每個步驟的細節
         //console.log(result.routes[0].legs[0].steps);
-        document.querySelector("#r_map_info").value = JSON.stringify(
+        document.querySelector('#r_map_info').value = JSON.stringify(
           result.geocoded_waypoints
         );
         //console.log(result);
@@ -210,7 +211,7 @@ class RouteAddNew extends Component {
         )} */}
         <RAlert />
         <Container fluid className="p-0">
-          <div style={{ height: "56px" }} />
+          <div style={{ height: '56px' }} />
           <Row className="justify-content-center my-3 my-xl-5 mx-0">
             <RoutePageHead function="AddNew" />
           </Row>
@@ -219,7 +220,7 @@ class RouteAddNew extends Component {
               <FormHead text="新增路線" />
               <Row className="m-0">
                 <Col sm={2} className="d-flex align-items-center">
-                  <h3 className="r_fs_14"> 基本信息</h3>
+                  <h3 className="r_fs_14 r_fw_bold"> 基本信息</h3>
                 </Col>
                 <Col>
                   <AddNewMainForm
@@ -232,41 +233,51 @@ class RouteAddNew extends Component {
               <Row className="m-0">
                 <Col sm={2} />
                 <Col>
-                  <Row className="m-0 r_dotted_border" />
-                  <FormHead text="新增路線" />
+                  <Row className="m-0 r_dotted_border mt-3 mt-md-5" />
+                  <FormHead text="為路線新增地點" />
                 </Col>
               </Row>
-              <Row className="m-0">
-                <Col sm={2} className="d-flex align-items-center flex-column">
-                  <h3 className="r_fs_14">地點信息</h3>
-                  <button
-                    className="btn btn-primary m-3"
-                    onClick={this.addNewLocation}
-                  >
-                    Add Location
-                  </button>
+              <Row className="m-0 mt-3">
+                <Col
+                  sm={2}
+                  className="d-flex align-items-start flex-column justify-content-center"
+                >
+                  <h3 className="r_fs_14 m-0 r_fw_bold">地點信息</h3>
                 </Col>
-                <Col>
+                <Col className="mt-5">
                   <AddNewLocationsContainer num={this.props.l.locationList} />
                 </Col>
               </Row>
-              <Row className="m-0">
-                <button className="m-3 w-100" onClick={this.handleMapPreview}>
+              <Row className="m-0 justify-content-end">
+                <button
+                  className="btn location_btn m-0 mt-5  "
+                  onClick={this.addNewLocation}
+                >
+                  新增地點
+                </button>
+                <button
+                  className="m-0 mappreview11 "
+                  onClick={this.handleMapPreview}
+                >
                   預覽地圖
                 </button>
+              </Row>
+              <Row className="m-0 mt-xl-5 ">
                 <small
-                  className="form-text text-muted"
-                  style={{ height: "18px" }}
+                  className="form-text text-muted text-right m-0  justify-content-end"
+                  style={{ height: '18px' }}
                 >
                   地圖預覽並不支援所有國家敬請見諒
                 </small>
               </Row>
               <Row
-                className="m-0 my-xl-5"
+                id="mapdisplaycon"
+                className="m-0 mb-xl-5"
                 style={{
-                  width: "100%",
-                  height: "400px",
-                  backgroundColor: "#ccc"
+                  width: '100%',
+                  height: '400px',
+                  backgroundColor: '#ffffff',
+                  display: 'none',
                 }}
               >
                 <div id="map22" className="w-100 h-100" />
@@ -285,8 +296,11 @@ class RouteAddNew extends Component {
                 {/* </GoogleMapReact> */}
               </Row>
 
-              <Row className="m-0">
-                <button className="m-3 w-100" onClick={this.addNewSubmit}>
+              <Row className="m-0 justify-content-center ">
+                <button
+                  className="m-3 py-1 addnewsubmitbtn "
+                  onClick={this.addNewSubmit}
+                >
                   提交
                 </button>
               </Row>
@@ -300,12 +314,18 @@ class RouteAddNew extends Component {
 
 const mapStateToProps = state => ({
   l: state.routeAddNewLocation,
-  a: state.alertReducer
+  a: state.alertReducer,
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { handleAddNewLocation, handleAddNewSubmit, addNewReset, alertDisappear, alertAppear },
+    {
+      handleAddNewLocation,
+      handleAddNewSubmit,
+      addNewReset,
+      alertDisappear,
+      alertAppear,
+    },
     dispatch
   );
 
