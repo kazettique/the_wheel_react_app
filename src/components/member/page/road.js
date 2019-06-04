@@ -38,7 +38,7 @@ class road extends React.Component {
     this.state = {
       NavTitle1: '我收藏的路線',
       NavTitle2: '我發起的路線',
-      NavTitle3: '我騎過的路線',
+      // NavTitle3: '我騎過的路線',
       nowPage: false,
       dpType: 'none',
       id: '',
@@ -497,7 +497,7 @@ class road extends React.Component {
                   ))}
                 </div>
 
-                <div className="box3 Allbox">目前尚無資料</div>
+                {/* <div className="box3 Allbox">目前尚無資料</div> */}
               </Col>
             </Row>
           </Container>
