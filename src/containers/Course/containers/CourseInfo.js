@@ -69,7 +69,7 @@ POINT2
       <>
         <Container fluid>
           {/*<div dangerouslySetInnerHTML={{__html: this.state.c_intro}} />*/}
-          <div dangerouslySetInnerHTML={{__html: this.props.courseInfo}} />
+          <div dangerouslySetInnerHTML={{__html: this.props.courseInfo}} style={{ fontSize: '1.2rem' }}   />
           {/*<p>{this.props.courseInfo}</p>*/}
         </Container>
       </>

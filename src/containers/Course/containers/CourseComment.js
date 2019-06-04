@@ -103,7 +103,7 @@ class CourseComment extends React.Component {
 
     return (
       <>
-        <Container fluid>
+        <Container fluid style={{ fontSize: '1.2rem' }}>
           {list}
           <Container className="my-lg-5">
             <Row className="d-flex justify-content-center">

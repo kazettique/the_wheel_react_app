@@ -27,7 +27,7 @@ class CourseTab extends React.Component {
     return (
       <>
         {/*<Router>*/}
-        <Container>
+        <Container style={{ minHeight: '80vh' }}>
           <div className="d-flex justify-content-end mr-lg-5">
             <Container fluid>
               <Tabs>

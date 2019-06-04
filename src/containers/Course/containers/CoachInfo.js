@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 function CoachInfo() {
   return (
     <>
-      <Container fluid>
+      <Container fluid style={{ fontSize: '1.2rem' }}>
         <p>
           小熊家族創辦人—廖武雄 ( BEN ) 外號 / 武雄老師 所在地 / 台中市 出生 /
           1972 車齡 / 28年

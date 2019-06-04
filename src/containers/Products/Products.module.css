@@ -55,6 +55,16 @@
 .top {
   margin-top: 15px;
   max-width: 825px;
+  background-color: white;
+  /* height: 15rem; */
+  transition: 0.5s;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.15);
+}
+.top:hover {
+  transform: scale(1.02, 1.02);
+  transform-origin: center center;
+  transition: 0.5s;
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.2);
 }
 .Space {
   margin-left: 0.4rem;
