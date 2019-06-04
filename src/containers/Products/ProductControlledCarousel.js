@@ -55,11 +55,11 @@ class ProductControlledCarousel extends React.Component {
               className={classes.ProductControlledCarousel}
             >
               <img
-                className="d-block w-100 "
+                className="d-block"
                 className={classes.imgHeight}
                 src={item.p_photo}
                 alt="First slide"
-                style={{ objectFit: 'contain', height: '600px' }}
+                style={{ objectFit: 'contain', height: '400px', width: '80%' }}
               />
 
               <p className="mt-5 r_fw_bold">{item.p_name}</p>

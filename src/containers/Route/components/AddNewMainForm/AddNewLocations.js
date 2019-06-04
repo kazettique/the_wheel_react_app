@@ -91,6 +91,7 @@ class AddNewLocations extends Component {
                   name="l_name[]"
                   placeholder="地點名稱"
                 />
+                <small>必填</small>
               </div>
               <Row className="m-0 mt-4">
                 <Col className="d-flex flex-column p-0">

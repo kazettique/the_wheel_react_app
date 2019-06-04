@@ -200,7 +200,7 @@ class products extends React.Component {
               });
             }}
           >
-            <div>
+            <div style={{ marginTop: '50px' }}>
               <ControlledCarousel />
               <div>
                 <Button
@@ -235,90 +235,16 @@ class products extends React.Component {
                 //className={classes.bggray}
               >
                 <div>
-                  <ControlledCarousel />
-                  <div>
-                    <Button
-                      className={classes.Button}
-                      onClick={this.props.onToggle}
-                      style={{ borderRadius: '0' }}
-                    >
-                      <IoIosCart size={25} />
-                      {this.props.buttonLabel}
-                      購物車
-                    </Button>
-                  </div>
-                  <Container className={classes.SearchSideBar}>
-                    <Row>
-                      <Col lg={3}>
-                        <ProductsSearch
-                          handleType={this.handleType}
-                          handleGenre={this.handleGenre}
-                          handleInput={this.handleInput}
-                          handleSearch={this.handleSearch}
-                        />
-                      </Col>
-                      <Col lg={9} style={{ marginBottom: '5rem' }}>
-                        {/* <ProductsCard product={this.state.product} /> */}
-                        {list}
-                      </Col>
-                    </Row>
-                  </Container>
-                  {/* <div
-                  style={{
-                    backgroundColor: 'white',
-                    width: '100%',
-                    paddingBottom: '3rem',
-                  }}
-                > */}
-                  {/*                  
-                  <div className="d-flex justify-content-center">
-                    {' '}
-                    <Col xs={11} lg={10} className="p-0">
-                      <div className="w-100">
-                        <Button
-                          className={classes.Button}
-                          onClick={this.props.onToggle}
-                        >
-                          <IoIosCart size={25} />
-                          {this.props.buttonLabel}
-                          購物車
-                        </Button>
-                      </div>
-                    </Col>
-                  </div> */}
-                  {/* <Button
-                    className={classes.MoreButton2}
-                    onClick={this.handleMore}
-                    style={{ color: 'white', borderRadius: '0' }}
-                  >
-                    更多商品
-                  </Button> */}
-                  {/* </div> */}
                   <div className="w-100 d-flex justify-content-center">
                     <Col
                       xs={10}
                       className="d-flex justify-content-center w-100"
                     >
-                      {/* <Container
-                      className={
-                        (classes.SearchSideBar,
-                        classes.bggray,
-                        classes.pforcew100)
-                      }
-                      style={{ width: '100%' }}
-                    > */}
                       <Row className="d-flex  justify-content-between">
                         <Col
                           lg={2.5}
                           style={{ marginTop: '3rem', maxWidth: '200px' }}
-                        >
-                          {/* <ProductsSearch
-                            handleType={this.handleType}
-                            handleGenre={this.handleGenre}
-                            handleInput={this.handleInput}
-                            handleSearch={this.handleSearch}
-                          /> */}
-                        </Col>
+                        />
                         <Col
                           lg={9}
                           style={{ marginBottom: '5rem', marginTop: '5rem' }}
@@ -343,8 +269,6 @@ class products extends React.Component {
                       </Row>
                       {/* </Container> */}
                     </Col>
-
-                    {/* {this.props.children} */}
                   </div>
                 </div>
               </div>

@@ -37,6 +37,7 @@ export const HANDLE_CURRENT_PAGE = 'HANDLE_CURRENT_PAGE';
 export const FETCH_POPULAR_FAILURE = 'FETCH_POPULAR_FAILURE';
 export const FETCH_POPULAR_SUCCESS = 'FETCH_POPULAR_SUCCESS';
 export const CHANGE_HEART_NUMBER = 'CHANGE_HEART_NUMBER';
+export const CLEAR_STATE_LIKE = 'CLEAR_STATE_LIKE';
 
 const ROOT_URL = 'http://localhost:5000/route';
 const regexp = /^\d{1,3}天\d{1,2}時\d{1,2}分$|^\d{1,3}天\d{1,2}時$|^\d{1,3}天$|^\d{1,2}時\d{1,2}分$|^\d{1,2}時$|^\d{1,2}分$|\d{1,3}天\d{1,2}分$/;
@@ -531,5 +532,11 @@ export const handlechangeheartnumber = (rsid, number) => {
     type: CHANGE_HEART_NUMBER,
     rsid: rsid,
     number: number,
+  };
+};
+
+export const handleclearlikestate = () => {
+  return {
+    type: CLEAR_STATE_LIKE,
   };
 };
