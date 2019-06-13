@@ -46,7 +46,7 @@ class course extends React.Component {
     };
   }
   componentDidUpdate(prevProps, prevState) {
-    window.twttr.widgets.load();
+    // window.twttr.widgets.load();
     if (this.state.col_newsData.length > 0) {
       var fbBtn = document.querySelectorAll(".facebook-share");
       console.log(fbBtn);
